@@ -14,6 +14,8 @@ You must perform the updates or Twilight II will not assemble.
 HOW CAN I ASSEMBLE TWILIGHT II?
 Download the files or the disk image from the /binaries folder. Then, launch Orca/m. Then, prefix /twilight/twilight/. Then, type makefile and wait.
 
+Note that if you assemble from the 800K disk image, the last makefile operations will fail because of a lack of room on the disk image. Copy the files onto another larger volume.
+
 THINGS I CHANGED IN THE SOURCE CODE
 In each .asm file, the first line contains "SETCOM 80" to force Orca search for values after the default 40th column. I believe there is a global value to SETCOM but I was unable to find it into the manual.
 
