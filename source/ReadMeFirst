@@ -1,0 +1,31 @@
+AV 202005 - A couple of information to be able to assemble Twilight II v2.0
+
+ASSEMBLER
+I used Byteworks Orca/m 2.0.4 to assemble Twilight II v2.0.
+
+ONE-TIME OPERATIONS
+In the orca folder, you will find a couple of modified or new files. Those must be copied into your Orca Libraries folder or you can update your own files there. If you choose to update, search for "AV 202005" and you'll know what to update.
+  AInclude/E16.Locator adds an entry in the IPC communication for systemSaysForceUndim
+  AInclude/E16.CCCP is new and comes from EGO Systems
+  RInclude/Types.rez contains a couple of new information. At the beginning of the file, there are ten line to add, and ten more into the rControlTemplate code.
+
+You must perform the updates or Twilight II will not assemble.
+
+HOW CAN I ASSEMBLE TWILIGHT II?
+Download the files or the disk image from the /binaries folder. Then, launch Orca/m. Then, prefix /twilight/twilight/. Then, type makefile and wait.
+
+THINGS I CHANGED IN THE SOURCE CODE
+In each .asm file, the first line contains "SETCOM 80" to force Orca search for values after the default 40th column. I believe there is a global value to SETCOM but I was unable to find it into the manual.
+
+THINGS THAT CAN BE CHANGED IN THE SOURCE CODE
+Twilight II uses prefix 22 to point to the debug.asm file. It would be more interesting to update all the source files to point to "debug.asm" instead of "22:debug.asm"
+
+WHERE ARE THE MODULES?
+The modules are not yet available. The work is important to find the latest version of the modules.
+
+HOW CAN I DEVELOP MY OWN MODULES?
+The documentation will come soon...
+
+Antoine Vignau
+Brutal Deluxe Software
+5/2020
