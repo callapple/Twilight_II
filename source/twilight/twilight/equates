@@ -1,0 +1,264 @@
+
+FALSE          gequ  0
+TRUE           gequ  1
+
+* Action message codes sent to modules.
+MakeT2	gequ  0	; Make module-specific ctls.
+SaveT2	gequ  1                  ; Save new preferences
+BlankT2	gequ	2	; Blank the screen.
+LoadSetupT2	gequ	3	; Load any resources from yo' fork
+UnloadSetupT2	gequ	4	; Dispose of any resources from yo' fk.
+KillT2	gequ	5	; Module setup being closed.
+HitT2	gequ	6	; Setup window control hit.
+
+* Softswitch, etc, equates.
+SHADOWSHR      gequ  >$012000           ; SHR display buffer addr (shadowed)
+KBD            gequ  >$E0C000           ; keyboard strobe register
+KBDSTRB	gequ	>$E0C010
+RDVBLBAR       gequ  >$E0C019	; bit 7 = 1 if not VBL
+RDTEXT	gequ	>$E0C01A
+TBCOLOR        gequ  >$E0C022           ; text and background color register
+KEYMODREG      gequ  >$E0C025           ; keyboard modifier register
+NEWVIDEO       gequ  >$E0C029           ; NewVideo SHR enable/disable register
+VERTCNT	gequ	>$E0C02E	; Vertical scanline counter
+HORIZCNT	gequ	>$E0C02F	; Horizontal scanline counter
+CLOCKCTL       gequ  >$E0C034           ; border color/real time clock register
+SHADOW         gequ  >$E0C035           ; shadowing enable/disable register
+TXTCLR	gequ	>$E0C050
+TXTSET	gequ	>$E0C051
+BUTN0	gequ	>$E0C061	; read joystick button 0
+BUTN1	gequ	>$E0C062	; read joystick button 1
+INCBUSY	gequ	>$E10064
+DECBUSY	gequ	>$E10068
+OS_KIND	gequ	>$E100BC	; $00 = ProDOS 8, $01 = GS/OS
+BUSYFLG	gequ	>$E100FF           ; system busy flag
+SHR            gequ  >$E12000           ; address of SHR display buffer
+SCBS           gequ  >$E19D00           ; address of start of SCBs for SHR
+PALETTES       gequ  >$E19E00	; address of start of SHR palettes
+
+MaxFSTLen      gequ  32                 ; Maximum filename length supported
+
+* Constants for resource types used by CDev.
+rT2Setup1	gequ	$0001              ; T2 config reztype 1 (integer)
+rTwilightData	gequ	$1000	; for twilight.data cache info
+rT2ExtSetup1	gequ	$1001              ; T2 config reztype 1 (integer)
+rT2String	gequ	$1010
+
+* Constants for custom resource types used by modules.
+rT2ModuleFlags	gequ	$D001	; T2 module flags word reztype
+
+* "Twilight.Setup" file information:
+setup_filetype	gequ	$005A	; configuration file
+setup_auxtype	gequ	$805B	; "Twilight II preferences"
+setup_access	gequ	$E3	; normal access
+
+* Defined bits of T2ModuleFlags module flag word.
+fSetup	gequ	$0001
+fFadeOut	gequ	$0002
+fFadeIn	gequ	$0004
+fGrafPort320	gequ	$0008
+fGrafPort640	gequ	$0010
+fLoadSetupBoot	gequ	$0020
+fLoadSetupBlank gequ $0040
+fOpenRForkWriteEnabled gequ $0080
+fMostCommonPalette gequ $0100
+fReqUsableScreen gequ $0200
+fLeavesUsableScreen gequ $0400
+;fPrematureExit	gequ	$1000
+fChecked	gequ	$2000
+fForeground	gequ	$0000	; bit 14 = 0
+fBackground	gequ	$4000	; bit 14 = 1
+fInternal	gequ	$8000
+
+* Integers in corner preference resources.
+off	gequ	%000	; ignore corner
+dontBlank	gequ	%001	; don't blank
+bkgblanknow	gequ	%010	; instant background blank now
+blanknow	gequ	%011	; normal foreground blank now
+
+* AuxIDs to use for allocating memory.
+bufferMemAuxID gequ  $0100              ; auxID to allocate buffer memory with
+moduleDPAuxID  gequ  $0200              ; auxID to allocate module DP space w/
+pathBuffAuxID  gequ  $0300              ; auxID to allocate saved pathname buff
+listMemAuxID   gequ  $0400              ; auxID to allocate list memory with
+pathMemAuxID   gequ  $0500              ; auxID to allocate module pathnames
+NDAStructAuxID gequ  $0600              ; auxID to allocate NDA structure with
+modNameAuxID   gequ  $0700              ; auxID to allocate module names with
+requestAuxID   gequ  $0800              ; auxID passed to AcceptRequests
+setupAuxID     gequ  $0900              ; auxID for allocating setup memory
+ndaAuxID	gequ	$0A00	; auxID given to T2 NDA
+toolAuxID	gequ	$0B00	; auxID for tool memory (dp, etc)
+; purgeSHRAuxID	gequ	$0C00	; auxID for allocating 01 shr as purgable
+miscAuxID	gequ	$0E00	; auxID for miscellaneous allocations
+codeRezAuxID   gequ  $0F00              ; auxID to allocate codeResource with (Must be F!)
+
+* Request codes supported by the INIT.
+reqOpenT2PrefFile gequ $8000
+reqFadeOut	gequ	$8001
+reqFadeIn	gequ	$8002
+reqBlankScreen	gequ	$8003
+reqLoadModule	gequ	$8004
+reqInstallNDA	gequ	$8005
+reqRemoveNDA	gequ	$8006
+reqDLZSS	gequ	$8007
+reqConcatenate	gequ	$8008
+reqRandomize	gequ	$8009
+reqRemoveT2	gequ	$800A
+reqSetBuffers	gequ	$800B
+lastRequestNum	gequ	$800B+1
+
+* T2 External IPC
+firstT2IPC	gequ	$9000
+t2TurnOn	gequ	$9000
+t2TurnOff	gequ	$9001
+t2BoxOverrideOff gequ $9002
+t2BoxOverrideOn gequ	$9003
+t2GetInfo	gequ	$9004
+t2StartupTools	gequ	$9005
+t2ShutdownTools gequ	$9006
+t2ShareMemory	gequ	$9007
+t2SetBlinkProc	gequ	$9008
+t2ForceBkgBlank gequ $9009
+t2BkgBlankNow	gequ	$900A
+t2GetBuffers	gequ	$900B
+t2Reserved1	gequ	$900C	; was t2GetVersion
+t2CalcFreqOffset gequ $900D
+lastT2IPC	gequ	$900D+1
+
+* T2 Private IPC
+firstT2PrivIPC	gequ	$9020
+t2PrivGetProcs	gequ	$9020
+lastT2PrivIPC	gequ	$9020+1
+
+* order of rects in rRectList resource
+oBlinkBoxRect640 gequ 0
+oBlinkBoxRect320 gequ 1
+oULRect	gequ	2
+oURRect320	gequ	3
+oURRect640	gequ	4
+oLLRect	gequ	5
+oLRRect320	gequ	6
+oLRRect640	gequ	7
+
+* misc..
+ListMemberSize gequ  15                 ; Size of each list member (bytes)
+T2_module_path	gequ	$07FEFFFF	; ID of changed module path wString
+
+* Popup control template equates.
+oMenuRef       gequ  $1C
+oInitialValue  gequ  $20
+
+* Menu template equates.
+oItemRefArray  gequ  $0A
+
+* Menu item template equates.
+oItemTitleRef	gequ	$0A
+
+* List control record equates.
+oCtlMemDraw	gequ	$28
+
+* StatText control template equates..
+oStatText_textRef gequ $1A
+
+* Defined bits of OptionsRez
+fT2Active	gequ	$0001	; bit 0
+fBlinkingBox	gequ	$0002	; bit 1
+fCapsLockLock	gequ	$0004	; bit 2
+fWarningAlerts	gequ	$0008	; bit 3
+fInstallNDA	gequ	$0010	; bit 4
+fRandomize	gequ	$0020	; bit 5
+fLetMouseRestore gequ $0040	; bit 6
+fNoSound	gequ	$0080	; bit 7 (v1.0.1b2 - 12/13/92)
+fWatchBkgBlank	gequ	$0000	; bits 8-9: 00 = watchbkgblank
+fWatchDontBlank gequ	$0100	;           01 = watchdontblank
+fWatchNormBlank gequ	$0200	;           10 = watchnormblank
+fDClickPreview	gequ	$0000	; bits 10-11: 00 = dclickpreviewmodule
+fDClickClose	gequ	$0400	;             01 = dclickcloset2
+fDClickSetup	gequ	$0800	;             10 = dclicksetupmodule
+fDClickToggle	gequ	$0C00	;             11 = dclickToggle
+fTextBkgBlank	gequ	$0000	; bits 12-13: 00 = textbkgblank
+fTextGSOSBlank	gequ	$1000	;             01 = textgsosblank
+fTextDontBlank	gequ	$2000	;             10 = textdontblank
+fSysBeepsUnblank gequ $4000	; bit 14 (v1.0.1b2 - 12/13/92)
+fUseIntelliKey	gequ	$8000	; bit 15 (v1.0.1b2 - 12/13/92) - end!
+* And Options2Rez
+fLowMemoryMode	gequ	$0001	; bit 0
+fSHRCorners	gequ	$0002	; bit 1
+fSwapModules	gequ	$0004	; bit 2
+fPassword	gequ	$0008	; bit 3
+fNewModulePath	gequ	$0010	; bit 4
+
+* how many modules will fit in the list memory buffer we initially allocate
+startListMem	gequ	10
+
+* DataField equates.
+SetFieldValue	gequ	$8000           ;custom control messages that are
+GetFieldValue	gequ	$8001           ; accepted by DataField
+
+* ipc for "ScreenSaverAware~"
+ssaSHRBlanking	gequ	$8000
+ssaSHRUnblanking gequ $8001
+ssaTextBlanking gequ	$8002
+ssaTextUnblanking gequ $8003
+
+ssaForegroundBlank gequ 0
+ssaBackgroundBlank gequ 1
+
+T2	gequ	$5432	; "T2" in ascii...
+
+T2Version	gequ	$8200	; v2.0b1
+
+* T2 module flags resource offsets...
+oMF_version	gequ	0	; byte - mf version (should be 1)
+oMF_flags	gequ	oMF_version+1	; word - module flags
+oMF_enabled	gequ	oMF_flags+2	; byte - enabled flag (unimplemented)
+oMF_min_ver	gequ	oMF_enabled+1	; word - minimum T2 version required
+oMF_reserved	gequ	oMF_min_ver+2	; word - reserved for future expansion
+oMF_module_name gequ	oMF_reserved+2	; 25 char pstring (25 + 1 length byte)
+oMF_eos	gequ	oMF_module_name+26	; end of structure
+
+
+* Flag word passed to modules at loadsetupT2 time in T2Data2 (lo)
+* (lmi = loadMessageInput)
+lmiOverrideSound gequ $0001	; bit 0. 1=override sound, 0=sound ok
+
+* Flag word passed to mdoules at blankT2 time in T2Data2 (lo)
+* (bmi = blankMessageInput)
+bmiBlankNow	gequ	$0001
+
+
+* bits of BlankT2's T2Result - hi word (blankmessageresult)
+bmrNextModule	gequ	$0100
+bmrFadeIn	gequ	$0200
+bmrLeavesUsableScreen gequ $0400
+
+* bits of LoadSetupT2's T2Result - lo word (loadmessageresult)
+lmrReqUsableScreen gequ $0001	; requires usable screen
+lmrFadeOut	gequ	$0002	; fade out after all
+lmrMostCommonPalette gequ $0004	; mcp after all
+
+* 'Twilight.Data' offsets......
+
+odata_Signature gequ	0
+odata_Version	gequ	odata_Signature+2	; 2
+odata_num_modules gequ odata_Version+2	; 4
+odata_num_support_setup gequ odata_num_modules+2 ; 6
+odata_t2dir_mod_TD gequ odata_num_support_setup+2 ; 8
+odata_dirInfo	gequ	odata_t2dir_mod_TD+8	; 16
+odata_moduleFlags gequ odata_dirInfo+32		; 48
+odata_moduleFName gequ odata_moduleFlags+34	; 82
+odata_end	gequ	odata_moduleFName+34	; +maxFSTLen+2 = 116
+
+header_size	gequ	odata_dirInfo
+
+* file format:
+* 00-01: signature - "T2" ascii
+* 02-03: version - 0002 - v2 (version number)
+* 04-05: num_modules - to follow
+* 06-07: num_support_setup - (cannot exceed num_modules)
+* 08-15: t2dir_mod_TD - modification time/date of t2 directory (8 bytes)
+* start of module_data
+* 16-47: dirInfo - (32 bytes) directory entry info, module 1
+* 48-81: moduleFlags - (34 bytes) rT2moduleFlags, module 1
+* 82-115: moduleFName (34 bytes, MaxFSTLen+2) - filename of module
+* etc.

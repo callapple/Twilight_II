@@ -1,0 +1,860 @@
+ MACRO
+&lab pulllong &addr1,&addr2
+&lab ANOP
+ AIF C:&addr1=0,.a
+ AIF C:&addr2=0,.b
+ LCLC &C
+&C AMID &addr1,1,1
+ AIF "&C"="[",.zeropage
+ pullword &addr1
+ sta &addr2
+ pullword &addr1+2
+ sta &addr2+2
+ MEXIT
+.a
+ pullword
+ pullword
+ MEXIT
+.b
+ pullword &addr1
+ pullword &addr1+2
+ MEXIT
+.zeropage
+ ldy #&addr2
+ pullword &addr1,y
+ ldy #&addr2+2
+ pullword &addr1,y
+ MEND
+ MACRO
+&lab pullword &SYSOPR
+&lab ANOP
+ pla
+ AIF C:&SYSOPR=0,.end
+ sta &SYSOPR
+.end
+ MEND
+ MACRO
+&lab pushlong &addr,&offset
+&lab ANOP
+ LCLC &C
+ LCLC &REST
+&C AMID &addr,1,1
+ AIF "&C"="#",.immediate
+ AIF "&C"="[",.zeropage
+ AIF C:&offset=0,.nooffset
+ AIF "&offset"="s",.stack
+ pushword &addr+2,&offset
+ pushword &addr,&offset
+ MEXIT
+.nooffset
+ pushword &addr+2
+ pushword &addr
+ MEXIT
+.immediate
+&REST AMID &addr,2,L:&addr-1
+ dc I1'$F4',I2'(&REST)|-16'
+ dc I1'$F4',I2'&REST'
+ MEXIT
+.stack
+ pushword &addr+2,s
+ pushword &addr+2,s
+ MEXIT
+.zeropage
+ ldy #&offset+2
+ pushword &addr,y
+ ldy #&offset
+ pushword &addr,y
+ MEND
+ MACRO
+&lab pushword &SYSOPR
+&lab ANOP
+ AIF C:&SYSOPR=0,.b
+ LCLC &C
+&C AMID "&SYSOPR",1,1
+ AIF ("&C"="#").AND.(S:LONGA),.immediate
+ lda &SYSOPR
+ pha
+ MEXIT
+.b
+ pha
+ MEXIT
+.immediate
+ LCLC &REST
+ LCLA &BL
+&BL ASEARCH "&SYSOPR"," ",1
+ AIF &BL>0,.a
+&BL SETA L:&SYSOPR+1
+.a
+&REST AMID "&SYSOPR",2,&BL-2
+ dc I1'$F4',I2'&REST'
+ MEND
+ MACRO
+&lab longmx
+&lab ANOP
+ rep #%00110000
+ longa on
+ longi on
+ MEND
+ MACRO
+&lab longm
+&lab ANOP
+ rep #%00100000
+ longa on
+ MEND
+ MACRO
+&lab shortm
+&lab ANOP
+ sep #%00100000
+ longa off
+ MEND
+ MACRO
+&lab killLdp
+&lab pld
+ ply
+ ply
+ MEND
+ MACRO
+&lab makeDP
+&lab phd
+ tsc
+ tcd
+ MEND
+ MACRO
+&LAB JEQ &BP
+&LAB BNE *+5
+ BRL &BP
+ MEND
+ MACRO
+&LAB JLT &BP
+&LAB BGE *+5
+ BRL &BP
+ MEND
+ MACRO
+&lab Debug &string
+ aif t:debugSymbols="G",.begin
+ mexit
+.begin
+ dc i1'$82'
+ dc i2'(L:&string)+3'
+ dc i2'$7771'
+ dc i1'L:&string',C'&string'
+ MEND
+ macro
+&lab _SendRequest
+&lab ldx #$1c01
+ jsl $E10000
+ mend
+ MACRO
+&LAB JNE &BP
+&LAB BEQ *+5
+ BRL &BP
+ MEND
+ macro
+&lab WordResult &zero
+&lab anop
+ aif c:&zeros=1,.zero
+ phd
+ mexit
+.zero
+&lab pea $0000
+ mend
+ macro
+&lab LongResult &zeros
+&lab anop
+ aif c:&zeros=1,.zeros
+ phd
+ phd
+ mexit
+.zeros
+ pea $0000
+ pea $0000
+ mend
+ MACRO
+&lab mvw &num1,&num2
+&lab lda &num1
+ sta &num2
+ MEND
+ MACRO
+&lab ename
+&lab entry
+ aif t:DebugSymbols="G",.begin
+ MEXIT
+.begin
+ brl pastName&SYSCNT
+ dc i'$7771'
+ dc i1'L:&lab',c'&lab'
+pastName&SYSCNT anop
+.pastName
+ MEND
+ MACRO
+&lab name
+&lab anop
+ aif t:DebugSymbols="G",.begin
+ MEXIT
+.begin
+ brl pastName&SYSCNT
+ dc i'$7771'
+ dc i1'L:&lab',c'&lab'
+pastName&SYSCNT anop
+.pastName
+ MEND
+ MACRO
+&lab mvl &srcLong,&dstLong
+&lab ANOP
+ LCLC &C
+&C AMID &srcLong,1,1
+ AIF "&C"="#",.direct
+ lda &srcLong
+ sta &dstLong
+ lda &srcLong+2
+ sta &dstLong+2
+ MEXIT
+.direct
+ lda &srcLong
+ sta &dstLong
+ lda &srcLong|-16
+ sta &dstLong+2
+ MEND
+ macro
+&lab ~GetPort
+&lab LongResult
+ Tool $1C04
+ mend
+ macro
+&lab Tool &number
+&lab ldx #&number
+ jsl $E10000
+ mend
+ MACRO
+&lab _NewHandle
+&lab ldx #$0902
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetPort
+&lab ldx #$1B04
+ jsl $E10000
+ MEND
+ macro
+&lab ~DisposeHandle &theHandle
+&lab ph4 &theHandle
+ Tool $1002
+ mend
+ macro
+&lab ~GetMasterSCB
+&lab WordResult
+ Tool $1704
+ mend
+ macro
+&lab ~CloseResourceFile &fileID
+&lab ph2 &fileID
+ Tool $0B1E
+ mend
+ macro
+&lab ~GetCurResourceFile
+&lab WordResult
+ Tool $121E
+ mend
+ macro
+&lab ph4 &addr,&offset
+&lab anop
+ lclc &char
+&char amid &addr,1,1
+ aif "&char"="@",.registers
+ aif "&char"="*",.smartmacros
+ aif "&char"="#",.immediate
+ aif "&char"="<",.directPage
+ aif "&char"="[",.zeropage
+ aif c:&offset=0,.nooffset
+ aif "&offset"="s",.stack
+.yesoffset
+ lda &addr+2,&offset
+ pha
+ lda &addr,&offset
+ pha
+ mexit
+.nooffset
+ lda &addr+2
+ pha
+ lda &addr
+ pha
+ mexit
+.stack
+ lda &addr+2,s
+ pha
+ lda &addr,s
+ pha
+ mexit
+.registers
+ phy
+ phx
+ mexit
+.smartmacros
+ mexit
+.immediate
+&addr amid &addr,2,L:&addr-1
+ pea +(&addr)|-16
+ pea &addr
+ mexit
+.directPage
+&addr amid &addr,2,L:&addr-1
+ pei &addr+2
+ pei &addr
+ mexit
+.zeroPage
+ aif C:&offset<>0,.zeroPageOffset
+ ldy #2
+ lda &addr,y
+ pha
+ lda &addr
+ pha
+ mexit
+.zeroPageOffset
+ aif "&offset"="X",.zeroPageRegX
+ aif "&offset"="Y",.zeroPageRegY
+ aif "&offset"="x",.zeroPageRegX
+ aif "&offset"="y",.zeroPageRegY
+ ldy #&offset+2
+ lda &addr,y
+ pha
+ ldy #&offset
+ lda &addr,y
+ pha
+ mexit
+.zeroPageRegX
+ lda &addr,&offset
+ tay
+ inx
+ inx
+ lda &addr,&offset
+ pha
+ phy
+ mexit
+.zeroPageRegY
+ lda &addr,&offset
+ tax
+ iny
+ iny
+ lda &addr,&offset
+ pha
+ phx
+ mend
+ macro
+&lab ~GetCurResourceApp
+&lab wordresult
+ Tool $141E
+ mend
+ MACRO
+&lab _SetCurResourceFile
+&lab ldx #$111E
+ jsl $E10000
+ MEND
+ macro
+&lab ~SetCurResourceFile &fileID
+&lab ph2 &fileID
+ Tool $111E
+ mend
+ MACRO
+&lab _GetHandleSize
+&lab ldx #$1802
+ jsl $E10000
+ MEND
+ macro
+&lab errorbrk &op
+&lab anop
+ aif t:debugCode="G",.doit
+ mexit
+.doit
+ bcc *+4
+ aif c:&op=1,.value
+ brk $BB
+ mexit
+.value
+ brk &op
+ mend
+ MACRO
+&lab _UDivide
+&lab ldx #$0B0B
+ jsl $E10000
+ MEND
+ MACRO
+&lab shortmx
+&lab ANOP
+ sep #%00110000
+ longa off
+ longi off
+ MEND
+ macro
+&lab ~HUnlock &theHandle
+&lab ph4 &theHandle
+ Tool $2202
+ mend
+ MACRO
+&lab _HLock
+&lab ldx #$2002
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetHandleId
+&lab ldx #$3002
+ jsl $E10000
+ MEND
+ MACRO
+&lab peil &arg
+&lab pei &arg+2
+ pei &arg
+ MEND
+ MACRO
+&lab _OpenResourceFile
+&lab ldx #$0A1E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _NewControl2
+&lab ldx #$3110
+ jsl $E10000
+ MEND
+ MACRO
+&lab _FindHandle
+&lab ldx #$1A02
+ jsl $E10000
+ MEND
+ MACRO
+&lab _NewWindow2
+&lab ldx #$610E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _DrawControls
+&lab ldx #$1010
+ jsl $E10000
+ MEND
+ MACRO
+&lab _HiliteControl
+&lab ldx #$1110
+ jsl $E10000
+ MEND
+ macro
+&lab ~NewControl2 &ownerPtr,&inputDesc,&inputRef
+&lab LongResult
+ ph4 &ownerPtr
+ ph2 &inputDesc
+ ph4 &inputRef
+ Tool $3110
+ mend
+ macro
+&lab ~GetHandleSize &theHandle
+&lab LongResult
+ ph4 &theHandle
+ Tool $1802
+ mend
+ macro
+&lab ~GetNewID &idTag
+&lab WordResult
+ ph2 &idTag
+ Tool $2003
+ mend
+ macro
+&lab ~SetFontFlags &fontFlags
+&lab ph2 &fontFlags
+ Tool $9804
+ mend
+ macro
+&lab ~LoadResource &resourceType,&resourceID
+&lab LongResult
+ ph2 &resourceType
+ ph4 &resourceID
+ Tool $0E1E
+ mend
+ macro
+&lab ~ReleaseResource &purgeLevel,&resourceType,&resourceID
+&lab ph2 &purgeLevel
+ ph2 &resourceType
+ ph4 &resourceID
+ Tool $171E
+ mend
+ macro
+&lab ~LoadOneTool &toolNumber,&minVersion
+&lab ph2 &toolNumber
+ ph2 &minVersion
+ Tool $0F01
+ mend
+ macro
+&lab ~CloseWindow &windowPtr
+&lab ph4 &windowPtr
+ Tool $0B0E
+ mend
+ macro
+&lab ~UserShutdown &userID,&quitFlag
+&lab WordResult
+ ph2 &userID
+ ph2 &quitFlag
+ Tool $1211
+ mend
+ macro
+&lab ph2 &addr,&offset
+&lab anop
+ lclc &char
+&char amid "&addr",1,1
+ aif "&char"="@",.accumulator
+ aif "&char"="*",.smartmacros
+ aif "&char"="#",.immediate
+ aif "&char"="<",.directPage
+ aif "&char"="[",.zeropage
+ aif C:&offset=0,.nooffset
+ aif "&offset"="s",.stack
+ lda &addr,&offset
+ pha
+ mexit
+.nooffset
+ lda &addr
+ pha
+ mexit
+.stack
+ lda &addr,s
+ pha
+ mexit
+.smartmacros
+ mexit
+.accumulator
+ pha
+ mexit
+.directPage
+&addr amid &addr,2,L:&addr-1
+ pei &addr
+ mexit
+.immediate
+&addr amid &addr,2,L:&addr-1
+ pea &addr
+ mexit
+.zeropage
+ aif C:&offset<>0,.zeroPageOff
+ lda &addr
+ pha
+ mexit
+.zeroPageOff
+ aif "&offset"="X",.zeroPageReg
+ aif "&offset"="Y",.ze
+oPageReg
+ aif "&offset"="x",.zeroPageReg
+ aif "&offset"="y",.zeroPageReg
+ ldy #&offset
+ lda &addr,y
+ pha
+ mexit
+.zeroPageReg
+ lda &addr,&offset
+ pha
+ mend
+ macro
+&lab ~GetCtlHandleFromID &ctlWindowPtr,&ctlID
+&lab LongResult
+ ph4 &ctlWindowPtr
+ ph4 &ctlID
+ Tool $3010
+ mend
+ macro
+&lab ~HandToPtr &sourceHandle,&destPtr,&count
+&lab ph4 &sourceHandle
+ ph4 &destPtr
+ ph4 &count
+ Tool $2902
+ mend
+ macro
+&lab ~DetachResource &resourceType,&resourceID
+&lab ph2 &resourceType
+ ph4 &resourceID
+ Tool $181E
+ mend
+ macro
+&lab ~AlertWindow &alertFlags,&subStrPtr,&alertStrRef
+&lab WordResult
+ ph2 &alertFlags
+ ph4 &subStrPtr
+ ph4 &alertStrRef
+ Tool $590E
+ mend
+ macro
+&lab ~TaskMasterDA &eventMask,&taskRecPtr
+&lab WordResult
+ ph2 &eventMask
+ ph4 &taskRecPtr
+ Tool $5F0E
+ mend
+ MACRO
+&lab _Multiply
+&lab ldx #$090B
+ jsl $E10000
+ MEND
+ MACRO
+&lab _InitialLoad2
+&lab ldx #$2011
+ jsl $E10000
+ MEND
+ MACRO
+&lab _DisposeAll
+&lab ldx #$1102
+ jsl $E10000
+ MEND
+ macro
+&lab ~InitCursor
+&lab Tool $CA04
+ mend
+ macro
+&lab ~TaskMaster &eventMask,&taskRecPtr
+&lab WordResult
+ ph2 &eventMask
+ ph4 &taskRecPtr
+ Tool $1D0E
+ mend
+ macro
+&lab ~HLock &theHandle
+&lab ph4 &theHandle
+ Tool $2002
+ mend
+ MACRO
+&lab _HexIt
+&lab ldx #$2A0B
+ jsl $E10000
+ MEND
+ MACRO
+&lab str &string
+&lab dc i1'L:&string',C'&string'
+ MEND
+ MACRO
+&lab _SetCtlValue
+&lab ldx #$1910
+ jsl $E10000
+ MEND
+ MACRO
+&lab _GetCtlValue
+&lab ldx #$1A10
+ jsl $E10000
+ MEND
+ macro
+&lab ~MarkResourceChange &changeFlag,&resourceType,&resourceID
+&lab ph2 &changeFlag
+ ph2 &resourceType
+ ph4 &resourceID
+ Tool $101E
+ mend
+ macro
+&lab ~UpdateResourceFile &fileID
+&lab ph2 &fileID
+ Tool $0D1E
+ mend
+ macro
+&lab handle
+&lab ds 4
+ mend
+ macro
+&lab boolean &onoff
+&lab anop
+ aif c:&onoff=1,.value
+ dc i'0'
+ mexit
+.value
+ dc i'&onoff'
+ mend
+ MACRO
+&lab stzl &adr
+&lab stz &adr
+ stz &adr+2
+ MEND
+ macro
+&lab ~NextMember2 &itemNumber,&ctlHandle
+&lab WordResult
+ ph2 &itemNumber
+ ph4 &ctlHandle
+ Tool $121C
+ mend
+ MACRO
+&lab _PtrToHand
+&lab ldx #$2802
+ jsl $E10000
+ MEND
+ MACRO
+&lab _LoadResource
+&lab ldx #$0E1E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _BlockMove
+&lab ldx #$2B02
+ jsl $E10000
+ MEND
+ MACRO
+&lab _DisposeHandle
+&lab ldx #$1002
+ jsl $E10000
+ MEND
+ MACRO
+&LAB JGE &BP
+&LAB BLT *+5
+ BRL &BP
+ MEND
+ MACRO
+&lab _AddResource
+&lab ldx #$0C1E
+ jsl $E10000
+ MEND
+ MACRO
+&lab GSStr &GSstring
+&lab dc i2'L:&GSstring',C'&GSstring'
+ MEND
+ macro
+&lab ~Multiply &multiplicand,&multiplier
+&lab LongResult
+ ph2 &multiplicand
+ ph2 &multiplier
+ Tool $090B
+ mend
+ MACRO
+&lab _SetHandleSize
+&lab ldx #$1902
+ jsl $E10000
+ MEND
+ MACRO
+&lab _GetPrefixGS &params
+&lab jsl $E100A8
+ dc i2"$200A"
+ dc i4"&params"
+ MEND
+ MACRO
+&lab _SetPrefixGS &params
+&lab jsl $E100A8
+ dc i2"$2009"
+ dc i4"&params"
+ MEND
+ macro
+&lab ~SetHandleSize &newSize,&theHandle
+&lab ph4 &newSize
+ ph4 &theHandle
+ Tool $1902
+ mend
+ macro
+&lab PrefixRecGS &parameters
+ lcla &pCount
+&pCount seta c:&parameters
+&lab anop
+&lab._pCount dc i2'&pCount'
+&lab._prefixNum dc i2'&parameters(1)'
+&lab._prefix dc i4'&parameters(2)'
+ mend
+ MACRO
+&lab _DetachResource
+&lab ldx #$181E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SFShutDown
+&lab ldx #$0317
+ jsl $E10000
+ MEND
+ MACRO
+&lab _DisposeControl
+&lab ldx #$0A10
+ jsl $E10000
+ MEND
+ MACRO
+&lab _HideControl
+&lab ldx #$0E10
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SFGetFile2
+&lab ldx #$0E17
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SFStartUp
+&lab ldx #$0217
+ jsl $E10000
+ MEND
+ MACRO
+&lab _CompileText
+&lab ldx #$600E
+ jsl $E10000
+ MEND
+ macro
+&lab ~SFStatus
+&lab WordResult 0
+ Tool $0617
+ mend
+ macro
+&lab ~UnloadOneTool &toolNumber
+&lab ph2 &toolNumber
+ Tool $1001
+ mend
+ macro
+&lab ~InvalCtls &ctlWindowPtr
+&lab ph4 &ctlWindowPtr
+ Tool $3710
+ mend
+ macro
+&lab ~WaitCursor
+&lab Tool $0A12
+ mend
+ macro
+&lab ~RemoveResource &resourceType,&resourceID
+&lab ph2 &resourceType
+ ph4 &resourceID
+ Tool $0F1E
+ mend
+ macro
+&lab ~GetAuxWindInfo &windowPtr
+&lab LongResult
+ PushLong &windowPtr
+ Tool $630E
+ mend
+ macro
+&lab ~SelectWindow &windowPtr
+&lab ph4 &windowPtr
+ Tool $110E
+ mend
+ macro
+&lab ~SetSysWindow &windowPtr
+&lab ph4 &windowPtr
+ Tool $4B0E
+ mend
+ macro
+&lab ~SetWRefCon &wRefCon,&windowPtr
+&lab ph4 &wRefCon
+ ph4 &windowPtr
+ Tool $280E
+ mend
+ MACRO
+&lab _CallCtlDefProc
+&lab ldx #$2C10
+ jsl $E10000
+ MEND
+ MACRO
+&lab _GetCtlHandleFromID
+&lab ldx #$3010
+ jsl $E10000
+ MEND
+ MACRO
+&lab _MakeThisCtlTarget
+&lab ldx #$2810
+ jsl $E10000
+ MEND
+ MACRO
+&lab _UpdateResourceFile
+&lab ldx #$0D1E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _CloseWindow
+&lab ldx #$0B0E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _GetAuxWindInfo
+&lab ldx #$630E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _GetLETextByID
+&lab ldx #$3B10
+ jsl $E10000
+ MEND

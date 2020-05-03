@@ -1,0 +1,4 @@
+
+debugCode	gequ	$BAD	; Put in other debugging code ?
+debugBreaks	gequ	$BAD	; Put in debugging breaks ?
+debugSymbols	gequ	$BAD               ; Put in debugging symbols ?

@@ -1,0 +1,11 @@
+
+// #include "Types.Rez"
+#define T2_Init			    $07FEFFFF
+#define rCodeResource       $8017
+#define rCDEVCode           $8018
+
+// include "Twilight.II";
+// delete rCodeResource;
+// delete rCDevCode;
+read rCodeResource (T2_Init,locked,convert,nospecialmemory) "o:init"; /* init part */
+read rCDEVCode (0x1,locked,convert,nospecialmemory) "o:cdev"; /* cdev program */

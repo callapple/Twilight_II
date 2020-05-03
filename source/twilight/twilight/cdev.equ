@@ -1,0 +1,37 @@
+
+* Constants for controls in the main window
+
+BlankBtn       gequ  1                  ; The Blank Now button's ID
+T2Ctl          gequ  2                  ; "Twilight.. The Ultimate ..."
+SetupCtl       gequ  3                  ; The Option button's ID
+ModuleListCtl  gequ  4                  ; The list of modules available
+AboutCtl       gequ  5                  ; The "About Module" control
+ActiveCtl	gequ	6	; T2 Active checkbox
+RandomizeCtl	gequ	7	; Randomize checkbox
+PurgeCtl	gequ	8
+ToggleCtl	gequ	9
+
+* More IDs.
+T2SetupTestCtlID gequ $07FEFFFC	; test control in setup window
+T2SetupPopupCtlID gequ $07FEFFFD	; popup control in setup window
+T2SetupUpdateCtlID gequ $07FEFFFE	; save control in setup window
+
+* Constants for controls in the Options window
+OKButton       gequ  2                  ; OK button
+CancelBtn      gequ  3                  ; CANCEL button
+InstalledBtn   gequ  4                  ; Installed check box
+BoxBtn         gequ  5                  ; Box in menu bar check box
+CapsBtn        gequ  6                  ; Caps Lock 'lock' check box
+BlankLE        gequ  8                  ; LE with time info
+ULNowBtn       gequ  10                 ; upperL corner radio buttons
+ULDontBtn      gequ  11                 ; (Blank Now, Don't Blank, and Off).
+ULOffBtn       gequ  12
+LLNowBtn       gequ  14                 ; lowerL corner radio buttons
+LLDontBtn      gequ  15                 ; (Blank Now, Don't Blank, and Off).
+LLOffBtn       gequ  16
+URNowBtn       gequ  $15                ; upperR corner radio buttons
+URDontBtn      gequ  $16                ; (Blank Now, Don't Blank, and Off).
+UROffBtn       gequ  $17
+LRNowBtn       gequ  $1A                ; lowerR corner radio buttons
+LRDontBtn      gequ  $1B                ; (Blank Now, Don't Blank, and Off).
+LROffBtn       gequ  $1C

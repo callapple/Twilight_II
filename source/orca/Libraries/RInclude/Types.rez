@@ -1,0 +1,1381 @@
+/*
+ *  Types.Rez - 3/4/92
+ *  Rez Resource templates for standard IIGS system types
+ *
+ *  Copyright Apple Computer, Inc. 1988-1992
+ *  All Rights Reserved.
+ *
+ *  AV 202005 - Antoine Vignau added the Twilight II types (pfew)
+ *
+*/
+
+/*
+    The following definition places a 'hex' keyword in front of certain
+    integer and longint data types so that DeRez will format the
+    output number in hexadecimal format.  If you'd rather have the
+    numbers defined as decimal (or any other radix for that matter),
+    simply change the #define line within this file, or use the
+    -d option on the DeRez command line.
+*/
+
+#if !defined(_mybase_)
+    #if DeRez==1
+        #define _mybase_ hex
+    #else
+        #define _mybase_
+    #endif
+#endif
+
+/* AV 202005 - Resource info for Twilight II */
+
+#define DataCtlDefProcID    $0001
+#define rDataList           $1986
+#define EightWords array[1]{ word; word; word; word; word; word; word; word; }
+
+type rDataList {
+	integer = $$CountOf(DataList);
+        array DataList {
+	        point;   // relative location
+                longint;    // reference to string list
+        };
+};
+
+/* end of AV 202005 */
+
+/* Resource Types */
+
+#define rIcon               $8001
+#define rPicture            $8002
+#define rControlList        $8003
+#define rControlTemplate    $8004
+#define rC1InputString      $8005
+#define rPString            $8006
+#define rStringList         $8007
+#define rMenuBar            $8008
+#define rMenu               $8009
+#define rMenuItem           $800A
+#define rTextForLETextBox2  $800B
+#define rCtlDefProc         $800C
+#define rCtlColorTbl        $800D
+#define r_BBBB              $800D
+#define rWindParam1         $800E
+#define rWindParam2         $800F
+#define rWindColor          $8010
+#define rTextBlock          $8011
+#define rStyleBlock         $8012
+#define rToolStartup        $8013
+#define rResName            $8014
+#define rAlertString        $8015
+#define rText               $8016
+#define rCodeResource       $8017
+#define rCDEVCode           $8018
+#define rCDEVFlags          $8019
+#define rTwoRects           $801A
+#define rFileType           $801B
+#define rListRef            $801C
+#define rCString            $801D
+#define rXCMD               $801E
+#define rXFCN               $801F
+#define rErrorString        $8020
+#define rKTransTable        $8021
+#define rWString            $8022  /* not useful--duplicates $8005 */
+#define rC1OutputString     $8023
+#define rSoundSample        $8024
+#define rTERuler            $8025
+#define rFSequence          $8026
+#define rCursor             $8027
+#define rItemStruct         $8028
+#define rVersion            $8029
+#define rComment            $802A
+#define rBundle             $802B
+#define rFinderPath         $802C
+#define rPaletteWindow      $802D
+#define rTaggedStrings      $802E
+#define rPatternList        $802F
+#define rRectList           $C001
+#define rPrintRecord        $C002
+#define rFont               $C003
+
+/* Definitions and Std Ref Descriptors */
+
+#Define NIL                 0
+#Define RefIsPtr            $0000
+#Define RefIsPointer        $0000   /* spelling variant */
+#Define RefIsHandle         $0001
+#Define RefIsResource       $0002
+
+
+/*********************************************************/
+/* Windows
+/*********************************************************/
+
+/* Window Types */
+#define fHilited            $0001
+#define fZoomed             $0002
+#define fAllocated          $0004
+#define fCtlTie             $0008
+#define fInfo               $0010
+#define fVis                $0020
+#define fQContent           $0040
+#define fMove               $0080
+#define fZoom               $0100
+#define fFlex               $0200
+#define fGrow               $0400
+#define fBScroll            $0800
+#define fRScroll            $1000
+#define fAlert              $2000
+#define fClose              $4000
+#define fTitle              $8000
+
+/*********************************************************/
+/* Menus
+/*********************************************************/
+
+/*-------------------------------------------------------*/
+/* Equates for Menu Item Flags
+/*-------------------------------------------------------*/
+#define rMIPlain            $0000
+#define rMIBold             $0001
+#define rMIItalic           $0002
+#define rMIUnderline        $0004
+#define rMIXOr              $0020
+#define rMIDivider          $0040
+#define rMIDisabled         $0080
+#define rMIItemStruct       $0400
+#define rMIOutline          $0800
+#define rMIShadow           $1000
+
+/*-------------------------------------------------------*/
+/* Equates for Menu Flags
+/*-------------------------------------------------------*/
+#Define rmAllowCache        $0008
+#Define rmCustom            $0010
+#Define rmNo_Xor            $0020
+#Define rmDisabled          $0080
+
+
+/* --------------------------------------------------*/
+/* More flags for pop up menu controls
+/* --------------------------------------------------*/
+#Define fMenuDefIsText      $04
+#Define fDrawIconInResult   $20
+#Define fDrawPopDownIcon    $80
+
+/* --------------------------------------------------*/
+/* flag word for menu item
+/* --------------------------------------------------*/
+#Define fBold               $0001
+#Define fItalic             $0002
+#Define fUnderline          $0004
+#Define fXOR                $0020
+#Define fDivider            $0040
+#Define fDisabled           $0080
+#Define fItemStruct         $0400
+#Define fOutline            $0800
+#Define fShadow             $1000
+#define ItemStructRefShift  $0100
+#Define ItemTitleRefShift   $4000
+
+/* --------------------------------------------------*/
+/* flag word for Menu
+/* --------------------------------------------------*/
+#Define fAllowCache         $0008
+#Define fCustom             $0010
+#Define ItemRefShift        $1000
+#Define MenuTitleRefShift   $4000
+
+/* --------------------------------------------------*/
+/* flag word for Menu bar
+/* --------------------------------------------------*/
+#Define MenuRefShift        $4000
+
+
+/*********************************************************/
+/* Controls
+/*********************************************************/
+
+/*-------------------------------------------------------*/
+/* Control List Descriptors
+/*-------------------------------------------------------*/
+#define singlePtr           $0000
+#define singleHandle        $0001
+#define singleResource      $0002
+#define ptrToPtr            $0003
+#define ptrToHandle         $0004
+#define ptrToResource       $0005
+#define handleToPtr         $0006
+#define handleToHandle      $0007
+#define handleToResource    $0008
+#define ResourceToResource  $0009
+
+/*-------------------------------------------------------*/
+/* Common Flag equates.
+/*-------------------------------------------------------*/
+#define ctlInvis            $0080
+#define ctlVisible          $0000
+#Define CtlInactive         $FF00
+
+
+/*-------------------------------------------------------*/
+/* Common MoreFlags equates.
+/*-------------------------------------------------------*/
+#define FctlTarget          $8000
+#define FctlCanBeTarget     $4000
+#define FctlWantsEvents     $2000
+#define FCtlWantEvents      $2000   /* spelling variant */
+#define FctlProcNotPtr      $1000
+#define FctlTellAboutSize   $0800
+#define FctlIsMultiPart     $0400
+
+
+/*-------------------------------------------------------*/
+/* Flag Equates for StatText Controls
+/*-------------------------------------------------------*/
+#Define fBlastText          $0004
+#Define fSubstituteText     $0002
+#Define fSubTextIsPascal    $0001
+#Define fSubTextIsC         $0000
+
+
+/*-------------------------------------------------------*/
+/* Flag equates for simple buttons.
+/*-------------------------------------------------------*/
+#Define NormalButton        $0000
+#Define DefaultButton       $0001
+#Define SquareButton        $0002
+#Define SquareShadowButton  $0003
+
+/*-------------------------------------------------------*/
+/* Flag equates for icon buttons.
+/*-------------------------------------------------------*/
+#Define fNoTrackIcon        $0008
+
+/* --------------------------------------------------*/
+/* TextFlags Equates for TextEdit Control
+/* --------------------------------------------------*/
+#Define fNotControl             $80000000
+#Define fSingleFormat           $40000000
+#Define fSingleStyle            $20000000
+#Define fNoWordWrap             $10000000
+#Define fNoScroll               $08000000
+#Define fReadOnly               $04000000
+#Define fSmartCutPaste          $02000000
+#Define fTabSwitch              $01000000
+#Define fDrawBounds             $00800000
+#Define fColorHilight           $00400000
+#Define fGrowRuler              $00200000
+#Define fDisableSelection       $00100000
+#Define fDrawInactiveSelection  $00080000
+
+
+/* --------------------------------------------------*/
+/* Text Descriptors for TextEdit Controls
+/* --------------------------------------------------*/
+#Define dataIsPString       $0000
+#Define dataIsCString       $0001
+#Define dataIsC1Input       $0002
+#Define dataIsC1Output      $0003
+#Define dataIsTextBox2      $0004
+#Define dataIsTextBlock     $0005
+
+/* --------------------------------------------------*/
+/* Flag equates  for PopUp Menu Controls
+/* --------------------------------------------------*/
+#Define fType2PopUp         $40
+#Define fDontHiliteTitle    $20
+#Define fDontDrawTitle      $10
+#Define fDontDrawResult     $08
+#Define fInWindowOnly       $04
+#Define fRightJustifyTitle  $02
+#Define fRightJustifyResult $01
+
+
+/*********************************************************/
+/* LineEdit
+/*********************************************************/
+
+/*---------------------- LETextBox2 styles -------------*/
+#Define TBStylePlain        "\$01S\$00\$00" /* $01 $53 $00 $00 */
+#Define TBStyleBold         "\$01S\$01\$00" /* $01 $53 $00 $00 */
+#Define TBStyleItalic       "\$01S\$02\$00" /* $01 $53 $00 $00 */
+#Define TBStyleUnderline    "\$01S\$04\$00" /* $01 $53 $00 $00 */
+#Define TBStyleOutline      "\$01S\$08\$00" /* $01 $53 $00 $00 */
+#Define TBStyleShadow       "\$01S\$10\$00" /* $01 $53 $00 $00 */
+#Define TBStyleHEX          "\$01S"
+#Define TBForeColor         "\$01C"
+#Define TBBackColor         "\$01B"
+#Define TBColor0            "\$00\$00"
+#Define TBColor1            "\$11\$11"
+#Define TBColor2            "\$22\$22"
+#Define TBColor3            "\$33\$33"
+#Define TBColor4            "\$44\$44"
+#Define TBColor5            "\$55\$55"
+#Define TBColor6            "\$66\$66"
+#Define TBColor7            "\$77\$77"
+#Define TBColor8            "\$88\$88"
+#Define TBColor9            "\$99\$99"
+#Define TBColorA            "\$AA\$AA"
+#Define TBColorB            "\$BB\$BB"
+#Define TBColorC            "\$CC\$CC"
+#Define TBColorD            "\$DD\$DD"
+#Define TBColorE            "\$EE\$EE"
+#Define TBColorF            "\$FF\$FF"
+#Define TBLeftJust          "\$01J\$00\$00"
+#Define TBCenterJust        "\$01J\$01\$00"
+#Define TBRightJust         "\$01J\$FF\$FF"
+#Define TBFillJust          "\$01J\$02\$00"
+#Define TBLeftMargin        "\$01L"
+#Define TBRightMargin       "\$01M"
+#Define TBSpExtra           "\$01X"
+#Define TBEndOfLine         "\n"
+#Define TBFont              "\$01F"
+#Define TBShaston           "\$FE\$FF"
+#Define TBNewYork           "\$02\$00"
+#Define TBGeneva            "\$03\$00"
+#Define TBVenice            "\$05\$00"
+#Define TBTimes             "\$14\$00"
+#Define TBHelvetica         "\$15\$00"
+#Define TBCourier           "\$16\$00"
+
+
+/*********************************************************/
+/* CDEVs
+/*********************************************************/
+
+/*----------- Definitions for CDEVFlags word -----------*/
+
+#define wantMachine         $0001
+#define wantBoot            $0002
+#define wantShutDown        $0004
+#define wantInit            $0008
+#define wantClose           $0010
+#define wantEvents          $0020
+#define wantCreate          $0040
+#define wantAbout           $0080
+#define wantRect            $0100
+#define wantHit             $0200
+#define wantRun             $0400
+#define wantEdit            $0800
+#define wantReserved2       $1000
+#define wantReserved3       $2000
+#define updateSSfromBRAM    $4000
+#define CanBeInActive       $8000
+
+#define word integer
+
+/* equates for rBundle */
+
+#define LaunchThis          $1
+#define DontLaunch          $0
+
+#define reads               $10
+#define writes              $20
+#define native              $40
+#define creator             $80
+
+#define Filetype            $1
+#define AuxType             $2
+#define Filename            $4
+#define CreateDateTime      $8
+#define ModDateTime         $10
+#define LocalAccess         $20
+#define NetworkAccess       $40
+#define Where               $80
+#define HFSFileType         $100
+#define HFSCreator          $200
+#define OptionList          $400
+#define EOF                 $800
+
+#define CompareAll      $00FF       // compareSpec operators 
+#define CompareSecond   $0001
+#define CompareMinute   $0002
+#define CompareHour     $0004
+#define CompareYear     $0008
+#define CompareDay      $0010
+#define CompareMonth    $0020
+#define CompareWeekday  $0080
+#define lessThan        $0000
+#define equal           $0100
+#define greater         $0200
+#define not             $0400
+                                        
+// Equates for the country code of an rVersion resource
+
+#define Region      verUS, verFrance, verBritain, verGermany,           \
+                    verItaly, verNetherlands, verBelgiumLux,            \
+                    verFrBelgiumLux = 6, verSweden, verSpain,           \
+                    verDenmark, verPortugal, verFrCanada, verNorway,    \
+                    verIsrael, verJapan, verAustralia, verArabia,       \
+                    verArabic=16, verFinland, verFrSwiss, verGrSwiss,   \
+                    verGreece, verIceland, verMalta, verCyprus,         \
+                    verTurkey, verYugoslavia, verYugoCroatian = 25,     \
+                    verIndia = 33, verIndiaHindi = 33, verPakistan,     \
+                    verLithuania = 41, verPoland, verHungary,           \
+                    verEstonia, verLatvia, verLapland, verFaeroeIsl,    \
+                    verIran, verRussia, verIreland = 50, verKorea,      \
+                    verChina, verTaiwan, verThailand                    \
+
+
+/*********************************************************/
+/* The Resource Definitions.
+/*********************************************************/
+
+/*---------------------- rWindColor --------------------*/
+type rWindColor {
+        unsigned hex word;          /* frameColor */
+        unsigned hex word;          /* titleColor */
+        unsigned hex word;          /* tbarColor */
+        unsigned hex word;          /* growColor */
+        unsigned hex word;          /* infoColor */
+};
+
+/*---------------------- rPString ----------------------*/
+type rPString {
+        pstring;                    /* String */
+};
+
+/*---------------------- rCString ----------------------*/
+type rCString {
+        cstring;                    /* String */
+};
+
+/*---------------------- rC1InputString ----------------------*/
+type rC1InputString {
+        wstring;                    /* String */
+};
+
+/*--------------------- rC1OutputString ----------------*/
+type rC1OutputString {
+        unsigned hex word;          /* buffer length */
+        wstring;
+};
+
+/*---------------------- rWString ----------------------*/
+type rWString {
+        wstring;                    /* String */
+};
+
+/*---------------------- rStringList -------------------*/
+type rStringList {
+        integer = $$Countof(StringArray);
+        array StringArray {
+                pstring;            /* String */
+        };
+};
+
+/*---------------------- rResName ----------------------*/
+type rResName {
+    _mybase_ integer;           /* name holder format */
+    longint = $$Countof(NAMES); /* name count */
+        array NAMES {
+            hex longint;        /* ID of the resource */
+            pstring;            /* Name of the resource */
+        };
+};
+
+/*---------------------- rCDEVCode ---------------------*/
+type rCDEVCode {
+        wide array {
+            byte;
+            };
+};
+
+/*--------------------- rCodeResource ------------------*/
+type rCodeResource {
+        wide array {
+                byte;
+                };
+};
+
+/*---------------------- rCtlDefProc -------------------*/
+type rCtlDefProc {
+        wide array {
+            hex byte;
+            };
+};
+
+/*---------------------- rControlList ------------------*/
+type rControlList {
+        array {
+            _mybase_ longint;
+            };
+#if Rez == 1
+// ensures a null array terminator when Rezzing, but
+// allows DeRez to recognize the structure properly.
+            longint = 0;
+#endif
+};
+
+/*------------------------ rText ----------------------*/
+type rText {
+        string;
+};
+
+/*--------------------- rTextBlock --------------------*/
+type rTextBlock {
+        string;
+};
+
+/*------------------------ rTextForLETextBox2 ---------*/
+type rTextForLETextBox2 {
+        string;
+};
+
+/*----------------------- rAlertString ----------------*/
+type rAlertString {
+        string;
+};
+
+/*----------------------- rErrorString ----------------*/
+type rErrorString {
+        string;
+};
+
+/*-------------------- rWindParam1 --------------------*/
+type rWindParam1 {
+        integer = $50;              /*length of parameter list, should be $50*/
+        _mybase_ integer;           /* wFrameBits */
+        _mybase_ longint;           /* wTitle */
+        _mybase_ longint;           /* wRefCon */
+        rect;                       /* ZoomRect */
+        _mybase_ longint;           /* wColor ID */
+        point;                      /* Origin */
+        point;                      /* data size */
+        point;                      /* max height-width */
+        point;                      /* scroll ver hors */
+        point;                      /* page vers horiz */
+        _mybase_ longint;           /* winfoRefcon */
+        integer;                    /* wInfoHeight */
+        fill long[3];               /* wFrameDefProc,wInfoDefProc,wContDefProc */
+        rect;                       /* wposition */
+        longint behind=0,infront=-1;/* wPlane */
+        _mybase_ longint;           /* wStorage */
+        _mybase_ integer;           /* wInVerb */
+};
+
+/*---------------------- rWindParam2 ---------------------*/
+type rWindParam2 {
+        _mybase_ integer;           /* param id */
+        unsigned longint = nil;     /* nil */
+        wide array {
+            hex byte;       /* defined by window def proc */
+            };
+};
+
+/*---------------------- rSoundSample --------------------*/
+type rSoundSample {
+        integer;                    /* format */
+        integer;                    /* wave size */
+        hex integer;                /* rel pitch */
+        integer;                    /* flags */
+        unsigned integer;           /* sample rate */
+        hex string;                 /* raw 8 bit sound data */
+};
+
+/*---------------------- rFSequence --------------------*/
+type rFSequence {
+        _mybase_ integer;           /* format */
+        _mybase_ integer;           /* tempo */
+        _mybase_ integer;           /* Tracks Used (0-14) */
+        integer = $$Countof(Tracks);
+        wide array Tracks {
+            longint;
+            };
+        wide array {
+            longint;                /* 4 byte sequence items */
+            };
+};
+
+/*---------------------- rCursor ----------------------*/
+type rCursor {
+    height:
+        hex integer;                                // height
+    width:
+        hex integer;                                // width
+        hex string[2*$$Word(height)*$$Word(width)]; // image
+        hex string[2*$$Word(height)*$$Word(width)]; // mask
+        hex integer;                                // HotY
+        hex integer;                                // HotX
+        hex integer;                                // Cursor ID
+        hex longint = 0;                            // filler
+        hex longint = 0;                            // filler
+};
+
+/*---------------------- rTERuler --------------------*/
+type rTERuler {
+        integer;                    /* left margin */
+        integer;                    /* left indent */
+        integer;                    /* right margin */
+        integer leftJust,
+                centerJust,
+                fullJust,
+                rightJust = -1;     /* just */
+        integer;                    /* extra line spacing */
+        integer;                    /* flags */
+        longint;                    /* user data */
+        switch {                    // tab type
+            case NoTabRuler:
+                key integer = 0;
+            
+            case RegularTabRuler:
+                key integer = 1;
+                integer;            // tab interval (in pixels)
+                hex integer = -1;   // fixes a known bug
+            
+            case AbsoluteTabRuler:
+                key integer = 2;
+                wide array TabStops {
+                    integer = 0;    // tabKind
+                    integer;        // tabPosition (in pixels)
+                };
+                hex integer = -1;   // tab terminator
+        };
+};
+
+/*------------------------ rTwoRect ----------------------*/
+type rTwoRects {
+        rect;                       /* rect 1 */
+        rect;                       /* rect 2 */
+};
+
+/*----------------------- rCDEVFlags ---------------------*/
+type rCDEVFlags {
+        _mybase_ word;              /* flags word */
+        byte;                       /* enabled */
+        byte;                       /* version */
+        byte;                       /* machine */
+        byte;                       /* reserved */
+        rect;                       /* data rectangle */
+        pstring[15];                /* CDEV name */
+        pstring[32];                /* author name */
+        pstring[8];                 /* version name */
+};
+
+
+/*-------------------------- rIcon -----------------------*/
+type rIcon {
+        hex integer;                /* Icon Type bit 15  1 = color, 0 = mono */
+image:
+        integer = (Mask-Image)/8 - 6;/* size of icon data in bytes */
+        integer;                    /* height of icon in pixels */
+        integer;                    /* width of icon in pixels */
+        hex string [$$Word(image)]; /* icon image */
+mask:
+        hex string;                 /* icon mask */
+};
+
+
+
+/* ----------------------- rMenuBar -------------------------*/
+type rMenuBar {
+    integer = 0;                    /* version must be zero */
+    _mybase_ integer = 0x8000;      /* the following refs are all menu resID's */
+    array {
+        _mybase_ longint;           /* menu template ID list */
+        };
+#if Rez == 1
+// ensures a null array terminator when Rezzing, but
+// allows DeRez to recognize the structure properly
+    longint = 0;
+#endif
+};
+
+/*------------------------ rMenu ----------------------------*/
+type rMenu {
+    integer = 0;                    /* version must be zero */
+    _mybase_ integer;               /* menu ID */
+    _mybase_ integer;               /* flags */
+    _mybase_ longint;               /* menu title ref */
+    array {
+        _mybase_ longint;           /* menu item list */
+        };
+#if Rez == 1
+// ensures a null array terminator when Rezzing, but
+// allows DeRez to recognize the structure properly
+    longint = 0;                    /* terminating item type */
+#endif
+};
+
+/*------------------------ rMenuItem -----------------------*/
+type rMenuItem {
+    integer = 0;                    /* version must be zero */
+    _mybase_ integer;               /* item ID */
+    char;                           /* item char */
+    char;                           /* alt char */
+    _mybase_ integer;               /* item check */
+    _mybase_ integer;               /* flags */
+    _mybase_ longint;               /* item titleref */
+};
+
+/*---------------------- rToolStartup ---------------------*/
+type rToolStartup {
+    integer = 0;                        /* flags must be zero */
+    _mybase_ Integer mode320 = 0,mode640 = $80; /* mode to start quickdraw */
+    Integer = 0;
+    Longint = 0;
+    integer = $$Countof(TOOLRECS);      /* number of tools */
+        array TOOLRECS {
+            _mybase_ Integer;           /* ToolNumber */
+            _mybase_ Integer;           /* version */
+        };
+};
+
+
+/*------------------------ rListRef -----------------------*/
+type rListRef {
+    Array {
+            _mybase_ longint;                   /* Item Ref */
+            bitstring[6] memSelected = 0x20,    /* ItemFlags*/
+                         memDisabled = 0x10,
+                         memNormal = 0;
+            bitstring[2] = 2;
+           };
+};
+
+/*---------------------- rItemStruct --------------------*/
+
+type rItemStruct {
+        _mybase_ integer;       /* ItemFlag2 */
+        _mybase_ longint;       /* ItemTitleRef */
+        _mybase_ longint;       /* ItemIconRef */
+};
+
+#define KeyEquiv  array[1]{ char; char; _mybase_ word; _mybase_ word; }
+
+/*------------------------ rControlTemplate ---------------*/
+type rControlTemplate {
+        integer = 3+$$optionalcount (Fields);/* pCount must be at least 6 */
+        _mybase_ longint;                   /* Application defined ID */
+        rect;                               /* controls bounding rectangle */
+        switch {
+
+        case dataFieldControl:              /* AV 202005 */
+	    key longint = 0x00000001;       /* procRef */
+            optional Fields {
+                _mybase_ integer;           /* flags */
+                _mybase_ integer;           /* more flags */
+                _mybase_ longint;           /* refCon */
+                _mybase_ longint;           /* dataListRef */
+                EightWords;                 /* 8 field values */
+            };                              /* end of AV 202005 */
+
+        case SimpleButtonControl:
+            key longint = 0x80000000;       /* procRef */
+            optional Fields {
+                _mybase_ integer;           /* flags */
+                _mybase_ integer;           /* more flags */
+                _mybase_ longint;           /* refcon */
+                _mybase_ longint;           /* Title Ref */
+                _mybase_ longint;           /* color table ref */
+                KeyEquiv;
+            };
+
+        case CheckControl:
+            key longint = 0x82000000;       /* procRef */
+            optional Fields {
+                _mybase_ integer;           /* flags */
+                _mybase_ integer;           /* more flags */
+                _mybase_ longint;           /* refcon */
+                _mybase_ longint;           /* Title Ref */
+                integer;                    /* initial value */
+                _mybase_ longint;           /* color table ref */
+                KeyEquiv;
+            };
+
+        case RadioControl:
+                key longint = 0x84000000;   /* procRef */
+            optional Fields {
+                _mybase_ integer;           /* flags */
+                _mybase_ integer;           /* more flags */
+                _mybase_ longint;           /* refcon */
+                _mybase_ longint;           /* Title Ref */
+                integer;                    /* initial value */
+                _mybase_ longint;           /* color table ref */
+                KeyEquiv;
+            };
+        case scrollControl:
+            key longint = 0x86000000;       /* procRef */
+            optional Fields {
+                _mybase_ integer;           /* flags */
+                _mybase_ integer;           /* more flags */
+                _mybase_ longint;           /* refcon */
+                integer;                    /* Max Size */
+                integer;                    /* viewSize */
+                integer;                    /* initial value */
+                _mybase_ longint;           /* color table ref */
+            };
+
+        case statTextControl:
+            key longint = 0x81000000;       /* procRef */
+            optional Fields {
+                _mybase_ integer;           /* flags */
+                _mybase_ integer;           /* more flags */
+                _mybase_ longint;           /* refcon */
+                _mybase_ longint;           /* Text Ref */
+                integer;                    /* text size */
+                integer leftJust,
+                        centerJust,
+                        fullJust,
+                        rightJust = -1;     /* text justification */
+            };
+
+        case editLineControl:
+            key longint = 0x83000000;       /* procRef */
+            optional Fields {
+                _mybase_ integer;           /* flags */
+                _mybase_ integer;           /* more flags */
+                _mybase_ longint;           /* refcon */
+                integer;                    /* Max Size */
+                _mybase_ longint;           /* resource ID of the text */
+                integer;                    /* password character - 6.0 */
+            };
+
+        case PopUpControl:
+            key longint = 0x87000000;       /* procRef */
+            optional Fields {
+                _mybase_ integer;           /* flags */
+                _mybase_ integer;           /* more flags */
+                _mybase_ longint;           /* refcon */
+                integer;                    /* Title Width */
+                _mybase_ longint;           /* menu Ref */
+                integer;                    /* Initial Value */
+                _mybase_ longint;           /* Color table ref */
+            };
+
+        case ListControl:
+            key longint = 0x89000000;       /* procRef */
+            optional Fields {
+                _mybase_ integer;           /* flags */
+                _mybase_ integer;           /* more flags */
+                _mybase_ longint;           /* refcon */
+                integer;                    /* list size */
+                integer;                    /* List View */
+                _mybase_ integer;           /* List Type */
+                integer;                    /* List Start */
+                longint =0 ;                /* member drawing routine */
+                integer;                    /* ListMemHeight */
+                integer;                    /* List Mem Size */
+                _mybase_ longint;           /* List Ref */
+                _mybase_ longint;           /* Color Ref */
+            };
+
+        case growControl:
+            key longint = 0x88000000;       /* procRef */
+            optional Fields {
+                _mybase_ integer;           /* flags */
+                _mybase_ integer;           /* more flags */
+                _mybase_ longint;           /* refcon */
+                _mybase_ longint;           /* color table ref */
+            };
+
+        case PictureControl:
+            key longint = 0x8D000000;       /* procRef */
+            optional Fields {
+                _mybase_ integer;           /* flags */
+                _mybase_ integer;           /* more flags */
+                _mybase_ longint;           /* refcon */
+                _mybase_ longint;           /* picture ref */
+            };
+
+        case editTextControl:
+            key longint = 0x85000000;       /* procRef */
+            optional Fields {
+                _mybase_ integer;           /* flags */
+                _mybase_ integer;           /* more flags */
+                _mybase_ longint;           /* refcon */
+                _mybase_ longint;           /* text flags */
+                rect;                       /* indent rect */
+                _mybase_ longint;           /* vert bar */
+                integer;                    /* vert Amount */
+                _mybase_ longint;           /* hor bar */
+                integer;                    /* hor amount */
+                _mybase_ longint;           /* style ref */
+                _mybase_ integer;           /* text descriptor */
+                _mybase_ longint;           /* text ref */
+                longint;                    /* text length */
+                longint;                    /* max chars */
+                longint;                    /* max lines */
+                integer;                    /* Max chars per line */
+                integer;                    /* max height */
+                _mybase_ longint;           /* color ref */
+                _mybase_ integer;           /* drawing mode */
+                _mybase_ LongInt;           /* Filter Proc Ptr */
+            };
+
+        case IconButtonControl:
+            key longint = 0x07FF0001;       /* procRef */
+            optional Fields {
+                _mybase_ integer;           /* flags */
+                _mybase_ integer;           /* more flags */
+                _mybase_ longint;           /* refcon */
+                _mybase_ longint;           /* Icon Ref */
+                _mybase_ longint;           /* Title Ref */
+                _mybase_ longint;           /* color table ref */
+                _mybase_ integer;           /* Display mode */
+                KeyEquiv;
+            };
+
+        case rectangleControl:
+            key longint = 0x87FF0003;       /* procRef */
+            optional Fields {
+                _mybase_ integer;           /* flags */
+                _mybase_ integer;           /* more flags */
+                _mybase_ longint;           /* refcon */
+                integer;                    /* pen height */
+                integer;                    /* pen width */
+                hex string[8];              /* penmask */
+                hex string[32];             /* penpattern */
+            };
+
+        case thermometerControl:
+            key longint = 0x87FF0002;       /* procRef */
+            optional Fields {
+                _mybase_ integer;           /* flags */
+                _mybase_ integer;           /* more flags */
+                _mybase_ longint;           /* refcon */
+                integer;                    /* value for pos of mercury */
+                integer;                    /* scale for mercury */
+                _mybase_ longint;           /* color table reference */
+            };
+
+        };
+};
+
+
+/*----------------------- rStyleBlock ----------------------*/
+type rStyleBlock {
+    integer = 0;                    /* version number */
+    switch {
+       case NoTabRuler:
+           longint = 18;            /* size of ruler record */
+           integer;                 /* leftMargin */
+           integer;                 /* leftIndent */
+           integer;                 /* rightMargin */
+           integer leftJust,
+                   centerJust,
+                   fullJust,
+                   rightJust = -1;  /* just */
+           integer;                 /* extraLS */
+           integer = 0;             /* flags */
+           hex longint;             /* userData */
+           key integer = 0;
+
+       case RegularTabRuler:
+           longint = 20;            /* size of ruler record */
+           integer;                 /* leftMargin */
+           integer;                 /* leftIndent */
+           integer;                 /* rightMargin */
+           integer leftJust,
+                   centerJust,
+                   fullJust,
+                   rightJust = -1;  /* just */
+           integer;                 /* extraLS */
+           integer = 0;             /* flags */
+           hex longint;             /* userData */
+           key integer = 1;
+           integer;                 /* tab interval */
+//         hex integer = $FFFF;     /* see Tech Note #92 */
+
+       case AbsoluteTabRuler:
+            longint = 22+4*$$Countof(TabStops); /* size of ruler record */
+            integer;                /* leftMargin */
+            integer;                /* leftIndent */
+            integer;                /* rightMargin */
+            integer leftJust,
+                    centerJust,
+                    fullJust,
+                    rightJust = -1; /* just */
+            integer;                /* extraLS */
+            integer = 0;            /* flags */
+            hex longint;            /* userData */
+            key integer = 2;
+            wide array TabStops {
+               integer = 0;         /* tabKind */
+               integer;             /* absolute tab stop */
+            };
+            hex integer = $ffff;    /* tab stop array terminator */
+            hex integer = $ffff;    /* AbsoluteTabRuler terminator 4-Mar-92 DAL */ 
+    };
+
+    longint = $$Countof(StyleLists)*12; /* size of StyleLists array */
+    wide array StyleLists {
+        hex longint
+            courier10   = $0A000016,
+            courier12   = $0C000016,
+            geneva10    = $0A000003,
+            geneva12    = $0C000003,
+            venice14    = $0E000005,
+            shaston8    = $0800fffe,
+            shaston16   = $1000fffe;    /* fontID */
+        hex integer
+            black       = $0000,
+            blue        = $1111,
+            olive       = $2222,
+            gray1       = $3333,
+            red         = $4444,
+            purple      = $5555,
+            orange      = $6666,
+            salmon      = $7777,
+            green       = $8888,
+            turquoise   = $9999,
+            brightGreen = $aaaa,
+            dullGreen   = $bbbb,
+            gray2       = $cccc,
+            lightBlue   = $dddd,
+            yellow      = $eeee,
+            white       = $ffff;    /* foreColor */
+        hex integer
+            black       = $0000,
+            blue        = $1111,
+            olive       = $2222,
+            gray1       = $3333,
+            red         = $4444,
+            purple      = $5555,
+            orange      = $6666,
+            salmon      = $7777,
+            green       = $8888,
+            turquoise   = $9999,
+            brightGreen = $aaaa,
+            dullGreen   = $bbbb,
+            gray2       = $cccc,
+            lightBlue   = $dddd,
+            yellow      = $eeee,
+            white       = $ffff;    /* backColor */
+        hex longint;                /* userData */
+    };
+
+   longint = $$Countof(StyleItems); /* number of StyleItem records */
+   wide array StyleItems {
+       longint;                     /* length of style run */
+       longint;                     /* offset into StyleLists array */
+   };
+};
+
+/*------------------- rVersion ------------------*/
+type rVersion {
+    ReverseBytes {
+        hex byte;                                       // Major revision in BCD
+        hex bitstring[4];                               // Minor vevision in BCD
+        hex bitstring[4];                               // Bug version
+        hex byte    development = 0x20,                 // Release stage
+                    alpha = 0x40,
+                    beta = 0x60,
+                    final = 0x80, /* or */ release = 0xA0;
+        hex byte;                                       // Non-final release #
+    };
+    integer     Region;                                 // Region code
+    pstring;                                            // Short version number
+    pstring;                                            // Long version number
+};
+
+/*------------------- rComment ------------------*/
+type rComment {
+    string;
+};
+
+/*------------------------------ rBundle ----------------------------------------*/
+type rBundle {
+start:
+        integer = 0;                /* version must be zero                     */
+        integer = (list-start)/8;   /* offset to document list                  */
+        longint;                    /* rIcon ID for application or NIL          */
+        longint;                    /* rBundle ID of this rBundle               */
+        longint = 0;                /* space for handle of vol of this rBundle  */
+list:
+        integer = $$countOf(OneDocs);
+        array OneDocs {
+startOneDoc:
+            integer = (end[$$ArrayIndex(OneDocs)]-startOneDoc[$$ArrayIndex(OneDocs)])/8;
+                                                /* size in bytes of this structure  */
+
+            integer = (matchFlags[$$ArrayIndex(OneDocs)]-startOneDoc[$$ArrayIndex(OneDocs)])/8;
+                                                /* offset to MatchFlags field from */
+
+            integer = $$optionalCount(Results);
+                                                /* pCount for results           */
+            optional Results {
+                integer;            /* bit 0 = launch this = boolean            */
+                                    /* bits 4-7 = voting clout                  */
+                array [1] {
+                    longint;        /* rFinderPath ID for this document         */
+                    longint = 0;    /* space for rFinderPath handle             */
+                    };
+                array [1] {
+                    longint;        /* rIcon ID for large icon for this doc     */
+                    longint = 0;    /* space for rIcon handle                   */
+                    };
+                array [1] {
+                    longint;        /* rIcon ID for small icon for document     */
+                    longint = 0;    /* space for rIcon handle                   */
+                    };
+                pstring;            /* string to describe this type of document */
+            };
+
+matchFlags:
+            longint;                /* actually, just bits to say what follows so that
+                                       andy doesn't have to traverse the following fields
+                                       trying to determine what's there         */
+
+/*------------------- first field -----------------------------*/
+
+                switch {
+
+                case MatchFileType:
+                    key integer = 0x1;
+                    array [1] {
+                        integer;            /* filetype to match            */
+                    };
+
+                case empty:
+                    key integer = 0x0;
+                };
+
+/*--------------------- second field -------------------------*/
+
+                switch {
+
+                case MatchAuxType:
+                    key integer = 0x2;
+                    array [1] {
+                        longint;            /* auxtype mask                 */
+                        longint;            /* auxtype to match             */
+
+                    };
+
+                case empty:
+                    key integer = 0x0;
+
+                };
+
+/*--------------------- third field -------------------------*/
+
+                switch {
+
+                case MatchFileName:
+                    key integer = 0x3;
+                    array [1] {
+                        pstring;                    /* filename string              */
+                    };
+
+                case empty:
+                    key integer = 0x0;
+
+                };
+
+/*--------------------- fourth field -------------------------*/
+
+                switch {
+
+                case MatchCreateDate:
+                    key integer = 0x4;
+                    array [1] {
+                        integer;                            /* compare how          *   
+                        hex string [8];                     /* the date and time    */
+                    };
+
+                case empty:
+                    key integer = 0x0;
+
+                };
+
+
+/*--------------------- fifth field -------------------------*/
+
+                switch {
+
+                case MatchModDate:
+                    key integer = 0x5;
+                    array [1] {
+                        integer;                            /* compare how          */
+                        hex string [8];                     /* the date and time    */
+                    };
+
+                case empty:
+                    key integer = 0x0;
+
+                };
+
+
+/*--------------------- sixth field -------------------------*/
+
+                switch {
+
+                case MatchLocalAccess:
+                    key integer = 0x6;
+                    array [1] {
+                        integer;                    /* access word mask             */
+                        integer;                    /* access word comparison value */
+                    };
+
+                case empty:
+                    key integer = 0x0;
+
+                };
+
+/*--------------------- seventh field -------------------------*/
+
+                switch {
+
+                case MatchNetworkAccess:
+                    key integer = 0x7;
+                    array [1] {
+                        longint;                    /* access word mask             */
+                        longint;                    /* access word comparison value */
+                    };
+
+                case empty:
+                    key integer = 0x0;
+
+                };
+
+/*--------------------- eighth field -------------------------*/
+
+                switch {
+
+                case MatchExtended:
+                    key integer = 0x8;
+                    array [1] {
+                        integer;                    /* mask for bits                    */
+                        integer;                    /* is the file extended? (high bit) */
+                    };
+
+                case empty:
+                    key integer = 0x0;
+
+                };
+
+/*--------------------- ninth field -------------------------*/
+
+                switch {
+
+                case MatchHFSFileType:
+                    key integer = 0x9;
+                    array [1] {
+                        longint;                    /* hfs filetype                 */
+                    };
+
+                case empty:
+                    key integer = 0x0;
+
+                };
+
+
+/*--------------------- tenth field -------------------------*/
+
+                switch {
+
+                case MatchHFSCreator:
+                    key integer = 0xA;
+                    array [1] {
+                        longint;                    /* hfs creator type             */
+                    };
+
+                case empty:
+                    key integer = 0x0;
+
+                };
+
+/*--------------------- eleventh field -------------------------*/
+
+                switch {
+
+                case MatchOptionList:
+                    key integer = 0xB;
+                    array [1] {
+                        integer = $$countof(GroupOptions);
+                        array GroupOptions {
+                            integer = $$countof(filesystems);
+                            array filesystems {
+                                integer;            /* file sys ID  */
+                            };
+                        integer;                /* offset into option_list              */
+                        longint;                /* mask for long fetched from option_list */
+                        longint;                /* comparison value for the masked long */
+                        bitstring[16];          /* comparison specification             */
+                        };
+                    };
+
+                case empty:
+                    key integer = 0x0;
+
+                };
+
+/*--------------------- twelfth field -------------------------*/
+
+                switch {
+
+                case MatchEOF:
+                    key integer = 0xC;
+                    array [1] {
+                        integer;                        /* compare how  */
+                        longint;                        /* the eof      */
+                    };
+
+                case empty:
+                    key integer = 0x0;
+
+                };
+
+/*------------------------------------------------------------*/
+
+end:
+        };
+};
+
+/*------------------------------ rFinderPath ----------------------------------------*/
+type rFinderPath {
+start:
+        integer = 0;                /* version must be zero                     */
+        integer = (path-start)/8;   /* offset to pathname                       */
+        integer = $$optionalCount(stuff);
+        optional Stuff {
+                array [1] {
+                longint;            /* rVersion ID of the owner app             */
+                longint = 0;        /* space for rVersion handle of owner app   */
+                };
+        };
+path:
+        wstring;                    /* wstring for application pathname         */
+};
+
+/*------------------------------ rRectList ----------------------------------------*/
+type rRectList {
+        integer = $$CountOf(RectArray);
+        array RectArray {
+            Rect;
+            };
+};
+
+/*------------------------------ rTaggedStrings --------------------------------------*/
+
+type rTaggedStrings {
+        integer = $$Countof(StringArray);
+        array StringArray {
+                hex integer;        /* Key integer */
+                pstring;            /* String */
+        };
+};
+
+/*------------------------------ rPatternList ----------------------------------------*/
+
+type rPatternList {
+    array {
+        array[32] {
+            hex byte;
+        };
+    };
+};
+
+/*------------------------------ rPrintRecord ----------------------------------------*/
+
+type rPrintRecord {
+    array[160] {
+        hex byte;
+    };
+};
+
+/*------------------------------ rFont -----------------------------------------------*/
+
+type rFont {
+    hex string;
+};

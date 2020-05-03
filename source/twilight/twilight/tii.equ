@@ -1,0 +1,22 @@
+
+* parts of e16.event...
+nullEvt GEQU $0000
+mouseDownEvt GEQU $0001
+mouseUpEvt GEQU $0002
+keyDownEvt GEQU $0003
+autoKeyEvt GEQU $0005
+updateEvt GEQU $0006
+activateEvt GEQU $0008
+switchEvt GEQU $0009
+deskAccEvt GEQU $000A
+mDownMask GEQU $0002
+mUpMask GEQU $0004
+keyDownMask GEQU $0008
+autoKeyMask GEQU $0020
+updateMask GEQU $0040
+activeMask GEQU $0100
+switchMask GEQU $0200
+everyEvent GEQU $FFFF
+owhat GEQU 0
+omessage GEQU 2
+appleKey GEQU $0100 ; set if Apple key down

@@ -1,0 +1,81 @@
+; File:  E16.Locator
+;
+;
+; Copyright Apple Computer, Inc. 1986-92
+; All Rights Reserved
+;
+;
+toolNotFoundErr GEQU $0001
+funcNotFoundErr GEQU $0002
+sysStrtMtErr GEQU $0100 ; can't mount system startup volume
+tlBadRecFlag GEQU $0103 ; StartStop record invalid
+tlCantLoad GEQU $0104 ; A tool cannot be loaded
+toolVersionErr GEQU $0110
+messNotFoundErr GEQU $0111
+messageOvfl GEQU $0112 ; No message numbers available
+nameTooLong GEQU $0113 ; Message name too long
+reqNotAccepted GEQU $0120 ;SendRequest request not accepted
+duplicateName GEQU $0121 ;duplicate name for AcceptRequests
+invalidSendRequest GEQU $0122 ;bad combo of target and sendHow
+
+fileInfoType GEQU $0001 ; Message type parameter
+addMessage GEQU $0001 ; action parameter
+getMessage GEQU $0002 ; action parameter
+deleteMessage GEQU $0003 ; action parameter
+fileInfoTypeGS GEQU $0011 ; Message Type parameter
+
+; GetMsgHandle flags values
+gmhByIndex GEQU 0
+gmhByType GEQU 1
+gmhByName GEQU 2
+
+; SendRequest/AcceptRequests codes
+systemSaysBeep GEQU $0001 ;used by SysBeep2
+systemSaysUnknownDisk GEQU $0002 ;used by HandleDiskInsert
+srqGoAway GEQU $0003
+srqGetrSoundSample GEQU $0004
+srqSynchronize GEQU $0005
+srqPlayrSoundSample GEQU $0006
+systemSaysNewDeskMsg GEQU $0008
+systemSaysEjectingDev GEQU $000E
+systemSaysDeskStartUp GEQU $0502
+systemSaysDeskShutDown GEQU $0503
+systemSaysFixedAppleMenu GEQU $051E
+systemSaysMenuKey GEQU $0F01
+; AV 202005
+systemSaysForceUndim GEQU $000D
+
+; SendRequest sendHow values
+stopAfterOne GEQU $8000
+sendToAll GEQU 0
+sendToName GEQU 1
+sendToUserID GEQU 2
+
+; StartUpTools flag bits
+leaveScreenClean GEQU $0004
+openResAsAllowed GEQU $0008
+noResourceMgr GEQU $0010 ;for ShutDownTools, too
+
+mvReturn GEQU $0001 ; like ok for dialogs
+mvEscape GEQU $0002 ; like cancel for dialogs
+sysTool GEQU $0000
+userTool GEQU $8000
+
+; offset constants for MessageRec and MessageRecGS
+omessageNext GEQU 0
+omessageType GEQU 4
+omessageData GEQU 6
+omessagePrintFlag GEQU 6
+ofileNames GEQU 8
+
+; offset constants for ToolSpec
+otoolNumber GEQU 0
+ominVersion GEQU 2
+
+; offset constants for StartStopRecord
+oflags GEQU 0
+ovideoMode GEQU 2
+oresFileID GEQU 4
+odPageHandle GEQU 6
+onumTools GEQU 10
+otheTools GEQU 12

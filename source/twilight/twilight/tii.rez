@@ -1,0 +1,3327 @@
+
+#include "Types.Rez"
+
+// --- type rT2Setup1 ($0001) defines
+#define SwapTimeRez		1
+#define TimeRez			2
+#define OptionsRez	          3
+#define CornersRez			4
+#define Options2Rez          5
+// --- type rDataList ($1986) defines
+#define blankDelayDataList 	$07FEFFFF /* no rname name yet */
+#define swapDelayDataList	$07FEFFFE	/* ditto */
+// --- type rTaggedStrings ($802E) defines
+#define field1Strings		$07FEFFFF
+#define minStrings			$07FEFFFE
+#define secStrings			$07FEFFFD
+// --- type rWString ($8022) defines
+#define Module_Folder		1
+#define Setup_Path			2
+#define T2_module_path		$07FEFFFF
+// --- type rIcon ($8001) defines
+#define T2_Icon			    1
+#define T2_icon_small	$07FEFFFF
+// --- type rControlList ($8003) defines
+#define T2_About_CtlLst		     $07FEFFFF
+#define T2_Setup_CtlLst		     $07FEFFFE
+#define T2Setup_Corner_CtlLst     $07FEFFFD
+#define T2Setup_Options_CtlLst	$07FEFFFC
+#define T2_Wait_CtlLst			$07FEFFFB
+#define T2Setup_Options2_CtlLst	$07FEFFFA
+#define Opt2EnterPassCtlLst 		$07FEFFF9
+#define PassCtlLst 			$07FEFFF8
+#define T2_CDev_CtlLst		    	1
+// --- type rControlTemplate ($8004) defines
+#define T2BlankNowCtl	    $07FEFFFF
+#define T2SetupCtl		    $07FEFFFE
+#define T2StrCtl 		    $07FEFFFD
+#define LR_Popup 		    $07FEFFFC
+#define UR_Popup 		    $07FEFFFB
+#define LL_Popup 		    $07FEFFFA
+#define UL_Popup 		    $07FEFFF9
+#define Corners_Rect		$07FEFFF8
+#define CornersStrCtl		$07FEFFF7
+#define OptWarningAlertsCtl $07FEFFF6
+#define T2VerCtl		$07FEFFF5
+#define OptDClickFctnCtl 	$07FEFFF4
+#define OptMouseRestoreDeskCtl $07FEFFF3
+#define T2HelpTECtl		$07FEFFF2
+#define OptNDACtl		    $07FEFFF1
+#define T2ActiveCtl		    $07FEFFF0
+#define OptMenuBoxCtl		    $07FEFFEF
+#define OptCapsLockCtl		    $07FEFFEE
+#define OptMinToBlankStrCtl	    $07FEFFED
+#define OptBlankDelayDFCtl 	$07FEFFEC
+#define T2SetupUpdateCtl        $07FEFFEB
+#define T2GenericCantOpenMsgCtl $07FEFFEA
+#define T2ToggleCtl		$07FEFFE9
+#define T2IconCtl			$07FEFFE8
+#define T2SetupTestCtl		$07FEFFE7
+#define T2PurgeCtl			$07FEFFE6
+#define T2ModuleListCtl      $07FEFFE5
+#define T2AboutModuleCtl     $07FEFFE4
+#define T2AbtModInfoCtl      $07FEFFE3
+#define T2AbtModLineCtl      $07FEFFE2
+#define T2StopIcon640Ctl     $07FEFFE1
+#define T2StopIcon320Ctl     $07FEFFE0
+#define T2SetupLineCtl       $07FEFFDF
+#define T2SetupPopupCtl      $07FEFFDE
+#define WaitWaitStrCtl		$07FEFFDD
+#define OptTextBlankPopupCtl $07FEFFDC
+#define OptWatchPopupCtl	$07FEFFDB
+#define OptProhibitSndCtl	$07FEFFDA
+#define OptSysBeepsUnblankCtl $07FEFFD9
+#define OptUseIntelliKeyCtl	$07FEFFD8
+#define OptLowMemoryCtl		$07FEFFD7
+#define WaitThermoCtl		$07FEFFD6
+#define Opt2CurPathStrCtl	$07FEFFD5
+#define Opt2SetPassCtl		$07FEFFD4
+//2.0b4#define Opt2PassProtCtl		$07FEFFD3
+#define Opt2DataFieldTimeCtl	$07FEFFD2
+#define Opt2SwapCtl		$07FEFFD1
+#define Opt2MinutesStrCtl	$07FEFFD0
+#define Opt2SHRCornersActiveCtl $07FEFFCF
+#define Opt2AdvOptionsStrCtl	$07FEFFCE
+#define Opt2UseDiffPathCtl	$07FEFFCD
+#define Opt2SetPathCtl		$07FEFFCC
+#define PassEnterPassStrCtl 	$07FEFFCB
+#define PassEnterPassCtl 	$07FEFFCA
+#define Opt2SetPassNew2Ctl 	$07FEFFC9
+#define Opt2SetPassNew1Ctl 	$07FEFFC8
+#define Opt2SetPassOldCtl 	$07FEFFC7
+#define Opt2SetPassNewPassStrCtl $07FEFFC6
+#define Opt2SetPassOldPassStrCtl $07FEFFC5
+#define Opt2SetPassChangeStrCtl $07FEFFC4
+#define Opt2CancelCtl	 	$07FEFFC3
+#define Opt2OKCtl 			$07FEFFC2
+#define Opt2SetPassLineCtl $07FEFFC1
+// --- type rPString ($8006) defines
+#define T2CornerMItemStr 	$07FEFFFF
+#define T2OptionsMItemStr	$07FEFFFE
+#define T2SetupUpdateStr 	$07FEFFFD
+#define T2BlankNowStr		$07FEFFFC
+#define T2SetupCtlStr		$07FEFFFB
+#define T2AboutModuleStr 	$07FEFFFA
+#define T2SetupStr			$07FEFFF9
+#define LRStr				$07FEFFF8
+#define URStr				$07FEFFF7
+#define LLStr				$07FEFFF6
+#define BkgBlankNowStr		$07FEFFF5
+#define ULStr				$07FEFFF4
+#define DontBlankStr		$07FEFFF3
+#define BlankNowStr		$07FEFFF2
+#define DisabledStr		$07FEFFF1
+//#define T2RandomizeCtlStr	$07FEFFF0
+#define OptNDAStr			$07FEFFEF
+#define T2ActiveCtlStr		$07FEFFEE
+#define OptMenuBoxStr		$07FEFFED
+#define OptCapsLockStr		$07FEFFEC
+// #define OptMinToBlankLEStr	$07FEFFEB
+#define OptDClickFctnStr 	$07FEFFEA
+#define OptPreviewMItemStr	$07FEFFE9
+#define OptCloseT2MItemStr	$07FEFFE8
+#define OptTxtScrnBlankStr	$07FEFFE5
+#define OptWatchCursorStr	$07FEFFE6
+#define OptWatchBkgroundBlankStr $07FEFFE7
+#define OptTextOnlyGSOSStr $07FEFFE4
+#define OptSetupModuleStr	$07FEFFE3
+#define OptTextBkgroundBlankStr $07FEFFE2
+#define OptWatchNormalBlankStr $07FEFFE1
+#define OptWarningAlertsStr	$07FEFFE0
+#define OptMouseRestoreStr	$07FEFFDF
+#define OptToggleStr		$07FEFFDE
+#define T2SetupTestStr		$07FEFFDD
+#define T2SetupPopupStr		$07FEFFDC
+#define T2PurgeCtlStr		$07FEFFDB
+#define OptProhibitSndStr	$07FEFFDA
+#define OptSysBeepsUnblankStr $07FEFFD9
+#define OptUseIntelliKeyStr	$07FEFFD8
+#define OptLowMemoryStr		$07FEFFD7
+#define T2ToggleCtlStr		$07FEFFD6
+#define T2Options2MItemStr	$07FEFFD5
+#define Opt2SetItStr		$07FEFFD4
+#define Opt2UseDiffPathStr	$07FEFFD3
+#define Opt2SHRCornActiveStr	$07FEFFD2
+#define Opt2SwapStr		$07FEFFD1
+#define Opt2PassProtStr		$07FEFFD0
+#define OldPassStr 		$07FEFFCF
+#define NewPass1Str 		$07FEFFCE
+#define NewPass2Str 		$07FEFFCD
+#define EnterPassStr 		$07FEFFCC
+#define OKStr 			$07FEFFCB
+#define CancelStr 			$07FEFFCA
+// --- type rMenu ($8009) defines  
+#define T2SetupModuleMenu	$07FEFFFF
+#define UL_Menu			$07FEFFFE
+#define LL_Menu			$07FEFFFD
+#define UR_Menu			$07FEFFFC
+#define LR_Menu			$07FEFFFB
+#define OptDClickFctnMenu	$07FEFFFA
+#define T2SetupTextBlankMenu $07FEFFF9
+#define T2SetupWatchMenu	$07FEFFF8
+// --- type rMenuItem ($800A) defines
+#define T2MenuItem			$07FEFFFF
+#define OptPreviewMItem		$07FEFFFE
+#define OptCloseMItem		$07FEFFFD
+#define T2CornerMItem		$07FEFFFC
+#define T2OptionsMItem		$07FEFFFB
+#define UL_BkgNow_MItem		$07FEFFFA
+#define UL_Now_MItem		$07FEFFF9
+#define UL_Never_MItem		$07FEFFF8
+#define UL_Disabled_MItem	$07FEFFF7
+#define LR_BkgNow_MItem		$07FEFFF6
+#define LR_Now_MItem		$07FEFFF5
+#define LR_Never_MItem		$07FEFFF4
+#define LR_Disabled_MItem	$07FEFFF3
+#define UR_BkgNow_MItem		$07FEFFF2
+#define UR_Now_MItem		$07FEFFF1
+#define UR_Never_MItem		$07FEFFF0
+#define UR_Disabled_MItem	$07FEFFEF
+#define LL_BkgNow_MItem		$07FEFFEE
+#define LL_Now_MItem		$07FEFFED
+#define LL_Never_MItem		$07FEFFEC
+#define LL_Disabled_MItem	$07FEFFEB
+#define TextBlankDisabled_MItem $07FEFFEA
+#define TextBkgroundBlank_MItem $07FEFFE9
+#define TextOnlyGSOS_MItem $07FEFFE8
+#define OptSetupModuleMItem $07FEFFE7
+#define WatchBkgroundBlank_MItem $07FEFFE6
+#define WatchNormalBlank_MItem $07FEFFE5
+#define WatchDontBlank_MItem	$07FEFFE4
+#define OptToggleMItem		$07FEFFE3
+#define T2Options2MItem		$07FEFFE2
+// --- type rTextForLETextBox2 ($800B) defines
+#define T2T2_LText			$07FEFFFF
+#define T2Help_LText		$07FEFFFE
+#define T2Help_EE1_LText	$07FEFFFD
+#define T2AbtModInfo_LText	$07FEFFFC
+#define T2CantGetMemory_LText $07FEFFFB
+#define T2CantStartTools_LText $07FEFFFA
+#define T2CantDoFileStuff_LText $07FEFFF9
+#define Corners_LText		$07FEFFF8
+#define T2WriteProtect_LText	$07FEFFF7
+#define OptMinToBlank_LText	$07FEFFF6
+#define T2CantFindSetup_LText $07FEFFF5
+#define T2Ver_LText		$07FEFFF4
+#define WaitWait_LText		$07FEFFF3
+#define Opt2AdvOptions_LText	$07FEFFF2
+#define Opt2Minutes_LText	$07FEFFF1
+#define Opt2CurPath_LText	$07FEFFF0
+#define Opt2ChangePass_LText $07FEFFEF
+#define Opt2OldPass_LText 	$07FEFFEE
+#define Opt2NewPass_LText 	$07FEFFED
+#define PassEnterPass_LText 	$07FEFFEC
+// --- type rWindParam1 ($800E) defines
+#define T2_About_Module_Window $07FEFFFF
+#define T2_Setup_Window		$07FEFFFE
+#define Temporary_T2_CDev_Window $07FEFFFD
+#define T2_Wait_Window		$07FEFFFC
+#define PassWind 			$07FEFFFB
+#define Opt2EnterPassWind 	$07FEFFFA
+// --- type rWindColor ($8010) defines
+#define T2_Setup_WColor		$07FEFFFF
+// --- type rAlertString ($8015) defines
+#define AlertWarnPrefsNoSave	$07feffff
+//#define AlertCantLoadModule	$07FEFFFE
+#define awCantPurge		$07FEFFFE
+#define AlertUnknownError	$07FEFFFD
+#define AlertOpenError		$07FEFFFC
+#define AlertCloseError		$07FEFFFB
+#define AlertCapsLockError	$07FEFFFA
+#define AlertWarnPrefsNoSave2 $07fefff9
+#define AlertPurgeT2Warning	$07FEFFF8
+#define AlertModuleNoSupportSetup $07FEFFF7
+#define AlertSetup320Error	$07FEFFF6
+#define AlertAbout320Error	$07FEFFF5
+#define AlertInsertT2Disk	$07fefff4
+#define awErrLoadModuleCont	$07fefff3
+#define awErrLoadModuleCancel $07fefff2
+#define awErrMemoryLMM		$07fefff1
+#define Opt2BadOldPassAlert	$07FEFFF0
+#define Opt2BadNewPassAlert	$07FEFFEF
+#define Opt2Pass4LengthAlert	$07FEFFEE
+#define BadPassAlert		$07FEFFED
+#define Opt2ChangePathAlert	$07FEFFEC
+// --- type rCodeResource ($8017) defines
+#define T2_Init			    $07FEFFFF
+// --- type rCDevCode ($8018) defines
+#define Twilight_II_CDev 	    1
+// --- type rCDevFlags ($8019) defines
+#define T2_CDev_Flags		    1
+// --- type rVersion ($8029) defines
+#define T2_Version		    1
+// --- type rCursor ($8027) defines
+#define NoBlank320Cursor	$07FEFFFF
+#define NoBlank640Cursor	$07FEFFFE
+// --- type rRectList ($C001) defines
+#define T2_Init_RectList	$07FEFFFF
+// --- custom resource type defines
+#define rT2Setup1		1
+
+type rT2Setup1 {
+	integer;
+};
+
+// --- Corner stati, and other setup equates.
+
+// for cornersRez
+
+#define off			0b00000000
+#define dontBlank		0b00000001
+#define bkgblankNow	0b00000010
+#define blanknow		0b00000011
+
+// for optionsRez
+
+#define fT2Active		$0001	// bit 0
+#define fBlinkingBox	$0002	// bit 1
+#define fCapsLockLock	$0004	// bit 2
+#define fWarningAlerts	$0008	// bit 3
+#define fInstallNDA	$0010	// bit 4
+//#define fRandomize		$0020	// bit 5
+#define fLetMouseRestore $0040	// bit 6
+#define fNoSound		$0080	// bit 7 (v1.0.1b2 - 12/13/92)
+
+#define fWatchBkgBlank	$0000	// bits 8-9: 00 = watchbkgblank  | 11=illegal
+#define fWatchDontBlank	$0100	//           01 = watchdontblank |
+#define fWatchNormBlank	$0200	//           10 = watchnormblank |
+
+#define fDClickPreview	$0000	// bits 10-11: 00 = dclickpreviewmodule
+#define fDClickClose	$0400	//             01 = dclickcloset2
+#define fDClickSetup	$0800	//             10 = dclicksetupmodule
+#define fDClickToggle	$0C00	//             11 = dclickToggle
+
+#define fTextBkgBlank	$0000	// bits 12-13: 00 = textbkgblank  | 11=illegal
+#define fTextGSOSBlank	$1000	//             01 = textgsosblank |
+#define fTextDontBlank	$2000	//             10 = textdontblank |
+
+#define fSysBeepsUnblank $4000	// bit 14 (T2 v1.0.1b2 - 12/13/92)
+#define fUseIntelliKey	$8000	// bit 15 (T2 v1.0.1b2 - 12/13/92) - end!
+
+// for options2rez (1.0.1b3)
+
+#define fLowMemoryMode	$0001	// bit 0
+#define fSHRCorners	$0002	// bit 1
+#define fSwapModules	$0004	// bit 2
+#define fPassword		$0008	// bit 3
+#define fNewModulePath	$0010	// bit 4
+
+
+// --- Version resource
+
+#define T2_VERSION_NUM "v2.0"
+
+resource rVersion (T2_Version) {
+	{2,0,0,release,0},		     // Version 2.0
+	verUS,				     // US Version
+	"Twilight\$CAII\$AA",	     // program's name
+	"(c) 1990-2020 A.P.P.L.E..\n" // copyright notice
+	"All rights reserved worldwide."
+};
+
+
+// --- Configuration resources
+
+resource rT2Setup1 (TimeRez) {	     /* Minutes before blanking * 120 */
+       120*3
+};
+
+resource rT2Setup1 (SwapTimeRez) {	/* Seconds before swapping */
+       15*4
+};
+
+resource rT2Setup1 (OptionsRez) {		/* all options in 1 word! v1.0d34 */
+	fSysBeepsUnblank+
+	fUseIntelliKey+
+	fLetMouseRestore+
+	fT2Active+
+	fCapsLockLock+				// NEW!!!!!!!!
+/*	fBlinkingBox+ */
+	fWarningAlerts+
+	fInstallNDA+
+	fWatchBkgBlank+
+	fDClickPreview+
+	fTextBkgBlank
+};	
+
+resource rT2Setup1 (Options2Rez) {
+	fSHRCorners
+};
+
+resource rT2Setup1 (CornersRez) {		/* all corners!  new v1.0d34 */
+	off+				// top left
+	bkgblanknow*8+		// bottom left
+	blanknow*64+		// top right
+	dontblank*512		// bottom right
+};
+
+resource rWString (Module_Folder) {
+	"Twilight"					/* folder to look for modules in */
+};
+
+resource rWString (Setup_Path) {
+	"Twilight.Setup"				/* save prefs under this name... */
+};
+
+/*
+resource rWString (T2_module_path) {
+	"" ":Jim1:System:CDevs:Twilight:"
+};*/
+
+// --- Icon Definitions
+
+resource rIcon (T2_Icon) {
+       $8000,		       // kind
+       $0014,		       // height
+       $001C,		       // width
+
+       $"FFFC000000000000000000003FFF"
+       $"FFF0FFFFFFFFFFFFFFFFFFFF0FFF"
+       $"FFF0F111F11D113D1FFFFFFF0FFF"
+       $"FFF0F3D111D11D1113FFFFDF0FFF"
+       $"FFF0F111D1111113D13FFD1F0FFF"
+       $"FFF0F111111F11D1111111DF0FFF"
+       $"FFF0F13D0001111111D1111F0FFF"
+       $"FFF0F1010001D1100011D10F0FFF"
+       $"FFF0F000000101100010010F0FFF"
+       $"FFF0F000000001000000000F0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0FFFFFFFFFFFFFFFFFFFF0FFF"
+       $"FFFC000000000000000000003FFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FF4F3333FFFFFFFFFF0FFFF"
+       $"FFFF0FF3FFFFFFFFFFFFFFF0FFFF"
+       $"FFFF03333333333333333330FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF00000000000000000000FFFF",
+
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000";
+};
+
+/*
+resource rIcon (t2_icon_small) {
+		$8000,				// kind
+		9,				// height
+		8,				// width
+
+		$"00000000"
+		$"0FFFFFF0"
+		$"0F1144F0"
+		$"0F11EEF0"
+		$"0FBBEEF0"
+		$"0FFFFFF0"
+		$"00000000"
+		$"F0FFFF0F"
+		$"F000000F",
+
+		$"FFFFFFFF"
+		$"FFFFFFFF"
+		$"FFFFFFFF"
+		$"FFFFFFFF"
+		$"FFFFFFFF"
+		$"FFFFFFFF"
+		$"FFFFFFFF"
+		$"0FFFFFF0"
+		$"0FFFFFF0";
+};
+*/
+
+resource rComment (1) {
+	"If you have any questions, comments, or suggestions for improving "
+        "Twilight\$CAII; or would like information on other A.P.P.L.E. "
+        "programs, please contact us! We welcome your feedback and ideas."
+        "\n\n"
+        "Support of Twilight\$CAII 2.0 and future versions of Twilight\$CAII "
+        "and other products from A.P.P.L.E. can be accessed via the contact "
+        "points below:"
+        "\n\n"
+        "Apple Pugetsound Program Library Exchange"
+        "\n\n"
+        "Twitter: @callapple\n"
+        "Facebook: facebook.com/APPLEug/\n"
+        "Internet: sales@callapple.org"
+        "\n\n"
+        "Original programming: Jim R. Maricondo\n"
+        "Additional programming: Antoine Vignau"
+};
+
+resource rComment (0x2) {
+	"Sorry, Twilight\$CAII in order to operate requires that Apple\$D5s Control "
+	"Panels NDA v2.0 or later be installed and presently activated.\n"
+	"Try using the Installer to install the Control Panels NDA on your boot "
+	"volume, or activating it if it\$D5s already in the Desk.Accs folder.  For "
+	"more information, refer to the Twilight\$CAII manual."
+};
+
+
+// --- rect list definitions
+
+resource rRectList (T2_Init_RectList,locked,fixed,nocrossbank,nospecialmemory) {
+	{
+		{4,628,8,636},			//0 -640 mode blinking menubar box rect
+		{4,314,8,318},			//1 -320 mode blinking menubar box rect
+		{0,0,5,8},			//2 -upper left corner rect
+		{0,320-8,5,321+1},		//3 -upper right 320 mode corner rect
+		{0,640-8-2,5,641+1},	//4 -upper right 640 mode corner rect
+		{200-5,0,200,8},		//5 -lower left corner rect
+		{200-5,320-8,200,321+1},	//6 -lower right 320 mode corner
+		{200-5,640-8-2,200,641+1}	//7 -lower right 640 mode corner
+	};
+};
+
+
+// --- Control List Definitions
+
+resource rControlList (T2_Wait_CtlLst) {
+		{
+		WaitThermoCtl,			// control 1
+		WaitWaitStrCtl,			// control 2
+		};
+};
+
+resource rControlList (T2_CDev_CtlLst) {
+       {
+	T2IconCtl,
+       T2BlankNowCtl,
+       T2SetupCtl,
+       T2ModuleListCtl,
+       T2AboutModuleCtl,
+       T2StrCtl,
+       T2ActiveCtl,
+	T2VerCtl,
+	T2PurgeCtl,
+	T2ToggleCtl,
+       };
+};
+
+resource rControlList (T2_Setup_CtlLst) {
+       {
+       T2SetupLineCtl,
+       T2SetupUpdateCtl,
+	T2SetupTestCtl,
+       };
+};
+
+// --- Control Templates
+
+// *===========================================================================
+// *== wait (thermometer) window
+
+resource rControlTemplate (WaitThermoCtl) {
+		1,			// ID
+		{ 19, 12, 28,260},		// rect
+		thermometerControl {{
+			$0001,			// flag -- horizontal thermometer
+			fCtlProcNotPtr+RefIsResource,	// moreFlags
+			NIL,			// refCon
+			NIL,			// value (position of mercury)
+			10			// scale (will be set by T2!)
+//			colorTableRef
+		}};
+};
+
+resource rControlTemplate (WaitWaitStrCtl) {
+		2,			// ID
+		{  5, 12, 15,293},		// rect
+		statTextControl {{
+	       	ctlVisible,   // flag
+	       	fCtlProcNotPtr+RefIsResource,  // moreFlags
+	       	NIL,	 // refCon
+			WaitWait_LText		// textRef
+		}};
+};
+
+// *===========================================================================
+// *== setup window
+
+resource rControlTemplate (T2SetupLineCtl) {
+       $07FEFFFF,	       // ID
+       { 20,0, 21,350},		  // rect
+       rectangleControl {{
+	       $FF02,		    // flag (%10 = black pattern)
+	       fCtlProcNotPtr,	    // moreFlags (required values)
+	       NIL	      // refCon
+       }};
+};
+
+resource rControlTemplate (T2SetupUpdateCtl) {
+       $07FEFFFE,	       // ID
+		{  4,290, 16,344},		// rect
+       simpleButtonControl {{
+	       ctlVisible,   // flag
+	       fCtlProcNotPtr+fCtlWantsEvents+RefIsResource, // moreFlags
+	       NIL,	 // refCon
+	       T2SetupUpdateStr,  // titleRef
+	       0,	       // colorTableRef
+	       {"S","s",$0100,$0100}  // key equivalents
+       }};
+};
+
+resource rControlTemplate (T2SetupPopupCtl) {
+       $07FEFFFD,		    // ID
+       {4,4,16,228},		    // rect
+       popUpControl {{
+	       ctlVisible+fType2PopUp,	   // flag
+	       fCtlProcNotPtr+RefIsHandle+fDrawPopDownIcon, // moreFlags
+	       NIL,		    // refCon
+	       NIL,		    // titleWidth
+	       T2SetupModuleMenu,   // menuRef == handle; filled in by T2
+	       $200		    // initialValue
+       }};
+};
+
+resource rControlTemplate (T2SetupTestCtl) {
+		$07FEFFFC,		    // ID
+		{  4,232, 16,286},		// rect
+		simpleButtonControl {{
+			NIL,			// flag
+			fCtlProcNotPtr+fCtlWantsEvents+RefIsResource, // moreFlags
+			NIL,			// refCon
+			T2SetupTestStr,	// titleRef
+			0,			// colorTableRef
+		{"T","t",$0100,$0100}	// key equivalents
+		}};
+};
+
+resource rMenu (T2SetupModuleMenu, nospecialmemory,nocrossbank) {
+       $0001,			    // menuID
+       $8000+fAllowCache,	    // menuFlag (title=Rez, items=Pointers)
+       T2SetupPopupStr, {		    // menuTitleRef
+	       T2CornerMItem,
+	       T2OptionsMItem,
+		T2Options2MItem,
+	       NIL		    // menu item list terminator
+       };
+};
+
+resource rPString (T2SetupPopupStr) {
+	"Setup: "
+};
+
+
+resource rMenuItem (T2MenuItem, locked, fixed, nocrossbank, nospecialmemory) {
+       $0001,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $0000,		       // itemFlag (titleRef is pointer)
+       NIL		       // itemTitleRef
+};
+
+resource rMenuItem (T2CornerMItem,locked,fixed,nocrossbank,nospecialmemory) {
+       $0200,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,		       // itemFlag (titleRef is a resource)
+       T2CornerMItemStr	       // itemTitleRef
+};
+resource rPString (T2CornerMItemStr,locked,fixed,nocrossbank,nospecialmemory) {
+       "Screen Corners"
+};
+
+resource rMenuItem (T2OptionsMItem,locked,fixed,nocrossbank,nospecialmemory) {
+       $0201,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,       // itemFlag (titleRef is a resource)
+       T2OptionsMItemStr       // itemTitleRef
+};
+resource rPString (T2OptionsMItemStr,locked,fixed,nocrossbank,nospecialmemory) {
+       "Options"
+};
+
+resource rMenuItem (T2Options2MItem,locked,fixed,nocrossbank,nospecialmemory) {
+       $0202,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000+rMIDivider,       // itemFlag (titleRef is a resource)
+       T2Options2MItemStr       // itemTitleRef
+};
+resource rPString (T2Options2MItemStr,locked,fixed,nocrossbank,nospecialmemory) {
+       "Advanced Options"
+};
+
+// *===========================================================================
+// *== main cdev window
+
+#define ll 174
+#define rr 314
+
+resource rControlTemplate (T2BlankNowCtl) {
+       $00000001,	       // ID
+		{ 24,ll, 37,rr},		// rect
+       simpleButtonControl {{
+	       ctlVisible,   // flag
+	       fCtlProcNotPtr+fCtlWantsEvents+RefIsResource, // moreFlags
+	       NIL,	 // refCon
+	       T2BlankNowStr,	// titleRef
+	       NIL,	       // colorTableRef
+	       {"B","b",$0100,$0100}  // key equivalents
+       }};
+};
+
+resource rControlTemplate (T2StrCtl) {
+       $00000002,	       // ID
+		{2,  1+30, 20,339},		// rect
+       statTextControl {{
+	       ctlVisible,   // flag
+	       fCtlProcNotPtr+RefIsResource,  // moreFlags
+	       NIL,	 // refCon
+	       T2T2_LText      // textRef
+       }};
+};
+
+resource rControlTemplate (T2SetupCtl) {
+       $00000003,	       // ID
+		{ 40,ll, 53,rr},		// rect
+       simpleButtonControl {{
+	       ctlVisible,   // flag
+	       fCtlProcNotPtr+RefIsResource+fCtlWantsEvents,  // moreFlags
+	       NIL,	 // refCon
+	       T2SetupCtlStr,	// titleRef
+	       NIL,	       // colorTableRef
+	       {"S","s",$0100,$0100}  // key equivalents
+       }};
+};
+
+#define testMemNever 0x40     // bit 6
+
+resource rControlTemplate (T2ModuleListCtl) {
+       $00000004,	       // ID
+		{ 22,  2,104,146},		// rect
+       listControl {{
+	       ctlVisible+testMemNever,   // flag
+	       fCtlIsMultiPart+fCtlProcNotPtr+fCtlWantsEvents,	// moreFlags
+	       NIL,	 // refCon
+	       NIL,	     // listSize
+	       8,		       // listView
+	       $0000,	       // listType - 2 = only single selection
+	       $0001,	       // listStart
+	       $000A,	       // listMemHeight
+	       15,	       // listMemSize
+	       NIL		    // listRef
+       }};
+};
+
+resource rControlTemplate (T2AboutModuleCtl) {
+       $00000005,		    // ID
+		{ 72,ll, 85,rr},		// rect
+       simpleButtonControl {{
+//	       SquareButton,	    // flag
+		  ctlVisible,			// flag
+	       fCtlProcNotPtr+RefIsResource+fCtlWantsEvents, // moreFlags
+	       NIL,		    // refCon
+	       T2AboutModuleStr,     // titleRef
+	       NIL,	       // colorTableRef
+	       {"?","/",$0100,$0100}  // key equivalents
+       }};
+};
+
+resource rControlTemplate (T2ActiveCtl) {
+		6,	       // ID
+		{106,  8+2,115,188},		// rect
+       checkControl {{
+	       NIL,	     // flag
+	       fCtlProcNotPtr+fCtlWantsEvents+refIsResource,	// moreFlags
+	       NIL,	 // refCon
+	       T2ActiveCtlStr,	// titleRef
+	       NIL,  	       // initialValue
+           NIL,             // colorTableRef
+           {"T","t",$0100,$0100}  // key equivalents
+       }};
+};
+
+resource rPString (T2ActiveCtlStr) {
+       "Twilight\$CAII Active"
+};
+
+
+resource rControlTemplate (T2VerCtl) {
+		7,	       // ID
+		{106,250,115,317},		// rect
+       statTextControl {{
+	       ctlVisible,   // flag
+	       fCtlProcNotPtr+RefIsResource,  // moreFlags
+	       NIL,	 // refCon
+	       T2Ver_LText      // textRef
+       }};
+};
+
+resource rTextForLETextBox2 (T2Ver_LText) {
+	TBRightJust
+	T2_VERSION_NUM
+};
+
+
+/*resource rControlTemplate (T2RandomizeCtl) {
+       $00000007,              // ID
+		{106,200,115,320},		// rect
+       checkControl {{
+               NIL,            // flag
+	       fCtlProcNotPtr+fCtlWantsEvents+refIsResource,	// moreFlags
+               NIL,            // refCon
+               T2RandomizeCtlStr,  // titleRef
+               NIL,            // initialValue
+           NIL,             // colorTableRef
+           {"R","r",$0100,$0100}  // key equivalents
+       }};
+};
+
+resource rPString (T2RandomizeCtlStr) {
+       "Random Mode"
+};*/
+
+resource rControlTemplate (T2PurgeCtl) {
+		8,			// ID
+		{ 88,ll,101,rr},		// rect
+		simpleButtonControl {{
+			ctlVisible,			// flag
+			fCtlProcNotPtr+RefIsResource+fCtlWantsEvents, // moreFlags
+			NIL,			// refCon
+			T2PurgeCtlStr,		// titleRef
+			NIL,			// colorTableRef
+		{"P","p",$0100,$0100}	// key equivalents
+		}};
+};
+
+resource rPString (T2PurgeCtlStr) {
+	"Purge Twilight\$CAII"
+};
+
+resource rControlTemplate (T2ToggleCtl) {
+		9,			// ID
+		{ 56,ll, 69,rr},		// rect
+		simpleButtonControl {{
+			ctlVisible,			// flag
+			fCtlProcNotPtr+RefIsResource+fCtlWantsEvents, // moreFlags
+			NIL,			// refCon
+			T2ToggleCtlStr,		// titleRef
+			NIL,			// colorTableRef
+		{"T","t",$0100,$0100}	// key equivalents
+		}};
+};
+
+resource rPString (T2ToggleCtlStr) {
+	"Toggle Module"
+};
+
+resource rControlTemplate (T2IconCtl) {
+		10,			// ID
+		{ 2, 2, 2+20, 2+28},		// rect
+		iconButtonControl {{
+	       $000C,		    //no border, don't track hits!
+			$1020,			// moreFlags
+			NIL,			// refCon
+		T2_Icon
+//			t2_icon_small		// iconRef
+		}};
+};
+
+
+// == error strings
+
+//	{ 0, 0,117,320},	// dataRect - top left MUST be 0,0
+
+resource rControlTemplate (T2GenericCantOpenMsgCtl) {
+       1,	       // ID
+       { 20+7,  2,115,320-2},      // rect
+       statTextControl {{
+	       ctlVisible,   // flag
+	       fCtlProcNotPtr+RefIsResource,   // moreFlags
+	       NIL,	 // refCon
+	       NIL  // textRef (T2 will fill it in for us..)
+       }};
+};
+
+resource rControlTemplate (T2StopIcon640Ctl) {
+       $00000002,
+       {5,88+56,25,118+56},
+       iconButtonControl {{
+	       $000C,		    //no border, don't track hits!
+	       $102A,		    //rezIDs please
+	       NIL,	      //refcon
+	       $07FF0002 	    //icon reference
+       }};
+};
+
+resource rControlTemplate (T2StopIcon320Ctl) {
+       $00000002,
+       {5,88+56,25,118+56},
+       iconButtonControl {{
+	       $000C,		    //no border, don't track hits!
+	       $102A,		    //rezIDs please
+	       NIL,	      //refcon
+	       $07FF0102 	    //icon reference
+       }};
+};
+
+// == cdev help string related stuff
+
+resource rControlTemplate (T2HelpTECtl) {
+	$00000001,			// id
+	{ 37,  5,133,286},		// rect
+	editTextControl {{
+		ctlVisible,		// flag
+		fCtlCanBeTarget+fCtlWantsEvents+fCtlProcNotPtr+fCtlIsMultiPart, // moreflags
+		NIL,				// refcon
+		fSingleFormat+fReadOnly+fSmartCutPaste+fTabSwitch+fDrawBounds, // textFlags
+		{65535,65535,65535,65535},  // indentRect
+		$FFFFFFFF,		// vertBar
+		NIL,				// vertAmount
+		NIL,				// horzBar
+		NIL,				// horzAmount
+		NIL,				// styleRef
+		dataIsTextBox2+refIsResource*8,	// textDescriptor
+		T2Help_LText,		// textRef
+		NIL				// textLength
+	}};
+};
+
+resource rTextForLETextBox2 (T2Help_LText) {
+	TBLeftJust
+    "\$11 "
+	TBStyleOutline
+	"Twilight\$CAII"
+	TBStylePlain
+	"\$AA \$14\n\n"
+    "A control panel that will prevent screen burnout by blanking the "
+    "graphics or text screen after a given number of minutes, if the computer "
+    "is not used.  Any user interaction will restore the screen.\n\n"
+    "Twilight\$CAII is a copyrigted product provided to users for no cost "
+    "via digital download. Support for this A.P.P.L.E. product is provided "
+    "via the following contact points:"
+    "\n\n"
+    "Apple Pugetsound Program Library Exchange"
+    "\n\n"
+    "Twitter: @callapple\n"
+    "Facebook: facebook.com/APPLEug/\n"
+    "Internet: sales@callapple.org"
+};
+
+
+resource rTextForLETextBox2 (T2Help_EE1_LText) {
+	TBLeftJust
+    "\$11 "
+	TBStyleOutline
+	"Twilight\$CAII"
+	TBStylePlain
+	" \$14\n\n"
+	"Control panel by Jim Maricondo.  "
+	"T2 Modules by James Smith, Jim Maricondo, Derek Young, Eric Shepherd, "
+	"Nathan Mates, and Greg Templeman.  "
+	"Many icons and art by Matt Keller.  "
+	"Installer scripts by James Smith and Jim Maricondo.  "
+	"DataField control by Jim Murphy.\n"
+	"\n"
+	"Special thanks to the following people, in addition to those listed "
+	"above:\n"
+	"Dino Bagdadi\n"
+	"Matt Deatherage\n"
+	"Dave Lyons\n"
+	"Jim Mensch\n"
+	"Seth Ober\n"
+	"Bryan Pietrzak\n"
+	"Andy Polk\n"
+	"John Pothier\n"
+	"Mark Ranes\n"
+	"Joey Schober\n"
+	"Greg Templeman\n"
+	"Joe Wankerl\n"
+	"Dan Wellman\n"
+	"Andy Wells\n"
+	"Marc Wolfgram\n"
+	"Dan Zimmerman\n"
+	"\n"
+	"Twilight\$CAII (c) 1990-2020 A.P.P.L.E. "
+        "All rights reserved worldwide."
+        "\n\n"
+        "Original programming: Jim R. Maricondo\n"
+        "Additional programming: Antoine Vignau\n"
+        "Manual by Jim Maricondo and Bill Martens\n"
+        "Manual production and cover by Brian Wiser"
+};
+
+// =========================================================================
+// === about window stuff
+
+resource rWindParam1 (T2_About_Module_Window) {
+       fAlert+fVis,	       // p1Frame (frame bits)
+       NIL,		       // p1Title (no Title)
+       NIL,		 // p1RefCon
+       {  0,  0,  0,  0},      // p1ZoomRect
+       NIL,		       // p1ColorTable (standard colors)
+       {$0000, $0000},	       // p1YOrigin, plXOrigin
+       {$0000, $0000},	       // p1DataHeight, plDataWidth
+       {$0000, $0000},	       // p1MaxHeight, plMaxWidth
+       {$0000, $0000},	       // p1VerScroll, plHorScroll
+       {$0000, $0000},	       // p1VerPage, plHorPage
+       NIL,		 // p1InfoText (info RefCon)
+       NIL,		     // p1InfoHeight
+       { 46,132,132+8,506},      // p1Position
+       infront,		       // p1Plane
+       T2_About_CtlLst,	       // p1ControlList
+       resourceToResource      // p1InDesc
+};
+
+resource rControlList (T2_About_CtlLst) {
+       {
+       T2AbtModLineCtl,		    // #2
+       T2AbtModInfoCtl,		    // #1
+       };
+};
+
+resource rControlTemplate (T2AbtModLineCtl) {
+       1,	       // ID
+       {$20,85,$22,500}, 	   // rect
+       rectangleControl {{
+	       $FF02,		    // flag (%10 = black pattern)
+	       fCtlProcNotPtr,	    // moreFlags (required values)
+	       NIL	      // refCon
+       }};
+};
+
+resource rControlTemplate (T2AbtModInfoCtl) {
+       2,	       // ID
+       { 35,  8, 43,155},      // rect
+       statTextControl {{
+	       ctlVisible,   // flag
+	       fCtlProcNotPtr+RefIsResource,   // moreFlags
+	       NIL,	 // refCon
+	       T2AbtModInfo_LText      // textRef
+       }};
+};
+
+// --- rPString Templates
+
+resource rPString (T2SetupStr) {
+       " Setup "
+};
+
+resource rPString (T2SetupTestStr) {
+       "Test"
+};
+
+resource rPString (T2SetupUpdateStr) {
+       "Save"
+};
+
+resource rPString (T2BlankNowStr) {
+       "Blank Now"
+};
+
+resource rPString (T2SetupCtlStr) {
+       "Setup..."
+};
+
+resource rPString (T2AboutModuleStr) {
+       "About Module..."
+};
+
+// --- rTextForLETextBox2 Templates
+
+resource rTextForLETextBox2 (WaitWait_LText) {
+	TBLeftJust
+	"Rebuilding module list..."
+};
+
+resource rTextForLETextBox2 (T2T2_LText) {
+       TBCenterJust
+       TBLeftMargin
+       "\$00\$00"
+	TBForeColor
+	TBColor0
+	TBStyleOutline
+       "  Twilight\$CAII"
+	TBStylePlain
+	"\$AA"
+	TBForeColor
+	TBColor5
+       TBEndOfLine
+       "The "
+       TBStyleItalic
+       "ultimate"
+       TBStylePlain
+       " GS screen saver."
+};
+
+
+resource rTextForLETextBox2 (T2CantGetMemory_LText) {
+       TBLeftJust
+       TBLeftMargin
+       "\$00\$00"
+       "Twilight\$CAII\$AA inactive: unable to allocate sufficient memory to exe"
+       "cute.  Please free up some memory and try again."
+};
+
+resource rTextForLETextBox2 (T2CantStartTools_LText) {
+       TBLeftJust
+       TBLeftMargin
+       "\$00\$00"
+       "Twilight\$CAII\$AA inactive: unable to start necessary tools.  "
+       "Please make sure that System 6 is properly installed on your"
+       " boot disk."
+};
+
+resource rTextForLETextBox2 (T2CantDoFileStuff_LText) {
+       TBLeftJust
+       TBLeftMargin
+       "\$00\$00"
+       "Twilight\$CAII\$AA inactive: unable to perform the necessary file operat"
+       "ions required to execute.  Please make sure that all of Twilight\$CAII\$D5s "
+       "files are in the required directories and try again."
+};
+
+resource rTextForLETextBox2 (T2CantFindSetup_LText) {
+       TBLeftJust
+       TBLeftMargin
+       "\$00\$00"
+       "Twilight\$CAII\$AA inactive: unable to locate or open the Twilight\$CAII"
+       " saved setup file and/or Twilight\$CAII modules."
+};
+
+resource rTextForLETextBox2 (T2WriteProtect_LText) {
+    TBLeftJust TBLeftMargin "\$00\$00"
+    "Twilight\$CAII\$AA inactive: unable to create or write to "
+	"the \$D2Twilight.Setup\$D3 file.\n"
+	"Please make sure your disk is not write protected and also that "
+	"there is a folder named \$D2Twilight\$D3 in the same directory as "
+	"Twilight\$CAII.  Otherwise, try deleting the \$D2Twilight.Setup\$D3 file,"
+	"located in the \$D2Twilight\$D3 folder.  Then try opening again."
+};
+
+resource rTextForLETextBox2 (T2AbtModInfo_LText) {
+       TBLeftJust
+       TBLeftMargin
+       "\$00\$00"
+       "Information:"
+};
+
+// --- Window Templates
+
+resource rWindParam1 (T2_Wait_Window) {
+		$20A8-fVis,				// plFrame (frame bits)
+		NIL,					// p1Title (no Title)
+		NIL,			// p1RefCon
+		{  0,  0,  0,  0},		// p1ZoomRect
+		T2_Setup_WColor,		// p1ColorTable
+		{$0000, $0000},		// p1YOrigin, p1XOrigin
+		{$0000, $0000},		// p1DataHeight, p1DataWidth
+		{$0000, $0000},		// p1MaxHeight, p1MaxWidth
+		{$0000, $0000},		// p1VerScroll, p1HorScroll
+		{$0000, $0000},		// p1VerPage, p1HorPage
+		NIL,			// p1InfoText (info RefCon)
+		$0000,				// p1InfoHeight
+		{ 53,182, 88,456},		// p1Position
+		infront,				// p1Plane
+		T2_Wait_CtlLst,		// plControlList
+		$0809				// plInDesc
+};
+
+resource rWindParam1 (Temporary_T2_CDev_Window) {
+       fVis+fMove,	       // p1Frame (frame bits)
+       NIL,		       // p1Title (no Title)
+       NIL,		       // p1RefCon
+       {  0,  0,  0,  0},      // p1ZoomRect
+       NIL,		       // p1ColorTable (standard colors)
+       {$0000, $0000},	       // p1YOrigin, plXOrigin
+       {$0000, $0000},	       // p1DataHeight, plDataWidth
+       {$0000, $0000},	       // p1MaxHeight, plMaxWidth
+       {$0000, $0000},	       // p1VerScroll, plHorScroll
+       {$0000, $0000},	       // p1VerPage, plHorPage
+       NIL,		       // p1InfoText (info RefCon)
+       NIL,		       // p1InfoHeight
+		{ 38,  4,154,320},		// p1Position
+       infront,		       // p1Plane
+       T2_CDev_CtlLst,	       // p1ControlList
+       resourceToResource      // p1InDesc
+};
+
+resource rWindParam1 (T2_Setup_Window) {
+       fClose+fTitle+fVis+fMove+fCtlTie, // p1Frame (frame bits)
+       T2SetupStr,	  // p1Title (title ID)
+       NIL,		 // p1RefCon
+       {  0,  0,  0,  0},      // p1ZoomRect
+       T2_Setup_WColor,	       // p1ColorTable
+       {$0000, $0000},	       // p1YOrigin, plXOrigin
+       {$0000, $0000},	       // p1DataHeight, plDataWidth
+       {$0000, $0000},	       // p1MaxHeight, plMaxWidth
+       {$0000, $0000},	       // p1VerScroll, plHorScroll
+       {$0000, $0000},	       // p1VerPage, plHorPage
+       NIL,		 // p1InfoText (info RefCon)
+       NIL,		     // p1InfoHeight
+       { 50,146,180,494},      // p1Position
+       infront,		       // p1Plane
+       T2_Setup_CtlLst,	       // p1ControlList
+       $0A00+resourceToResource // p1InDesc
+};
+
+
+// --- Cursor Templates 
+
+resource rCursor (NoBlank640Cursor, fixed, nospecialmemory) {
+       $0010,                  // height
+       $0006,                  // width
+	$"0000 003B BBBB B800 0000 0000 0000 3BBB"
+	$"BBBB BBB8 0000 0000 000B BBB0 0000 0BBB"
+	$"B000 0000 00BB B000 0000 0BBB BB00 0000"
+	$"03BB 00FF FFFF BBB8 BB80 0000 0BB0 00F0"
+	$"000B BB80 0BB0 0000 3B80 00F0 EEBB BB00"
+	$"03B0 8000 3B80 00F0 FBBB 8F00 03B0 8000"
+	$"3B80 00F3 BBB9 0F00 03B0 8000 3B80 00FB"
+	$"BB00 0F00 03B0 8000 0BB0 03BB BFFF FF00"
+	$"0BB0 0000 03BB 3BBB 0000 F000 BB80 0000"
+	$"00BB BBBF FFFF F00B BB00 0000 000B BBB0"
+	$"0000 0BBB B000 0000 0000 3BBB BBBB BBB8"
+	$"0000 0000 0000 003B BBBB B800 0000 0000",
+	$"0000 3FFB BBBB BBFC 0000 0000 000F FBBB"
+	$"BBBB BBBB F000 0000 00FB BBBF FFFF FBBB"
+	$"BF00 0000 03BB BFFF FFFF FBBB BBC0 0000"
+	$"0FBB FFFF FFFF BBBF BBB0 0000 3BBF FFFF"
+	$"FFFB BBBF FBBC 0000 FBBF FFFF FEBB BBFF"
+	$"FFBC 8000 FBBF FFFF FBBB BFFF FFBC 8000"
+	$"FBBF FFFF BBBF FFFF FFBC 8000 FBBF FFFF"
+	$"BBFF FFFF FFBC 8000 3BBF FFBB FFFF FFFF"
+	$"FBBC 0000 0FBB FFBB FFFF FFFF BBB0 0000"
+	$"03BB BBFF FFFF FFFF BBC0 0000 003B BBBF"
+	$"FFFF FFBB BF00 0000 0003 FBBB BBFF FBBF"
+	$"F000 0000 0000 0FFB BBBB BBFC 0000 0000",
+       $000F,                  // hotspot Y
+       $0026,                  // hotspot X
+       $0080                   // cursor ID (640 mode)
+};
+
+resource rCursor (NoBlank320Cursor, fixed, nospecialmemory) {
+       $0010,                  // height
+       $0006,                  // width
+	$"0000 00FF FFFF FF00 0000 0000 0000 FFFF"
+	$"FFFF FFFF 0000 0000 000F FFF0 0000 0FFF"
+	$"F000 0000 00FF F000 0000 0FFF FF00 0000"
+	$"0FFF 00FF FFFF FFFF FFF0 0000 0FF0 00F0"
+	$"000F FFF0 0FF0 0000 FFF0 00F0 FFFF FF00"
+	$"0FF0 F000 FFF0 00F0 FFFF FF00 0FF0 F000"
+	$"FFF0 00FF FFFF 0F00 0FF0 F000 FFF0 00FF"
+	$"FF00 0F00 0FF0 F000 0FF0 0FFF FFFF FF00"
+	$"0FF0 0000 0FFF FFFF 0000 F000 FFF0 0000"
+	$"00FF FFFF FFFF F00F FF00 0000 000F FFF0"
+	$"0000 0FFF F000 0000 0000 FFFF FFFF FFFF"
+	$"0000 0000 0000 00FF FFFF FF00 0000 0000",
+	$"0000 FFFF FFFF FFFF 0000 0000 000F FFFF"
+	$"FFFF FFFF F000 0000 00FF FFFF FFFF FFFF"
+	$"FF00 0000 0FFF FFFF FFFF FFFF FFF0 0000"
+	$"0FFF FFFF FFFF FFFF FFF0 0000 FFFF FFFF"
+	$"FFFF FFFF FFFF 0000 FFFF FFFF FFFF FFFF"
+	$"FFFF F000 FFFF FFFF FFFF FFFF FFFF F000"
+	$"FFFF FFFF FFFF FFFF FFFF F000 FFFF FFFF"
+	$"FFFF FFFF FFFF F000 FFFF FFFF FFFF FFFF"
+	$"FFFF 0000 0FFF FFFF FFFF FFFF FFF0 0000"
+	$"0FFF FFFF FFFF FFFF FFF0 0000 00FF FFFF"
+	$"FFFF FFFF FF00 0000 000F FFFF FFFF FFFF"
+	$"F000 0000 0000 0FFF FFFF FFFF 0000 0000",
+       $000F,                  // hotspot Y
+       $0013,                  // hotspot X
+       $0000                   // Cursor ID (320 mode)
+};
+
+// --- rAlertString Templates
+
+resource rAlertString (AlertWarnPrefsNoSave2, $0000) {
+	"53~Preferences not saved.  Save them now?~Don\$D5t Save~^Save"
+	"\$00"
+};
+
+resource rAlertString (AlertWarnPrefsNoSave, $0000) {
+	"53~Preferences not saved.  Save them now?~Don\$D5t Save~#1~^Save"
+	"\$00"
+};
+
+resource rAlertString (AlertUnknownError) {
+	"52~Unknown error. ($*0)~^#6"
+    "\$00"
+};
+
+resource rAlertString (AlertCloseError) {
+	"54~Error trying to close the resource fork of Twilight.Setup! ($*0)~^#6"
+	"\$00"
+};
+
+resource rAlertString (AlertOpenError) {
+    "52~Error trying to open the resource fork of \$D2Twilight.Setup\$D3! ($*0)  Try again after deleting \$D2Twilight.Setup\$D3.~^#6"
+    "\$00"
+};
+
+resource rAlertString (AlertCapsLockError) {
+	"32~Please release the Caps Lock key or turn off Caps Lock "
+	"\$D2Lock\$D3"
+	" and try again.~^#1"
+	"\$00"
+};
+
+resource rAlertString (AlertPurgeT2Warning) {
+	"64~This will cause Twilight"
+	"\$CA"
+	"II to close the main window and completely remove itself from me"
+	"mory.  Are you sure you wish to do this?~Purge~^Don"
+	"\$D5"
+	"t Purge"
+	"\$00"
+};
+
+resource rAlertString (AlertModuleNoSupportSetup) {
+	"33~The selected module does not support setup.  The "
+	"\$D2Screen Corners\$D3"
+	" setup screen will be selected by "
+	"default.~#0~^#1"
+	"\$00"
+};
+
+resource rAlertString (AlertSetup320Error) {
+	"52~Sorry, setup is only available in 640"
+	"\$D0mode based desktop programs.~^#1"
+	"\$00"
+};
+
+resource rAlertString (AlertAbout320Error) {
+	"52~Sorry, about information is only available in 640"
+	"\$D0mode based desktop programs.~^#1"
+	"\$00"
+};
+
+resource rAlertString (AlertInsertT2Disk) {
+	"86~Please insert "
+	"\$D2*0\$D3"
+	", the disk containing Twilight\$CAII\$AA and its modules.\n"
+	"If you recently changed this disk\$D5s volume name, then click "
+	"cancel, allowing Twilight\$CAII to remove itself from memory.  "
+	"Then delete \$D2Twilight.Setup\$D3, and try again.~^#1~#0"
+	"\$00"
+};
+
+resource rAlertString (awErrLoadModuleCont) {
+	"74~Error $*0 occurred while trying to load the "
+	"\$D2*1\$D3 screen saver module.\n"
+	"Twilight\$CAII will now remove itself from memory.~^#6"
+	"\$00"
+};
+
+resource rAlertString (awErrLoadModuleCancel) {
+	"62~Error $*0 occurred while trying to load and use the "
+	"\$D2*1\$D3 screen saver module.~^#1"
+	"\$00"
+};
+
+resource rAlertString (awErrMemoryLMM) {
+	"63~Unable to allocate enough memory to turn \$D2Low Memory Mode\$D3"
+	" off.  During the next reboot, Twilight\$CAII will automatically "
+	"allocate this memory.  ($*0)~^#6"
+	"\$00"
+};
+
+resource rAlertString (awCantPurge) {
+	"52~Sorry, Twilight II could not be purged because of a non-stand"
+	"ard toolbox patch.~^#1"
+	"\$00"
+};
+
+resource rAlertString (Opt2ChangePathAlert) {
+	"54~New Twilight\$CAII module pathname will not take effect until "
+    "reboot.~^#6\$00"
+};
+
+// --- CDEVFlags Templates 
+
+resource rCDEVFlags (T2_CDev_Flags) {
+       wantAbout+wantCreate+
+       wantEvents+wantClose+wantBoot+
+       wantInit, 		    // CDevFlags
+		$01,				// enabled
+		$01,				// version
+		$01,				// machine ROM version
+       NIL,		       // System Disk version (never implemented -too bad!)
+		{ 0, 0,117,320},	// dataRect - top left MUST be 0,0
+       "Twilight\$CAII",
+       "Jim Maricondo",
+	T2_VERSION_NUM
+};
+
+// --- Code resources
+
+read rCDEVCode (1,locked,convert,nospecialmemory) "o:cdev"; /* cdev program */
+read rCodeResource (T2_Init,locked,convert,nospecialmemory) "o:init"; /* init part */
+read rCtlDefProc (DataCtlDefProcID,locked,convert) "datactl";
+       
+
+// --- Window Color Templates
+
+resource rWindColor (T2_Setup_WColor) {
+       $0000,		       // frameColor
+       $0F00,		       // titleColor
+       $020F,		       // tBarColor
+       $F0FF,		       // growColor
+       $00F0		       // infoColor
+};
+
+// --- Resource names
+
+resource rResName (0x10001) {
+    1,
+    {
+	OptionsRez,
+	"OptionsRez",
+	Options2Rez,
+	"Options2Rez",
+	SwapTimeRez,
+	"SwapTimeRez",
+	TimeRez,
+	"TimeRez",
+	CornersRez,
+	"CornersRez"
+    }
+};
+
+resource rResName (0x10000+rWString) {
+    1,
+    {
+	Module_Folder,
+	"Module Folder",
+	Setup_Path,
+	"Setup Path"
+    }
+};
+
+resource rResName (0x10000+rCursor) {
+	1,
+	{
+	NoBlank320Cursor,
+	"NoBlank320Cursor",
+	NoBlank640Cursor,
+	"NoBlank640Cursor"
+	}
+};
+
+
+resource rResName (0x18001) {
+    1,
+    {	
+	T2_Icon,
+	"T2 Icon",
+	T2_icon_small,
+	"T2 icon small"
+    }
+};
+
+resource rResName (0x18003) {
+    1,
+    {
+	Opt2EnterPassCtlLst,
+	"Opt2EnterPassCtlLst",
+	PassCtlLst,
+	"PassCtlLst",
+	T2Setup_Options2_CtlLst,
+	"T2Setup Options2 CtlLst",
+	T2_Wait_CtlLst,
+	"T2 Wait CtlLst",
+	T2_Setup_CtlLst,
+	"T2 Setup CtlLst",
+	T2_CDev_CtlLst,
+	"T2 CDev CtlLst",
+	T2_About_CtlLst,
+	"T2 About CtlLst",
+	T2Setup_Corner_CtlLst,
+	"T2Setup Corner CtlLst",
+	T2Setup_Options_CtlLst,
+	"T2Setup Options CtlLst"
+    }
+};
+
+resource rResName (0x18004) {
+    1,
+    {
+	PassEnterPassStrCtl,
+	"PassEnterPassStrCtl",
+	PassEnterPassCtl,
+	"PassEnterPassCtl",
+	Opt2SetPassNew2Ctl,
+	"Opt2SetPassNew2Ctl",
+	Opt2SetPassNew1Ctl,
+	"Opt2SetPassNew1Ctl",
+	Opt2SetPassOldCtl,
+	"Opt2SetPassOldCtl",
+	Opt2SetPassNewPassStrCtl,
+	"Opt2SetPassNewPassStrCtl",
+	Opt2SetPassOldPassStrCtl,
+	"Opt2SetPassOldPassStrCtl",
+	Opt2SetPassChangeStrCtl,
+	"Opt2SetPassChangeStrCtl",
+	Opt2CancelCtl,
+	"Opt2CancelCtl",
+	Opt2OKCtl,
+	"Opt2OKCtl",
+	Opt2SetPassLineCtl,
+	"Opt2SetPassLineCtl",
+	Opt2CurPathStrCtl,
+	"Opt2CurPathStrCtl",
+	Opt2SetPassCtl,
+	"Opt2SetPassCtl",
+//2.0b4Opt2PassProtCtl,
+//	"Opt2PassProtCtl",
+	Opt2DataFieldTimeCtl,
+	"Opt2DataFieldTimeCtl",
+	Opt2SwapCtl,
+	"Opt2SwapCtl",
+	Opt2MinutesStrCtl,
+	"Opt2MinutesStrCtl",
+	Opt2SHRCornersActiveCtl,
+	"Opt2SHRCornersActiveCtl",
+	Opt2AdvOptionsStrCtl,
+	"Opt2AdvOptionsStrCtl",
+	Opt2UseDiffPathCtl,
+	"Opt2UseDiffPathCtl",
+	Opt2SetPathCtl,
+	"Opt2SetPathCtl",
+	WaitThermoCtl,
+	"WaitThermoCtl",
+	WaitWaitStrCtl,
+	"WaitWaitStrCtl",
+	T2IconCtl,
+	"T2IconCtl",
+	T2ToggleCtl,
+	"T2ToggleCtl",
+	T2PurgeCtl,
+	"T2PurgeCtl",
+	T2SetupTestCtl,
+	"T2SetupTestCtl",
+	T2HelpTECtl,
+	"T2HelpTECtl",
+	OptMouseRestoreDeskCtl,
+	"OptMouseRestoreDeskCtl",
+	T2VerCtl,
+	"T2VerCtl",
+	OptTextBlankPopupCtl,
+	"OptTextBlankPopupCtl",
+	OptWatchPopupCtl,
+	"OptWatchPopupCtl",
+	T2SetupPopupCtl,
+	"T2SetupPopupCtl",
+	T2SetupLineCtl,
+	"T2SetupLineCtl",
+	T2StopIcon640Ctl,
+	"T2StopIcon640Ctl",
+	T2StopIcon320Ctl,
+	"T2StopIcon320Ctl",
+	T2AbtModLineCtl,
+	"T2AbtModLineCtl",
+	T2AbtModInfoCtl,
+	"T2AbtModInfoCtl",
+	T2AboutModuleCtl,
+	"T2AboutModuleCtl",
+	T2BlankNowCtl,
+	"T2BlankNowCtl",
+	T2GenericCantOpenMsgCtl,
+	"T2GenericCantOpenMsgCtl",
+	T2ModuleListCtl,
+	"T2ModuleListCtl",
+	T2SetupUpdateCtl,
+	"T2SetupUpdateCtl",
+	T2SetupCtl,
+	"T2SetupCtl",
+	LR_Popup,
+	"LR Popup",
+	UR_Popup,
+	"UR Popup",
+	LL_Popup,
+	"LL Popup",
+	UL_Popup,
+	"UL Popup",
+	Corners_Rect,
+	"Corners Rect",
+	T2StrCtl,
+	"T2StrCtl",
+	CornersStrCtl,
+	"CornersStrCtl",
+	OptWarningAlertsCtl,
+	"OptWarningAlertsCtl",
+	OptDClickFctnCtl,
+	"OptDClickFctnCtl",
+	OptNDACtl,
+	"OptNDACtl",
+	T2ActiveCtl,
+	"T2ActiveCtl",
+	OptMenuBoxCtl,
+	"OptMenuBoxCtl",
+	OptCapsLockCtl,
+	"OptCapsLockCtl",
+	OptMinToBlankStrCtl,
+	"OptMinToBlankStrCtl",
+	OptProhibitSndCtl,
+	"OptProhibitSndCtl",
+	OptSysBeepsUnblankCtl,
+	"OptSysBeepsUnblankCtl",
+	OptUseIntelliKeyCtl,
+	"OptUseIntelliKeyCtl",
+	OptLowMemoryCtl,
+	"OptLowMemoryCtl",
+	OptBlankDelayDFCtl,
+	"OptBlankDelayDFCtl"
+    }
+};
+
+resource rResName (0x18006) {
+    1,
+    {
+	OldPassStr,
+	"OldPassStr",
+	NewPass1Str,
+	"NewPass1Str",
+	NewPass2Str,
+	"NewPass2Str",
+	EnterPassStr,
+	"EnterPassStr",
+	OKStr,
+	"OKStr",
+	CancelStr,
+	"CancelStr",
+	Opt2SetItStr,
+	"Opt2SetItStr",
+	Opt2UseDiffPathStr,
+	"Opt2UseDiffPathStr",
+	Opt2SHRCornActiveStr,
+	"Opt2SHRCornActiveStr",
+	Opt2SwapStr,
+	"Opt2SwapStr",
+	Opt2PassProtStr,
+	"Opt2PassProtStr",
+	T2ToggleCtlStr,
+	"T2ToggleCtlStr",
+	OptLowMemoryStr,
+	"OptLowMemoryStr",
+	OptUseIntelliKeyStr,
+	"OptUseIntelliKeyStr",
+	OptSysBeepsUnblankStr,
+	"OptSysBeepsUnblankStr",
+	OptProhibitSndStr,
+	"OptProhibitSndStr",
+	T2PurgeCtlStr,
+	"T2PurgeCtlStr",
+	T2SetupTestStr,
+	"T2SetupTestStr",
+	T2SetupPopupStr,
+	"T2SetupPopupStr",
+	OptToggleStr,
+	"OptToggleStr",
+	OptTxtScrnBlankStr,
+	"OptTxtScrnBlankStr",
+	OptWarningAlertsStr,
+	"OptWarningAlertsStr",
+	OptWatchCursorStr,
+	"OptWatchCursorStr",
+	OptWatchBkgroundBlankStr,
+	"OptWatchBkgroundBlankStr",
+	OptTextOnlyGSOSStr,
+	"OptTextOnlyGSOSStr",
+	OptSetupModuleStr,
+	"OptSetupModuleStr",
+	OptTextBkgroundBlankStr,
+	"OptTextBkgroundBlankStr",
+	OptWatchNormalBlankStr,
+	"OptWatchNormalBlankStr",
+	T2CornerMItemStr,
+	"T2CornerMItemStr",
+	T2Options2MItemStr,
+	"T2Options2MItemStr",
+	T2OptionsMItemStr,
+	"T2OptionsMItemStr",
+	T2SetupStr,
+	"T2SetupStr",
+	T2AboutModuleStr,
+	"T2AboutModuleStr",
+	T2BlankNowStr,
+	"T2BlankNowStr",
+	T2SetupUpdateStr,
+	"T2SetupUpdateStr",
+	T2SetupCtlStr,
+	"T2SetupCtlStr",
+	LRStr,
+	"LRStr",
+	URStr,
+	"URStr",
+	LLStr,
+	"LLStr",
+	BkgBlankNowStr,
+	"BkgBlankNowStr",
+	ULStr,
+	"ULStr",
+	DontBlankStr,
+	"DontBlankStr",
+	BlankNowStr,
+	"BlankNowStr",
+	DisabledStr,
+	"DisabledStr",
+	OptNDAStr,
+	"OptNDAStr",
+	T2ActiveCtlStr,
+	"T2ActiveCtlStr",
+	OptMenuBoxStr,
+	"OptMenuBoxStr",
+	OptCapsLockStr,
+	"OptCapsLockStr",
+/*	OptMinToBlankLEStr,
+	"OptMinToBlankLEStr",  */
+	OptDClickFctnStr,
+	"OptDClickFctnStr",
+	OptPreviewMItemStr,
+	"OptPreviewMItemStr",
+//	T2RandomizeCtlStr,
+//	"T2RandomizeCtlStr",
+	OptCloseT2MItemStr,
+	"OptCloseT2MItemStr",
+	OptMouseRestoreStr,
+	"OptMouseRestoreStr"
+    }
+};
+
+resource rResName (0x1800B) {
+    1,
+    {
+	Opt2ChangePass_LText,
+	"Opt2ChangePass LText",
+	Opt2OldPass_LText,
+	"Opt2OldPass LText",
+	Opt2NewPass_LText,
+	"Opt2NewPass LText",
+	PassEnterPass_LText,
+	"PassEnterPass LText",
+	Opt2AdvOptions_LText,
+	"Opt2AdvOptions LText",
+	Opt2Minutes_LText,
+	"Opt2Minutes LText",
+	Opt2CurPath_LText,
+	"Opt2CurPath LText",
+	WaitWait_LText,
+	"WaitWait LText",
+	T2Ver_LText,
+	"T2Ver LText",
+	T2Help_EE1_LText,
+	"T2Help EE1 LText",
+	T2AbtModInfo_LText,
+	"T2AbtModInfo LText",
+	T2CantDoFileStuff_LText,
+	"T2CantDoFileStuff LText",
+	T2WriteProtect_LText,
+	"T2WriteProtect LText",
+	T2CantGetMemory_LText,
+	"T2CantGetMemory LText",
+	T2CantStartTools_LText,
+	"T2CantStartTools LText",
+	T2Help_LText,
+	"T2Help LText",
+	T2T2_LText,
+	"T2T2 LText",
+	Corners_LText,
+	"Corners LText",
+	T2CantFindSetup_LText,
+	"T2CantFindSetup LText",
+	OptMinToBlank_LText,
+	"OptMinToBlank LText"
+    }
+};
+
+resource rResName (0x1800E) {
+    1,
+    {
+	PassWind,
+	"PassWind",
+	Opt2EnterPassWind,
+	"Opt2EnterPassWind",
+	T2_Wait_Window,
+	"T2 Wait Window",
+	T2_Setup_Window,
+	"T2 Setup Window",
+	T2_About_Module_Window,
+	"T2 About Module Window",
+	Temporary_T2_CDev_Window,
+	"Temporary T2 CDev Window"
+    }
+};
+
+resource rResName (0x18015) {
+    1,
+    {
+	Opt2ChangePathAlert,
+	"Opt2ChangePathAlert",
+	Opt2BadOldPassAlert,
+	"Opt2BadOldPassAlert",
+	Opt2BadNewPassAlert,
+	"Opt2BadNewPassAlert",
+	Opt2Pass4LengthAlert,
+	"Opt2Pass4LengthAlert",
+	BadPassAlert,
+	"BadPassAlert",
+	awCantPurge,
+	"awCantPurge",
+	awErrMemoryLMM,
+	"awErrMemoryLMM",
+	awErrLoadModuleCont,
+	"awErrLoadModuleCont",
+	awErrLoadModuleCancel,
+	"awErrLoadModuleCancel",
+	AlertInsertT2Disk,
+	"AlertInsertT2Disk",
+	AlertModuleNoSupportSetup,
+	"AlertModuleNoSupportSetup",
+	AlertSetup320Error,
+	"AlertSetup320Error",
+	AlertAbout320Error,
+	"AlertAbout320Error",
+	AlertPurgeT2Warning,
+	"AlertPurgeT2Warning",
+	AlertWarnPrefsNoSave2,
+	"AlertWarnPrefsNoSave2",
+	AlertWarnPrefsNoSave,
+	"AlertWarnPrefsNoSave",
+	AlertOpenError,
+	"AlertOpenError",
+	AlertCloseError,
+	"AlertCloseError",
+/*	AlertCantLoadModule,
+	"AlertCantLoadModule",*/
+	AlertCapsLockError,
+	"AlertCapsLockError",
+	AlertUnknownError,
+	"AlertUnknownError"
+    }
+};
+
+resource rResName (0x18017) {
+    1,
+    {	
+	T2_Init,
+	"T2 Init"
+    }
+};
+
+resource rResName (0x18018) {
+    1,
+    {
+	Twilight_II_CDev,
+	"Twilight II CDev"
+    }
+};
+
+resource rResName (0x18019) {
+    1,
+    {
+	T2_CDev_Flags,
+	"T2 CDev Flags"
+    }
+};
+
+resource rResName (0x18029) {
+    1,
+    {
+	T2_Version,
+	"T2 Version"
+    }
+};
+
+resource rResName ($18010) {
+       1,
+       {
+	   T2_Setup_WColor,
+	   "T2 Setup WColor"
+       }
+};
+
+resource rResName ($1C001) {
+       1,
+       {
+	   T2_Init_RectList,
+	   "T2 Init RectList"
+       }
+};
+
+
+resource rResName ($18009) {
+       1,
+       {
+	T2SetupTextBlankMenu,
+	"T2SetupTextBlankMenu",
+	T2SetupWatchMenu,
+	"T2SetupWatchMenu",
+	       T2SetupModuleMenu,
+	       "T2SetupModuleMenu",
+	       UL_Menu,
+	       "UL Menu",
+	       LL_Menu,
+	       "LL Menu",
+	       UR_Menu,
+	       "UR Menu",
+	       LR_Menu,
+	       "LR Menu",
+	       OptDClickFctnMenu,
+	       "OptDClickFctnMenu"
+       }
+};
+
+resource rResName ($1800A) {
+       1,
+       {
+	OptToggleMItem,
+	"OptToggleMItem",
+	TextBkgroundBlank_MItem,
+	"TextBkgroundBlank MItem",
+	TextOnlyGSOS_MItem,
+	"TextOnlyGSOS MItem",
+	OptSetupModuleMItem,
+	"OptSetupModuleMItem",
+	WatchBkgroundBlank_MItem,
+	"WatchBkgroundBlank MItem",
+	WatchDontBlank_MItem,
+	"WatchDontBlank MItem",
+	WatchNormalBlank_MItem,
+	"WatchNormalBlank MItem",
+	TextBlankDisabled_MItem,
+	"TextBlankDisabled MItem",
+	       T2MenuItem,
+	       "T2MenuItem",
+	       T2CornerMItem,
+	       "T2CornerMItem",
+	T2Options2MItem,
+	"T2Options2MItem",
+	       T2OptionsMItem,
+	       "T2OptionsMItem",
+	       UL_BkgNow_MItem,
+	       "UL BkgNow MItem",
+	       UL_Now_MItem,
+	       "UL Now MItem",
+	       UL_Never_MItem,
+	       "UL Never MItem",
+	       UL_Disabled_MItem,
+	       "UL Disabled MItem",
+	       LR_BkgNow_MItem,
+	       "LR BkgNow MItem",
+	       LR_Now_MItem,
+	       "LR Now MItem",
+	       LR_Never_MItem,
+	       "LR Never MItem",
+	       LR_Disabled_MItem,
+	       "LR Disabled MItem",
+	       UR_BkgNow_MItem,
+	       "UR BkgNow MItem",
+	       UR_Now_MItem,
+	       "UR Now MItem",
+	       UR_Never_MItem,
+	       "UR Never MItem",
+	       UR_Disabled_MItem,
+	       "UR Disabled MItem",
+	       LL_BkgNow_MItem,
+	       "LL BkgNow MItem",
+	       LL_Now_MItem,
+	       "LL Now MItem",
+	       LL_Never_MItem,
+	       "LL Never MItem",
+	       LL_Disabled_MItem,
+	       "LL Disabled MItem",
+	       OptPreviewMItem,
+	       "OptPreviewMItem",
+	       OptCloseMItem,
+	       "OptCloseMItem"
+       }
+};
+
+// == setup: corners
+
+resource rControlList (T2Setup_Corner_CtlLst) {
+       {
+       UL_Popup,
+       LL_Popup,
+       UR_Popup,
+       LR_Popup,
+       CornersStrCtl,
+       Corners_Rect,
+       };
+};
+
+#define cornerPopLeft		    32
+
+resource rControlTemplate (LR_Popup) {
+       $00000001,	       // ID
+       { 98, cornerPopLeft,  0,	 0},	  // rect
+       popUpControl {{
+	       ctlVisible+fType2PopUp+fDontHiliteTitle,	   // flag
+	       fCtlProcNotPtr+RefIsResource, // moreFlags
+	       NIL,	       // refCon
+	       NIL,	       // titleWidth
+	       LR_Menu,	 // menuRef
+	       NIL	       // initialValue
+       }};
+};
+
+resource rControlTemplate (UR_Popup) {
+       $00000002,	       // ID
+       { 80, cornerPopLeft+1,  0,	 0},	  // rect
+       popUpControl {{
+	       ctlVisible+fType2PopUp+fDontHiliteTitle,	   // flag
+	       fCtlProcNotPtr+RefIsResource, // moreFlags
+	       NIL,	       // refCon
+	       NIL,	       // titleWidth
+	       UR_Menu,	 // menuRef
+	       NIL	       // initialValue
+       }};
+};
+
+resource rControlTemplate (LL_Popup) {
+       $00000003,	       // ID
+       { 62, cornerPopLeft+7, 0, 0},	  // rect
+       popUpControl {{
+	       ctlVisible+fType2PopUp+fDontHiliteTitle,	   // flag
+	       fCtlProcNotPtr+RefIsResource, // moreFlags
+	       NIL,	       // refCon
+	       NIL,	       // titleWidth
+	       LL_Menu,	 // menuRef
+	       NIL	       // initialValue
+       }};
+};
+
+resource rControlTemplate (UL_Popup) {
+       $00000004,	       // ID
+       { 44, cornerPopLeft+8,  0,  0},	  // rect
+       popUpControl {{
+	       ctlVisible+fType2PopUp+fDontHiliteTitle,	   // flag
+	       fCtlProcNotPtr+RefIsResource, // moreFlags
+	       NIL,	       // refCon
+	       $0000,	       // titleWidth
+	       UL_Menu,	 // menuRef
+	       NIL	       // initialValue
+       }};
+};
+
+resource rControlTemplate (Corners_Rect) {
+       $00000005,	       // ID
+       { 33, 14,120,334},	    // rect
+       rectangleControl {{
+	       $FF01,		    // flag (%01 = gray pattern)
+	       fCtlProcNotPtr,	    // moreFlags (required values)
+	       NIL	      // refCon
+       }};
+};
+
+resource rControlTemplate (CornersStrCtl) {
+       $00000006,	       // ID
+       { 29,142, 39,204},      // rect
+       statTextControl {{
+	       ctlVisible,   // flag
+	       fCtlProcNotPtr+RefIsResource,  // moreFlags
+	       NIL,	 // refCon
+	       Corners_LText   // textRef
+       }};
+};
+
+resource rPString (LRStr) {
+       " Lower Right: "
+};
+
+resource rPString (URStr) {
+       " Upper Right: "
+};
+
+resource rPString (LLStr) {
+       " Lower Left: "
+};
+
+resource rPString (ULStr) {
+       " Upper Left: "
+};
+
+resource rPString (BkgBlankNowStr) {
+       "Background Blank Now"
+};
+
+resource rPString (DontBlankStr,locked,fixed,nospecialmemory,nocrossbank) {
+       "Never Blank"
+};
+
+resource rPString (BlankNowStr,locked,fixed,nospecialmemory,nocrossbank) {
+       "Foreground Blank Now"
+};
+
+resource rPString (DisabledStr,locked,fixed,nospecialmemory,nocrossbank) {
+       "Disabled"
+};
+
+resource rTextForLETextBox2 (Corners_LText) {
+       " Corners "
+};
+
+resource rMenu (UL_Menu) {
+       $0011,		       // menuID
+       $A000+fAllowCache,      // menuFlag (title=Rez, items=Rez)
+       ULStr, {	       // menuTitleRef
+	       UL_BkgNow_MItem,
+	       UL_Now_MItem,
+	       UL_Never_MItem,
+	       UL_Disabled_MItem
+       };
+};
+
+resource rMenu (LL_Menu) {
+       $0012,		       // menuID
+       $A000+fAllowCache,      // menuFlag (title=Rez, items=Rez)
+       LLStr, {	       // menuTitleRef
+	       LL_BkgNow_MItem,
+	       LL_Now_MItem,
+	       LL_Never_MItem,
+	       LL_Disabled_MItem
+       };
+};
+
+resource rMenu (UR_Menu) {
+       $0013,		       // menuID
+       $A000+fAllowCache,      // menuFlag (title=Rez, items=Rez)
+       URStr, {	       // menuTitleRef
+	       UR_BkgNow_MItem,
+	       UR_Now_MItem,
+	       UR_Never_MItem,
+	       UR_Disabled_MItem
+       };
+};
+
+resource rMenu (LR_Menu) {
+       $0014,		       // menuID
+       $A000+fAllowCache,      // menuFlag (title=Rez, items=Rez)
+       LRStr, {	       // menuTitleRef
+	       LR_BkgNow_MItem,
+	       LR_Now_MItem,
+	       LR_Never_MItem,
+	       LR_Disabled_MItem
+       };
+};
+
+resource rMenuItem (UL_BkgNow_MItem,locked,fixed,nospecialmemory,nocrossbank) {
+       $0302,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,		       // itemFlag (titleRef is resource)
+       BkgBlankNowStr		// itemTitleRef
+};
+
+resource rMenuItem (UL_Never_MItem,locked,fixed,nospecialmemory,nocrossbank) {
+       $0301,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,		       // itemFlag (titleRef is resource)
+       DontBlankStr	      // itemTitleRef
+};
+
+resource rMenuItem (UL_Disabled_MItem,locked,fixed,nospecialmemory,nocrossbank) {
+       $0300,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,		       // itemFlag (titleRef is resource)
+       DisabledStr	     // itemTitleRef
+};
+
+resource rMenuItem (UL_Now_MItem,locked,fixed,nospecialmemory,nocrossbank) {
+       $0303,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,		       // itemFlag (titleRef is resource)
+       BlankNowStr	     // itemTitleRef
+};
+
+resource rMenuItem (LR_BkgNow_MItem,locked,fixed,nospecialmemory,nocrossbank) {
+       $0306,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,		       // itemFlag (titleRef is resource)
+       BkgBlankNowStr		// itemTitleRef
+};
+
+resource rMenuItem (LR_Never_MItem,locked,fixed,nospecialmemory,nocrossbank) {
+       $0305,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,		       // itemFlag (titleRef is resource)
+       DontBlankStr	      // itemTitleRef
+};
+
+resource rMenuItem (LR_Disabled_MItem,locked,fixed,nospecialmemory,nocrossbank) {
+       $0304,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,		       // itemFlag (titleRef is resource)
+       DisabledStr	     // itemTitleRef
+};
+
+resource rMenuItem (LR_Now_MItem,locked,fixed,nospecialmemory,nocrossbank) {
+       $0307,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,		       // itemFlag (titleRef is resource)
+       BlankNowStr	     // itemTitleRef
+};
+
+resource rMenuItem (UR_BkgNow_MItem,locked,fixed,nospecialmemory,nocrossbank) {
+       $030a,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,		       // itemFlag (titleRef is resource)
+       BkgBlankNowStr		// itemTitleRef
+};
+
+resource rMenuItem (UR_Never_MItem,locked,fixed,nospecialmemory,nocrossbank) {
+       $0309,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,		       // itemFlag (titleRef is resource)
+       DontBlankStr	      // itemTitleRef
+};
+
+resource rMenuItem (UR_Disabled_MItem,locked,fixed,nospecialmemory,nocrossbank) {
+       $0308,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,		       // itemFlag (titleRef is resource)
+       DisabledStr	     // itemTitleRef
+};
+
+resource rMenuItem (UR_Now_MItem,locked,fixed,nospecialmemory,nocrossbank) {
+       $030b,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,		       // itemFlag (titleRef is resource)
+       BlankNowStr	     // itemTitleRef
+};
+
+resource rMenuItem (LL_BkgNow_MItem,locked,fixed,nospecialmemory,nocrossbank) {
+       $030e,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,		       // itemFlag (titleRef is resource)
+       BkgBlankNowStr		// itemTitleRef
+};
+
+resource rMenuItem (LL_Never_MItem,locked,fixed,nospecialmemory,nocrossbank) {
+       $030d,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,		       // itemFlag (titleRef is resource)
+       DontBlankStr	      // itemTitleRef
+};
+
+resource rMenuItem (LL_Disabled_MItem,locked,fixed,nospecialmemory,nocrossbank) {
+       $030c,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,		       // itemFlag (titleRef is resource)
+       DisabledStr	     // itemTitleRef
+};
+
+resource rMenuItem (LL_Now_MItem,locked,fixed,nospecialmemory,nocrossbank) {
+       $030f,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,		       // itemFlag (titleRef is resource)
+       BlankNowStr	     // itemTitleRef
+};
+
+
+// === setup: options
+
+resource rControlList (T2Setup_Options_CtlLst) {
+	{
+	OptMouseRestoreDeskCtl,
+       OptMenuBoxCtl,
+       OptCapsLockCtl,
+       OptMinToBlankStrCtl,
+//	OptBlankDelayDFCtl,
+       OptNDACtl,
+       OptDClickFctnCtl,
+       OptWarningAlertsCtl,
+       OptTextBlankPopupCtl,
+       OptWatchPopupCtl,
+	OptProhibitSndCtl,
+	OptSysBeepsUnblankCtl,
+	OptUseIntelliKeyCtl,
+	OptLowMemoryCtl,
+       };
+};
+
+resource rControlTemplate (OptWarningAlertsCtl) {
+		$00000001,			// ID
+		{ 53, 10, 62,174},		// rect
+		checkControl {{
+	     	NIL,	     // flag
+	       	fCtlProcNotPtr+fCtlWantsEvents+refIsResource,	// moreFlags
+	     	NIL,	 // refCon
+	     	OptWarningAlertsStr,   // titleRef
+	     	NIL,	     // initialValue
+			NIL,              // colorTableRef
+         	{"A","a",$0100,$0100}  // key equivalents
+       }};
+};
+
+resource rPString (OptWarningAlertsStr) {
+	"Warning Alerts"
+};
+
+resource rControlTemplate (OptDClickFctnCtl) {
+       $00000002,	       // ID
+       { 87,  6,  0,  0},      // rect
+       popUpControl {{
+	       ctlVisible+fType2PopUp+fDontHiliteTitle,	   // flag
+	       fCtlProcNotPtr+RefIsResource+fDrawPopDownIcon, // moreFlags
+	       NIL,	 // refCon
+	       NIL,	     // titleWidth
+	       OptDClickFctnMenu,  // menuRef
+	       $0011,	       // initialValue
+	       0 	       // colorTableRef
+       }};
+};
+
+resource rControlTemplate (OptNDACtl) {
+		$00000003,			// ID
+		{ 43, 10, 52,172},		// rect
+		checkControl {{
+	       	NIL,	     // flag
+	     	fCtlProcNotPtr+fCtlWantsEvents+refIsResource,	// moreFlags
+	       	NIL,	 // refCon
+	       	OptNDAStr,  // titleRef
+	       	NIL,  	       // initialValue
+           	NIL,            // colorTableRef
+           	{"I","i",$0100,$0100}  // key equivalents
+       }};
+};
+
+resource rPString (OptNDAStr) {
+	"Install T2 NDA"
+};
+
+resource rControlTemplate (OptTextBlankPopupCtl) {
+       $00000004,              // ID
+       { 73, 10,  0,  0},      // rect
+       popUpControl {{
+               $0060,          // flag
+	       fCtlProcNotPtr+RefIsResource+fDrawPopDownIcon, // moreFlags
+               $00000000,      // refCon
+               $0000,          // titleWidth
+               T2SetupTextBlankMenu,  // menuRef
+               $FFEA,          // initialValue
+               0               // colorTableRef
+       }};
+};
+
+resource rControlTemplate (OptMenuBoxCtl) {
+		$00000005,			// ID
+		{ 33, 10, 42,172},		// rect
+		checkControl {{
+	       	NIL,	     // flag
+	       	fCtlProcNotPtr+fCtlWantsEvents+refIsResource,	// moreFlags
+	       	NIL,	 // refCon
+	       	OptMenuBoxStr,  // titleRef
+           	NIL,            // initialValue
+           	NIL,              // colorTableRef
+			{"M","m",$0100,$0100}	// key equivalents
+       }};
+};
+
+resource rPString (OptMenuBoxStr) {
+	"Menu Bar Box"
+};
+
+resource rControlTemplate (OptCapsLockCtl) {
+		$00000006,			// ID
+		{ 63,176, 72,340},		// rect
+		checkControl {{
+	       NIL,	     // flag
+	       fCtlProcNotPtr+fCtlWantsEvents+refIsResource,	// moreFlags
+	       NIL,	 // refCon
+	       OptCapsLockStr,	// titleRef
+	       NIL, 	       // initialValue
+           NIL,                // colorTableRef
+           {"C","c",$0100,$0100}  // key equivalents
+       }};
+};
+
+resource rControlTemplate (OptMinToBlankStrCtl) {
+       $00000007,	       // ID
+       {117, 10,126,185+2},      // rect
+       statTextControl {{
+	       NIL,	     // flag
+	       $1002,	       // moreFlags
+	       NIL,	 // refCon
+	       OptMinToBlank_LText	// textRef
+       }};
+};
+
+/*resource rControlTemplate (OptBlankDelayDFCtl) {
+       $00000008,	       // ID
+       {115,186+2,128,216+2},      // rect
+       editLineControl {{
+	       ctlVisible,   // flag
+	       $7002,	       // moreFlags
+	       NIL,	 // refCon
+	       $0002,	       // maxSize
+	       OptMinToBlankLEStr   // defaultRef
+       }};
+};*/
+
+resource rControlTemplate (OptBlankDelayDFCtl) {
+       8,		    // control ID
+       {115,186+4,128,230+4},      // rect
+       dataFieldControl {{
+               ctlVisible,			// flag
+//               fCtlCanBeTarget+fCtlProcNotPtr+RefIsResource,
+               fCtlCanBeTarget+RefIsResource,
+               NIL,            			// refCon
+               blankDelayDataList,			// dataListRef
+               {0,0,0,0,0,0,0,0}  // fieldValues
+       }};
+};
+
+
+
+resource rControlTemplate (OptWatchPopupCtl) {
+       $00000009,              // ID
+       {101, 12,  0,  0},      // rect
+       popUpControl {{
+               $0060,          // flag
+	       fCtlProcNotPtr+RefIsResource+fDrawPopDownIcon, // moreFlags
+               $00000000,      // refCon
+               $0000,          // titleWidth
+               T2SetupWatchMenu,  // menuRef
+               $0106,          // initialValue
+               0               // colorTableRef
+       }};
+};
+
+resource rControlTemplate (OptMouseRestoreDeskCtl) {
+		$0000000A,			// ID
+		{ 23, 10, 32,342},		// rect
+		checkControl {{
+	     	NIL,	     // flag
+	       	fCtlProcNotPtr+fCtlWantsEvents+refIsResource,	// moreFlags
+	     	NIL,	 // refCon
+	     	OptMouseRestoreStr,		// titleRef
+	     	NIL,					// initialValue
+			NIL,					// colorTableRef
+			{"D","d",$0100,$0100}	// key equivalents
+       }};
+};
+
+resource rPString (OptMouseRestoreStr) {
+	"Mouse Movement Unblanks Desktop"
+};
+
+resource rControlTemplate (OptProhibitSndCtl) {
+		11,					// ID
+		{ 63, 10, 72,172},		// rect
+		checkControl {{
+			$0000,			// flag
+	       	fCtlProcNotPtr+fCtlWantsEvents+refIsResource,	// moreFlags
+			$00000000,			// refCon
+			OptProhibitSndStr,	// titleRef
+			$0000,			// initialValue
+			0,			// colorTableRef
+			{"P","p",$0100,$0100}	// key equivalents
+		}};
+};
+
+resource rPString (OptProhibitSndStr) {
+	"Prohibit Sound"
+};
+
+resource rControlTemplate (OptSysBeepsUnblankCtl) {
+		12,			// ID
+		{ 43,176, 53,340},		// rect
+		checkControl {{
+			$0000,			// flag
+	       	fCtlProcNotPtr+fCtlWantsEvents+refIsResource,	// moreFlags
+			$00000000,			// refCon
+			OptSysBeepsUnblankStr,	// titleRef
+			$0000,			// initialValue
+			0,			// colorTableRef
+			{"B","b",$0000,$0000}	// key equivalents
+		}};
+};
+
+resource rPString (OptSysBeepsUnblankStr) {
+	"Beeping Unblanks"
+};
+
+resource rControlTemplate (OptUseIntelliKeyCtl) {
+		13,			// ID
+		{ 53,176, 62,338},		// rect
+		checkControl {{
+			$0000,			// flag
+	       	fCtlProcNotPtr+fCtlWantsEvents+refIsResource,	// moreFlags
+			$00000000,			// refCon
+			OptUseIntelliKeyStr,	// titleRef
+			$0000,			// initialValue
+			0,			// colorTableRef
+			{"Q","q",$0100,$0100}	// key equivalents
+		}};
+};
+
+resource rPString (OptUseIntelliKeyStr) {
+	"Use QuickResponse"
+};
+
+resource rControlTemplate (OptLowMemoryCtl) {
+		14,			// ID
+		{ 33,176, 42,340},		// rect
+		checkControl {{
+	       	NIL,	     // flag
+	       	fCtlProcNotPtr+fCtlWantsEvents+refIsResource,	// moreFlags
+	       	NIL,	 // refCon
+	       	OptLowMemoryStr,  // titleRef
+           	NIL,            // initialValue
+           	NIL,              // colorTableRef
+			{"L","l",$0100,$0100}	// key equivalents
+       }};
+};
+
+resource rPString (OptLowMemoryStr) {
+	"Low Memory Mode"
+};
+
+resource rTextForLETextBox2 (OptMinToBlank_LText) {
+       "Minutes before blanking:"
+};
+
+resource rPString (OptCapsLockStr) {
+	"Caps Lock \$D2Lock\$D3"
+};
+
+/*resource rPString (OptMinToBlankLEStr) {
+	"3"
+};*/
+
+resource rPString (OptDClickFctnStr) {
+	" DoubleClick Function: "
+};
+
+resource rMenu (OptDClickFctnMenu) {
+       3,    		       // menuID
+       $A000+fAllowCache,      // menuFlag (title=Rez, items=Rez)
+       OptDClickFctnStr, {	  // menuTitleRef
+		OptToggleMItem,
+               OptPreviewMItem,
+               OptCloseMItem,
+               OptSetupModuleMItem
+       };
+};
+
+resource rMenu (T2SetupWatchMenu) {
+       2,                      // menuID
+       $A000,                  // menuFlag
+       OptWatchCursorStr, {        // menuTitleRef
+               WatchBkgroundBlank_MItem,
+               WatchDontBlank_MItem,
+               WatchNormalBlank_MItem
+       };
+};
+
+resource rPString (OptWatchCursorStr) {
+       "Watch Cursor: "
+};
+
+resource rMenu (T2SetupTextBlankMenu) {
+       4,                      // menuID
+       $A000,                  // menuFlag
+       OptTxtScrnBlankStr, {        // menuTitleRef
+               TextBkgroundBlank_MItem,
+               TextOnlyGSOS_MItem,
+               TextBlankDisabled_MItem
+       };
+};
+
+resource rPString (OptTxtScrnBlankStr) {
+       "Text Screen Blank: "
+};
+
+resource rMenuItem (OptPreviewMItem,locked,fixed,nospecialmemory,nocrossbank) {
+       $0300,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,		       // itemFlag (titleRef is resource)
+       OptPreviewMItemStr	    // itemTitleRef
+};
+
+resource rPString (OptPreviewMItemStr) {
+       "Preview Module"
+};
+
+resource rMenuItem (OptCloseMItem,locked,fixed,nospecialmemory,nocrossbank) {
+       $0301,		       // itemID
+       "","",		       // itemChar, itemAltChar
+       NIL,		       // itemCheck
+       $8000,		       // itemFlag (titleRef is resource)
+       OptCloseT2MItemStr	    // itemTitleRef
+};
+
+resource rPString (OptCloseT2MItemStr,locked,fixed,nospecialmemory,nocrossbank) {
+       "Close Twilight II"
+};
+
+resource rMenuItem (OptSetupModuleMItem, $C018) {
+       $0302,                  // itemID
+       "","",                  // itemChar, itemAltChar
+       NIL,                    // itemCheck
+       $8000,                  // itemFlag
+       OptSetupModuleStr           // itemTitleRef
+};
+
+resource rPString (OptSetupModuleStr, $C018) {
+       "Setup Module"
+};
+
+resource rMenuItem (OptToggleMItem, $C018) {
+       $0303,                  // itemID
+       "","",                  // itemChar, itemAltChar
+       NIL,                    // itemCheck
+       $8000,                  // itemFlag
+       OptToggleStr                // itemTitleRef
+};
+
+resource rPString (OptToggleStr, $C018) {
+       "Toggle Module"
+};
+
+resource rMenuItem (TextBkgroundBlank_MItem, $C018) {
+       $0500,                  // itemID
+       "","",                  // itemChar, itemAltChar
+       NIL,                    // itemCheck
+       $8000,                  // itemFlag
+       OptWatchBkgroundBlankStr           // itemTitleRef
+};
+
+resource rPString (OptWatchBkgroundBlankStr, $C018) {
+       "Background Blank"
+};
+
+resource rMenuItem (TextOnlyGSOS_MItem, $C018) {
+       $0501,                  // itemID
+       "","",                  // itemChar, itemAltChar
+       NIL,                    // itemCheck
+       $8000,                  // itemFlag
+       OptTextOnlyGSOSStr           // itemTitleRef
+};
+
+resource rPString (OptTextOnlyGSOSStr, $C018) {
+       "Only in GS/OS"
+};
+
+resource rMenuItem (TextBlankDisabled_MItem, $c018) {
+       $0502,                  // itemID
+       "","",                  // itemChar, itemAltChar
+       NIL,                    // itemCheck
+       $8000,                  // itemFlag
+       DisabledStr             // itemTitleRef
+};
+
+resource rMenuItem (WatchBkgroundBlank_MItem, $C018) {
+       $0400,                  // itemID
+       "","",                  // itemChar, itemAltChar
+       NIL,                    // itemCheck
+       $8000,                  // itemFlag
+       OptTextBkgroundBlankStr           // itemTitleRef
+};
+
+resource rMenuItem (WatchDontBlank_MItem, $C018) {
+       $0401,                  // itemID
+       "","",                  // itemChar, itemAltChar
+       NIL,                    // itemCheck
+       $8000,                  // itemFlag
+	DontBlankStr			// itemTitleRef
+};
+
+resource rMenuItem (WatchNormalBlank_MItem, $C018) {
+       $0402,                  // itemID
+       "","",                  // itemChar, itemAltChar
+       NIL,                    // itemCheck
+       $8000,                  // itemFlag
+       OptWatchNormalBlankStr           // itemTitleRef
+};
+
+resource rPString (OptTextBkgroundBlankStr, $C018) {
+       "Background Blank"
+};
+
+resource rPString (OptWatchNormalBlankStr, $C018) {
+       "Blank Normally"
+};
+
+/* This structure describes the relative locations and strings associated with
+   each data field. Since there may be from 1 to 8 data fields in each control,
+   these location/string reference pairs repeat for each field. */
+
+resource rDataList (blankDelayDataList, nospecialmemory,nocrossbank) {
+	{
+       	{2,6},			// relative location of this field
+       	field1Strings	// reference to this field's string list
+	};
+};
+
+/* These are the tagged strings that are associated with each field in the
+   control. The tag value that is specified is used to track the current value
+   of each field. If you wish only to have a list of integers displayed, simply
+   provide the tag values and null (empty) strings as in the second field. */
+
+resource rTaggedStrings (field1Strings) {
+	{
+	    1,"",
+        2,"",
+        3,"",
+        4,"",
+        5,"",
+		6,"",
+		7,"",
+		8,"",
+		9,"",
+		10,"",
+		11,"",
+		12,"",
+		13,"",
+		14,"",
+		15,"",
+		16,"",
+		17,"",
+		18,"",
+		19,"",
+		20,"",
+		25,"",
+		30,"",
+		35,"",
+		40,"",
+		45,""
+    };  
+};
+
+// ==========================================================================
+// === setup: options2 (aka advanced options)
+
+resource rControlList (T2Setup_Options2_CtlLst) {
+		{
+		Opt2SetPathCtl,
+		Opt2UseDiffPathCtl,
+		Opt2AdvOptionsStrCtl,
+		Opt2SHRCornersActiveCtl,
+		Opt2MinutesStrCtl,	
+		Opt2SwapCtl,		
+//		Opt2DataFieldTimeCtl,	// will be loaded later...
+//2.0b4	Opt2PassProtCtl,
+		Opt2SetPassCtl,
+//		Opt2CurPathStrCtl,	
+		};
+};
+
+resource rControlTemplate (Opt2SetPassCtl) {
+		1,					// ID
+		{ 67,264, 78,326},		// rect
+		simpleButtonControl {{
+			$0002+ctlInvis,			// flag
+			$1002,			// moreFlags
+			NIL,				// refCon
+			Opt2SetItStr		// titleRef
+		}};
+};
+resource rPString (Opt2SetItStr) {
+	"Set It"
+};
+
+//2.0b4resource rControlTemplate (Opt2PassProtCtl) {
+//		2,			// ID
+//		{ 68, 20, 78,194},		// rect
+//		checkControl {{
+//			NIL,			// flag
+//			$3002+ctlInvis,	// moreFlags
+//			NIL,			// refCon
+//			Opt2PassProtStr,	// titleRef
+//			NIL,			// initialValue
+//			0,			// colorTableRef
+//			{"P","p",$0100,$0100}	// key equivalents
+//		}};
+//};
+
+resource rPString (Opt2PassProtStr) {
+	"Password Protection"
+};
+
+resource rControlTemplate (Opt2SwapCtl) {
+		3,			// ID
+		{ 55, 20, 64,188},		// rect
+		checkControl {{
+			NIL,			// flag
+			$3002,			// moreFlags
+			NIL,			// refCon
+			Opt2SwapStr,	// titleRef
+			NIL,			// initialValue
+			0,			// colorTableRef
+			{"M","m",$0100,$0100}	// key equivalents
+		}};
+};
+
+resource rPString (Opt2SwapStr) {
+	"Swap Modules Every"
+};
+
+resource rControlTemplate (Opt2SHRCornersActiveCtl) {
+		4,			// ID
+		{ 42, 20, 52,202},		// rect
+		checkControl {{
+			NIL,			// flag
+			$3002,			// moreFlags
+			NIL,			// refCon
+			Opt2SHRCornActiveStr,	// titleRef
+			$0001,			// initialValue
+			0,			// colorTableRef
+			{"C","c",$0100,$0100}	// key equivalents
+		}};
+};
+
+resource rPString (Opt2SHRCornActiveStr) {
+	"SHR Corners Active"
+};
+
+resource rControlTemplate (Opt2UseDiffPathCtl) {
+		5,			// ID
+		{ 81, 20, 90,236},		// rect
+		checkControl {{
+			NIL,			// flag
+			$3002,			// moreFlags
+			NIL,			// refCon
+			Opt2UseDiffPathStr,	// titleRef
+			NIL,			// initialValue
+			0,			// colorTableRef
+			{"U","u",$0100,$0100}	// key equivalents
+		}};
+};
+
+resource rPString (Opt2UseDiffPathStr) {
+	"Use Different Module Path"
+};
+
+resource rControlTemplate (Opt2SetPathCtl) {
+		6,			// ID
+		{ 80,264, 91,326},		// rect
+		simpleButtonControl {{
+			$0002,			// flag
+			$3002,			// moreFlags
+			NIL,			// refCon
+			Opt2SetItStr,		// titleRef
+			0,			// colorTableRef
+		{"\$00","\$00",NIL,$0000}	// key equivalents
+		}};
+};
+
+//resource rControlTemplate (Opt2DataFieldTimeCtl) {
+//		7,			// ID
+//		{ 53,192, 66,252},		// rect
+//		editLineControl {{
+//			NIL,			// flag
+//			$7002,			// moreFlags
+//			NIL,			// refCon
+//			$0005,			// maxSize
+//			TimeStr	// defaultRef
+//		}};
+//};
+
+resource rControlTemplate (Opt2DataFieldTimeCtl) {
+		7,		    // control ID
+		{ 53,192, 66,252+6},		// rect
+		dataFieldControl {{
+               ctlVisible,			// flag
+               fCtlCanBeTarget+RefIsResource,
+               NIL,            			// refCon
+               swapDelayDataList,			// dataListRef
+               {0,0,0,0,0,0,0,0}  // fieldValues
+       }};
+};
+
+
+
+// separator ---
+
+resource rControlTemplate (Opt2CurPathStrCtl) {
+		8,			// ID
+		{ 91, 46+1,127,299},		// rect
+		statTextControl {{
+			NIL,			// flag
+			$1002,			// moreFlags
+			NIL,			// refCon
+			Opt2CurPath_LText		// textRef
+		}};
+};
+
+resource rTextForLETextBox2 (Opt2CurPath_LText) {
+	TBLeftJust
+	TBForeColor TBColor1
+	TBBackColor TBColorF
+    "Module\$CAPath:\$CA"
+	TBForeColor TBColor0
+//	TBBackColor TBColorF
+	"\$D2*0\$D3"
+//	"\$CA:jim1:system:cdevs:twilight:my:server:is:very:cool:I:think:so:do"
+//	"nt:you?:yes:I:do\$0D2\$0D3\$0D4"
+};
+
+resource rControlTemplate (Opt2MinutesStrCtl) {
+		9,			// ID
+		{ 55,254+10, 64,313+10},		// rect
+		statTextControl {{
+			NIL,			// flag
+			$1002,			// moreFlags
+			NIL,			// refCon
+			Opt2Minutes_LText		// textRef
+		}};
+};
+
+resource rTextForLETextBox2 (Opt2Minutes_LText) {
+	"Minutes"
+};
+
+resource rControlTemplate (Opt2AdvOptionsStrCtl) {
+		10,			// ID
+		{ 28,112, 38,237},		// rect
+		statTextControl {{
+			NIL,			// flag
+			$1002,			// moreFlags
+			NIL,			// refCon
+			Opt2AdvOptions_LText		// textRef
+		}};
+};
+
+resource rTextForLETextBox2 (Opt2AdvOptions_LText) {
+	TBLeftJust
+	TBStyleUnderline
+	"Advanced Options"
+	TBStylePlain
+};
+
+
+/* This structure describes the relative locations and strings associated with
+   each data field. Since there may be from 1 to 8 data fields in each control,
+   these location/string reference pairs repeat for each field. */
+
+resource rDataList (swapDelayDataList, nospecialmemory,nocrossbank) {
+	{
+       	{2,6},			// relative location of this field
+       	minStrings, // reference to this field's string list
+       	{2,28},			// relative location of this field
+       	secStrings // reference to this field's string list
+	};
+};
+
+/* These are the tagged strings that are associated with each field in the
+   control. The tag value that is specified is used to track the current value
+   of each field. If you wish only to have a list of integers displayed, simply
+   provide the tag values and null (empty) strings as in the second field. */
+
+resource rTaggedStrings (secStrings) {
+	{
+		0,"00",
+	    1,"01",
+        2,"02",
+        3,"03",
+        4,"04",
+        5,"05",
+		6,"06",
+		7,"07",
+		8,"08",
+		9,"09",
+		10,"",
+		11,"",
+		12,"",
+		13,"",
+		14,"",
+		15,"",
+		16,"",
+		17,"",
+		18,"",
+		19,"",
+		20,"",
+		21,"",
+		22,"",
+		23,"",
+		24,"",
+		25,"",
+		26,"",
+		27,"",
+		28,"",
+		29,"",
+		30,"",
+		31,"",
+		32,"",
+		33,"",
+		34,"",
+		35,"",
+		36,"",
+		37,"",
+		38,"",
+		39,"",
+		40,"",
+		41,"",
+		42,"",
+		43,"",
+		44,"",
+		45,"",
+		46,"",
+		47,"",
+		48,"",
+		49,"",
+		50,"",
+		51,"",
+		52,"",
+		53,"",
+		54,"",
+		55,"",
+		56,"",
+		57,"",
+		58,"",
+		59,""
+    };  
+};
+
+
+resource rTaggedStrings (minStrings) {
+	{
+		0,"0:",
+   	     1,"1:",
+         2,"2:",
+         3,"3:",
+         4,"4:",
+         5,"5:",
+		6,"6:",
+		7,"7:",
+		8,"8:",
+		9,"9:",
+		10,"10:",
+		11,"11:",
+		12,"12:",
+		13,"13:",
+		14,"14:",
+		15,"15:",
+		16,"16:",
+		17,"17:",
+		18,"18:",
+		19,"19:",
+		20,"20:",
+		21,"21:",
+		22,"22:",
+		23,"23:",
+		24,"24:",
+		25,"25:",
+		26,"26:",
+		27,"27:",
+		28,"28:",
+		29,"29:",
+	     30,"30:",
+		31,"31:",
+		32,"32:",
+		33,"33:",
+		34,"34:",
+		35,"35:",
+		36,"36:",
+		37,"37:",
+		38,"38:",
+		39,"39:",
+		40,"40:",
+		41,"41:",
+		42,"42:",
+		43,"43:",
+		44,"44:",
+		45,"45:",
+		46,"46:",
+		47,"47:",
+		48,"48:",
+		49,"49:",
+		50,"50:",
+		51,"51:",
+		52,"52:",
+		53,"53:",
+		54,"54:",
+		55,"55:",
+		56,"56:",
+		57,"57:",
+		58,"58:",
+		59,"59:"
+    };   
+};
+
+// ==========================================================================
+// === password stuff...
+
+resource rControlList (Opt2EnterPassCtlLst) {
+		{
+		Opt2SetPassLineCtl,			// control 1
+		Opt2OKCtl,			// control 2
+		Opt2CancelCtl,			// control 3
+		Opt2SetPassChangeStrCtl,			// control 4
+		Opt2SetPassOldPassStrCtl,			// control 5
+		Opt2SetPassNewPassStrCtl,			// control 6
+		Opt2SetPassNew2Ctl,			// control 9
+		Opt2SetPassNew1Ctl,			// control 8
+		Opt2SetPassOldCtl,			// control 7
+		};
+};
+
+resource rControlList (PassCtlLst) {
+		{
+		PassEnterPassCtl,			// control 1
+		PassEnterPassStrCtl,			// control 2
+		Opt2OKCtl,			// control id 1
+		Opt2CancelCtl,			// control id 2
+		};
+};
+
+// --- Control Templates
+
+// -------enter pass window below-------
+
+resource rControlTemplate (PassEnterPassStrCtl) {
+		3,			// ID
+		{  9,  6, 19,171},		// rect
+		statTextControl {{
+			NIL,			// flag
+			$1002,			// moreFlags
+			NIL,			// refCon
+			PassEnterPass_LText		// textRef
+		}};
+};
+resource rTextForLETextBox2 (PassEnterPass_LText) {
+	"Please enter password:"
+};
+
+resource rControlTemplate (PassEnterPassCtl) {
+		4,			// ID
+		{  7,172, 20,264},		// rect
+		editLineControl {{
+			NIL,			// flag
+			$7002,			// moreFlags
+			NIL,			// refCon
+			$800A,			// maxSize
+			EnterPassStr	// defaultRef
+		}};
+};
+resource rPString (EnterPassStr) {
+	"EnterPass0"
+};
+
+
+// -------opt2 & pass (shared) below-------
+
+resource rControlTemplate (Opt2OKCtl) {
+		1,			// ID
+		{ 79, 92, 92,166},		// rect
+		simpleButtonControl {{
+			NIL,			// flag
+			$3002,			// moreFlags
+			NIL,			// refCon
+			OKStr,		// titleRef
+			0,			// colorTableRef
+		{"O","o",$0100,$0100}	// key equivalents
+		}};
+};
+resource rPString (OKStr) {
+	"OK"
+};
+
+resource rControlTemplate (Opt2CancelCtl) {
+		2,			// ID
+		{ 79,176, 92,252},		// rect
+		simpleButtonControl {{
+			$0001,			// flag
+			$3002,			// moreFlags
+			NIL,			// refCon
+			CancelStr,		// titleRef
+			0,			// colorTableRef
+		{"\$0D","\$0D",$0000,$0000}	// key equivalents
+		}};
+};
+resource rPString (CancelStr) {
+	"Cancel"
+};
+
+
+// -------opt2 below-------
+
+resource rControlTemplate (Opt2SetPassNew2Ctl) {
+		3,			// ID
+		{ 58,114, 71,206},		// rect
+		editLineControl {{
+			NIL,			// flag
+			$7002,			// moreFlags
+			NIL,			// refCon
+			$800A,			// maxSize
+			NewPass2Str	// defaultRef
+		}};
+};
+resource rPString (NewPass2Str) {
+	"" //"NewPass2"
+};
+
+resource rControlTemplate (Opt2SetPassNew1Ctl) {
+		4,			// ID
+		{ 58, 12, 71,104},		// rect
+		editLineControl {{
+			NIL,			// flag
+			$7002,			// moreFlags
+			NIL,			// refCon
+			$800A,			// maxSize
+			NewPass1Str	// defaultRef
+		}};
+};
+resource rPString (NewPass1Str) {
+	"" //"NewPass1"
+};
+
+resource rControlTemplate (Opt2SetPassOldCtl) {
+		5,			// ID
+		{ 30, 10, 43,102},		// rect
+		editLineControl {{
+			NIL,			// flag
+			$7002,			// moreFlags
+			NIL,			// refCon
+			$800A,			// maxSize
+			OldPassStr	// defaultRef
+		}};
+};
+resource rPString (OldPassStr) {
+	"" //"OldPass012"
+};
+
+
+resource rControlTemplate (Opt2SetPassNewPassStrCtl) {
+		6,			// ID
+		{ 47, 8, 56,263},		// rect
+		statTextControl {{
+			NIL,			// flag
+			$1002,			// moreFlags
+			NIL,			// refCon
+			Opt2NewPass_LText		// textRef
+		}};
+};
+resource rTextForLETextBox2 (Opt2NewPass_LText) {
+	"New Password (Enter in Both Boxes)"
+};
+
+resource rControlTemplate (Opt2SetPassOldPassStrCtl) {
+		7,			// ID
+		{ 19,  8, 29,263},		// rect
+		statTextControl {{
+			NIL,			// flag
+			$1002,			// moreFlags
+			NIL,			// refCon
+			Opt2OldPass_LText		// textRef
+		}};
+};
+resource rTextForLETextBox2 (Opt2OldPass_LText) {
+	"Old Password (Leave Blank if None)"
+};
+
+resource rControlTemplate (Opt2SetPassChangeStrCtl) {
+		8,			// ID
+		{  2,  4, 11,237},		// rect
+		statTextControl {{
+			NIL,			// flag
+			$1002,			// moreFlags
+			NIL,			// refCon
+			Opt2ChangePass_LText		// textRef
+		}};
+};
+resource rTextForLETextBox2 (Opt2ChangePass_LText) {
+	"\$01F\$FE\$FF\$01\$08"
+	"Change Twilight\$CAII Password"
+};
+
+resource rControlTemplate (Opt2SetPassLineCtl) {
+		9,			// ID
+		{ 13,0, 14,278},		// rect
+       	rectangleControl {{
+	       	$FF01,		    // flag (%01 = gray pattern)
+	       	fCtlProcNotPtr,	    // moreFlags (required values)
+	       	NIL	      // refCon
+       }};
+};
+
+
+// --- Window Templates
+
+resource rWindParam1 (PassWind) {
+		$20A0,				// plFrame (frame bits)
+		NIL,					// p1Title (no Title)
+		NIL,					// p1RefCon
+		{  0,  0,  0,  0},		// p1ZoomRect
+		NIL,					// p1ColorTable (standard colors)
+		{$0000, $0000},		// p1YOrigin, p1XOrigin
+		{$0000, $0000},		// p1DataHeight, p1DataWidth
+		{$0000, $0000},		// p1MaxHeight, p1MaxWidth
+		{$0000, $0000},		// p1VerScroll, p1HorScroll
+		{$0000, $0000},		// p1VerPage, p1HorPage
+		NIL,					// p1InfoText (info RefCon)
+		NIL,					// p1InfoHeight
+		{ 73,182,121,458},		// p1Position
+		infront,				// p1Plane
+		PassCtlLst,			// plControlList
+		$0009				// plInDesc
+};
+
+resource rWindParam1 (Opt2EnterPassWind) {
+		$20A8,				// plFrame (frame bits)
+		NIL,					// p1Title (no Title)
+		NIL,					// p1RefCon
+		{  0,  0,  0,  0},		// p1ZoomRect
+		NIL,					// p1ColorTable (standard colors)
+		{$0000, $0000},		// p1YOrigin, p1XOrigin
+		{$0000, $0000},		// p1DataHeight, p1DataWidth
+		{$0000, $0000},		// p1MaxHeight, p1MaxWidth
+		{$0000, $0000},		// p1VerScroll, p1HorScroll
+		{$0000, $0000},		// p1VerPage, p1HorPage
+		NIL,					// p1InfoText (info RefCon)
+		NIL,					// p1InfoHeight
+		{ 52,188,151,452},		// p1Position
+		infront,				// p1Plane
+		Opt2EnterPassCtlLst,	// plControlList
+		$0809				// plInDesc
+};
+
+// --- rAlertString Templates
+
+resource rAlertString (Opt2BadOldPassAlert) {
+	"52~Incorrect old password!~#6~^#1"
+	"\$00"
+};
+
+resource rAlertString (Opt2BadNewPassAlert) {
+	"52~New password not entered the same twice!~#6~^#1"
+	"\$00"
+};
+
+resource rAlertString (Opt2Pass4LengthAlert) {
+	"52~Passwords must be at least 4 characters long.~#6~^#1"
+	"\$00"
+};
+
+resource rAlertString (BadPassAlert) {
+	"52~Incorrect password!~#1~^#0"
+	"\$00"
+};
