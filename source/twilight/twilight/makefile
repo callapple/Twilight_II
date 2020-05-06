@@ -4,7 +4,7 @@
 *
 * init things
 *
-prefix 22 /twilight
+prefix 22 /twilight/source/twilight/
 *
 * make Twilight II
 *
