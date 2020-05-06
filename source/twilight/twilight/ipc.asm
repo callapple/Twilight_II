@@ -20,21 +20,20 @@
 * V1.00 - 1.0d37 - September 13, 1992 by JRM - Implementation
 * v1.1 - t2 1.1f4 - March 24, 1993 by JRM - inc/dec
 
-ipcTurnOn	Start
-	kind  $1000	; no special memory
+ipcTurnOn Start
+	kind $1000 	; no special memory
 	Using InitDATA
 	debug 'T2TurnOn'
-
-	copy	22:debug.asm
+	copy 22:debug.asm
 
 	DefineStack
-dpageptr       word
-dbank          byte
-retaddr        block 3
-dataOut        long
-dataIn         long
-request        word
-result         word
+dpageptr	word
+dbank	byte
+retaddr	block 3
+dataOut	long
+dataIn	long
+request	word
+result	word
 
 	lda	ipcT2Off	; 0 = T2 is on
 	beq	done
