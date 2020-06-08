@@ -1,0 +1,86 @@
+
+#include "types.rez"
+#include "22:t2common.rez"
+
+// --- Module name resource
+
+resource rT2ModuleFlags (moduleFlags) {
+	fLeavesUsableScreen+fReqUsableScreen, // module flags word
+	$01,						// enabled flag (unimplemented)
+	$0110,					// minimum T2 version required
+	NIL,						// reserved
+	"Meltdown"				// module name
+};
+
+// --- About text resource
+
+resource rTextForLETextBox2 (moduleMessage) {
+	TBLeftJust
+	"\n"
+	TBBackColor TBColorA
+	TBForeColor TBColor1
+	"Meltdown"
+	TBForeColor TBColor0
+	" makes your screen melt, drip, and contort!  Be careful; some radiation "
+	"might leak!"
+};
+
+// --- Version resource
+
+resource rVersion (moduleVersion) {
+       {1,0,0,release,0},             // Version
+       verUS,                       // US Version
+       "T2 Meltdown Module",     // program's name
+       "By Jim Maricondo.\n"
+       "Copyright 1993, Jim Maricondo."    // copyright notice
+};
+
+// --- About icon resource
+
+resource rIcon (moduleIcon) {
+       $8000,                  // kind
+       $0014,                  // height
+       $001C,                  // width
+
+       $"FFF0000000000000000000000FFF"
+       $"FFF0FFFFFFFFFFFFFFFFFFFF0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0F0000000AAAA0000000F0FFF"
+       $"FFF0F0000000AAAA0000000F0FFF"
+       $"FFF0F00000002AA80000000F0FFF"
+       $"FFF0F00000000AA00000000F0FFF"
+       $"FFF0F000000AA00AA000000F0FFF"
+       $"FFF0F0000AAAA82AAAA0000F0FFF"
+       $"FFF0F00002AA8002AA80000F0FFF"
+       $"FFF0F000002A0000A800000F0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0FFFFFFFFFFFFFFFFAFFF0FFF"
+       $"FFF0000000000000000000000FFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FF4AFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0CCCCCCCCCCCCCCCCCC0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFAFF0FFFF"
+       $"FFFF00000000000000000000FFFF",
+
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000";
+};

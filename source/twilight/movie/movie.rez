@@ -1,0 +1,193 @@
+
+#include "types.rez"
+#include "22:t2common.rez"
+
+// --- type $8001 defines
+#define YDI_Icon $10dd01
+// --- type $8003 defines
+#define YDI_CtlLst $00000005
+// --- type $8004 defines
+#define YDISetAnimPathCtl $00006FFF
+#define YDIAnimPathStrCtl $00007000
+#define YDIStrCtl $00007001
+#define YDIIconCtl $00007002
+// --- type $8006 defines
+#define YDISetAnimPathStr $00000011
+// --- type $800B defines
+#define YDI_LText $00000001
+#define AnimPath_LText $00000002
+
+
+resource rT2ModuleFlags (moduleFlags) {
+	fSetup+
+	fFadeOut+
+	fFadeIn+
+	fLoadSetupBlank+
+	fLeavesUsableScreen, // module flags word
+	$01,						// enabled flag (unimplemented)
+	$0110,					// minimum T2 version required
+	NIL,						// reserved
+	"Movie Theater"			// module name
+};
+
+
+// --- About text resource
+
+resource rTextForLETextBox2 (moduleMessage) {
+	TBLeftJust
+	TBBackColor TBColorF
+	TBForeColor TBColor0
+	"Movie Theater"
+	TBForeColor TBColor1
+	" will display any PaintWorks-type ($C2) animation files.\n"
+	"Be careful to choose animation files that won\$D5t burn in!"
+};
+
+// --- Version resource
+
+resource rVersion (moduleVersion) {
+       {1,0,0,release,0},         // Version
+       verUS,                     // US Version
+       "T2 Movie Theater Module",    // program's name
+       "By Derek Young and J.Maricondo.\n"
+       "Copyright 1992-93 Jim Maricondo."    // copyright notice
+};
+
+
+
+// --- Icon Definitions
+
+resource rIcon (moduleIcon) {
+		$8000,				// kind
+		$0015,				// height
+		$0016,				// width
+
+		$"F00000000000000000000F"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0F000000000000000000F0"
+		$"0F0FF000111111000FF0F0"
+		$"0F0FF0F01111110F0FF0F0"
+		$"0F0FF000000000000FF0F0"
+		$"0F0FF0F04444440F0FF0F0"
+		$"0F0FF000444444000FF0F0"
+		$"0F0FF0F04444440F0FF0F0"
+		$"0F0FF000444444000FF0F0"
+		$"0F0FF0F00000000F0FF0F0"
+		$"0F0FF000EEEEEE000FF0F0"
+		$"0F000000000000000000F0"
+		$"0FFFFFFFFFFFFFFFFAFFF0"
+		$"0000000000000000000000"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FF4AFFFFFFFFFFFFFF0F"
+		$"F0CCCCCCCCCCCCCCCCCC0F"
+		$"F0FFFFFFFFFFFFFFFAFF0F"
+		$"F00000000000000000000F",
+
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0";
+};
+
+// --- Control List Definitions
+
+resource rControlList (YDI_CtlLst) {
+       {
+       YDIIconCtl,        // control 3
+       YDIStrCtl,        // control 4
+//       YDIAnimPathStrCtl,        // control 5
+       YDISetAnimPathCtl,        // control 6
+       };
+};
+
+// --- Control Templates
+
+resource rControlTemplate (YDISetAnimPathCtl) {
+       $00000001,              // ID
+       { 72, 92-2, 85,250+2},      // rect
+       simpleButtonControl {{
+               $0000,          // flag
+               $3002,          // moreFlags
+               $00000000,      // refCon
+               YDISetAnimPathStr,  // titleRef
+               0,              // colorTableRef
+               {"A","a",$0100,$0100}  // key equivalents
+       }};
+};
+
+resource rControlTemplate (YDIAnimPathStrCtl) {
+       $00000002,              // ID
+       { 93, 12,125,331},      // rect
+       statTextControl {{
+               $0000,          // flag
+               $1002,          // moreFlags
+               $00000000,      // refCon
+               AnimPath_LText,     // textRef
+               NIL, // textSize
+               $0000           // just
+       }};
+};
+
+resource rControlTemplate (YDIStrCtl) {
+       $00000003,              // ID
+       { 56,128, 64,247},      // rect
+       statTextControl {{
+               $0000,          // flag
+               $1002,          // moreFlags
+               $00000000,      // refCon
+               YDI_LText,     // textRef
+               NIL, // textSize
+               $0000           // just
+       }};
+};
+
+resource rControlTemplate (YDIIconCtl) {
+       $00000004,              // ID
+       { 33-1,146, 53+1,194},      // rect
+       iconButtonControl {{
+               $000C,          // flag
+               $1020,          // moreFlags
+               $00000000,      // refCon
+               YDI_Icon,  // iconRef
+               0,              // titleRef
+               0,              // colorTableRef
+               $0000          // displayMode
+       }};
+};
+
+// --- rPString Templates
+
+resource rPString (YDISetAnimPathStr) {
+       "Set Animation Path..."
+};
+
+// --- rTextForLETextBox2 Templates
+
+resource rTextForLETextBox2 (YDI_LText) {
+	"Movie Theater"
+};
+
+resource rTextForLETextBox2 (AnimPath_LText) {
+	TBLeftJust
+	TBLeftMargin "\$00\$00"
+       "Animation\$CAPath:\$CA"
+       "\$D2*0\$D3"
+};

@@ -1,0 +1,570 @@
+
+#include "types.rez"
+#include "22:T2Common.Rez"
+
+// --- type $8004 defines
+#define CTLTMP_00006FFE $00006FFE
+#define CTLTMP_00006FFF $00006FFF
+#define CTLTMP_00007000 $00007000
+#define CTLTMP_00007001 $00007001
+#define CTLTMP_00007002 $00007002
+#define CTLTMP_00007003 $00007003
+#define CTLTMP_00010012 $00010012
+// --- type $8006 defines
+#define PSTR_00000001 $00000001
+#define PSTR_00000012 $00000012
+#define PSTR_000000FC $000000FC
+#define PSTR_000000FD $000000FD
+#define PSTR_000000FE $000000FE
+#define PSTR_00000107 $00000107
+#define PSTR_00000108 $00000108
+#define PSTR_00000109 $00000109
+#define PSTR_0000010A $0000010A
+#define PSTR_0000010B $0000010B
+#define PSTR_0000010C $0000010C
+#define PSTR_0000010D $0000010D
+#define PSTR_0000010E $0000010E
+#define PSTR_0000010F $0000010F
+#define PSTR_00000110 $00000110
+#define PSTR_00000111 $00000111
+#define PSTR_00000112 $00000112
+#define PSTR_00000113 $00000113
+#define PSTR_00000114 $00000114
+#define PSTR_00000115 $00000115
+#define PSTR_00000116 $00000116
+#define PSTR_00000117 $00000117
+#define PSTR_00000118 $00000118
+#define PSTR_00000119 $00000119
+#define PSTR_0000011A $0000011A
+#define PSTR_0000011B $0000011B
+#define PSTR_0000011C $0000011C
+#define PSTR_0000011D $0000011D
+// --- type $800A defines
+#define MENUITEM_00000001 $00000001
+#define MENUITEM_00000107 $00000107
+#define MENUITEM_00000108 $00000108
+#define MENUITEM_00000109 $00000109
+#define MENUITEM_0000010A $0000010A
+#define MENUITEM_0000010B $0000010B
+#define MENUITEM_0000010C $0000010C
+#define MENUITEM_0000010D $0000010D
+#define MENUITEM_0000010E $0000010E
+#define MENUITEM_0000010F $0000010F
+#define MENUITEM_00000110 $00000110
+#define MENUITEM_00000111 $00000111
+#define MENUITEM_00000112 $00000112
+#define MENUITEM_00000113 $00000113
+#define MENUITEM_00000114 $00000114
+#define MENUITEM_00000115 $00000115
+#define MENUITEM_00000116 $00000116
+#define MENUITEM_00000117 $00000117
+#define MENUITEM_00000118 $00000118
+#define MENUITEM_00000119 $00000119
+#define MENUITEM_0000011A $0000011A
+#define MENUITEM_0000011B $0000011B
+
+// --- custom resource type defines
+
+resource rT2ModuleFlags (moduleFlags) {
+	fMostCommonPalette +
+	fSetup +
+	fFadeOut +
+	fFadeIn +
+	fLeavesUsableScreen +
+	fGrafPort640,				// module flags
+	$01,						// enabled flag (unimplemented)
+	$0110,					// minimum T2 version required
+	NIL,						// reserved
+	"Moir\$8E"				// module name
+};
+
+// --- Icon Definitions
+
+resource rIcon (moduleIcon) {
+		$8000,				// kind
+		$0014,				// height
+		$0016,				// width
+
+	$"F00000000000000000000F"
+	$"0FFFFFFFFFFFFFFFFFFFF0"
+	$"0F0000E0D00E000B000BF0"
+	$"0FE000E00DE00000B0B0F0"
+	$"0F0E00E00ED000000B00F0"
+	$"0F00E0E0E00D0000B0B0F0"
+	$"0F000EEE0000D00B000BF0"
+	$"0FEEEEEEEEEEEDBEEEDEF0"
+	$"0F000EEE00000BD00D00F0"
+	$"0F00E0E0E000B00DD000F0"
+	$"0F0E00E00E0B000DD000F0"
+	$"0FE000E000B000D00D00F0"
+	$"0FFFFFFFFFFFFFFFFAFFF0"
+	$"0000000000000000000000"
+	$"F0FFFFFFFFFFFFFFFFFF0F"
+	$"F0FFFFFFFFFFFFFFFFFF0F"
+	$"F0FF4AFFFFFFFFFFFFFF0F"
+	$"F0CCCCCCCCCCCCCCCCCC0F"
+	$"F0FFFFFFFFFFFFFFFAFF0F"
+	$"F00000000000000000000F",
+
+	$"0FFFFFFFFFFFFFFFFFFFF0"
+	$"FFFFFFFFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFFFFFFFF"
+	$"0FFFFFFFFFFFFFFFFFFFF0"
+	$"0FFFFFFFFFFFFFFFFFFFF0"
+	$"0FFFFFFFFFFFFFFFFFFFF0"
+	$"0FFFFFFFFFFFFFFFFFFFF0"
+	$"0FFFFFFFFFFFFFFFFFFFF0"
+	$"0FFFFFFFFFFFFFFFFFFFF0";
+};
+
+// --- Control List Definitions
+
+resource rControlList (1) {
+		{
+		1,			// control 1
+		2,			// control 3
+		3,			// control 4
+		4,			// control 5
+		5,			// control 6
+		};
+};
+
+// --- Control Templates
+
+resource rControlTemplate (1) {
+		1,			// ID
+		{107, 18,  0,  0},		// rect
+		popUpControl {{
+			$0040,			// flag
+			$1002+fDrawPopDownIcon,	// moreFlags
+			$00000000,			// refCon
+			$0000,			// titleWidth
+			1,	// menuRef -- DRAW DELAY
+			100,			// initialValue -- None
+			0				// colorTableRef
+		}};
+};
+
+resource rControlTemplate (2) {
+		2,			// ID
+		{ 88, 18,  0,  0},		// rect
+		popUpControl {{
+			$0040,			// flag
+			$1002+fDrawPopDownIcon,	// moreFlags
+			$00000000,			// refCon
+			$0000,			// titleWidth
+			2,	// menuRef -- COLORS
+			9,			// initialValue -- random palette
+			0				// colorTableRef
+		}};
+};
+
+resource rControlTemplate (3) {
+		3,			// ID
+		{ 69, 18,  0,  0},		// rect
+		popUpControl {{
+			$0040,			// flag
+			$1002+fDrawPopDownIcon,	// moreFlags
+			$00000000,			// refCon
+			$0000,			// titleWidth
+			3,	// menuRef  -- CLEAR SCREEN
+			6,			// initialValue -- After 6 Moires
+			0				// colorTableRef
+		}};
+};
+
+resource rControlTemplate (4) {
+		4,			// ID
+		{ 53,128, 62,233},		// rect
+		statTextControl {{
+			$0000,			// flag
+			$1002,			// moreFlags
+			$00000000,			// refCon
+			1		// textRef
+		}};
+};
+
+resource rControlTemplate (5) {
+		5,			// ID
+		{ 25,148, 52,200},		// rect
+		iconButtonControl {{
+			$000C,			// flag
+			$1020,			// moreFlags
+			$00000000,			// refCon
+			moduleIcon,		// iconRef
+			0,			// titleRef
+			0,			// colorTableRef
+			$0000			// displayMode
+		}};
+};
+
+// -- CLEAR SCREEN menu item strings
+
+resource rPString (PSTR_000000FD) {
+	" Clear Screen: "
+};
+
+resource rPString (PSTR_00000108, $C018) {		//1
+	"After 1 Moir\$8E"
+};
+
+resource rPString (PSTR_00000107, $C018) {		//2
+	"After 2 Moir\$8Es"
+};
+
+resource rPString (PSTR_00000109, $C018) {  	//6- default
+	"After 6 Moir\$8Es"
+};
+
+resource rPString (PSTR_0000010B, $C018) {		//10
+	"After 10 Moir\$8Es"
+};
+
+resource rPString (PSTR_0000010A, $C018) {		//20
+	"After 20 Moir\$8Es"
+};
+
+resource rPString (PSTR_000000FE, $c018) {		//100
+	"Never"
+};
+
+// -- DRAW DELAY menu item strings
+
+resource rPString (PSTR_0000010F) {
+	" Draw Delay: "
+};
+
+resource rPString (PSTR_00000114, $C018) {		//1
+	"1 Second"
+};
+
+resource rPString (PSTR_00000111, $C018) {		//2
+	"2 Seconds"
+};
+
+resource rPString (PSTR_00000112, $C018) {		//5
+	"5 Seconds"
+};
+
+resource rPString (PSTR_00000110, $c018) {		//10
+	"10 Seconds"
+};
+
+resource rPString (PSTR_00000115, $C018) {		//20
+	"20 Seconds"
+};
+
+resource rPString (PSTR_00000113, $C018) {		//30
+	"30 Seconds"
+};
+
+resource rPString (PSTR_00000116, $C018) {		//100- default
+	"None"
+};
+
+// -- COLORS menu item strings
+
+resource rPString (PSTR_0000010C) {
+	" Colors: "
+};
+
+resource rPString (PSTR_00000117, $C018) {		//1
+	"Pastels"
+};
+
+resource rPString (PSTR_00000118, $C018) {		//2
+	"Landscape"
+};
+
+resource rPString (PSTR_0000011A, $C018) {		//3
+	"Bright Sun"
+};
+
+resource rPString (PSTR_0000011B, $C018) {		//4
+	"Dark Sun"
+};
+
+resource rPString (PSTR_0000010E, $C018) {		//5
+	"Bluescale"
+};
+
+resource rPString (PSTR_00000119, $C018) {		//6
+	"Grayscale"
+};
+
+resource rPString (PSTR_0000011D, $C018) {		//7
+	"Blue Default"
+};
+
+resource rPString (PSTR_0000010D, $c018) {		//8
+	"Default Palette"
+};
+
+resource rPString (PSTR_0000011C, $C018) {		//9- default
+	"Random"
+};
+
+// --- Menu Definitions
+
+resource rMenu (1) {
+		$0003,				// menuID
+		$A000,				// menuFlag
+		PSTR_0000010F, {		// menuTitleRef  -- DRAW DELAY
+			MENUITEM_00000112,
+			MENUITEM_0000010F,
+			MENUITEM_00000110,
+			MENUITEM_0000010E,
+			MENUITEM_00000113,
+			MENUITEM_00000111,
+			MENUITEM_00000114
+		};
+};
+
+resource rMenu (2) {
+		$0002,				// menuID
+		$A000,				// menuFlag
+		PSTR_0000010C, {		// menuTitleRef  -- COLORS
+			MENUITEM_00000115,
+			MENUITEM_00000116,
+			MENUITEM_00000118,
+			MENUITEM_00000119,
+			MENUITEM_0000010D,
+			MENUITEM_00000117,
+			MENUITEM_0000011B,
+			MENUITEM_0000010C,
+			MENUITEM_0000011A
+		};
+};
+
+resource rMenu (3) {
+		$0001,				// menuID
+		$A000,				// menuFlag
+		PSTR_000000FD, {		// menuTitleRef  -- CLEAR SCREEN
+			MENUITEM_00000108,
+			MENUITEM_00000107,
+			MENUITEM_00000109,
+			MENUITEM_0000010B,
+			MENUITEM_0000010A,
+			MENUITEM_00000001
+		};
+};
+
+// --- Menu Item Definitions
+
+// -- CLEAR SCREEN popup menu items
+
+resource rMenuItem (MENUITEM_00000108, $c018) {
+		$0001,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000108			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000107, $C018) {
+		$0002,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000107			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000109, $C018) {
+		$0006,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8002,				// itemFlag
+		PSTR_00000109			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010B, $C018) {
+		10,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000010B			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010A, $C018) {
+		20,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8040,				// itemFlag
+		PSTR_0000010A			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000001, $c018) {
+		100,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_000000FE			// itemTitleRef
+};
+
+// -- DRAW DELAY popup menu items
+
+resource rMenuItem (MENUITEM_00000112, $C018) {
+		$0001,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000114			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010F, $C018) {
+		$0002,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000111			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000110, $C018) {
+		5,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000112			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010E, $c018) {
+		10,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000110			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000113, $C018) {
+		20,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000115			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000111, $C018) {
+		30,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8040,				// itemFlag
+		PSTR_00000113			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000114, $C018) {
+		100,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8002,				// itemFlag
+		PSTR_00000116			// itemTitleRef
+};
+
+// -- COLORS popup menu items
+
+resource rMenuItem (MENUITEM_00000115, $C018) {
+		$0001,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000117			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000116, $C018) {
+		$0002,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000118			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000118, $C018) {
+		$0003,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000011A			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000119, $C018) {
+		$0004,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000011B			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010D, $C018) {
+		$0005,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000010E			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000117, $C018) {
+		$0006,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000119			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000011B, $C018) {
+		$0007,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000011D			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010C, $c018) {
+		$0008,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8040,				// itemFlag
+		PSTR_0000010D			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000011A, $C018) {
+		$0009,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8002,				// itemFlag
+		PSTR_0000011C			// itemTitleRef
+};
+
+// --- rTextForLETextBox2 Templates
+
+resource rTextForLETextBox2 (1) {
+	"Moir\$8E Options"
+};
+
+// --- rTextForLETextBox2 Templates
+
+resource rTextForLETextBox2 (moduleMessage) {
+	TBLeftJust
+	TBForeColor TBColor1
+	"Moir\$8E fills the screen with infinitely varying, colorful moir\$8E patterns "
+	"whose frequency and color you can choose."
+};
+
+// --- rVersion Templates 
+
+resource rVersion (moduleVersion) {
+       {1,0,2,beta,2},          // Version
+       verUS,                   // US Version
+       "T2 Moir\$8E Module",    // program's name
+       "By Jim Maricondo\n"
+       "Copyr 1992-94. All rights reserved."    // copyright notice
+};
