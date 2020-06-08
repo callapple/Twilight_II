@@ -1,0 +1,120 @@
+
+* MakeAll
+* v1.0 - 1/2-4/93 - JRM
+* v1.1 - 1/9/93 - JRM (jg?!)
+* v1.2 - 1/12/93 - ditto?!
+* v1.3 - 2/7/93 - static, kalei, changed moviet - JRM
+* v1.4 - 2/16/93 - updated parts in general - JRM (hB!!?)
+
+unset exit
+set Beep off
+
+echo "## Dissolve..."
+newer *:system:cdevs:twilight:dissolve 22:dissolve
+if {Status} == 1
+ cd 22:dissolve
+ make
+end
+
+echo "## Impulse..."
+newer *:system:cdevs:twilight:impulse 22:Impulse
+if {Status} == 1
+ cd 22:impulse
+ make
+end
+
+echo "## Kaleidoscope..."
+newer *:system:cdevs:twilight:kaleidoscope 22:kalei
+if {Status} == 1
+ cd 22:kalei
+ make
+end
+
+echo "## Meltdown..."
+newer *:system:cdevs:twilight:meltdown 22:Meltdown
+if {Status} == 1
+ cd 22:meltdown
+ make
+end
+
+echo "## Moire..."
+newer *:system:cdevs:twilight:moire 22:Moire
+if {Status} == 1
+ cd 22:Moire
+ make
+end
+
+echo "## MovieTheater..."
+newer *:system:cdevs:twilight:movieTheater 22:Movie
+if {Status} == 1
+ cd 22:movie
+ make
+end
+
+echo "## Phantom..."
+newer *:system:cdevs:twilight:phantom 22:phantom
+if {Status} == 1
+ cd 22:phantom
+ make
+end
+
+echo "## Puzzling..."
+newer *:system:cdevs:twilight:puzzling 22:puzzling
+if {Status} == 1
+ cd 22:puzzling
+ make
+end
+
+echo "## Spirographics..."
+newer *:system:cdevs:twilight:spirographics 22:spiro
+if {Status} == 1
+ cd 22:spiro
+ make
+end
+
+echo "## Static..."
+newer *:system:cdevs:twilight:static 22:static
+if {Status} == 1
+ cd 22:static
+ make
+end
+
+echo "## Strobe..."
+newer *:system:cdevs:twilight:strobe 22:strobe
+if {Status} == 1
+ cd 22:strobe
+ make
+end
+
+echo "## Tiler..."
+newer *:system:cdevs:twilight:tiler 22:tiler
+if {Status} == 1
+ cd 22:tiler
+ make
+end
+
+echo "## Universe..."
+newer *:system:cdevs:twilight:universe 22:universe
+if {Status} == 1
+ cd 22:universe
+ make
+end
+
+echo "## Worms..."
+newer *:system:cdevs:twilight:worms 22:worms
+if {Status} == 1
+ cd 22:worms
+ make
+end
+
+echo "## YouDrawIt..."
+newer *:system:cdevs:twilight:youdrawit 22:ydi
+if {Status} == 1
+ cd 22:ydi
+ make
+end
+
+echo "## DONE! ##"
+cd 22:
+sysbeep
+set Beep on

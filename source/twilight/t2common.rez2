@@ -1,0 +1,91 @@
+
+// =====================================================
+// T2 Common Module Resources.
+// Copyright 1992-93 Jim Maricondo and DigiSoft Innovations.
+//
+// v1.0 - 05/24/92 - Initial Version.
+// v1.1 - 05/29/92 - Cleaned up, revised module flags. - T2 v1.0d33
+// v1.2 - 06/11/92 - Added fOpenRForkWriteEnabled - T2 v1.0d34
+// v1.3 - 09/18/92 - v1.1 about string - T2 v1.0d37
+// v1.4 - 11/28/92 - DC -> DSI - T2 v1.0.1b1
+// v1.5 - 1/2/93 - Misc cleanup - T2 v1.0.1b3 (?)
+// v1.5a - 1/9/93 - Changed comments - T2 v1.0.1b4
+// v1.6 - 1/28/93 - Revised for _NEW_ rT2ModuleFlags format. - T2 v1.0.1f1
+// v1.7 - 2/7/93 - "f" flag word names, $D001 - T2 v1.0.1f2
+// v1.7a - 2/16/93 - $1000 -> $D001 - T2 v1.0.1f2
+// v1.8 - 03/02/93 - new moduleflagword bits - T2 v1.1f3
+// v1.9 - 03/28/93 - mostcommonpalette - t2 v1.1f4
+// v2.0 - 06/19/93 - fixed up for release at KFest '93
+// =====================================================
+
+// =====================================================
+// Module resource IDs.
+// =====================================================
+
+/***** Required *****/
+// #define moduleName  	$00000001
+#define moduleMessage	$0010DD01
+#define moduleIcon		$0010DD01
+#define moduleVersion	$00000001
+#define moduleFlags     $00000001
+
+/***** Added for you... *****/
+#define moduleComment   $00000001
+#define moduleInfo      $00000002
+
+// =====================================================
+// --- custom resource type defines
+// =====================================================
+#define rT2ModuleFlags  $D001
+#define rT2ExtSetup1    $1001
+#define rT2ModuleWord   $1002
+#define rT2String		$1010	// reserved for use by tii only!
+#define rByteArray		$1012
+
+
+// =====================================================
+// Defined bits of T2ModuleFlags module flag word.
+// =====================================================
+#define fSetup			$0001
+#define fFadeOut			$0002
+#define fFadeIn			$0004
+#define fGrafPort320 		$0008
+#define fGrafPort640 		$0010
+#define fLoadSetupBoot 		$0020
+#define fLoadSetupBlank 	$0040
+#define fOpenRForkWriteEnabled $0080
+#define fMostCommonPalette	$0100
+#define fReqUsableScreen	$0200
+#define fLeavesUsableScreen	$0400
+#define fLeavesCycleScreen	$0800
+#define fPrematureExit		$1000
+#define fForeground 		$0000
+#define fBackground 		$4000
+#define fInternal 			$8000
+
+// =====================================================
+// Custom resource type defines.
+// =====================================================
+type rT2ModuleFlags {
+	byte = $01;				/* module flags version - use 1 */
+	hex unsigned word;			/* module flags word */
+	byte;					/* enabled flag (unimplemented) - use 1 now */
+	hex unsigned word;			/* minimum T2 version required */
+	hex unsigned word;			/* reserved */
+	pstring[25];				/* module name */
+};
+
+type rT2ModuleWord {
+	unsigned word;
+};
+
+// =====================================================
+// Current common comments.
+// =====================================================
+
+resource rComment (moduleInfo) {
+	"This is a Twilight II\$AA screen saver module.  "
+	"Place in the \$D2Twilight\$D3 module folder (located in the same directory "
+    "as the Twilight II control panel) and access via Twilight II!\n"
+    "For more information, refer to the Twilight II manual."
+};

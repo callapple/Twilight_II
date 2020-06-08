@@ -1,0 +1,116 @@
+
+
+* T2 Common Module Equates.  By Jim Maricondo.
+* Copyright DigiSoft Innovations 1993, All rights reserved.
+* v1.0 - 05/24/92 - Initial Version.
+* v1.1 - 05/29/92 - Revised 'cuz of new t2common.rez. - T2 v1.0d33
+* v1.2 - 10/24/92 - IPC equates added - T2 v1.0.1b1. - datafield added
+* v1.3 - 12/13/92 - mfOverrideSound added - T2 v1.0.1b2
+* v1.4 - 01/31/93 - bf bits added. - T2 v1.0.1f2.
+* v1.5 - 02/03/93 - (ROJAC!!) new IPC revised - T2 v1.0.1f2
+* v1.6 - 02/07/93 - $D001 - T2 v1.0.1f2
+* v1.7 - 03/02/93 - bmr, lmr, etc - T2 v1.1f3
+* v1.7a - 03/06/93 - bmi, lmi, etc - T2 v1.1f3
+* v1.7c - 03/28/93 - bytearray - T2 v1.1f5
+* v1.8d - 04/01/93 - mcp lmr - T2 v1.1f5
+* v1.8e - 05/31/93 - new mr/mi - T2 v1.1 release
+
+* Resources types.
+
+rT2ModuleFlags	gequ	$D001
+rT2ExtSetup1	gequ	$1001
+rT2ModuleWord	gequ	$1002	; reztype for module words in T2 setup
+rT2String	gequ	$1010	; used only by T2!
+rByteArray	gequ	$1012
+
+* Action message codes sent to modules.
+
+MakeT2	gequ  0	; Make module-specific ctls.
+SaveT2	gequ  1                  ; Save new preferences
+BlankT2	gequ	2	; Blank the screen.
+LoadSetupT2	gequ	3	; Load any resources from yo' fork
+UnloadSetupT2	gequ	4	; Dispose of any resources from yo' fk.
+KillT2	gequ	5	; Module setup being closed.
+HitT2	gequ	6	; Setup window control hit.
+
+* How the stack is setup when a module gets called.
+
+dp             gequ  1                  ; This is how the stack is set up
+Bank           gequ  dp+2               ; with DP at the top and Result
+rtlAddr        gequ  Bank+1             ; occuping the top 4 bytes
+T2data2        gequ  rtlAddr+3
+T2data1        gequ  T2data2+4
+T2Message      gequ  T2data1+4
+T2Result       gequ  T2Message+2
+T2StackSize    gequ  T2Result+4
+
+* Softswitches
+
+KBD	gequ	>$E0C000
+KBDSTRB	gequ	>$E0C010
+RDVBLBAR       gequ  >$E0C019           ; bit 7 = 1 if not VBL
+TBCOLOR        gequ  >$E0C022
+KEYMODREG      gequ  >$E0C025           ; keyboard modifier register
+NEWVIDEO       gequ  >$E0C029
+VERTCNT        gequ  >$E0C02E
+SPKR           gequ  >$E0C030
+CLOCKCTL       gequ  >$E0C034           ; border color / rtc register
+SHADOW	gequ	>$E0C035
+INCBUSYFLG     gequ  >$E10064           ; increment busy flag
+DECBUSYFLG     gequ  >$E10068           ; decrement busy flag
+SHR            gequ  >$E12000
+SCBS	gequ	>$E19D00
+PALETTES       gequ  >$E19E00
+
+* Boolean logic
+
+FALSE          gequ  0
+TRUE           gequ  1
+
+* T2 External IPC
+
+t2TurnOn	gequ	$9000
+t2TurnOff	gequ	$9001
+t2BoxOverrideOff gequ $9002
+t2BoxOverrideOn gequ	$9003
+t2GetInfo	gequ	$9004
+t2StartupTools	gequ	$9005
+t2ShutdownTools gequ	$9006
+t2ShareMemory	gequ	$9007
+t2SetBlinkProc	gequ	$9008
+t2ForceBkgBlank gequ $9009
+t2BkgBlankNow	gequ	$900A
+t2GetBuffers	gequ	$900B
+t2Reserved1	gequ	$900C	; was t2GetVersion
+t2CalcFreqOffset gequ $900D
+
+* T2 Private IPC
+
+reqDLZSS	gequ	$8007
+t2PrivGetProcs	gequ	$9020
+
+* DataField equates.
+
+SetFieldValue	gequ	$8000           ;custom control messages that are
+GetFieldValue	gequ	$8001           ; accepted by DataField
+
+* Flag word passed to modules at loadsetupT2 time in T2data2 (lo)
+* (lmi = loadMessageInput)
+lmiOverrideSound gequ $0001	; bit 0. 1=override sound, 0=sound ok
+
+* Flag word passed to mdoules at blankT2 time in T2Data2 (lo)
+* (bmi = blankMessageInput)
+bmiBlankNow	gequ	$0001
+bmiCycleColors	gequ	$0002	; prev module left color cycle-able scrn
+
+* bits of BlankT2's T2Result - _hi_ word (blankmessageresult)
+bmrNextModule	gequ	$0100
+bmrFadeIn	gequ	$0200
+bmrLeavesUsableScreen gequ $0400
+bmrLeavesCycleScreen	gequ $0800	; left color cycle-able screen after all
+
+* bits of LoadSetupT2's T2Result - lo word (loadmessageresult)
+lmrReqUsableScreen gequ $0001	; requires usable screen
+lmrFadeOut	gequ	$0002	; fade out after all
+lmrMostCommonPalette gequ $0004	; mcp after all
+lmrPrematureExit gequ $0008	; exits before movePtr=true

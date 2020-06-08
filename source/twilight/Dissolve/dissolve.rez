@@ -1,0 +1,83 @@
+
+#include "types.rez"
+#include "22:t2common.rez"
+
+resource rT2ModuleFlags (moduleFlags) {
+	fReqUsableScreen +
+	fLeavesUsableScreen,		// module flags word
+	$01,						// enabled flag (unimplemented)
+	$0110,					// minimum T2 version required
+	NIL,						// reserved
+	"Dissolve"				// module name
+};
+
+// --- Version resource
+
+resource rVersion (moduleVersion) {
+    {1,0,0,release,0},				// Version
+    verUS,						// US Version
+    "T2 Dissolve Module",			// program's name
+    "By Derek Young\n"				// copyright notice
+    "Copyr. 1993 DigiSoft Innovations."         
+};
+
+// --- About icon resource
+
+resource rIcon (moduleIcon) {
+		$8000,				// kind
+		$0014,				// height
+		$0016,				// width
+
+		$"F0C000F0C0F000C000F00F"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"FF0000F000F000F0F0F0FC"
+		$"0F044FFFFFFFFFFCFCF0F0"
+		$"FF0FBFFFFFFFFFFCFCFFF0"
+		$"0F0DCFCCDDDDDDDDFDD0F0"
+		$"FF0DFFFFDFDDFDDDDDD0FF"
+		$"0F0DFFFFDDDFDFDDDCD0F0"
+		$"0F0FFFFFDFDDDDDDFDD0F0"
+		$"CF0DFDFDFDDFDFFDDDDFFC"
+		$"0F0FDDFDFDDDFDDDDFD0F0"
+		$"CF000000000C00F00F00F0"
+		$"0FFFFFFFFFFFFFFFFAFFFF"
+		$"000C000F00000C0000F000"
+		$"F0FFFFFFFFFFFFFFFFFFFF"
+		$"FCFFFFFFFFFFFFFFFFFF0F"
+		$"F0FF4AFFFFFFFFFFFFFFFF"
+		$"FCCCFCCFCCFCCFCCCFCC0F"
+		$"F0FFFFFFFFFFFFFFFAFF0F"
+		$"F0F0F0C00F0C0F00C000FF",
+
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0";
+};
+
+// --- rTextForLETextBox2 Templates
+
+resource rTextForLETextBox2 (moduleMessage) {
+	TBFont TBShaston "\$00\$08"
+	TBLeftJust
+	TBBackColor TBColorF
+	TBForeColor TBColor1 "Dissolve"
+	TBForeColor TBColor0
+	" will dissolve your screen in and out over and over again."
+};

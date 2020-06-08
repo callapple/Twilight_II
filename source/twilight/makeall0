@@ -1,0 +1,65 @@
+
+* MakeAll0
+* v1.0 - 1/2-4/93 - JRM
+* v1.1 - 1/9/93 - JRM (jg?!)
+* v1.2 - 2/7/93 - JRM
+
+unset exit
+set Beep off
+
+echo "## Impulse..."
+cd 22:impulse
+make
+
+echo "## Kaleidoscope..."
+cd 22:kalei
+make
+
+echo "## Meltdown..."
+cd 22:meltdown
+make
+
+echo "## Moire..."
+cd 22:Moire
+make
+
+echo "## MovieTheater..."
+cd 22:movie
+make
+
+echo "## Puzzling..."
+cd 22:puzzling
+make
+
+echo "## Spirographics..."
+cd 22:spiro
+make
+
+echo "## Static..."
+cd 22:static
+make
+
+echo "## Strobe..."
+cd 22:strobe
+make
+
+echo "## Tiler..."
+cd 22:tiler
+make
+
+echo "## Universe..."
+cd 22:universe
+make
+
+echo "## Worms..."
+cd 22:worms
+make
+
+echo "## YouDrawIt..."
+cd 22:ydi
+make
+
+echo "## DONE! ##"
+cd 22:
+sysbeep
+set Beep on
