@@ -1,0 +1,441 @@
+
+#include "types.rez"
+
+// --- type $8004 defines
+#define CTLTMP_00007004 $00007004
+// --- type $8006 defines
+#define PSTR_00000001 $00000001
+#define PSTR_00000002 $00000002
+#define PSTR_00000003 $00000003
+#define PSTR_000000FA $000000FA
+#define PSTR_000000FB $000000FB
+#define PSTR_000000FC $000000FC
+#define PSTR_000000FD $000000FD
+#define PSTR_000000FE $000000FE
+#define PSTR_000000FF $000000FF
+#define PSTR_00000100 $00000100
+#define PSTR_00000101 $00000101
+#define PSTR_00000103 $00000103
+#define PSTR_00000107 $00000107
+#define PSTR_00010000 $00010000
+#define PSTR_00010001 $00010001
+// --- type $8008 defines
+#define menuBar $00000001
+// --- type $8009 defines
+#define AppleMenu $00000001
+#define FileMenu $00000002
+#define EditMenu $00000003
+// --- type $800A defines
+#define MENUITEM_000000FA $000000FA
+#define MENUITEM_000000FB $000000FB
+#define MENUITEM_000000FC $000000FC
+#define MENUITEM_000000FD $000000FD
+#define MENUITEM_000000FE $000000FE
+#define MENUITEM_000000FF $000000FF
+#define MENUITEM_00000100 $00000100
+#define MENUITEM_00000101 $00000101
+#define MENUITEM_00000103 $00000103
+#define MENUITEM_00000105 $00000105
+#define MENUITEM_00000107 $00000107
+// --- type $800E defines
+#define help_Window $00000FFD
+// --- type $8010 defines
+#define help_WColor $00000FFD
+// --- type $8013 defines
+#define toolTable $00000002
+// --- type $8015 defines
+#define awAlreadyPatched 	1
+#define awAreYouSure		2
+#define awAbout 			3
+#define awUnknownErr		4
+#define awBadCDev			5
+#define awPatchSuccessful	6
+// --- type $8016 defines
+#define TXT_00000004 $00000004
+
+// --- Version resource
+
+resource rVersion (1) {
+	{1,0,0,release,0},		     // Version
+	verUS,				     // US Version
+	"Twilight\$CAII\$AA Sound Patcher",     // program's name
+	"Copyright 1993, DigiSoft Innovations.\n" // copyright notice
+	"All rights reserved."
+};
+
+// --- Control Templates
+
+resource rControlTemplate (CTLTMP_00007004) {
+		1,			// ID
+		{  0,  2,171,633},		// rect
+		editTextControl {{
+			$0000,			// flag
+			$7400,			// moreFlags
+			$00000000,			// refCon
+			$27280000,		// textFlags
+			{65535,65535,65535,65535},	// indentRect
+			$FFFFFFFF,		// vertBar
+			$0000,		// vertAmount
+			$00000000,		// horzBar
+			$0000,		// horzAmount
+			$00000000,		// styleRef
+			$0015,			// textDescriptor
+			TXT_00000004,	// textRef
+			$00000000,		// textLength
+			$00000000,		// maxChars
+			$00000000,		// maxLines
+			$0000,			// maxCharsPerLine
+			$0000,			// maxHeight
+			0,				// colorTableRef
+			$0000,			// drawMode
+			$00000000			// filterProcPtr
+		}};
+};
+
+// --- rPString Templates
+
+resource rPString (555) {
+	" Help "
+};
+
+resource rPString (PSTR_00000001, $C018) {
+	"@"
+};
+
+resource rPString (PSTR_00000002, $C018) {
+	"  File  "
+};
+
+resource rPString (PSTR_00000003, $C018) {
+	"  Edit  "
+};
+
+resource rPString (PSTR_000000FA, $C018) {
+	"Undo"
+};
+
+resource rPString (PSTR_000000FB, $C018) {
+	"Cut"
+};
+
+resource rPString (PSTR_000000FC, $C018) {
+	"Copy"
+};
+
+resource rPString (PSTR_000000FD, $C018) {
+	"Paste"
+};
+
+resource rPString (PSTR_000000FE, $C018) {
+	"Clear"
+};
+
+resource rPString (PSTR_000000FF, $C018) {
+	"Close"
+};
+
+resource rPString (PSTR_00000100, $C018) {
+	"About Sound Patcher \$C9"
+};
+
+resource rPString (PSTR_00000101, $C018) {
+	"Quit"
+};
+
+resource rPString (PSTR_00000103, $C018) {
+	"Patch "
+	"\$C9"
+};
+
+resource rPString (PSTR_00000107, $C018) {
+	"Help \$C9"
+};
+
+// --- Menu Bar Definitions
+
+resource rMenuBar (menuBar, $C018) {
+	{
+	AppleMenu,
+	FileMenu,
+	EditMenu
+	};
+};
+
+// --- Menu Definitions
+
+resource rMenu (AppleMenu, $C018) {
+		$0001,				// menuID
+		$A008,				// menuFlag
+		PSTR_00000001, {		// menuTitleRef
+			MENUITEM_00000100,
+			MENUITEM_00000107
+		};
+};
+
+resource rMenu (FileMenu, $C018) {
+		$0002,				// menuID
+		$A008,				// menuFlag
+		PSTR_00000002, {		// menuTitleRef
+			MENUITEM_00000103,
+			MENUITEM_000000FF,
+			MENUITEM_00000101
+		};
+};
+
+resource rMenu (EditMenu, $C018) {
+		$0003,				// menuID
+		$A088,				// menuFlag
+		PSTR_00000003, {		// menuTitleRef
+			MENUITEM_000000FA,
+			MENUITEM_000000FB,
+			MENUITEM_000000FC,
+			MENUITEM_000000FD,
+			MENUITEM_000000FE
+		};
+};
+
+// --- Menu Item Definitions
+
+resource rMenuItem (MENUITEM_000000FA, $C018) {
+		$00FA,				// itemID
+  		"Z","z",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8040,				// itemFlag
+		PSTR_000000FA			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_000000FB, $C018) {
+		$00FB,				// itemID
+  		"X","x",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_000000FB			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_000000FC, $C018) {
+		$00FC,				// itemID
+  		"C","c",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_000000FC			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_000000FD, $C018) {
+		$00FD,				// itemID
+  		"V","v",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_000000FD			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_000000FE, $C018) {
+		$00FE,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_000000FE			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_000000FF, $0018) {
+		$00FF,				// itemID --CLOSE
+  		"W","w",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8080,				// itemFlag
+		PSTR_000000FF			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000100, $0018) {
+		$0100,				// itemID --ABOUT
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000100			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000101, $0018) {
+		$0101,				// itemID --QUIT
+  		"Q","q",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000101			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000103, $0018) {
+		$0102,				// itemID --PATCH
+  		"P","p",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8040,				// itemFlag
+		PSTR_00000103			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000107, $0018) {
+		$0103,				// itemID --HELP
+  		"?","/",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8040,				// itemFlag
+		PSTR_00000107			// itemTitleRef
+};
+
+// --- Window Templates
+
+resource rWindParam1 (help_Window) {
+		$C020,				// plFrame (frame bits)
+		555,			// plTitle (title ID)
+		$00000000,			// p1RefCon
+		{  0,  0,  0,  0},		// p1ZoomRect
+		help_WColor,		// p1ColorTable
+		{$0000, $0000},		// p1YOrigin, p1XOrigin
+		{$0000, $0000},		// p1DataHeight, p1DataWidth
+		{$0000, $0000},		// p1MaxHeight, p1MaxWidth
+		{$0000, $0000},		// p1VerScroll, p1HorScroll
+		{$0000, $0000},		// p1VerPage, p1HorPage
+		$00000000,			// p1InfoText (info RefCon)
+		$0000,				// p1InfoHeight
+		{ 27,  4,197,636},		// p1Position
+		infront,				// p1Plane
+		CTLTMP_00007004,			// plControlList
+		$0A02				// plInDesc
+};
+
+// --- Window Color Templates
+
+resource rWindColor (help_WColor) {
+		$0000,				// frameColor
+		$0F00,				// titleColor
+		$020F,				// tBarColor
+		$F0FF,				// growColor
+		$00F0				// infoColor
+};
+
+// --- Tool Startup Table Templates
+
+resource rToolStartup (toolTable) {
+		$C080, {			// videoMode
+			 1, $0300,			// Tool Locator 
+			 2, $0300,			// Memory Manager 
+			 3, $0300,			// Miscellaneous Tools 
+			 4, $0301,			// QuickDraw II 
+			 5, $0302,			// Desk Manager 
+			 6, $0300,			// Event Manager 
+			 7, $0200,			// Scheduler 
+			11, $0200,			// Integer Math 
+			14, $0301,			// Window Manager 
+			15, $0301,			// Menu Manager 
+			16, $0301,			// Control Manager 
+			18, $0301,			// QuickDraw II Aux. 
+			20, $0301,			// LineEdit Tools 
+			21, $0301,			// Dialog Manager 
+			22, $0300,			// Scrap Manager 
+			23, $0301,			// Standard File Tools 
+			27, $0301,			// Font Manager 
+			28, $0301,			// List Manager 
+			30, $0100,			// Resource Manager 
+			34, $0101			// TextEdit Manager 
+		}
+};
+
+// --- rAlertString Templates
+
+resource rAlertString (awAlreadyPatched) {
+	"52~This copy of the Sound control panel already has been patched"
+	"!~^#1"
+	"\$00"
+};
+
+resource rAlertString (awAreYouSure) {
+	"73~Are you sure you want to patch this copy of the Sound control"
+	" panel?\n"
+	"The change will be permanent, but it will not harm normal operat"
+	"ion in any way.~Patch~^#1"
+	"\$00"
+};
+
+resource rAlertString (awAbout) {
+	"53~Sound Patcher v1.0, by Jim Maricondo.\n"
+	"Copyright 1993, DigiSoft Innovations.\n"
+	"All rights reserved.~^#0"
+	"\$00"
+};
+
+resource rAlertString (awUnknownErr) {
+	"52~Unknown error.  Operation aborted.  ($*0)~^#1"
+	"\$00"
+};
+
+resource rAlertString (awBadCDev) {
+	"52~This is not Apple\$D5s "
+	"Sound control panel or is an unrecognized version.~^#1"
+	"\$00"
+};
+
+resource rAlertString (awPatchSuccessful) {
+	"63~The patch has been applied successfully.\n"
+	"You may now assign beeps to \$D2Screen Blanking\$D3"
+	" and \$D2Screen Unblanking\$D3"
+	" using the Sound Control Panel.~^#0"
+	"\$00"
+};
+
+// --- rText Templates
+
+resource rText (TXT_00000004) {
+	"Sound Patcher v1.0\n"
+	"by Jim Maricondo\n"
+	"Copyright 1993, DigiSoft Innovations, All rights reserved."
+	"\n\n"
+	"This program is part of DigiSoft Innovations\$D5 Twilight\$CA"
+	"II\$AA screen saver package.  Twilight\$CA"
+	"II and all its support files are fully copyrighted work.  Please"
+	" support the Apple II by not distributing them, so we can stay i"
+	"n business!  II Infinitum!"
+	"\n\n"
+	"Apple\$D5s System 6 Sound control panel does not normally allow you"
+	" to assign sounds to "
+	"\$D2Screen Blanking\$D3 and \$D2Screen Unblanking\$D3"
+	" because System 6 does not come with a screen saver.  However, T"
+	"wilight\$CAII takes advantage of these \$D2hidden\$D3"
+	" features.  This program makes a simple Apple approved patch"
+	" that allows you to use the Sound control panel to assign sounds"
+	" to these screen saver related events."
+	"\n\n"
+	"To operate this program, select "
+	"\$D2Patch \$C9\$D3"
+	" from the File menu.  Find your copy of the Sound control panel "
+	"(usually found in the "
+	"\$D2System:CDevs\$D3"
+	" folder of your boot disk), and click Open.  Sound Patcher will "
+	"do the rest!  After being patched, you will be able to assign be"
+	"eps to \$D2Screen Blanking\$D3 and \$D2Screen Unblanking.\$D3"
+	"  It\$D5s that simple!"
+	"\n\n"
+	"For more help, or information on other DigiSoft products, you ca"
+	"n contact us at:"
+	"\n\n"
+	"\tDigiSoft Innovations\n"
+	"\tP.O. Box 380\n"
+	"\tTrumbull, CT  06611\n"
+	"\t(203) 375-0837"
+	"\n\n"
+	"\tAmerica Online: DigiSoft\n"
+	"\tInternet: digisoft@aol.com\n"
+	"\tDelphi: DYAJIM\n"
+	"\tGEnie: DYA\n"
+};
+
+resource rComment (1) {
+	"\n"
+	"Sound Patcher.\n"
+   	"Part of DYA\$D5s Twilight\$CAII\$AA Screen Saver Project.\n"
+	"\n"
+    "Twilight\$CAII, the ultimate screen saver for your Apple IIgs.  "
+	"Support us, so we can support you, and make Twilight\$CAII even better "
+	"for the future!\n"
+	"\n"
+	"Twilight\$CAII requires System 6.  Special thanks to all the fantastic "
+	"people who helped in the creation of this product.\n"
+	"\n"
+	"Twilight II: A quality DYA product, from DigiSoft Innovations.  "
+	"Support the II: do not distribute any parts of Twilight II!  "
+	"II Infinitum!"
+//	"\n"
+};

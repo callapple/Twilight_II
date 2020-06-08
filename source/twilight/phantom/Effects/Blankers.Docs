@@ -1,0 +1,52 @@
+Scott's Phantasm Modules
+Version 1.0
+by Scott Walker
+written in Orca/C
+
+What is it?
+This archive contains five different modules for the Phantasm screen saver CDev.
+ Phantasm is part of the  Signature package put out by Q-Labs.  
+
+How to install it
+1) Open up the Control Panel NDA and open the Phantasm CDev.
+2) Click the Add Button.
+3) Select the blanker module you wish to install.
+4) Type in the name you wish it to have.
+5) The name should now appear selected in the list of blankers.
+
+The Modules
+   Bounce - A ball bounces in a parabolic path around the screen.  Color changes
+	   every 12 bounces or so.
+  Trifly - Three triangles colored red, yellow, and blue bounce around the screen.
+  Wormz -  A colored worm is generated until it goes off the screen.  Then it
+	   it changes color and stars again.
+  Stars -   75 stars are displayed in blue,gray,white, and light blue then are 
+ 	   shifted randomly about the screen.
+  Snake -   A gradient colored snake bounces around the screen.  Color changes about
+	   every 30 seconds.
+
+Notes
+1) Sorry about the lack of options, but I tried for five hours and I still can't get
+     the @#&%# things to work!  However, I still think the modules turned out well. 
+2) Also, Bounce and Trifly have noticble flicker (I'm not much of an animation
+     person).  This is reduced, however, if you have a ZipGS or TranswarpGS.
+
+Other Important Stuff
+Hopefully I'll release updates when I figure out how to include options.
+
+This is FREEWARE!  Stick anywhere you want as long as you don't a) change it, 
+b) say you wrote it, or c) sell it.
+
+Send any comments to:
+AOL : Scottwalk1
+Internet : dante@carina.unm.edu 
+	   cs1walker@apsicc.aps.edu
+
+Thanks to D. Proni for releasing the info on how to program Phantasm modules,
+and to GS+ Magazine for printing it. (Hint: if you haven't picked up a copy of this
+magazine, do it!)
+
+Apple II forever!!
+
+
+ 

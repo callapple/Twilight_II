@@ -1,0 +1,19 @@
+
+menuBar                          GEQU $00000001
+
+AppleMenu                        GEQU $00000001
+FileMenu                         GEQU $00000002
+EditMenu                         GEQU $00000003
+
+help_Window                      GEQU $00000FFD
+
+help_WColor                      GEQU $00000FFD
+
+toolTable                        GEQU $00000002
+
+awAlreadyPatched gequ 1
+awAreYouSure gequ 2
+awAbout gequ 3
+awUnknownErr gequ 4
+awBadCDev gequ 5
+awPatchSuccessful gequ 6

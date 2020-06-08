@@ -1,0 +1,210 @@
+
+#include "types.rez"
+#include "22:t2common.rez"
+
+// --- type $8006 defines
+#define PSTR_0000000E $0000000E
+#define PSTR_0000000F $0000000F
+#define PSTR_00000010 $00000010
+#define PSTR_00000011 $00000011
+#define PSTR_00000012 $00000012
+#define PSTR_000000FC $000000FC
+
+resource rT2ModuleFlags (moduleFlags) {
+	fLoadSetupBoot +
+	fSetup,					// module flags
+	$01,						// enabled flag (unimplemented)
+	$0110,					// minimum T2 version required
+	NIL,						// reserved
+	"Phantom"					// module name
+};
+
+// --- About text resource
+
+resource rTextForLETextBox2 (moduleMessage) {
+	TBLeftJust
+	TBBackColor TBColorF
+	TBForeColor TBColor4
+	"Phantom"
+	TBForeColor TBColor1
+	" runs all effects for the Phantasm\$AA screen saver from QLabs..\n"
+	"Some effects may not \$D2demo\$D3 correctly.  The save button saves the "
+	"selected effect only."
+};
+
+// --- Version resource
+
+resource rVersion (moduleVersion) {
+       {1,0,0,release,0},		// Version
+       verUS,					// US Version
+       "T2 Phantom Module",		// program's name
+       "By Jim Maricondo & Derek Young\n"
+       "Copyright 1993, Jim Maricondo."    // copyright notice
+};
+
+// --- About icon resource
+
+resource rIcon (moduleIcon) {
+		$8000,				// kind
+		$0014,				// height
+		$0016,				// width
+
+		$"F00000000000000000000F"
+		$"0FFFFFFFFF44FFFFFFFFF0"
+		$"0F00002F44FF44EE0000F0"
+		$"0F0EEEC4FF4FF447EEE0F0"
+		$"0F0EEE4FFFCFFFC7EEE0F0"
+		$"0F0EE4FFF4444FC4EEE0F0"
+		$"0F0EE4F44440444F4EE0F0"
+		$"0F0EE4F4F4444FFF4EE0F0"
+		$"0F0EEEC7FF44FFF4EEE0F0"
+		$"0F0EEEC4FFFC4F47EEE0F0"
+		$"0F0EEEE5FFFFFFFEEEE0F0"
+		$"0F00002F44444F200000F0"
+		$"0FFFFFFFFFFFFFFFFAFFF0"
+		$"C000000000000000000003"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FF4AFFFFFFFFFFFFFF0F"
+		$"F0CCCCCCCCCCCCCCCCCC0F"
+		$"F0FFFFFFFFFFFFFFFAFF0F"
+		$"F00000000000000000000F",
+
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0";
+};
+
+
+
+// --- Control List Definitions
+
+resource rControlList (1) {
+		{
+		1,
+		2,
+		3,
+//		4,
+		5,
+		6,
+		};
+};
+
+// --- Control Templates
+
+resource rControlTemplate (1) {
+		1,			// ID
+		{ 62,178, 74,316},		// rect
+		simpleButtonControl {{
+			$0000,			// flag
+			$3002,			// moreFlags
+			NIL,			// refCon
+			PSTR_0000000E,		// titleRef
+			0,			// colorTableRef
+		{"E","e",$0100,$0100}	// key equivalents
+		}};
+};
+
+resource rControlTemplate (2) {
+		2,			// ID
+		{ 43,178, 55,318},		// rect
+		simpleButtonControl {{
+			$0000,			// flag
+			$3002,			// moreFlags
+			NIL,			// refCon
+			PSTR_0000000F,		// titleRef
+			0,			// colorTableRef
+		{"C","c",$0100,$0100}	// key equivalents
+		}};
+};
+
+resource rControlTemplate (3) {
+		3,			// ID
+		{ 28,178, 40,318},		// rect
+		simpleButtonControl {{
+			$0000,			// flag
+			$3002,			// moreFlags
+			NIL,			// refCon
+			PSTR_00000010,		// titleRef
+			0,			// colorTableRef
+		{"D","d",$0100,$0100}	// key equivalents
+		}};
+};
+
+resource rControlTemplate (4) {
+		4,			// ID
+		{ 81, 24-2,127,329},		// rect
+		statTextControl {{
+			$0000,			// flag
+			$1002,			// moreFlags
+			NIL,			// refCon
+			1		// textRef
+		}};
+};
+
+resource rControlTemplate (5) {
+		5,			// ID
+		{ 38-4, 14, 71-4,158},		// rect
+		iconButtonControl {{
+			$000C,				// flag
+			$1022,				// moreFlags
+			NIL,			// refCon
+			moduleIcon,			// iconRef
+			PSTR_00000011,			// titleRef
+			NIL,					// colorTableRef
+			$0000				// displayMode
+		}};
+};
+
+resource rControlTemplate (6) {
+       6,	       // ID
+		{ 58,176, 59,320},		// rect
+       rectangleControl {{
+	       $FF01,		    // flag (%01 = gray pattern)
+	       fCtlProcNotPtr,	    // moreFlags (required values)
+	       NIL	      // refCon
+       }};
+};
+
+// --- rPString Templates
+
+resource rPString (PSTR_0000000E) {
+	"Select Effect..."
+};
+
+resource rPString (PSTR_0000000F) {
+	"Configure"
+};
+
+resource rPString (PSTR_00000010) {
+	"Demo"
+};
+
+resource rPString (PSTR_00000011) {
+	"Phantom Options"
+};
+
+// --- rTextForLETextBox2 Templates
+
+resource rTextForLETextBox2 (1) {
+	TBLeftJust
+	TBLeftMargin "\$00\$00"
+	TBStyleItalic "Active\$CAEffect:" TBStylePlain " \$D2*0\$D3"
+};
