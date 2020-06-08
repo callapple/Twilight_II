@@ -1,0 +1,49 @@
+
+echo "### Foreground Fader Make v1.0, 29 May 1992 Jim Maricondo."
+
+if {#} == 0
+   echo "### Fad:Make - Error - Bad input parameters!"
+
+else if {1} == d
+   echo "### Fad:Make - Compiling and linking Foreground Fader Module."
+   asml +w fader.asm
+   echo "### Fad:Make - Module compiled and linked."
+
+   echo "### Fad:Make - Building Module.."
+   copy -f fader.d fader
+   echo "### Fad:Make - Setting filetype."
+   filetype fader $bc $4004
+   echo "### Fad:Make - Built.  Now copying to Twilight folder..."
+   copy -c fader :jim1:system:cdevs:twilight:fader
+
+else if {1} == r
+   echo "### Fad:Make - Compiling fader resources."
+   compile fader.rez keep=fader.r
+   echo "### Fad:Make - Module resources built."
+
+   echo "### Fad:Make - Building Module.."
+   copy -r fader.r fader
+   echo "### Fad:Make - Setting filetype."
+   filetype fader $bc $4004
+   echo "### Fad:Make - Built.  Now copying to Twilight folder..."
+   copy -c fader :jim1:system:cdevs:twilight:fader
+
+else if {1} == rd
+   echo "### Fad:Make - Compiling and linking Foreground Fader module."
+   asml +w fader.asm
+   echo "### Fad:Make - Module compiled and linked."
+   echo "### Fad:Make - Compiling fader resources."
+   compile fader.rez keep=fader.r
+   echo "### Fad:Make - Module resources built."
+
+   echo "### Fad:Make - Building Module.."
+   copy -f fader.d fader
+   copy -r fader.r fader
+   echo "### Fad:Make - Setting filetype."
+   filetype fader $bc $4004
+   echo "### Fad:Make - Built.  Now copying to Twilight folder..."
+   copy -c fader :jim1:system:cdevs:twilight:fader
+
+else
+   echo "### Fad:Make - Invalid parameters/options specified."
+end

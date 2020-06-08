@@ -1,0 +1,95 @@
+
+#include "types.rez"
+#include "22:t2common.rez"
+
+// --- Flags resource
+
+resource rT2ModuleFlags (moduleFlags) {
+	fWantFadeOut+fWantFadeIn,	// module flags
+	$01,						// enabled flag (unimplemented)
+	$0100,					// minimum T2 version required
+	NIL,						// reserved
+	"Tester"					// module name
+};
+
+// --- About text resource
+
+resource rTextForLETextBox2 (moduleMessage) {
+       "\$01"
+       "J"
+       "\$00"
+       "\$00"
+       "\$01"
+       "L"
+       "\$00"
+       "\$00"
+       "\$01"
+       "C"
+       "\$11"
+       "\$11"
+       "\$01"
+       "B"
+       "\$FF"
+       "\$FF"
+       "This module is for test purposes only."
+};
+
+// --- Version resource
+
+resource rVersion (moduleVersion) {
+       { $1,$0,$0,beta,$3 },             // Version 1.0b3
+       verUS,                             // US Version
+       "T2 Tester Module",     // program's name
+       "By Jim Maricondo.\n"
+       "Copyright 1991 Jim Maricondo."    // copyright notice
+};
+
+// --- About icon resource
+
+resource rIcon (moduleIcon) {
+       $8000,                  // kind
+       $0014,                  // height
+       $001C,                  // width
+
+       $"FFF0000000000000000000000FFF"
+       $"FFF0FFFFFFFFFFFFFFFFFFFF0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0F011111111111111110F0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0F011111111111111110F0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0F011111111111111110F0FFF"
+       $"FFF0F011111111111111110F0FFF"
+       $"FFF0F011111111111111110F0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0FFFFFFFFFFFFFFFFAFFF0FFF"
+       $"FFF0000000000000000000000FFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FF4AFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0CCCCCCCCCCCCCCCCCC0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFAFF0FFFF"
+       $"FFFF00000000000000000000FFFF",
+
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000";
+};

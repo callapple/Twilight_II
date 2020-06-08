@@ -1,0 +1,18 @@
+
+echo asml Fader.asm keep=Fader.d
+asml Fader.asm keep=Fader.d
+
+echo duplicate -d Fader.d Fader
+duplicate -d Fader.d Fader
+
+echo duplicate -r Fader.r Fader
+duplicate -r Fader.r Fader
+
+echo filetype Fader $BC
+filetype Fader $BC
+
+echo setfile Fader -at $4004
+setfile Fader -at $4004
+
+echo copy -c Fader /jim1/system/cdevs/Twilight/Fader
+copy -c Fader /jim1/system/cdevs/Twilight/Fader
