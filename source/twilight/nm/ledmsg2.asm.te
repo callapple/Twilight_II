@@ -1,0 +1,442 @@
+
+TheText	dosout	500	;504 byte buffer for text...
+MsgLen	equ	TheText+2	;actual length of text
+
+
+ErrText	dosin	'Twilight II is Awesome!   This LED Message module was programmed by Nathan Mates, with special thanks to Jim Maricondo (code), the FTA (more code), Beagle Bros (font), and is dedicated to Ah-Ram Kim...'
+
+
+*
+*
+Setup	anop
+*
+* Handle the Setup and all. Entry: Accum=T2Message
+*
+*
+	cmp	#MakeT2
+	beq	doMake
+	cmp	#HitT2
+	jeq	doHit
+*	cmp	#KillT2
+*	jeq	doKill
+	cmp	#SaveT2
+	jeq	doSave
+	cmp	#LoadSetupT2
+	jeq	doLoadSetup
+*	cmp	#UnloadSetupT2
+*	jeq	doUnloadSetup
+	brl	Done
+
+*=================================================
+*
+*	Create	all	the	buttons	in	the	window
+*
+doMake	anop
+
+	lda	T2data1+2
+	sta	WindPtr+2
+	lda	T2data1
+	sta	WindPtr
+	lda	T2data2
+	sta	RezFileID
+	WordResult
+	_MMStartUp
+	PullWord	MyID
+
+	LongResult
+	PushLong	WindPtr
+	PushWord	#9	;resource 2 resource
+	PushLong	#1	;resource item ID=1
+	_NewControl2
+	plx
+	plx		;chuck result out
+
+* Make sure we're dealing with the T2pref file.
+
+	WordResult
+	_GetCurResourceFile
+	PushWord	RezFileID
+	_SetCurResourceFile
+
+	jsr	load_setup
+
+noShapes1	anop
+MoveOn	_SetCurResourceFile
+
+	PushWord	#%011	;ptr to gs/os output string
+	PushLong	#TheText
+	PushWord	#0	;upper word of length
+	PushWord	MsgLen	;length of block
+	PushWord	#0	;ptr to TEFormat...
+	PushLong	#0	;nil ptr
+
+	LongResult
+	PushLong	WindPtr
+	PushLong	#1	;TE Control ID
+	_GetCtlHandleFromID
+	_TESetText
+
+	lda	TheFont
+	pha
+	LongResult
+	PushLong	WindPtr
+	PushLong	#2	;type control #
+	_GetCtlHandleFromID
+	_SetCtlValue
+
+	lda	#5	;5 items created
+	sta	T2Result
+	brl	Bye
+
+*=================================================
+
+
+
+temp	ds	4
+
+rLedMsgText str	'LedMsg: Text'
+rLEDMsgFont	str	'LedMsg: Font'
+TheFont	ds	2
+
+* Format: Upper byte=clock type (ignored for now)
+*                   0=DClock; 1= AClock; 2=Random on Entry
+*         Lower byte=Refreshes between movement...
+
+*=================================================
+doLoadSetup	anop
+
+	jsr	load_setup
+	brl	Bye
+
+load_setup	anop
+
+*	Load	the	fps/maxzoom/delay	resource.
+
+	LongResult
+	Pushword	#rC1OutputString ;type
+	PushLong	#rLedMsgText
+	_RMLoadNamedResource
+	bcc	PrefsThere1
+	plx
+	plx		;setup not saved yet...
+
+	ldx	ErrText	;length word
+	inx
+	inx		;length of whole thing
+CopyErr2	lda	ErrText,x
+	sta	MsgLen,x
+	dex                   ;could be odd length
+	bpl	CopyErr2
+	bra	NoText
+
+PrefsThere1	anop
+	makePdp
+	ldy	#504
+GetText	lda	[3],y
+	sta	TheText,y
+	dey
+	dey
+	bpl	GetText
+	killLdp
+	mov	#500,TheText	;buffer size
+	LongResult
+	PushLong	WindPtr
+	PushLong	#1	;TE Control ID
+	_GetCtlHandleFromID
+	MakePdp
+	ldy	#$10
+	lda	[3],y
+            and	#%1111111110111111
+	sta	[3],y	;mark saved
+	killLdp
+
+	PushWord	#3	;purge level
+	PushWord	#rC1OutputString	;rtype for release
+
+	LongResult
+	PushWord	#rC1OutputString
+	PushLong	#rLedMsgText
+	PushLong	#Temp	;don't care about filenum, but toolbox does
+	_RMFindNamedResource	;get it
+	_ReleaseResource	;and throw it out. We have a copy now :)
+
+NoText	anop
+     	LongResult
+	Pushword	#rT2ModuleWord ;type
+	PushLong	#rLEDMsgFont
+	_RMLoadNamedResource
+	bcc	PrefsThere2
+	plx
+	plx		;setup not saved yet...
+	lda	#300	;Random Clock Type; Normal Speed
+	sta	TheFont
+	bra	NoPrefs
+
+PrefsThere2	anop
+	makePdp
+	lda	[3]
+	sta	TheFont
+	killLdp
+
+	PushWord	#3	;purge levek
+	PushWord	#rT2ModuleWord	;rtype for release
+
+	LongResult
+	PushWord	#rT2ModuleWord
+	PushLong	#rLEDMsgFont
+	PushLong	#Temp	;don't care about filenum, but toolbox does
+	_RMFindNamedResource	;get it
+	_ReleaseResource	;and throw it out. We have a copy now :)
+NoPrefs	rts
+
+*=================================================
+doSave	anop
+
+	WordResult
+	_GetCurResourceFile
+	PushWord	RezFileID
+	_SetCurResourceFile
+
+	LongResult
+	PushWord	#%011	;ptr to gs/os output string
+	PushLong	#TheText
+	PushLong	#500	;length of buffer size
+	PushWord	#0	;ptr to TEFormat...
+	PushLong	#0	;nil ptr
+
+	LongResult
+	PushLong	WindPtr
+	PushLong	#1	;TE Control ID
+	_GetCtlHandleFromID
+	lda	3,s	;duplicate handle
+	pha
+	lda	3,s
+	pha
+	_TECompactRecord
+
+	_TEGetText
+	pla
+	pla		;throw away result
+
+            LongResult
+            PushWord	#rC1OutputString
+	PushLong	#rLedMsgText
+	_RMLoadNamedResource
+	jcc	HavePrefs1
+	plx
+	plx
+
+	LongResult
+	PushLong	#506	;length of block in bytes
+	WordResult
+	_GetCurResourceApp
+	PushWord	#attrNoCross+attrNoSpec
+	phd
+	phd
+	_NewHandle
+	lda	1,s
+	sta	temp
+	lda	1+2,s
+	sta	temp+2
+	mov	#500,TheText	;buffer size
+
+	LongResult
+	PushLong	WindPtr
+	PushLong	#1	;TE Control ID
+	_GetCtlHandleFromID
+	_TECompactRecord
+
+	makePdp
+	ldy	#504
+SaveText	lda	TheText,y
+	sta	[3],y
+	dey
+	dey
+	bpl	SaveText
+	killLdp
+
+	LongResult
+	PushLong	WindPtr
+	PushLong	#1	;TE Control ID
+	_GetCtlHandleFromID
+	MakePdp
+	ldy	#$10
+	lda	[3],y
+            and	#%1111111110111111
+	sta	[3],y	;mark saved
+	killLdp
+
+	PushLong	temp		;handle
+	PushWord	#attrNoSpec+attrNoCross	;attr
+	PushWord	#rC1OutputString	;rtype
+	LongResult
+	PushWord	#$FFFF
+	PushWord	#rC1OutputString
+	_UniqueResourceID
+	lda	1,s
+	sta	temp
+	lda	1+2,s
+	sta	temp+2
+	_AddResource
+
+	PushWord	#rC1OutputString	;rType
+	PushLong	temp		;rID
+	PushLong	#rLedMsgText	;ptr to name str
+	_RMSetResourceName
+	brl	CreatedTxt
+
+HavePrefs1	anop
+	makePdp
+
+	LongResult
+	PushLong	WindPtr
+	PushLong	#1	;TE Control ID
+	_GetCtlHandleFromID
+	_TECompactRecord
+
+	mov	#500,TheText	;buffer size
+	ldy	#504
+SaveText2	lda	TheText,y
+	sta	[3],y
+	dey
+	dey
+	bpl	SaveText2
+	killLdp
+	LongResult
+	PushLong	WindPtr
+	PushLong	#1	;TE Control ID
+	_GetCtlHandleFromID
+	MakePdp
+	ldy	#$10
+	lda	[3],y
+            and	#%1111111110111111
+	sta	[3],y	;mark saved
+	killLdp
+
+	PushWord	#TRUE	;changeflag:	true
+	PushWord	#rC1OutputString	;rtype
+
+	LongResult
+	PushWord	#rC1OutputString
+	PushLong	#rLedMsgText
+	PushLong	#Temp	;don't care about filenum, but toolbox does
+	_RMFindNamedResource	;get it
+	_MarkResourceChange
+
+CreatedTxt	anop
+	WordResult
+	LongResult
+	PushLong WindPtr
+	PushLong	#2	;Type popup...
+	_GetCtlHandleFromID
+	_GetCtlValue
+	pla
+	sta	TheFont
+
+            LongResult
+            PushWord	#rT2ModuleWord
+	PushLong	#rLedMsgFont
+	_RMLoadNamedResource
+	jcc	HavePrefs2
+	plx
+	plx
+
+
+	LongResult
+	PushLong	#2
+	WordResult
+	_GetCurResourceApp
+	PushWord	#attrNoCross+attrNoSpec
+	phd
+	phd
+	_NewHandle
+	lda	1,s
+	sta	temp
+	lda	1+2,s
+	sta	temp+2
+	makePdp
+	lda	TheFont
+	sta	[3]
+	killLdp
+
+	PushLong	temp	;	handle
+	PushWord	#attrNoSpec+attrNoCross	;	attr
+	PushWord	#rT2ModuleWord	;	rtype
+	LongResult
+	PushWord	#$FFFF
+	PushWord	#rT2ModuleWord
+	_UniqueResourceID
+	lda	1,s
+	sta	temp
+	lda	1+2,s
+	sta	temp+2
+	_AddResource
+
+	PushWord	#rT2ModuleWord	;rType
+	PushLong	temp		;rID
+	PushLong	#rLedMsgFont	;ptr to name str
+	_RMSetResourceName
+	bra	created1
+
+HavePrefs2	anop
+	makePdp
+	lda	TheFont
+	sta	[3]
+	killLdp
+
+	PushWord	#TRUE	;	changeflag:	true
+	PushWord	#rT2ModuleWord	;	rtype
+
+	LongResult
+	PushWord	#rT2ModuleWord
+	PushLong	#rLedMsgFont
+	PushLong	#Temp	;don't care about filenum, but toolbox does
+	_RMFindNamedResource	;get it
+	_MarkResourceChange
+
+created1	anop
+            PushWord	RezFileID
+	_UpdateResourceFile
+	_SetCurResourceFile
+	brl	Bye
+
+*=================================================
+*	Hit
+*
+*	handle	item	hits
+
+doHit	anop
+
+	stz	T2Result+2
+	stz	T2Result	;assume nothing hit
+	lda	T2data2+2	;ctlID hi word must be zero
+	bne	nothingHit
+	lda	T2data2	;get ctlID
+	dec	a
+	beq	enable	;branch if was 1 (TE Control)
+	dec	a
+	beq	HitIt
+nothingHit	brl	Bye
+
+enable	anop
+	LongResult
+	PushLong	WindPtr
+	PushLong	#1	;TE Control ID
+	_GetCtlHandleFromID
+	MakePdp
+	ldy	#$10
+	lda	[3],y
+	pld
+	plx
+	plx		;keep a-reg intact
+	and	#$40	;dirty bit: has it changed?
+	beq	NothingHit
+HitIt	lda	#TRUE
+	sta	T2Result
+	bra	nothingHit
+
+
+MyID	ds	2
+WindPtr	ds	4
+RezFileID	ds	2
+	end

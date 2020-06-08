@@ -1,0 +1,55 @@
+
+resource rControlList (0x00000001) {{
+ 1,  /* control resource id */
+ 2,
+ 3,  /* control resource id */
+ 4,  		// Icon //
+ 5,		// Descriptor string //
+};
+};
+
+resource rControlTemplate (0x00000001) {
+ 0x00000001,  /* control id */ 
+{0x0044,0x000C,0x0080,0x0154},  /* control rectangle */
+    editTextControl{{  /* control type */
+ 0x0000,  /* flags */
+ 0x7400,  /* more flags */
+ 0,        /* ref con */
+ 0x42800000,      /* TE text flags */
+ {0xFFFF,0xFFFF,0xFFFF,0xFFFF}, /* indent rect, standard */
+ 0xFFFFFFFF,       /* TE vert scroll */
+ 0,       /* te vert movement */                
+ 0,      /* MUST BE NUL version 1.0 */
+ 0,        /* MUST BE NUL version 1.0 */
+ 0,       /* style ref */
+ 0,        /* text descriptor */
+ 0,       /* text ref */ 
+ 0,       /* text length */
+ 0,        /* maximum characters */
+ 0,      /* MUST BE NUL version 1.0 */
+ 0,        /* MUST BE NUL version 1.0 */
+ 0,        /* MUST BE NUL version 1.0 */
+ 0,      /* color table */
+ 0x0000,        /* drawing mode */
+ 0        /* filter proc */
+}};
+};
+
+
+resource rControlTemplate (0x00000003) {
+ 0x00000003,  /* control id */ 
+{0x0035,0x000A,0x0042,0x0085},  /* control rectangle */
+    statTextControl{{  /* control type */
+ 0x0000,  /* flags */
+ 0x1002,  /* more flags */
+ 0,        /* ref con */
+ 0x00000003,   /* text reference */
+ 0x0010,   /* text length */
+ 0x0008 /* text justification  not currently implemented (sys 5.0.2) */
+}};
+};
+
+
+resource rTextForLETextBox2 (0x00000003){
+ "Text to display:"
+};

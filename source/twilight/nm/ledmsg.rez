@@ -1,0 +1,233 @@
+#include "types.rez"
+#include "t2common.rez"
+
+// --- Flags resource
+
+resource rT2ModuleFlags (moduleFlags) {
+	fFadeOut+fFadeIn+fGrafPort320+fSetup,	// module flags word
+	$01,						// enabled flag (unimplemented)
+	$0110,					// minimum T2 version required
+	NIL,						// reserved
+	"L.E.D. Message"				// module name
+};
+
+// --- About text resource
+
+resource rTextForLETextBox2 (moduleMessage) {
+	TBLeftJust
+	TBBackColor TBColorF
+	TBForeColor TBColor1
+	"L.E.D. Message"
+	TBForeColor TBColor0
+	" scrolls a message of your choice across the screen.\n"
+	TBForeColor TBColor4
+	"Written by Nathan Mates, dedicated to Ah-Ram Kim."
+};
+
+// --- Version resource
+
+resource rVersion (moduleVersion) {
+       {1,0,0,final,2},             // Version
+       verUS,                         // US Version
+       "T2 L.E.D. Message Module",     // program's name
+       "By Nathan Mates.\n"
+       "Special Thanks to Jim Maricondo."    // copyright notice
+};
+
+// --- About icon resource
+
+resource rIcon (moduleIcon) {
+		$8000,				// kind
+		$0014,				// height
+		$0016,				// width
+		$"0000000000000000000000"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0F000000000000000000F0"
+		$"0F000000000000000000F0"
+		$"0F040000044400044400F0"
+		$"0F040000040000040040F0"
+		$"0F040000044000040040F0"
+		$"0F040000040000040040F0"
+		$"0F044404044404044404F0"
+		$"0F000000000000000000F0"
+		$"0F000000000000000000F0"
+		$"0F000000000000000000F0"
+		$"0FFFFFFFFFFFFFFFFAFFF0"
+		$"0000000000000000000000"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FF4AFFFFFFFFFFFFFF0F"
+		$"F0CCCCCCCCCCCCCCCCCC0F"
+		$"F0FFFFFFFFFFFFFFFAFF0F"
+		$"F00000000000000000000F",
+
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0";
+
+};
+
+resource rControlList (0x00000001) {{
+ 1,  /* control resource id */
+ 2,
+ 3,  /* control resource id */
+ 4,  		// Icon //
+ 5,		// Descriptor string //
+};
+};
+
+resource rControlTemplate (0x00000001) {
+ 0x00000001,  /* control id */ 
+{0x0044,0x000C,0x0080,0x0154},  /* control rectangle */
+    editTextControl{{  /* control type */
+ 0x0000,  /* flags */
+ 0x7400,  /* more flags */
+ 0,        /* ref con */
+ 0x42800000,      /* TE text flags */
+ {0xFFFF,0xFFFF,0xFFFF,0xFFFF}, /* indent rect, standard */
+ 0xFFFFFFFF,       /* TE vert scroll */
+ 0,       /* te vert movement */                
+ 0,      /* MUST BE NUL version 1.0 */
+ 0,        /* MUST BE NUL version 1.0 */
+ 0,       /* style ref */
+ 0,        /* text descriptor */
+ 0,       /* text ref */ 
+ 0,       /* text length */
+ 0,        /* maximum characters */
+ 0,      /* MUST BE NUL version 1.0 */
+ 0,        /* MUST BE NUL version 1.0 */
+ 0,        /* MUST BE NUL version 1.0 */
+ 0,      /* color table */
+ 0x0000,        /* drawing mode */
+ 0        /* filter proc */
+}};
+};
+
+
+resource rControlTemplate (0x00000003) {
+ 0x00000003,  /* control id */ 
+{0x0035,0x000A,0x0042,0x0085},  /* control rectangle */
+    statTextControl{{  /* control type */
+ 0x0000,  /* flags */
+ 0x1002,  /* more flags */
+ 0,        /* ref con */
+ 0x00000003,   /* text reference */
+ 0x0010,   /* text length */
+ 0x0008 /* text justification  not currently implemented (sys 5.0.2) */
+}};
+};
+
+
+resource rTextForLETextBox2 (0x00000003){
+ "Text to display:"
+};
+
+resource rControlTemplate (4) {
+		4,			// ID
+		{ 25, 84, 48,130},		// rect
+		iconButtonControl {{
+			$000C,			// flag
+			$1020,			// moreFlags
+			$00000000,			// refCon
+			moduleIcon,		// iconRef
+			0,			// titleRef
+			0,			// colorTableRef
+			$0000			// displayMode
+		}};
+};
+
+resource rControlTemplate (5) {
+		5,			// ID
+		{ 32,142, 42,350},		// rect
+		statTextControl {{
+			$0000,			// flag
+			$1002,			// moreFlags
+			$00000000,			// refCon
+			1			//txtref...
+		}};
+};
+
+resource rTextForLETextBox2 (1) {
+	"L.E.D. Message Options"
+};
+
+resource rControlTemplate (0x00000002) {
+ 0x00000002,  /* control id */ 
+{0x0032,0x00CE,0x003f,0x0154},  /* control rectangle */
+      PopUpControl{{   /* control type */
+ 0x0000,  /* flags */
+ 0x1002,  /* more flags */
+ 0,        /* ref con */
+ 0, /* title width */
+ 0x00000003, /* menu reference */
+ 0x012C,  /* inital value */
+ 0x00000000    /* color table id */
+}};
+};
+resource rMenu (0x00000003) {
+0x001E,  /* id of menu */
+ RefIsResource*MenuTitleRefShift+RefIsResource*ItemRefShift+fAllowCache,
+ 0x00000003,  /* id of title string */
+ {
+ 0x0000000A,    /* item reference */
+ 0x0000000B,    /* item reference */
+ 0x0000000C,    /* item reference */
+ 0x0000000D,    /* item reference */
+};};
+resource rPString (0x00000003) { 
+"Font:"};
+resource rMenuItem (0x0000000A) {
+ 0x012C, /* item id number */
+ "","",       /* hot key*/
+ 0,       /* check character */
+ RefIsResource*ItemTitleRefShift+fXOR,
+ 0x0000000A,    /* title reference */
+};
+resource rPString (0x0000000A) { 
+"Standard"};
+resource rMenuItem (0x0000000B) {
+ 0x012D, /* item id number */
+ "","",       /* hot key*/
+ 0,       /* check character */
+ RefIsResource*ItemTitleRefShift+fXOR,
+ 0x0000000B,    /* title reference */
+};
+resource rPString (0x0000000B) { 
+"Sans Serif"};
+
+resource rMenuItem (0x0000000C) {
+ 0x012E, /* item id number */
+ "","",       /* hot key*/
+ 0,       /* check character */
+ RefIsResource*ItemTitleRefShift+fXOR,
+ 0x0000000C,    /* title reference */
+};
+resource rPString (0x0000000C) { 
+"Small"};
+
+resource rMenuItem (0x0000000D) {
+ 0x012F, /* item id number */
+ "","",       /* hot key*/
+ 0,       /* check character */
+ RefIsResource*ItemTitleRefShift+fXOR,
+ 0x0000000D,    /* title reference */
+};
+resource rPString (0x0000000D) { 
+"Random"};
