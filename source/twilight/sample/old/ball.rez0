@@ -1,0 +1,383 @@
+// --------------------------------------------------------------------
+// Genesys created REZ data code
+// Simple Software Systems International, Inc.
+// APWREZ.SCG 1.2
+// --------------------------------------------------------------------
+
+#include "types.rez"
+
+// --- Icon Definitions
+
+resource rIcon (ICON_00000001, $0000) {
+		$8000,				// kind
+		$0014,				// height
+		$0016,				// width
+
+		$"F00000000000000000000F"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0F044000000000000000F0"
+		$"0F444400000DDD000000F0"
+		$"0F44770000DDDDD00000F0"
+		$"0F0777700ADDDDD00000F0"
+		$"0F077660BBDDDDD00000F0"
+		$"0F00666BBBBDDD030000F0"
+		$"0F0066EBBBB003000000F0"
+		$"0F000EEEBB0000330000F0"
+		$"0F000EEEE00000300000F0"
+		$"0F0000EE000000033000F0"
+		$"0FFFFFFFFFFFFFFFFAFFF0"
+		$"0000000000000000000000"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FF4AFFFFFFFFFFFFFF0F"
+		$"F0CCCCCCCCCCCCCCCCCC0F"
+		$"F0FFFFFFFFFFFFFFFAFF0F"
+		$"F00000000000000000000F",
+
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0";
+};
+
+// --- Control List Definitions
+
+resource rControlList (CTLLST_00000005, $0000) {
+		{
+		CTLTMP_00010012,			// control 1
+		CTLTMP_00007003,			// control 2
+		CTLTMP_00010013,			// control 3
+		CTLTMP_00007002,			// control 4
+		CTLTMP_00007001,			// control 5
+		CTLTMP_00007000,			// control 6
+		CTLTMP_00006FFF,			// control 7
+		CTLTMP_00006FFE,			// control 8
+		};
+};
+
+// --- Control Templates
+
+resource rControlTemplate (CTLTMP_00006FFE, $0000) {
+		$00006FFE,			// ID
+		{ 61, 74,  0,  0},		// rect
+		popUpControl {{
+			$0040,			// flag
+			$1002,			// moreFlags
+			$00000000,			// refCon
+			$0000,			// titleWidth
+			MENU_00000002,	// menuRef
+			$01FF,			// initialValue
+			0				// colorTableRef
+		}};
+};
+
+resource rControlTemplate (CTLTMP_00006FFF, $0000) {
+		$00006FFF,			// ID
+		{ 75, 78, 84,188},		// rect
+		checkControl {{
+			$0000,			// flag
+			$1002,			// moreFlags
+			$00000000,			// refCon
+			PSTR_000000FE,	// titleRef
+			$0001			// initialValue
+		}};
+};
+
+resource rControlTemplate (CTLTMP_00007000, $0000) {
+		$00007000,			// ID
+		{ 49,114, 59,209},		// rect
+		statTextControl {{
+			$0000,			// flag
+			$1002,			// moreFlags
+			$00000000,			// refCon
+			LETXTBOX_00000001,		// textRef
+			LETXTBOX_00000001_CNT,	// textSize
+			$0001			// just
+		}};
+};
+
+resource rControlTemplate (CTLTMP_00007001, $0000) {
+		$00007001,			// ID
+		{ 26,138, 49,186},		// rect
+		iconButtonControl {{
+			$0004,			// flag
+			$1020,			// moreFlags
+			$00000000,			// refCon
+			ICON_00000001,		// iconRef
+			0,			// titleRef
+			0,			// colorTableRef
+			$0000,			// displayMode
+		}};
+};
+
+resource rControlTemplate (CTLTMP_00007002, $0000) {
+		$00007002,			// ID
+		{  4,232, 16,286},		// rect
+		simpleButtonControl {{
+			$0000,			// flag
+			$3002,			// moreFlags
+			$00000000,			// refCon
+			PSTR_000000FD,		// titleRef
+			0,			// colorTableRef
+		{"T","t",$0100,$0100}	// key equivalents
+		}};
+};
+
+resource rControlTemplate (CTLTMP_00007003, $0000) {
+		$07FEFFFE,			// ID
+		{  4,290, 16,344},		// rect
+		simpleButtonControl {{
+			$0000,			// flag
+			$3002,			// moreFlags
+			$00000000,			// refCon
+			PSTR_00000012,		// titleRef
+			0,			// colorTableRef
+		{"S","s",$0100,$0100}	// key equivalents
+		}};
+};
+
+resource rControlTemplate (CTLTMP_00010012, $0000) {
+		$07FEFFFF,			// ID
+		{ 53, 60, 92,274},		// rect
+ {{
+			$0002,			// flag
+			$1000,			// moreFlags
+			$00000000,			// refCon
+resource rControlTemplate (CTLTMP_00010013, $0000) {
+		$07FEFFFD,			// ID
+		{  4,  4,  0,  0},		// rect
+		popUpControl {{
+			$0040,			// flag
+			$1082,			// moreFlags
+			$00000000,			// refCon
+			$0000,			// titleWidth
+			MENU_00000001,	// menuRef
+			$0200			// initialValue
+		}};
+};
+
+// --- rPString Templates
+
+resource rPString (PSTR_00000001, $C018) {
+	"Screen Corners"
+};
+
+resource rPString (PSTR_00000002, $C018) {
+	"Options"
+};
+
+resource rPString (PSTR_00000012, $0000) {
+	"Save"
+};
+
+resource rPString (PSTR_000000FC, $0000) {
+	"Setup: "
+};
+
+resource rPString (PSTR_000000FD, $0000) {
+	"Test"
+};
+
+resource rPString (PSTR_000000FE, $0000) {
+	"Use Sound"
+};
+
+resource rPString (PSTR_000000FF, $0000) {
+	" Ball Color: "
+};
+
+resource rPString (PSTR_00000100, $0000) {
+	"Red"
+};
+
+resource rPString (PSTR_00000107, $C018) {
+	"Blue"
+};
+
+resource rPString (PSTR_00000108, $C018) {
+	"Green"
+};
+
+resource rPString (PSTR_00000109, $C018) {
+	"Purple"
+};
+
+resource rPString (PSTR_0000010A, $C018) {
+	"Yellow"
+};
+
+resource rPString (PSTR_0000010B, $C018) {
+	"Turquoise"
+};
+
+// --- Menu Definitions
+
+resource rMenu (MENU_00000001, $0018) {
+		$0001,				// menuID
+		$A008,				// menuFlag
+		PSTR_000000FC, {		// menuTitleRef
+			MENUITEM_00000200,
+			MENUITEM_00000201
+		};
+};
+
+resource rMenu (MENU_00000002, $0000) {
+		$0002,				// menuID
+		$A000,				// menuFlag
+		PSTR_000000FF, {		// menuTitleRef
+			MENUITEM_000001FF,
+			MENUITEM_00000107,
+			MENUITEM_00000108,
+			MENUITEM_00000109,
+			MENUITEM_0000010A,
+			MENUITEM_0000010B
+		};
+};
+
+// --- Menu Item Definitions
+
+resource rMenuItem (MENUITEM_00000107, $C018) {
+		$000F,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000107			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000108, $C018) {
+		$00F0,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000108			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000109, $C018) {
+		$0F0F,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000109			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010A, $C018) {
+		$0FF0,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000010A			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010B, $C018) {
+		$00FF,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000010B			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_000001FF, $0000) {
+		$0F00,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000100			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000200, $C018) {
+		$0200,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000001			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000201, $C018) {
+		$0201,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8040,				// itemFlag
+		PSTR_00000002			// itemTitleRef
+};
+
+// --- rTextForLETextBox2 Templates
+
+#define LETXTBOX_00000001_CNT 40 /* move this line to the top of this file */
+
+resource rTextForLETextBox2 (LETXTBOX_00000001, $0000) {
+	"\$01"
+	"J"
+	"\$00"
+	"\$00"
+	"\$01"
+	"L"
+	"\$00"
+	"\$00"
+	"\$01"
+	"R"
+	"\$04"
+	"\$00"
+	"\$01"
+	"F"
+	"\$FE"
+	"\$FF"
+	"\$00"
+	"\$08"
+	"\$01"
+	"C"
+	"\$00"
+	"\$00"
+	"\$01"
+	"B"
+	"\$FF"
+	"\$FF"
+	" Ball Options "
+};
+
+// --- Window Templates
+
+resource rWindParam1 (WPARAM1_00000FFF, $0000) {
+		$C0A8,				// plFrame (frame bits)
+		PSTR_000000FC,			// plTitle (title ID)
+		$00000000,			// p1RefCon
+		{  0,  0,  0,  0},		// p1ZoomRect
+		WCOLOR_00000001,		// p1ColorTable
+		{$0000, $0000},		// p1YOrigin, p1XOrigin
+		{$0000, $0000},		// p1DataHeight, p1DataWidth
+		{$0000, $0000},		// p1MaxHeight, p1MaxWidth
+		{$0000, $0000},		// p1VerScroll, p1HorScroll
+		{$0000, $0000},		// p1VerPage, p1HorPage
+		$00000000,			// p1InfoText (info RefCon)
+		$0000,				// p1InfoHeight
+		{ 50,146,180,494},		// p1Position
+		infront,				// p1Plane
+		CTLLST_00000005,			// plControlList
+		$0A09				// plInDesc
+};
+
+// --- Window Color Templates
+
+resource rWindColor (WCOLOR_00000001, $0000) {
+		$0000,				// frameColor
+		$0F00,				// titleColor
+		$020F,				// tBarColor
+		$F0FF,				// growColor
+		$00F0				// infoColor
+};
+

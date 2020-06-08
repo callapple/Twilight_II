@@ -1,0 +1,274 @@
+
+/*
+** Ball, Release v1.0 - 16 July 1993. (4 spaces = 1 tab)
+**
+**  A Twilight II module by James C Smith and James R Maricondo.
+**  Parts based off the original T2 C shell by Josef Wankerl.
+**
+** Copyright 1993 DigiSoft Innovations, All Rights Reserved.
+**
+** Permission granted to use this source in any module designed for Twilight II.
+*/
+
+/* pragmas */
+
+#pragma keep "Ball.d"
+#pragma cdev Ball
+#pragma optimize -2
+#pragma debug 0
+
+/* defines */
+
+#define ballCtlList		1l
+
+#define RedStr			1l
+#define BlueStr			2l
+#define GreenStr		3l
+#define PurpleStr		4l
+#define YellowStr		5l
+#define TurquoiseStr	6l
+#define ballColorStr	10l
+#define useSoundStr		20l
+
+#define colorMenu		1l
+
+#define colorCtl		1l
+#define useSoundCtl		2l
+#define ballStrCtl		3l
+#define ballIconCtl		4l
+#define ballLineCtl		5l
+
+#define blueMenuItem	1l
+#define greenMenuItem	2l
+#define redMenuItem		3l
+#define turquoiseMenuItem 4l
+#define purpleMenuItem	5l
+#define yellowMenuItem	6l
+
+#define ballIcon        0x0010DD01l
+
+/* includes */
+
+#include "22:T2.h"
+#include <quickdraw.h>
+#include <control.h>
+#include <resources.h>
+#include <orca.h>
+#include <memory.h>
+
+pascal void SysBeep() inline(0x2C03,dispatcher);
+pascal LongWord TickCount() inline(0x1006,dispatcher);
+
+#pragma lint -1
+
+/* prototypes */
+
+LongWord Ball(LongWord, LongWord, Word);
+LongWord MakeT2Ball(void);
+void LoadSetupT2Ball(void);
+void SaveConfigResource(char *, Word);
+Word LoadConfigResource(char *, Word);
+LongWord HitT2Ball(LongWord);
+void SaveT2Ball(void);
+
+/* globals */
+
+char *ConfigNameString="\pBall Setup";
+
+unsigned int BallColor, SoundFlag;
+Word *movePtr;
+long NewTick, OldTick;
+
+Word SetupFileNumber;
+GrafPortPtr SetupWindow;
+
+Long X,Y,XV,YV, BallSize, GravityValue;
+Rect MyRect, OldRect;
+Word MyColorTable[16];
+
+/* other source files */
+
+#include "config.cc"
+
+/* main functions */
+
+LongWord BlankT2Ball(void) {
+
+	int temp;
+
+    InitColorTable(MyColorTable);
+    SetColorTable(0, MyColorTable);
+    BallSize=10;
+    GravityValue=8000;
+    X=100<<16;
+    Y=15<<16;
+    XV=4<<16;
+    YV=0;
+	SetPenMode(modeXOR);
+	SetSolidPenPat(0xF);
+	while (!(*movePtr)) {
+        YV+=GravityValue;
+        X+=XV;
+        Y+=YV;
+        if((X+BallSize>(320<<16))|(X-BallSize<0))
+            XV=-XV;
+        if((Y+BallSize>(200<<16))|(Y-BallSize<0))
+            YV=-YV;
+
+asm {
+	lda MyRect+0
+	sta OldRect+0
+	lda MyRect+2
+	sta OldRect+2
+	lda MyRect+4
+	sta OldRect+4
+	lda MyRect+6
+	sta OldRect+6
+};
+
+
+        MyRect.v1=(Y>>16)-BallSize;
+        MyRect.h1=(X>>16)-BallSize;
+        MyRect.v2=(Y>>16)+BallSize;
+        MyRect.h2=(X>>16)+BallSize;
+
+asm {
+	lda MyRect
+	clc
+	adc BallSize
+	sta	temp
+
+	lda temp
+	cmp #200
+	bcc fine
+	lda	#199
+	sta temp
+	
+fine:	sep #0x30
+waitloop: lda >0xe0c02f
+  asl a
+  lda >0xe0c02e
+  rol a
+  cmp temp
+  bne waitloop
+  rep #0x30
+};
+
+		PaintOval(&OldRect);
+        PaintOval(&MyRect);
+
+/*
+l0:	lda >0xe1c019
+	bmi l0
+l1:	lda >0xe1c019
+	bpl l1
+};*/
+        
+/*        SetSolidPenPat(0);
+        FrameOval(&MyRect);*/
+    }
+    ClearScreen (0);
+	return (LongWord) NULL;
+}
+
+
+
+
+void SaveT2Ball(void) {
+
+    Word OptionWord;
+	Word FileNumber;
+
+#ifdef zzz
+/* Save current resource file and switch in Twilight.Setup */
+	FileNumber = GetCurResourceFile ();
+	SetCurResourceFile (SetupFileNumber);
+/* Save control values */
+	ConfigNumBalls = GetCtlValue (GetCtlHandleFromID (SetupWindow, NumBallsPopup));
+    OptionWord=ConfigNumBalls;
+	SaveConfigResource(ConfigNameString, OptionWord);
+/* Restore old resource file */
+	SetCurResourceFile (FileNumber);
+#endif
+}
+
+
+
+
+LongWord HitT2Ball(LongWord ControlHit) {
+
+	LongWord EnableFlag = 0L;
+
+	if (ControlHit == 1 || ControlHit == 2)
+		EnableFlag = 1L;
+
+	return EnableFlag;
+}
+
+
+
+LongWord MakeT2Ball(void) {
+
+    CtlRecHndl junk;
+	Word FileNumber;
+
+	FileNumber = GetCurResourceFile ();
+	SetCurResourceFile (SetupFileNumber);
+	LoadSetupT2Ball();
+	SetCurResourceFile (FileNumber);
+	junk=NewControl2(SetupWindow, resourceToResource, (long) ballCtlList);
+	SetCtlValue (BallColor, GetCtlHandleFromID (SetupWindow, colorCtl));
+	SetCtlValue (SoundFlag, GetCtlHandleFromID (SetupWindow, useSoundCtl));
+
+	return 5L;
+}
+
+
+/*
+|*		LoadSetupT2Message-																	  *|
+|*			This function loads in the messages configuration data.				  *|
+|*/
+
+void LoadSetupT2Ball(void) {
+	
+    Word OptionWord;
+
+/*  Option Word format
+**     0x000F = Num Balls
+*/
+	OptionWord = LoadConfigResource (ConfigNameString, 0x8FF0);
+    BallColor = OptionWord & 0x0FFF;
+	SoundFlag = OptionWord & 0x8000;
+}
+
+
+
+
+LongWord Ball(LongWord data2, LongWord data1, Word message) {
+
+	LongWord Result = 1L;
+
+	switch (message) {
+        case MakeT2:
+			SetupWindow = (GrafPortPtr) data1;
+			SetupFileNumber = (Word) data2;
+			Result = MakeT2Ball ();
+			break;
+ 	    case BlankT2:
+            movePtr=(Word *) data1;
+ 		    Result = BlankT2Ball ();
+			break;
+		case SaveT2:
+			SaveT2Ball();
+		    break;
+		case LoadSetupT2:
+			LoadSetupT2Ball();
+            break;
+		case HitT2:
+			Result = HitT2Ball(data2);
+		case UnloadSetupT2:
+		case KillT2:
+			break;
+	}
+	return Result;
+}
