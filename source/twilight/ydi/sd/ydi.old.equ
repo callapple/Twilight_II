@@ -1,0 +1,26 @@
+*****************************************************************
+* Genesys created ASM65816 resource equates
+* Simple Software Systems International, Inc.
+* ORCAM.SCG 1.2
+*
+
+Control_List GEQU $1003
+
+EnterPathStrCtl GEQU $1
+PathLECtl GEQU $2
+SmartFindFileCtl GEQU $3
+CancelCtl GEQU $4
+OKCtl GEQU $5
+
+SavedPathC1IStr GEQU $1
+
+DefaultLEPathStr GEQU $1
+SmartFindFileStr GEQU $2
+CancelStr GEQU $3
+OKStr GEQU $5
+
+EnterPath_LText GEQU $1
+
+Configuration_Window GEQU $FFA
+
+Configuration_Code GEQU $1

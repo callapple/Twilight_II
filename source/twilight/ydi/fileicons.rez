@@ -1,0 +1,118 @@
+
+#include "types.rez"
+
+resource rIcon (1) {
+                 $8000,
+                 $0008,
+                 $0008,
+                 $"FFFFC00F"
+                 $"FFFC051F"
+                 $"0000451F"
+                 $"08E6451F"
+                 $"08E6451F"
+                 $"0000451F"
+                 $"FFFC051F"
+                 $"FFFFC00F",
+
+                 $"0000FFF0"
+                 $"000FFFF0"
+                 $"FFFFFFF0"
+                 $"FFFFFFF0"
+                 $"FFFFFFF0"
+                 $"FFFFFFF0"
+                 $"000FFFF0"
+                 $"0000FFF0";
+};
+           
+resource rIcon (2) {
+                 $0000,
+                 $0008,
+                 $0008,
+                 $"FFFFFFFF"
+                 $"F000FFFF"
+                 $"0EEE0000"
+                 $"0EEEEEE0"
+                 $"0EEEEEE0"
+                 $"0EEEEEE0"
+                 $"00000000"
+                 $"FFFFFFFF",
+                 $"00000000"
+                 $"0FFF0000"
+                 $"FFFFFFFF"
+                 $"FFFFFFFF"
+                 $"FFFFFFFF"
+                 $"FFFFFFFF"
+                 $"FFFFFFFF"
+                 $"00000000";
+};
+
+resource rIcon (3) {
+                 $8000,
+                 $0008,
+                 $0008,
+                 $"0000000F"
+                 $"0F00F0F0"
+                 $"0F00F000"
+                 $"0F33FFF0"
+                 $"0F44FFF0"
+                 $"0FC44430"
+                 $"0FFFFFF0"
+                 $"00000000",
+                 $"FFFFFFF0"
+                 $"FFFFFFFF"
+                 $"FFFFFFFF"
+                 $"FFFFFFFF"
+                 $"FFFFFFFF"
+                 $"FFFFFFFF"
+                 $"FFFFFFFF"
+                 $"FFFFFFFF";
+};
+
+resource rIcon (4) {
+                 $8000,
+                 $0008,
+                 $0008,
+                 $"0000000F"
+                 $"0FFFF0F0"
+                 $"0F1FF000"
+                 $"0FFFFFF0"
+                 $"0F1F1FF0"
+                 $"0F1F1FF0"
+                 $"0FFFFFF0"
+                 $"00000000",
+                 $"FFFFFFF0"
+                 $"FFFFFFFF"
+                 $"FFFFFFFF"
+                 $"FFFFFFFF"
+                 $"FFFFFFFF"
+                 $"FFFFFFFF"
+                 $"FFFFFFFF"
+                 $"FFFFFFFF";
+};
+
+resource rIcon (5) {
+
+         $8000,
+         $0009,
+         $0008,
+
+		 	$"00000000"
+       		$"0FFFFFF0"
+       		$"0F1144F0"
+       		$"0F11EEF0"
+       		$"0FBBEEF0"
+       		$"0FFFFFF0"
+       		$"00000000"
+       		$"F0FFFF0F"
+       		$"F000000F",
+
+       		$"FFFFFFFF"
+       		$"FFFFFFFF"
+       		$"FFFFFFFF"
+       		$"FFFFFFFF"
+       		$"FFFFFFFF"
+       		$"FFFFFFFF"
+       		$"FFFFFFFF"
+       		$"0FFFFFF0"
+       		$"0FFFFFF0";
+};

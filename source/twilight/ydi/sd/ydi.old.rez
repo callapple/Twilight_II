@@ -1,0 +1,239 @@
+
+#include "types.rez"
+
+#define EnterPath_LText_CNT 60
+
+// --- type $8003 defines
+#define Control_List $00001003
+// --- type $8004 defines
+#define EnterPathStrCtl $00000001
+#define PathLECtl $00000002
+#define SmartFindFileCtl $00000003
+#define CancelCtl $00000004
+#define OKCtl $00000005
+// --- type $8005 defines
+#define SavedPathC1IStr $00000001
+// --- type $8006 defines
+#define ModuleNameStr $00000001
+#define SmartFindFileStr $00000002
+#define CancelStr $00000003
+#define DefaultLEPathStr $00000004
+#define OKStr $00000005
+// --- type $800B defines
+#define EnterPath_LText $00000001
+// --- type $800E defines
+#define Configuration_Window $00000FFA
+// --- type $8017 defines
+#define Configuration_Code $00000001
+
+// --- Version resource
+
+resource rVersion (0x1, $0000) {
+       { $2,$1,$0,development,$1 },              // Version 2.1.0d1
+       verUS,                             // US Version
+       "Twilight II YouDrawIt Module",   // program's name
+       "Copyright 1991 Jim Maricondo."    // copyright notice
+};
+
+// --- Control List Definitions
+
+resource rControlList (Control_List, $0000) {
+       {
+       EnterPathStrCtl,        // control 1
+       PathLECtl,        // control 2
+       SmartFindFileCtl,        // control 3
+       CancelCtl,        // control 4
+       OKCtl,        // control 5
+       };
+};
+
+// --- Control Templates
+
+resource rControlTemplate (EnterPathStrCtl, $0000) {
+       $00000001,              // ID
+       {  2, 12, 12,263},      // rect
+       statTextControl {{
+               $0000,          // flag
+               $1002,          // moreFlags
+               $00000000,      // refCon
+               EnterPath_LText,     // textRef
+               EnterPath_LText_CNT, // textSize
+               $0000           // just
+       }};
+};
+
+resource rControlTemplate (PathLECtl, $0000) {
+       $00000002,              // ID
+       { 12, 10, 25,422},      // rect
+       editLineControl {{
+               $0000,          // flag
+               $7002,          // moreFlags
+               $00000000,      // refCon
+               $0041,          // maxSize
+               DefaultLEPathStr   // defaultRef
+       }};
+};
+
+resource rControlTemplate (SmartFindFileCtl, $0000) {
+       $00000003,              // ID
+       { 30,128, 43,296},      // rect
+       simpleButtonControl {{
+               $0000,          // flag
+               $1002,          // moreFlags
+               $00000000,      // refCon
+               SmartFindFileStr   // titleRef
+       }};
+};
+
+resource rControlTemplate (CancelCtl, $0000) {
+       $00000004,              // ID
+       { 30, 10, 43,100},      // rect
+       simpleButtonControl {{
+               $0000,          // flag
+               $3002,          // moreFlags
+               $00000000,      // refCon
+               CancelStr,  // titleRef
+               0,              // colorTableRef
+               {"\$1B", "\$1B",$0000,$0000}  // key equivalents
+       }};
+};
+
+resource rControlTemplate (OKCtl, $0000) {
+       $00000005,              // ID
+       { 30,326, 43,416},      // rect
+       simpleButtonControl {{
+               $0001,          // flag
+               $3002,          // moreFlags
+               $00000000,      // refCon
+               OKStr,  // titleRef
+               0,              // colorTableRef
+               {"\$0D", "\$0D",$0000,$0000}  // key equivalents
+       }};
+};
+
+// --- rC1InputString Templates
+
+resource rC1InputString (SavedPathC1IStr, $0000) {
+       ""
+};
+
+// --- rPString Templates
+
+resource rPString (ModuleNameStr, $0000) {
+       "YouDrawIt 2.1"
+};
+
+resource rPString (SmartFindFileStr, $0000) {
+       "SmartFind File"
+};
+
+resource rPString (CancelStr, $0000) {
+       "Cancel"
+};
+
+resource rPString (DefaultLEPathStr, $0000) {
+       ""
+};
+resource rPString (OKStr, $0000) {
+       "OK"
+};
+
+// --- rTextForLETextBox2 Templates
+
+resource rTextForLETextBox2 (EnterPath_LText, $0000) {
+       "\$01"
+       "J"
+       "\$00"
+       "\$00"
+       "\$01"
+       "L"
+       "\$00"
+       "\$00"
+       "\$01"
+       "R"
+       "\$04"
+       "\$00"
+       "\$01"
+       "F"
+       "\$FE"
+       "\$FF"
+       "\$00"
+       "\$08"
+       "\$01"
+       "C"
+       "\$00"
+       "\$00"
+       "\$01"
+       "B"
+       "\$FF"
+       "\$FF"
+       "Pathname of animation file to use:"
+};
+
+// --- Window Templates
+
+resource rWindParam1 (Configuration_Window, $0000) {
+       $20A0,                  // plFrame (frame bits)
+       NIL,                    // plTitle (no Title)
+       $00000000,              // plRefCon
+       {  0,  0,  0,  0},      // plZoomRect
+       NIL,                    // plColorTable (standard colors)
+       {$0000, $0000},         // plYOrigin, plXOrigin
+       {$0000, $0000},         // plDataHeight, plDataWidth
+       {$0000, $0000},         // plMaxHeight, plMaxWidth
+       {$0000, $0000},         // plVerScroll, plHorScroll
+       {$0000, $0000},         // plVerPage, plHorPage
+       $00000000,              // plInfoText (info RefCon)
+       $0000,                  // plInfoHeight
+       { 52,104,101,534},      // plPosition
+       infront,                // plPlane
+       Control_List,        // plControlList
+       $0009                   // plInDesc
+};
+
+// --- Code resources
+
+read rCodeResource (0x1,locked,convert) "YDI.config"; /* the config part */
+
+data 0x8014 (0x18003) {
+	$"0100 0100 0000 0310 0000 0C43 6F6E 7472"            /* ...........Contr */
+	$"6F6C 204C 6973 74"                                  /* ol List */
+};
+
+data 0x8014 (0x18004) {
+	$"0100 0500 0000 0400 0000 0943 616E 6365"            /* ...........Cance */
+	$"6C43 746C 0100 0000 0F45 6E74 6572 5061"            /* lCtl.....EnterPa */
+	$"7468 5374 7243 746C 0500 0000 054F 4B43"            /* thStrCtl.....OKC */
+	$"746C 0200 0000 0950 6174 684C 4543 746C"            /* tl.....PathLECtl */
+	$"0300 0000 1053 6D61 7274 4669 6E64 4669"            /* .....SmartFindFi */
+	$"6C65 4374 6C"                                       /* leCtl */
+};
+
+data 0x8014 (0x18005) {
+	$"0100 0100 0000 0100 0000 0F53 6176 6564"            /* ...........Saved */
+	$"5061 7468 4331 4953 7472"                           /* PathC1IStr */
+};
+
+data 0x8014 (0x18006) {
+	$"0100 0400 0000 0300 0000 0943 616E 6365"            /* ...........Cance */
+	$"6C53 7472 0100 0000 1044 6566 6175 6C74"            /* lStr.....Default */
+	$"4C45 5061 7468 5374 7205 0000 0005 4F4B"            /* LEPathStr.....OK */
+	$"5374 7202 0000 0010 536D 6172 7446 696E"            /* Str.....SmartFin */
+	$"6446 696C 6553 7472"                                /* dFileStr */
+};
+
+data 0x8014 (0x1800B) {
+	$"0100 0100 0000 0100 0000 0F45 6E74 6572"            /* ...........Enter */
+	$"5061 7468 204C 5465 7874"                           /* Path LText */
+};
+
+data 0x8014 (0x1800E) {
+	$"0100 0100 0000 FA0F 0000 1443 6F6E 6669"            /* ...........Confi */
+	$"6775 7261 7469 6F6E 2057 696E 646F 77"              /* guration Window */
+};
+
+data 0x8014 (0x18017) {
+	$"0100 0100 0000 0100 0000 1243 6F6E 6669"            /* ...........Confi */
+	$"6775 7261 7469 6F6E 2043 6F64 65"                   /* guration Code */
+};
+

@@ -1,0 +1,10 @@
+
+YDI_Icon gequ $10dd01
+YDI_CtlLst gequ $00000005
+YDISetAnimPathCtl gequ $00006FFF
+YDIAnimPathStrCtl gequ $00007000
+YDIStrCtl gequ $00007001
+YDIIconCtl gequ $00007002
+YDISetAnimPathStr gequ $00000011
+YDI_LText gequ $00000001
+AnimPath_LText gequ $00000002

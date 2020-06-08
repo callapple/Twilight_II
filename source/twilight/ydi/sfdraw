@@ -1,0 +1,453 @@
+; ************************************  6/23/92  5:01:08 PM ***
+; *
+; * Subroutine: DrawSFDialog
+; *
+; *************************************************************
+
+DrawSFDialog     start
+                 name  DrawSFDialog
+                 using Globals
+
+                 DefineStack long
+clipHndl         long
+clipPtr          long
+ctlPtr           long
+atype            long
+ftype            word
+xx               word
+yy               word
+iconOffset       word
+nameOffset       word
+                 endlocals
+
+                 FixStack
+
+                 begparms
+itemDrawPtr      long
+                 endparms
+
+reserved         block 24
+ctlHandle        long
+memberPtr        long
+theRect          long
+
+                 BeginStack
+
+*--------------------------------------------------------------
+* fix offsets depending on graphics mode:
+*--------------------------------------------------------------
+                 ldx   #6                    ; offset for icon
+                 lda   #22                   ; offset for filename
+                 ldy   grafmode              ; are we 320 or 640 mode?
+                 bne   setoffsets
+                 lsr   a                     ; halve offsets since we are in
+                 ldx   #3                    ; 320 mode
+
+setoffsets       stx   iconOffset
+                 sta   nameOffset
+
+*--------------------------------------------------------------
+* calculate where we need to be in order to draw:
+*--------------------------------------------------------------
+                 ~GetClipHandle
+                 pll   clipHndl
+
+                 dref  clipHndl,clipPtr
+
+                 lda   [theRect]
+                 dec   a
+                 ldy   #orgnBBox+obottom
+                 cmp   [clipPtr],y
+                 blt   skip2
+                 brl   noDraw
+skip2            ldy   #obottom
+                 lda   [theRect],y
+                 inc   a
+                 ldy   #orgnBBox+otop
+                 cmp   [clipPtr],y
+                 bltl  noDraw
+
+noTest           ~EraseRect <theRect
+
+                 ldy   #oleft
+                 lda   [theRect],y
+                 adc   iconOffset
+                 sta   <xx
+
+                 ldy   #obottom
+                 lda   [theRect],y
+                 sec
+                 sbc   #9
+                 sta   <yy
+
+                 lda   [itemDrawPtr]
+                 and   #$FF
+                 inc   a
+                 tay
+
+                 lda   [itemDrawPtr],y       ; get filetype
+                 cmp   #$0F
+                 beq   onFolder
+                 cmp   #$06
+                 beq   onBinary
+                 cmp   #$C0
+                 beq   onGraphic
+                 cmp   #$C1
+                 bne   onSound
+
+onGraphic        lxy   #iconGraphic
+                 bra   drawIcon
+
+onBinary         lxy   #iconBinary
+                 bra   drawIcon
+
+onFolder         lxy   #iconFolder
+                 bra   drawIcon
+
+onSound          lxy   #iconSound
+
+drawIcon         ~DrawIcon @,#0,<xx,<yy
+
+                 phl   [memberPtr]
+
+                 lda   <xx
+                 adc   nameOffset
+                 pha
+
+                 lda   <yy
+                 adc   #7
+                 pha
+
+                 sec
+                 ldy   #oright
+                 lda   [theRect],y
+                 sbc   3,s
+                 pha
+
+                 jsl   DrawStringAt2    ; DrawStringAt(theString,x,y)
+
+noDraw           EndStack
+                 rtl
+                 end
+
+
+*--------------------------------------------------------------
+* Here is the same routine listed so that you can see the
+* direct page offsets and what-not...
+*--------------------------------------------------------------
+
+Pass 1: DrawSFDialog  
+Pass 2: DrawSFDialog  
+1552 0012                               list  on 
+1553 0012                               gen   on 
+1554 0012               
+1555 0012                               DefineStack long 
+1556 0012              clipHndl         long 
+     0012             +clipHndl equ   1 
+1557 0012              clipPtr          long 
+     0012             +clipPtr  equ   5 
+1558 0012              ctlPtr           long 
+     0012             +ctlPtr   equ   9 
+1559 0012              atype            long 
+     0012             +atype    equ   13 
+1560 0012              ftype            word 
+     0012             +ftype    equ   17 
+1561 0012              xx               word 
+     0012             +xx       equ   19 
+1562 0012              yy               word 
+     0012             +yy       equ   21 
+1563 0012              iconOffset       word 
+     0012             +iconOffset equ 23 
+1564 0012              nameOffset       word 
+     0012             +nameOffset equ 25 
+1565 0012                               endlocals 
+     0012             +sizeLocals equ 27-1 
+1566 0012               
+1567 0012                               FixStack 
+1568 0012               
+1569 0012                               begparms 
+1570 0012              itemDrawPtr      long 
+     0012             +itemDrawPtr equ 33 
+1571 0012                               endparms 
+     0012             +sizeParms equ  37-33 
+1572 0012               
+1573 0012              reserved         block 24 
+     0012             +reserved equ   37 
+1574 0012              ctlHandle        long 
+     0012             +ctlHandle equ  61 
+1575 0012              memberPtr        long 
+     0012             +memberPtr equ  65 
+1576 0012              theRect          long 
+     0012             +theRect  equ   69 
+1577 0012               
+1578 0012                               BeginStack 
+     0012             +         anop 
+     0012 0B          + phd 
+     0013 8B          + phb 
+     0014 4B          + phk 
+     0015 AB          + plb 
+     0016 3B          + tsc 
+     0017 38          + sec 
+     0018 E9 1A 00    + sbc #sizeLocals 
+     001B 1B          + tcs 
+     001C 5B          + tcd 
+1579 001D               
+1580 001D              *-------------------------------------------------------------- 
+1581 001D              * fix offsets depending on graphics mode: 
+1582 001D              *-------------------------------------------------------------- 
+1583 001D A2 06 00                      ldx   #6 
+1584 0020 A9 16 00                      lda   #22 
+1585 0023 AC 00 80                      ldy   grafmode 
+1586 0026 D0 04                         bne   setoffsets 
+1587 0028 4A                            lsr   a 
+1588 0029 A2 03 00                      ldx   #3 
+1589 002C               
+1590 002C 86 17        setoffsets       stx   iconOffset 
+1591 002E 85 19                         sta   nameOffset 
+1592 0030               
+1593 0030              *-------------------------------------------------------------- 
+1594 0030              * calculate where we need to be in order to draw: 
+1595 0030              *-------------------------------------------------------------- 
+1596 0030                               ~GetClipHandle 
+     0030             +         longSpace 
+     0030             +         anop 
+     0030 48          + pha 
+     0031 48          + pha 
+     0032             + Tool $C704 
+     0032 A2 04 C7    +         ldx   #$C704 
+     0035 22 00 00 E1 + jsl $E10000 
+1597 0039                               pll   clipHndl 
+     0039             +         anop 
+     0039 FA          + plx 
+     003A 86 01       +         stx   clipHndl 
+     003C FA          + plx 
+     003D 86 03       +         stx   clipHndl+2 
+1598 003F               
+1599 003F                               dref  clipHndl,clipPtr 
+     003F A0 02 00    +         ldy   #2 
+     0042 A7 01       +         lda   [clipHndl] 
+     0044 AA          + tax 
+     0045 B7 01       +         lda   [clipHndl],y 
+     0047 86 05       +         stx   clipPtr 
+     0049 85 07       +         sta   clipPtr+2 
+1600 004B               
+1601 004B A7 45                         lda   [theRect] 
+1602 004D 3A                            dec   a 
+1603 004E A0 06 00                      ldy   #orgnBBox+obottom 
+1604 0051 D7 05                         cmp   [clipPtr],y 
+1605 0053 90 03                         blt   skip2 
+1606 0055 82 9B 00                      brl   noDraw 
+1607 0058 A0 04 00     skip2            ldy   #obottom 
+1608 005B B7 45                         lda   [theRect],y 
+1609 005D 1A                            inc   a 
+1610 005E A0 02 00                      ldy   #orgnBBox+otop 
+1611 0061 D7 05                         cmp   [clipPtr],y 
+1612 0063                               bltl  noDraw 
+     0063 B0 03       +         bge   *+5 
+     0065 82 8B 00    +         brl   noDraw 
+1613 0068               
+1614 0068              noTest           ~EraseRect <theRect 
+     0068             +noTest   phl   <theRect 
+     0068             +noTest   anop 
+     0068 D4 47       +         pei   theRect+2 
+     006A D4 45       +         pei   theRect 
+     006C             + Tool $5504 
+     006C A2 04 55    +         ldx   #$5504 
+     006F 22 00 00 E1 + jsl $E10000 
+1615 0073               
+1616 0073 A0 02 00                      ldy   #oleft 
+1617 0076 B7 45                         lda   [theRect],y 
+1618 0078 65 17                         adc   iconOffset 
+1619 007A 85 13                         sta   <xx 
+1620 007C               
+1621 007C A0 04 00                      ldy   #obottom 
+1622 007F B7 45                         lda   [theRect],y 
+1623 0081 38                            sec 
+1624 0082 E9 09 00                      sbc   #9 
+1625 0085 85 15                         sta   <yy 
+1626 0087               
+1627 0087 A7 21                         lda   [itemDrawPtr] 
+1628 0089 29 FF 00                      and   #$FF 
+1629 008C 1A                            inc   a 
+1630 008D A8                            tay 
+1631 008E               
+1632 008E B7 21                         lda   [itemDrawPtr],y       ; get filetype 
+1633 0090 C9 0F 00                      cmp   #$0F 
+1634 0093 F0 1F                         beq   onFolder 
+1635 0095 C9 06 00                      cmp   #$06 
+1636 0098 F0 12                         beq   onBinary 
+1637 009A C9 C0 00                      cmp   #$C0 
+1638 009D F0 05                         beq   onGraphic 
+1639 009F C9 C1 00                      cmp   #$C1 
+1640 00A2 D0 18                         bne   onSound 
+1641 00A4               
+1642 00A4              onGraphic        lxy   #iconGraphic 
+     00A4             +onGraphic anop 
+     00A4 A2 00 80    +         ldx   #(iconGraphic) 
+     00A7 A0 00 00    +         ldy   #(iconGraphic)|-16 
+1643 00AA 80 16                         bra   drawIcon 
+1644 00AC               
+1645 00AC              onBinary         lxy   #iconBinary 
+     00AC             +onBinary anop 
+     00AC A2 00 80    +         ldx   #(iconBinary) 
+     00AF A0 00 00    +         ldy   #(iconBinary)|-16 
+1646 00B2 80 0E                         bra   drawIcon 
+1647 00B4               
+1648 00B4              onFolder         lxy   #iconFolder 
+     00B4             +onFolder anop 
+     00B4 A2 00 80    +         ldx   #(iconFolder) 
+     00B7 A0 00 00    +         ldy   #(iconFolder)|-16 
+1649 00BA 80 06                         bra   drawIcon 
+1650 00BC               
+1651 00BC              onSound          lxy   #iconSound 
+     00BC             +onSound  anop 
+     00BC A2 00 80    +         ldx   #(iconSound) 
+     00BF A0 00 00    +         ldy   #(iconSound)|-16 
+1652 00C2               
+1653 00C2              drawIcon         ~DrawIcon @,#0,<xx,<yy 
+     00C2             +drawIcon phl   @ 
+     00C2             +drawIcon anop 
+     00C2 5A          + phy 
+     00C3 DA          + phx 
+     00C4             +         phw   #0 
+     00C4             +         anop 
+     00C4 F4 00 00    +         pea   0 
+     00C7             +         phw   <xx 
+     00C7             +         anop 
+     00C7 D4 13       +         pei   xx 
+     00C9             +         phw   <yy 
+     00C9             +         anop 
+     00C9 D4 15       +         pei   yy 
+     00CB             + Tool $0B12 
+     00CB A2 12 0B    +         ldx   #$0B12 
+     00CE 22 00 00 E1 + jsl $E10000 
+1654 00D2               
+1655 00D2                               phl   [memberPtr] 
+     00D2             +         anop 
+     00D2 A0 02 00    + ldy #2 
+     00D5 B7 41       +         lda   [memberPtr],y 
+     00D7 48          + pha 
+     00D8 A7 41       +         lda   [memberPtr] 
+     00DA 48          + pha 
+1656 00DB               
+1657 00DB A5 13                         lda   <xx 
+1658 00DD 65 19                         adc   nameOffset 
+1659 00DF 48                            pha 
+1660 00E0               
+1661 00E0 A5 15                         lda   <yy 
+1662 00E2 69 07 00                      adc   #7 
+1663 00E5 48                            pha 
+1664 00E6               
+1665 00E6 38                            sec 
+1666 00E7 A0 06 00                      ldy   #oright 
+1667 00EA B7 45                         lda   [theRect],y 
+1668 00EC E3 03                         sbc   3,s 
+1669 00EE 48                            pha 
+1670 00EF               
+1671 00EF 22 00 80 00                   jsl   DrawStringAt2 
+1672 00F3               
+1673 00F3              noDraw           EndStack 
+     00F3             +noDraw   anop 
+     00F3 3B          + tsc 
+     00F4 18          + clc 
+     00F5 69 1A 00    + adc #sizeLocals 
+     00F8 1B          + tcs 
+     00F9 AB          + plb 
+     00FA 2B          + pld 
+     00FB A3 02       + lda 2,s 
+     00FD 83 06       + sta 2+sizeParms,s 
+     00FF A3 01       + lda 1,s 
+     0101 83 05       + sta 1+sizeParms,s 
+     0103 3B          + tsc 
+     0104 69 04 00    + adc #sizeParms 
+     0107 1B          + tcs 
+1674 0108 6B                            rtl 
+1675 0109                               end 
+
+
+*--------------------------------------------------------------
+* here are my icons...
+*--------------------------------------------------------------
+iconSound        dc    i'$8000'
+                 dc    i'$0020'
+                 dc    i'$0008'
+                 dc    i'$0008'
+                 dc    h'FFFFC00F'
+                 dc    h'FFFC051F'
+                 dc    h'0000451F'
+                 dc    h'08E6451F'
+                 dc    h'08E6451F'
+                 dc    h'0000451F'
+                 dc    h'FFFC051F'
+                 dc    h'FFFFC00F'
+                 dc    h'0000FFF0'
+                 dc    h'000FFFF0'
+                 dc    h'FFFFFFF0'
+                 dc    h'FFFFFFF0'
+                 dc    h'FFFFFFF0'
+                 dc    h'FFFFFFF0'
+                 dc    h'000FFFF0'
+                 dc    h'0000FFF0'
+
+iconFolder       dc    i'$0000'
+                 dc    i'$0020'
+                 dc    i'$0008'
+                 dc    i'$0008'
+                 dc    h'FFFFFFFF'
+                 dc    h'F000FFFF'
+                 dc    h'0EEE0000'
+                 dc    h'0EEEEEE0'
+                 dc    h'0EEEEEE0'
+                 dc    h'0EEEEEE0'
+                 dc    h'00000000'
+                 dc    h'FFFFFFFF'
+                 dc    h'00000000'
+                 dc    h'0FFF0000'
+                 dc    h'FFFFFFFF'
+                 dc    h'FFFFFFFF'
+                 dc    h'FFFFFFFF'
+                 dc    h'FFFFFFFF'
+                 dc    h'FFFFFFFF'
+                 dc    h'00000000'
+
+iconGraphic      dc    i'$8000'
+                 dc    i'$0020'
+                 dc    i'$0008'
+                 dc    i'$0008'
+                 dc    h'0000000F'
+                 dc    h'0F00F0F0'
+                 dc    h'0F00F000'
+                 dc    h'0F33FFF0'
+                 dc    h'0F44FFF0'
+                 dc    h'0FC44430'
+                 dc    h'0FFFFFF0'
+                 dc    h'00000000'
+                 dc    h'FFFFFFF0'
+                 dc    h'FFFFFFFF'
+                 dc    h'FFFFFFFF'
+                 dc    h'FFFFFFFF'
+                 dc    h'FFFFFFFF'
+                 dc    h'FFFFFFFF'
+                 dc    h'FFFFFFFF'
+                 dc    h'FFFFFFFF'
+
+iconBinary       dc    i'$8000'
+                 dc    i'$0020'
+                 dc    i'$0008'
+                 dc    i'$0008'
+                 dc    h'0000000F'
+                 dc    h'0FFFF0F0'
+                 dc    h'0F1FF000'
+                 dc    h'0FFFFFF0'
+                 dc    h'0F1F1FF0'
+                 dc    h'0F1F1FF0'
+                 dc    h'0FFFFFF0'
+                 dc    h'00000000'
+                 dc    h'FFFFFFF0'
+                 dc    h'FFFFFFFF'
+                 dc    h'FFFFFFFF'
+                 dc    h'FFFFFFFF'
+                 dc    h'FFFFFFFF'
+                 dc    h'FFFFFFFF'
+                 dc    h'FFFFFFFF'
+                 dc    h'FFFFFFFF'

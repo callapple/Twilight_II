@@ -1,0 +1,476 @@
+
+#include "types.rez"
+#include "22:t2common.rez"
+
+// --- type $8003 defines
+#define univCtlLst			1
+// --- type $8004 defines
+#define CTLTMP_00006FF9		1
+#define VisionFieldStrCtl	2
+#define CTLTMP_00006FFB		3
+#define CTLTMP_00006FFC		4
+#define CTLTMP_00006FFD		5
+#define CTLTMP_00006FFE		6
+#define ViewingAngleStrCtl	7
+#define StarSpeedStrCtl		8
+#define UniverseOptionsStrCtl 9
+#define iconCtl			10
+// --- type $800B defines
+#define LETXTBOX_00000001 $000000c1
+#define LETXTBOX_00000002 $000000c2
+#define LETXTBOX_00000003 $000000c3
+#define LETXTBOX_00000004 $000000c4
+#define LETXTBOX_00000005 $000000c5
+// --- type rDataList ($1986) defines
+#define fieldOfVisionDataList 	1
+#define MaxStarsDataList		2
+#define viewingAngleDataList		3
+#define StarSpeedDataList		4
+// --- type rTaggedStrings ($802E) defines
+#define fieldOfVisionStrings		1
+#define MaxStarsFieldStrings		2
+#define viewingAngleFieldStrings	3
+#define starSpeedFieldStrings	4
+
+resource rT2ModuleFlags (moduleFlags) {
+	fFadeOut+fFadeIn+fSetup+fGrafPort320, // module flags word
+	$01,						// enabled flag (unimplemented)
+	$0110,					// minimum T2 version required
+	NIL,						// reserved
+	"Universe"					// module name
+};
+
+// --- About text resource
+
+resource rTextForLETextBox2 (moduleMessage) {
+	TBLeftJust
+	TBBackColor TBColorF
+	TBForeColor TBColor4
+	"Universe"
+	TBForeColor TBColor1
+    " simulates an intergalactic trek through the cosmos.\n"
+	"Relax and enjoy the ride!"
+};
+
+// --- Version resource
+
+resource rVersion (moduleVersion) {
+       {1,0,1,release,0},        // Version
+       verUS,                    // US Version
+       "T2 Universe Module",     // program's name
+       "By J.Maricondo. Thanks S.Quick!\n"
+       "Copyright 1990-93, Jim Maricondo."    // copyright notice
+};
+
+// --- About icon resource
+
+resource rIcon (moduleIcon) {
+		$8000,				// kind
+		$0014,				// height
+		$0016,				// width
+
+		$"0000000000000000000000"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0F000000000000000000F0"
+		$"0F00000000F000000F00F0"
+		$"0F00F000000030F00000F0"
+		$"0F000000C00C00000000F0"
+		$"0F000300000000F00C00F0"
+		$"0F00000F0030C000CF30F0"
+		$"0F000C00000000000C00F0"
+		$"0F00CF3030C003000000F0"
+		$"0F000C00000F0000F000F0"
+		$"0F000000000000000000F0"
+		$"0FFFFFFFFFFFFFFFFAFFF0"
+		$"0000000000000000000000"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FF4AFFFFFFFFFFFFFF0F"
+		$"F0CCCCCCCCCCCCCCCCCC0F"
+		$"F0FFFFFFFFFFFFFFFAFF0F"
+		$"F00000000000000000000F",
+
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0";
+};
+
+// --- Control List Definitions
+
+resource rControlList (1) {
+		{
+		2,
+		3,
+		7,
+		8,
+		9,
+		10,
+		};
+};
+
+// --- Control Templates
+
+// -- FIELD OF VISION DATAFIELD CONTROL TEMPLATE
+
+resource rControlTemplate (1) {
+		1,			// ID
+		{108,136,121,190},		// rect  246
+		dataFieldControl {{
+			ctlVisible,			// flag
+              fCtlCanBeTarget+RefIsResource, // moreFlags
+			NIL,			// refCon
+			fieldOfVisionDataList,			// dataListRef
+			{0,0,0,0,0,0,0,0}  // fieldValues
+		}};
+};
+
+// -- MAXIMUM STARS DATAFIELD CONTROL TEMPLATE
+
+resource rControlTemplate (4) {
+		2,			// ID
+		{ 94,136,107,190},		// rect
+		dataFieldControl {{
+			ctlVisible,			// flag
+              fCtlCanBeTarget+RefIsResource, // moreFlags
+			NIL,			// refCon
+			MaxStarsDataList,	// dataListRef
+			{0,0,0,0,0,0,0,0}  // fieldValues
+		}};
+};
+
+// -- VIEWING ANGLE DATAFIELD CONTROL TEMPLATE
+
+resource rControlTemplate (5) {
+		3,			// ID
+		{ 80,136, 93,210},		// rect      210,214
+		dataFieldControl {{
+			ctlVisible,			// flag
+              fCtlCanBeTarget+RefIsResource, // moreFlags
+			NIL,			// refCon
+			viewingAngleDataList,	// dataListRef
+			{0,0,0,0,0,0,0,0}  // fieldValues
+		}};
+};
+
+// -- STAR SPEED DATAFIELD CONTROL TEMPLATE
+
+resource rControlTemplate (6) {
+		4,			// ID
+		{ 66,136, 79,180},		// rect
+		dataFieldControl {{
+			ctlVisible,			// flag
+              fCtlCanBeTarget+RefIsResource, // moreFlags
+			NIL,			// refCon
+			StarSpeedDataList,	// dataListRef
+			{0,0,0,0,0,0,0,0}  // fieldValues
+		}};
+};
+
+resource rControlTemplate (2) {
+		5,			// ID
+		{110, 20,119,133},		// rect
+		statTextControl {{
+			ctlVisible,			// flag
+			$1002,			// moreFlags
+			$00000000,			// refCon
+			LETXTBOX_00000005		// textRef
+		}};
+};
+
+resource rControlTemplate (3) {
+		6,			// ID
+		{ 96, 20,106,125},		// rect
+		statTextControl {{
+			ctlVisible,			// flag
+			$1002,			// moreFlags
+			$00000000,			// refCon
+			LETXTBOX_00000004		// textRef
+		}};
+};
+
+resource rControlTemplate (7) {
+		7,			// ID
+		{ 82, 20, 91,125},		// rect
+		statTextControl {{
+			$0000,			// flag
+			$1002,			// moreFlags
+			$00000000,			// refCon
+			LETXTBOX_00000003		// textRef
+		}};
+};
+
+resource rControlTemplate (8) {
+		8,			// ID
+		{ 68, 20, 78,103},		// rect
+		statTextControl {{
+			$0000,			// flag
+			$1002,			// moreFlags
+			$00000000,			// refCon
+			LETXTBOX_00000002		// textRef
+		}};
+};
+
+resource rControlTemplate (9) {
+		9,			// ID
+		{ 51,116, 60,239},		// rect
+		statTextControl {{
+			$0000,			// flag
+			$1002,			// moreFlags
+			$00000000,			// refCon
+			LETXTBOX_00000001		// textRef
+		}};
+};
+
+resource rControlTemplate (10) {
+		10,			// ID
+		{ 24,148, 50,202},		// rect
+		iconButtonControl {{
+	       	$000C,		    //no border, don't track hits! flag
+			$1020,			// moreFlags
+			$00000000,			// refCon
+			moduleIcon,		// iconRef
+			0,			// titleRef
+			0,			// colorTableRef
+			$0000			// displayMode
+		}};
+};
+
+// --- rTextForLETextBox2 Templates
+
+resource rTextForLETextBox2 (LETXTBOX_00000001) {
+	"Universe Options"
+};
+
+resource rTextForLETextBox2 (LETXTBOX_00000002) {
+	"Star Speed: "
+};
+
+resource rTextForLETextBox2 (LETXTBOX_00000003) {
+	"Visibility:"
+/*	"Viewing Angle:"*/
+};
+
+resource rTextForLETextBox2 (LETXTBOX_00000004) {
+	"Maximum Stars:"
+};
+
+resource rTextForLETextBox2 (LETXTBOX_00000005) {
+/*	"Field of Vision:"*/
+	"Star proximity:"
+};
+
+/* This structure describes the relative locations and strings associated with
+   each data field. Since there may be from 1 to 8 data fields in each control,
+   these location/string reference pairs repeat for each field. */
+
+resource rDataList (fieldOfVisionDataList, nospecialmemory,nocrossbank) {
+	{
+       	{2,6},			// relative location of this field
+       	fieldOfVisionStrings	// reference to this field's string list
+	};
+};
+
+resource rDataList (MaxStarsDataList, nospecialmemory,nocrossbank) {
+	{
+       	{2,6},			// relative location of this field
+       	MaxStarsFieldStrings	// reference to this field's string list
+	};
+};
+
+resource rDataList (viewingAngleDataList, nospecialmemory,nocrossbank) {
+	{
+       	{2,6},			// relative location of this field
+       	viewingAnglefieldStrings	// reference to this field's string list
+	};
+};
+
+resource rDataList (starSpeedDataList, nospecialmemory,nocrossbank) {
+	{
+       	{2,6},			// relative location of this field
+       	starSpeedFieldStrings	// reference to this field's string list
+	};
+};
+
+/* These are the tagged strings that are associated with each field in the
+   control. The tag value that is specified is used to track the current value
+   of each field. If you wish only to have a list of integers displayed, simply
+   provide the tag values and null (empty) strings as in the second field. */
+
+resource rTaggedStrings (fieldOfVisionStrings) {
+	{
+		5,"5",
+		10,"10",
+		15,"15",
+		20,"20",
+		25,"25",
+		30,"30",
+		35,"35",
+		40,"40",
+		45,"45",
+		50,"50",
+		55,"55",
+		60,"60",
+		65,"65",
+		70,"70",
+		75,"75",
+		80,"80",
+		85,"85",
+		90,"90",
+		95,"95",
+		100,"100",
+		105,"105",
+		110,"110",
+		115,"115",
+		120,"120",
+		125,"125",
+		130,"130",
+		135,"135",
+		140,"140",
+		145,"145",
+		150,"150",
+		155,"155",
+		160,"160",
+		165,"165",
+		170,"170",
+		175,"175",
+		180,"180",
+		185,"185",
+		190,"190",
+		195,"195",
+		200,"200",
+		205,"205",
+		210,"210",
+		215,"215",
+		220,"220",
+		225,"225",
+		230,"230",
+		235,"235",
+		240,"240",
+		245,"245",
+		250,"250",
+		255,"255"
+    };  
+};
+
+resource rTaggedStrings (MaxStarsFieldStrings) {
+	{
+		15,"15",
+		20,"20",
+		25,"25",
+		30,"30",
+		35,"35",
+		40,"40",
+		45,"45",
+		50,"50",
+		55,"55",
+		60,"60",
+		65,"65",
+		70,"70",
+		75,"75",
+		80,"80",
+		85,"85",
+		90,"90",
+		95,"95",
+		100,"100",
+		105,"105",
+		110,"110",
+		115,"115",
+		120,"120",
+		125,"125",
+		130,"130",
+		135,"135",
+		140,"140",
+		145,"145",
+		150,"150",
+		155,"155",
+		160,"160",
+		165,"165",
+		170,"170",
+		175,"175",
+		180,"180",
+		185,"185",
+		190,"190",
+		195,"195",
+		200,"200",
+		205,"205",
+		210,"210",
+		215,"215",
+		220,"220",
+		225,"225",
+		230,"230",
+		235,"235",
+		240,"240",
+		245,"245",
+		250,"250",
+		255,"255",
+		260,"260",
+		265,"265",
+		270,"270",
+		275,"275",
+		280,"280",
+		285,"285",
+		290,"290",
+		295,"295",
+		300,"300"
+    };  
+};
+
+resource rTaggedStrings (viewingAngleFieldStrings) {
+	{
+/*		2,"2",
+		4,"4",
+		8,"8",
+		16,"16",
+		32,"32",
+		64,"64",
+		128,"128", */
+		256,"256",
+		512,"512",
+		1024,"1024",
+		2048,"2048",
+		4096,"4096",
+		8192,"8192",
+		16384,"16384",
+		32768,"32768"/*,
+		32769,"65536",
+		32770,"131072",
+		32771,"262144"  // 2 ^ 18     */
+    };  
+};
+
+resource rTaggedStrings (starSpeedFieldStrings) {
+	{
+		1,"1",
+		2,"2",
+		3,"3",
+		4,"4",
+		5,"5",
+		6,"6",
+		7,"7",
+		8,"8",
+		9,"9",
+		10,"10",
+		11,"11",
+		12,"12",
+		13,"13",
+		14,"14",
+		15,"15"
+    };  
+};

@@ -1,0 +1,272 @@
+
+#include "types.rez"
+#include "22:t2common.rez"
+
+// --- type $8003 defines
+#define Tiler_CtlLst		$101
+// --- type $8004 defines
+#define SoundFXCtl              $101
+#define FastSpeedCtl            $102
+#define SlowSpeedCtl            $103
+#define SpeedStrCtl             $104
+#define TilerOptionsStrCtl      $105
+#define SmallSizeCtl            $106
+#define LargeSizeCtl            $107
+#define TileSizeStrCtl          $108
+#define TilerIconCtl            $109
+// --- type $8006 defines
+#define SoundFXStr		$102
+#define FastStr                 $103
+#define SlowStr                 $104
+#define SmallStr                $105
+#define LargeStr                $106
+// --- type $800B defines
+#define TileSize_LText          $101
+#define TilerOptions_LText      $102
+#define Speed_LText             $103
+
+
+resource rT2ModuleFlags (moduleFlags) {
+	fMostCommonPalette+
+	fSetup+
+	fLoadSetupBoot+
+	fLeavesUsableScreen+
+	fReqUsableScreen, 			// module flags word
+	$01,						// enabled flag (unimplemented)
+	$0110,					// minimum T2 version required
+	NIL,						// reserved
+	"Tiler"					// module name
+};
+
+// --- About text resource
+
+resource rTextForLETextBox2 (moduleMessage) {
+	TBLeftJust
+	TBBackColor TBColorF
+	TBForeColor TBColor4
+	"Tiler"
+	TBForeColor TBColor1
+    " turns your screen into an automated version of the classic picture tile "
+	"matrix puzzle game.  Watch the computer solve - and unsolve - itself!"
+};
+
+// --- Version resource
+
+resource rVersion (moduleVersion) {
+       {1,0,1,release,0},        // Version
+       verUS,                    // US Version
+       "T2 Tiler Module",        // program's name
+       "By J.Maricondo and Mensch.\n"
+       "Copyright 1991-93, Jim Maricondo."    // copyright notice
+};
+
+// --- icon resource
+
+resource rIcon (moduleIcon) {
+       $8000,                  // kind
+       $0014,                  // height
+       $001C,                  // width
+
+       $"FFF0000000000000000000000FFF"
+       $"FFF0FFFFFFFFFFFFFFFFFFFF0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0F0FF00FF00FF00FF000F0FFF"
+       $"FFF0F0FF00FF00FF00FF000F0FFF"
+       $"FFF0F000FF00FF00FF00FF0F0FFF"
+       $"FFF0F000FF00FF00FF00FF0F0FFF"
+       $"FFF0F0FF00FF00FF00FF000F0FFF"
+       $"FFF0F0FF00FF00FF00FF000F0FFF"
+       $"FFF0F000FF00FF00FF00FF0F0FFF"
+       $"FFF0F000FF00FF00FF00FF0F0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0FFFFFFFFFFFFFFFFAFFF0FFF"
+       $"FFF0000000000000000000000FFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FF4AFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0CCCCCCCCCCCCCCCCCC0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFAFF0FFFF"
+       $"FFFF00000000000000000000FFFF",
+
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000";
+};
+
+// --- Control List Definitions
+
+resource rControlList (Tiler_CtlLst) {
+       {
+       LargeSizeCtl,	
+       SmallSizeCtl,	
+       SlowSpeedCtl,	
+       FastSpeedCtl,
+       SoundFXCtl,
+       TileSizeStrCtl,	
+       TilerOptionsStrCtl,
+       SpeedStrCtl,	
+       TilerIconCtl,	
+       };
+};
+
+// --- Control Templates
+
+resource rControlTemplate (SoundFXCtl) {
+       $00000001,	       // ID
+       {111, 60,120,188},      // rect
+       checkControl {{
+	       $0000,	       // flag
+	       $1002,	       // moreFlags
+	       $00000000,      // refCon
+	       SoundFXStr,  // titleRef
+	       $0000	       // initialValue
+       }};
+};
+
+resource rControlTemplate (FastSpeedCtl) {
+       $00000002,	       // ID
+       { 87,110, 96,168},      // rect
+       radioControl {{
+	       $0001,	       // flag
+	       $1002,	       // moreFlags
+	       $00000000,      // refCon
+	       FastStr,	 // titleRef
+	       $0000	       // initialValue
+       }};
+};
+
+resource rControlTemplate (SlowSpeedCtl) {
+       $00000003,	       // ID
+       { 98,110,107,172},      // rect
+       radioControl {{
+	       $0001,	       // flag
+	       $1002,	       // moreFlags
+	       $00000000,      // refCon
+	       SlowStr,	 // titleRef
+	       $0000	       // initialValue
+       }};
+};
+
+resource rControlTemplate (SmallSizeCtl) {
+       $00000004,	       // ID
+       { 74, 80, 84,266},      // rect
+       radioControl {{
+	       $0000,	       // flag
+	       $1002,	       // moreFlags
+	       $00000000,      // refCon
+	       SmallStr,  // titleRef
+	       $0000	       // initialValue
+       }};
+};
+
+resource rControlTemplate (LargeSizeCtl) {
+       $00000005,	       // ID
+       { 63, 80, 72,254},      // rect
+       radioControl {{
+	       $0000,	       // flag
+	       $1002,	       // moreFlags
+	       $00000000,      // refCon
+	       LargeStr,  // titleRef
+	       $0000	       // initialValue
+       }};
+};
+
+resource rControlTemplate (TileSizeStrCtl) {
+       $00000006,	       // ID
+       { 52, 56, 61,131},      // rect
+       statTextControl {{
+	       $0000,	       // flag
+	       $1002,	       // moreFlags
+	       $00000000,      // refCon
+	       TileSize_LText	   // textRef
+       }};
+};
+
+resource rControlTemplate (TilerIconCtl) {
+       $00000007,	       // ID
+       { 26, 88, 47,132},      // rect
+       iconButtonControl {{
+	       $000C,	       // flag
+	       $1020,	       // moreFlags
+	       $00000000,      // refCon
+	       $0010DD01,  // iconRef
+	       0,	       // titleRef
+	       0,	       // colorTableRef
+	       $0000	       // displayMode
+       }};
+};
+
+resource rControlTemplate (SpeedStrCtl) {
+       $00000008,	       // ID
+       { 87, 58, 96,109},      // rect
+       statTextControl {{
+	       $0000,	       // flag
+	       $1002,	       // moreFlags
+	       $00000000,      // refCon
+	       Speed_LText	// textRef
+       }};
+};
+
+resource rControlTemplate (TilerOptionsStrCtl) {
+       $00000009,	       // ID
+       { 32,142, 41,239},      // rect
+       statTextControl {{
+	       $0000,	       // flag
+	       $1002,	       // moreFlags
+	       $00000000,      // refCon
+	       TilerOptions_LText     // textRef
+       }};
+};
+
+// --- rPString Templates
+
+resource rPString (SoundFXStr) {
+       "Sound Effects"
+};
+
+resource rPString (FastStr) {
+       "Fast"
+};
+
+resource rPString (SlowStr) {
+       "Slow"
+};
+
+resource rPString (SmallStr) {
+       "Small (10*10 matrix)"
+};
+
+resource rPString (LargeStr) {
+       "Large (5*5 matrix)"
+};
+
+// --- rTextForLETextBox2 Templates
+
+resource rTextForLETextBox2 (TileSize_LText) {
+       "Tile Size:"
+};
+
+resource rTextForLETextBox2 (TilerOptions_LText) {
+       "Tiler Options"
+};
+
+resource rTextForLETextBox2 (Speed_LText) {
+       "Speed:"
+};

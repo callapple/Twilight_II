@@ -1,0 +1,274 @@
+// --------------------------------------------------------------------
+// Genesys created REZ data code
+// Simple Software Systems International, Inc.
+// APWREZ.SCG 1.2
+// --------------------------------------------------------------------
+
+#include "types.rez"
+
+// --- Icon Definitions
+
+resource rIcon (ICON_00000001, $0000) {
+		$8000,				// kind
+		$0014,				// height
+		$0016,				// width
+
+		$"0000000000000000000000"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0F000000000000000000F0"
+		$"0F0F0FC0FFFFFFFFFFF0F0"
+		$"0F0F0FC0FFFFFFFFFFF0F0"
+		$"0F0F0003FFFFFFFFFFF0F0"
+		$"0F0F0880FFFFFFFFFFF0F0"
+		$"0F0F0AA0FFFF888F8FF0F0"
+		$"0F0FC0103FFAAAFAFFF0F0"
+		$"0F0FFF000F1111111FF0F0"
+		$"0F0FFFFFFFFFFFFFFFF0F0"
+		$"0F000000000000000000F0"
+		$"0FFFFFFFFFFFFFFFFAFFF0"
+		$"0000000000000000000000"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FF4AFFFFFFFFFFFFFF0F"
+		$"F0CCCCCCCCCCCCCCCCCC0F"
+		$"F0FFFFFFFFFFFFFFFAFF0F"
+		$"F00000000000000000000F",
+
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0";
+};
+
+// --- Control List Definitions
+
+resource rControlList (CTLLST_00000005, $0000) {
+		{
+		CTLTMP_00010012,			// control 1
+		CTLTMP_00007003,			// control 2
+		CTLTMP_00007002,			// control 3
+		CTLTMP_00007001,			// control 4
+		CTLTMP_00007000,			// control 5
+		CTLTMP_00006FFF,			// control 6
+		};
+};
+
+// --- Control Templates
+
+resource rControlTemplate (CTLTMP_00006FFF, $0000) {
+		$00006FFF,			// ID
+		{ 73, 88, 86,246},		// rect
+		simpleButtonControl {{
+			$0000,			// flag
+			$3002,			// moreFlags
+			$00000000,			// refCon
+			PSTR_00000011,		// titleRef
+			0,			// colorTableRef
+		{"S","s",$0100,$0100}	// key equivalents
+		}};
+};
+
+resource rControlTemplate (CTLTMP_00007000, $0000) {
+		$00007000,			// ID
+		{ 97, 14,121,335},		// rect
+		statTextControl {{
+			$0000,			// flag
+			$1002,			// moreFlags
+			$00000000,			// refCon
+			LETXTBOX_00000002,		// textRef
+			LETXTBOX_00000002_CNT,	// textSize
+			$0000			// just
+		}};
+};
+
+resource rControlTemplate (CTLTMP_00007001, $0000) {
+		$00007001,			// ID
+		{ 54,124, 62,243},		// rect
+		statTextControl {{
+			$0000,			// flag
+			$1002,			// moreFlags
+			$00000000,			// refCon
+			LETXTBOX_00000001,		// textRef
+			LETXTBOX_00000001_CNT,	// textSize
+			$0000			// just
+		}};
+};
+
+resource rControlTemplate (CTLTMP_00007002, $0000) {
+		$00007002,			// ID
+		{ 27,138, 53,194},		// rect
+		iconButtonControl {{
+			$0004,			// flag
+			$1020,			// moreFlags
+			$00000000,			// refCon
+			ICON_00000001,		// iconRef
+			0,			// titleRef
+			0,			// colorTableRef
+			$0000,			// displayMode
+		}};
+};
+
+resource rControlTemplate (CTLTMP_00007003, $0000) {
+		$07FEFFFE,			// ID
+		{  4,246, 16,336},		// rect
+		simpleButtonControl {{
+			$0000,			// flag
+			$3002,			// moreFlags
+			$00000000,			// refCon
+			PSTR_00000012,		// titleRef
+			0,			// colorTableRef
+		{"U","u",$0100,$0100}	// key equivalents
+		}};
+};
+
+resource rControlTemplate (CTLTMP_00010012, $0000) {
+		$07FEFFFF,			// ID
+		{ 20,  0, 21,350},		// rect
+ {{
+			$0002,			// flag
+			$1000,			// moreFlags
+			$00000000,			// refCon
+// --- rPString Templates
+
+resource rPString (PSTR_00000011, $0000) {
+	"Set Animation Path"
+};
+
+resource rPString (PSTR_00000012, $0000) {
+	"Update"
+};
+
+resource rPString (PSTR_000000FC, $0000) {
+	" Setup "
+};
+
+// --- rTextForLETextBox2 Templates
+
+#define LETXTBOX_00000001_CNT 38 /* move this line to the top of this file */
+
+resource rTextForLETextBox2 (LETXTBOX_00000001, $0000) {
+	"\$01"
+	"J"
+	"\$00"
+	"\$00"
+	"\$01"
+	"L"
+	"\$00"
+	"\$00"
+	"\$01"
+	"R"
+	"\$04"
+	"\$00"
+	"\$01"
+	"F"
+	"\$FE"
+	"\$FF"
+	"\$00"
+	"\$08"
+	"\$01"
+	"C"
+	"\$00"
+	"\$00"
+	"\$01"
+	"B"
+	"\$FF"
+	"\$FF"
+	"You Draw It!"
+};
+
+#define LETXTBOX_00000002_CNT 60 /* move this line to the top of this file */
+
+resource rTextForLETextBox2 (LETXTBOX_00000002, $0000) {
+	"\$01"
+	"J"
+	"\$00"
+	"\$00"
+	"\$01"
+	"L"
+	"\$00"
+	"\$00"
+	"\$01"
+	"R"
+	"\$04"
+	"\$00"
+	"\$01"
+	"F"
+	"\$FE"
+	"\$FF"
+	"\$00"
+	"\$08"
+	"\$01"
+	"C"
+	"\$00"
+	"\$00"
+	"\$01"
+	"B"
+	"\$FF"
+	"\$FF"
+	"Animation Path: "
+	"\$D2"
+	"*0"
+	"\$D3"
+	"\$01"
+	"F"
+	"\$FE"
+	"\$FF"
+	"\$00"
+	"\$08"
+	"\$01"
+	"C"
+	"\$00"
+	"\$00"
+	"\$01"
+	"B"
+	"\$FF"
+	"\$FF"
+};
+
+// --- Window Templates
+
+resource rWindParam1 (WPARAM1_00000FFF, $0000) {
+		$C0A8,				// plFrame (frame bits)
+		PSTR_000000FC,			// plTitle (title ID)
+		$00000000,			// p1RefCon
+		{  0,  0,  0,  0},		// p1ZoomRect
+		WCOLOR_00000001,		// p1ColorTable
+		{$0000, $0000},		// p1YOrigin, p1XOrigin
+		{$0000, $0000},		// p1DataHeight, p1DataWidth
+		{$0000, $0000},		// p1MaxHeight, p1MaxWidth
+		{$0000, $0000},		// p1VerScroll, p1HorScroll
+		{$0000, $0000},		// p1VerPage, p1HorPage
+		$00000000,			// p1InfoText (info RefCon)
+		$0000,				// p1InfoHeight
+		{ 50,146,180,494},		// p1Position
+		infront,				// p1Plane
+		CTLLST_00000005,			// plControlList
+		$0A09				// plInDesc
+};
+
+// --- Window Color Templates
+
+resource rWindColor (WCOLOR_00000001, $0000) {
+		$0000,				// frameColor
+		$0F00,				// titleColor
+		$020F,				// tBarColor
+		$F0FF,				// growColor
+		$00F0				// infoColor
+};
+

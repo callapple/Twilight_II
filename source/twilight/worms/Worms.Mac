@@ -1,0 +1,202 @@
+ MACRO
+&lab _UDivide
+&lab ldx #$0B0B
+ jsl $E10000
+ MEND
+ MACRO
+&lab pullword &SYSOPR
+&lab ANOP
+ pla
+ AIF C:&SYSOPR=0,.end
+ sta &SYSOPR
+.end
+ MEND
+ MACRO
+&lab pushlong &addr,&offset
+&lab ANOP
+ LCLC &C
+ LCLC &REST
+&C AMID &addr,1,1
+ AIF "&C"="#",.immediate
+ AIF "&C"="[",.zeropage
+ AIF C:&offset=0,.nooffset
+ AIF "&offset"="s",.stack
+ pushword &addr+2,&offset
+ pushword &addr,&offset
+ MEXIT
+.nooffset
+ pushword &addr+2
+ pushword &addr
+ MEXIT
+.immediate
+&REST AMID &addr,2,L:&addr-1
+ dc I1'$F4',I2'(&REST)|-16'
+ dc I1'$F4',I2'&REST'
+ MEXIT
+.stack
+ pushword &addr+2,s
+ pushword &addr+2,s
+ MEXIT
+.zeropage
+ ldy #&offset+2
+ pushword &addr,y
+ ldy #&offset
+ pushword &addr,y
+ MEND
+ MACRO
+&lab pushword &SYSOPR
+&lab ANOP
+ AIF C:&SYSOPR=0,.b
+ LCLC &C
+&C AMID "&SYSOPR",1,1
+ AIF ("&C"="#").AND.(S:LONGA),.immediate
+ lda &SYSOPR
+ pha
+ MEXIT
+.b
+ pha
+ MEXIT
+.immediate
+ LCLC &REST
+ LCLA &BL
+&BL ASEARCH "&SYSOPR"," ",1
+ AIF &BL>0,.a
+&BL SETA L:&SYSOPR+1
+.a
+&REST AMID "&SYSOPR",2,&BL-2
+ dc I1'$F4',I2'&REST'
+ MEND
+ MACRO
+&lab WordResult
+&lab phd
+ MEND
+ MACRO
+&LAB JEQ &BP
+&LAB BNE *+5
+ BRL &BP
+ MEND
+ MACRO
+&lab str &string
+&lab dc i1'L:&string',C'&string'
+ MEND
+ macro
+&lab QDRect
+&lab anop
+&lab._top ds 2
+&lab._left ds 2
+&lab._bottom ds 2
+&lab._right ds 2
+ mend
+ macro
+&lab ~PaintOval &rectPtr
+&lab ph4 &rectPtr
+ Tool $5904
+ mend
+ MACRO
+&LAB JNE &BP
+&LAB BEQ *+5
+ BRL &BP
+ MEND
+ macro
+&lab ~GetMasterSCB
+&lab WordResult
+ Tool $1704
+ mend
+ macro
+&lab ~Set640Color &color
+&lab ph2 &color
+ Tool $db04
+ mend
+ MACRO
+&LAB PH2 &N1
+ LCLC &C
+&LAB ANOP
+&C AMID &N1,1,1
+ AIF "&C"="#",.D
+ AIF S:LONGA=1,.A
+ REP #%00100000
+.A
+ AIF "&C"<>"{",.B
+&C AMID &N1,L:&N1,1
+ AIF "&C"<>"}",.G
+&N1 AMID &N1,2,L:&N1-2
+ LDA (&N1)
+ PHA
+ AGO .E
+.B
+ LDA &N1
+ PHA
+ AGO .E
+.D
+&N1 AMID &N1,2,L:&N1-1
+ PEA &N1
+ AGO .F
+.E
+ AIF S:LONGA=1,.F
+ SEP #%00100000
+.F
+ MEXIT
+.G
+ MNOTE "Missing closing '}'",16
+ MEND
+ MACRO
+&LAB PH4 &N1
+ LCLC &C
+&LAB ANOP
+&C AMID &N1,1,1
+ AIF "&C"="#",.D
+ AIF S:LONGA=1,.A
+ REP #%00100000
+.A
+ AIF "&C"<>"{",.B
+&C AMID &N1,L:&N1,1
+ AIF "&C"<>"}",.G
+&N1 AMID &N1,2,L:&N1-2
+ LDY #2
+ LDA (&N1),Y
+ PHA
+ LDA (&N1)
+ PHA
+ AGO .E
+.B
+ AIF "&C"<>"[",.C
+ LDY #2
+ LDA &N1,Y
+ PHA
+ LDA &N1
+ PHA
+ AGO .E
+.C
+ LDA &N1+2
+ PHA
+ LDA &N1
+ PHA
+ AGO .E
+.D
+&N1 AMID &N1,2,L:&N1-1
+ PEA +(&N1)|-16
+ PEA &N1
+ AGO .F
+.E
+ AIF S:LONGA=1,.F
+ SEP #%00100000
+.F
+ MEXIT
+.G
+ MNOTE "Missing closing '}'",16
+ MEND
+ MACRO
+&lab _GetSCB
+&lab ldx #$1304
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetSCB
+&lab ldx #$1204
+ jsl $E10000
+ MEND
+ macro
+&lab Tool &number
+&lab ldx #&number
+ jsl $E10000
+ mend

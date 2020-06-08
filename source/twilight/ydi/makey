@@ -1,0 +1,49 @@
+
+echo "### YouDrawIt! Make v1.0, 24 May 1992 Jim Maricondo."
+
+if {#} == 0
+   echo "### Ydi:Make - Error - Bad input parameters!"
+
+else if {1} == d
+   echo "### Ydi:Make - Compiling and linking YouDrawIt! Module."
+   asml +w ydi.asm
+   echo "### Ydi:Make - Module compiled and linked."
+
+   echo "### Ydi:Make - Building Module.."
+   copy -f ydi.d ydi
+   echo "### Ydi:Make - Setting filetype."
+   filetype ydi $bc $4004
+   echo "### Ydi:Make - Built.  Now copying to Twilight folder..."
+   copy -c ydi :jim1:system:cdevs:twilight:ydi
+
+else if {1} == r
+   echo "### Ydi:Make - Compiling ydi resources."
+   compile ydi.rez keep=ydi.r
+   echo "### Ydi:Make - Module resources built."
+
+   echo "### Ydi:Make - Building Module.."
+   copy -r ydi.r ydi
+   echo "### Ydi:Make - Setting filetype."
+   filetype ydi $bc $4004
+   echo "### Ydi:Make - Built.  Now copying to Twilight folder..."
+   copy -c ydi :jim1:system:cdevs:twilight:ydi
+
+else if {1} == rd
+   echo "### Ydi:Make - Compiling and linking YouDrawIt! module."
+   asml +w ydi.asm
+   echo "### Ydi:Make - Module compiled and linked."
+   echo "### Ydi:Make - Compiling ydi resources."
+   compile ydi.rez keep=ydi.r
+   echo "### Ydi:Make - Module resources built."
+
+   echo "### Ydi:Make - Building Module.."
+   copy -f ydi.d ydi
+   copy -r ydi.r ydi
+   echo "### Ydi:Make - Setting filetype."
+   filetype ydi $bc $4004
+   echo "### Ydi:Make - Built.  Now copying to Twilight folder..."
+   copy -c ydi :jim1:system:cdevs:twilight:ydi
+
+else
+   echo "### Ydi:Make - Invalid parameters/options specified."
+end
