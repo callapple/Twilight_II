@@ -1,0 +1,87 @@
+
+#include "types.rez"
+#include "22:t2common.rez"
+
+resource rT2ModuleFlags (moduleFlags) {
+	fGrafPort320+
+	fLeavesUsableScreen+
+	fFadeIn+
+	fFadeOut,					// module flags word
+	$01,						// enabled flag (unimplemented)
+	$0110,					// minimum T2 version required
+	NIL,						// reserved
+	"Rings"					// module name
+};
+
+// --- Version resource
+
+resource rVersion (moduleVersion) {
+    {1,0,0,alpha,2},		// Version
+    verUS,				// US Version
+    "T2 Rings Module",		// program's name
+    "By Chris McKinsey & JRM.\n"	// copyright notice
+    "Copyright 1993-4 DigiSoft Innovations."         
+};
+
+// --- About icon resource
+
+resource rIcon (moduleIcon) {
+		$8000,				// kind
+		$0014,				// height
+		$0016,				// width
+
+		$"F00000000000000000000F"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0F000000000000000000F0"
+		$"0F030F0F3F0F0F330F00F0"
+		$"0F00F00F00303003F330F0"
+		$"0F0F03F033303F3030F0F0"
+		$"0F0300030F00F0303300F0"
+		$"0F0030F303330F303F30F0"
+		$"0F0F3F03F00F0303F0F0F0"
+		$"0F0300F00003F3030300F0"
+		$"0F00F330FF033F0FF030F0"
+		$"0F000000000000000000F0"
+		$"0FFFFFFFFFFFFFFFFAFFF0"
+		$"0000000000000000000000"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FF4AFFFFFFFFFFFFFF0F"
+		$"F0CCCCCCCCCCCCCCCCCC0F"
+		$"F0FFFFFFFFFFFFFFFAFF0F"
+		$"F00000000000000000000F",
+
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0";
+};
+
+// --- rTextForLETextBox2 Templates
+
+resource rTextForLETextBox2 (moduleMessage) {
+	TBFont TBShaston "\$00\$08"
+	TBLeftJust
+	TBBackColor TBColorF
+	TBForeColor TBColor1
+	TBStyleBold "Rings"
+	TBForeColor TBColor0
+	TBStylePlain
+	" is cool!"
+};

@@ -1,0 +1,59 @@
+
+Well, here it is, the first of the long awaited Twilight II sample
+source code files!
+
+This is a very simple module..  Preferably the "use sound" checkbox
+should be a popup or something that allows the user to set the sound
+volume.  This module could be elaborated on in many ways - feel free to
+try it! :-)
+
+Included here, part of Ball (C version), are 13 files:
+
+ball.info - this information file
+ball.rez - the resources for the ball module (Rez source code)
+ball.cc - the ball module source (C source code)
+config.cc - more ball module source (C source code)
+makefile - a makefile to put the whole thing together
+rSound.bin - the "boing" sound (a binary image of the rSound)
+ball - a compiled version of the ball module (ready to run!)
+ball.d - a compiled version of the ball module's data fork 
+ball.r - a compiled version of the ball module's resource fork
+t2.h - Twilight II specific C header information (C header file)
+t2common.equ - Twilight II specific assembly header information (not used by ball, but here for your uses)
+t2common.rez - Twilight II specific Rez header information (Rez header file)
+blank.template - the resource fork of blank.template contains a copy of the Twilight II setup window, so you can layout your setup screen controls graphically with Genesys and then save them to Rez source and fine-tune them manually (NOTE: You cannot use Genesys exclusively to create a Twilight II module's resource fork, because Genesys cannot create the rT2ModuleFlags resource required, and Genesys will not properly set your control IDs to the sequential format T2 requires)
+
+NOTE: Rez and Orca/C are currently required.
+
+Version 1.0: July 19, 1993
+Version 1.1: July 8, 1994
+
+---
+Also included currently in the Twilight II v1.1 Developer Kit, but
+available separately, is the Twilight II Generation 2 Module Format
+(G2MF) Reference.  This AWGS file documents every aspect of the module
+format in detail.  You NEED THIS FILE too if you plan on writing 
+Twilight II modules.  You can get it from the same place where you
+got Ball!  If you can't find it, email us below.
+
+Coming SOON:
+
+ - Other language versions of the Ball module.
+ - Better documentation of the Twilight II IPC requests that modules can use!
+
+Feel free to use all source here to develop Twilight II modules.  All
+other uses are prohibited.  All developer kit files are Copyright Jim
+Maricondo, All Rights Reserved.
+
+For more information on Twilight II, contact:
+
+ DigiSoft Innovations
+ P.O. Box 380
+ Trumbull, CT  06611-0380
+
+ Phone 203.375.0837
+
+ Email: digisoft@aol.com (intenet), DIGISOFT (GEnie), DigiSoft (AO),
+        DYAJIM (Delphi)
+
+Twilight II is also sold by Big Red Computer Club and Resource Central.

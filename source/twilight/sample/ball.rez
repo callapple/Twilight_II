@@ -1,0 +1,317 @@
+
+/*
+** Ball, Release v1.1 - 8 July 1994
+** Rez Source Code - "ball.rez" - Rez Code
+**
+**  Much of this code generated with Foundation & Genesys.
+**  If you don't have Foundation, BUY IT NOW!
+**  It's invaluable (and necessary) for programming the GS.
+**
+** Copyright 1993-94 DigiSoft Innovations, All Rights Reserved.
+**
+** Permission granted to use this source in any module designed for
+**  Twilight II for the Apple IIGS.
+*/
+
+#include "types.rez"
+#include "T2Common.Rez"		// Include Twilight II rez header file
+
+#define ballCtlList	1
+
+#define RedStr		1
+#define BlueStr		2
+#define GreenStr		3
+#define PurpleStr		4
+#define YellowStr		5
+#define TurquoiseStr	6
+#define ballColorStr	10
+#define useSoundStr	20
+
+#define colorMenu		1
+
+#define colorCtl		1
+#define useSoundCtl	2
+#define ballStrCtl		3
+#define ballIconCtl	4
+#define ballLineCtl	5
+
+#define blueMenuItem	1
+#define greenMenuItem	2
+#define redMenuItem	3
+#define turquoiseMenuItem 4
+#define purpleMenuItem	5
+#define yellowMenuItem	6
+
+// --- Twilight II module flags resource
+
+resource rT2ModuleFlags (moduleFlags) {
+	fSetup +				// we support setup
+	fFadeOut +			// we want the screen to be faded out beforehand
+	fFadeIn +				// we want the screen to fade in at the end
+	fLeavesUsableScreen +	// we leave a "usable" screen (see G2MF)
+	fGrafPort320,			// module flags
+	$01,					// enabled flag (unimplemented right now)
+	$0110,				// minimum T2 version required - v1.1 minimum
+	NIL,					// reserved
+	"Ball"				// module name
+};
+
+// --- rVersion Templates 
+
+resource rVersion (moduleVersion) {
+       {1,1,0,release,0},         // Version 1.1 release
+       verUS,                     // US Version
+       "T2 Ball (Sample) Module", // program's name
+       "By Jim Maricondo\n"
+       "Copyright 1993-94, Jim Maricondo."    // copyright notice
+};
+
+// --- Ball Icon Definition
+
+resource rIcon (moduleIcon) {
+		$8000,				// kind
+		$0014,				// height
+		$0016,				// width
+
+		$"F00000000000000000000F"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0F044000000000000000F0"
+		$"0F444400000DDD000000F0"
+		$"0F44770000DDDDD00000F0"
+		$"0F0777700ADDDDD00000F0"
+		$"0F077660BBDDDDD00000F0"
+		$"0F00666BBBBDDD030000F0"
+		$"0F0066EBBBB003000000F0"
+		$"0F000EEEBB0000330000F0"
+		$"0F000EEEE00000300000F0"
+		$"0F0000EE000000033000F0"
+		$"0FFFFFFFFFFFFFFFFAFFF0"
+		$"0000000000000000000000"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FF4AFFFFFFFFFFFFFF0F"
+		$"F0CCCCCCCCCCCCCCCCCC0F"
+		$"F0FFFFFFFFFFFFFFFAFF0F"
+		$"F00000000000000000000F",
+
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0";
+};
+
+// module message
+
+resource rTextForLETextBox2 (moduleMessage) {
+	TBLeftJust
+	TBBackColor TBColorF
+	TBForeColor TBColor1
+	"Ball"
+	TBForeColor TBColor0
+	" demonstrates how to write a Twilight II module.\n"
+	"Full source code available!"
+};
+
+// --- Ball Control List Definition
+
+resource rControlList (ballCtlList) {
+	{
+	colorCtl,
+	useSoundCtl,
+	ballStrCtl,
+	ballIconCtl,
+	ballLineCtl,
+	};
+};
+
+// --- Control Templates
+// NOTE: IDs _must_ be numbered sequentially from 1..maximumID
+
+resource rControlTemplate (colorCtl) {
+		1,			// ID
+		{ 61, 74,  0,  0},		// rect
+		popUpControl {{
+			$0040,			// flag
+			$1002,			// moreFlags
+			NIL,			// refCon
+			NIL,			// titleWidth
+			colorMenu,	// menuRef
+			$01FF,			// initialValue
+			NIL				// colorTableRef
+		}};
+};
+
+resource rControlTemplate (useSoundCtl) {
+		2,			// ID
+		{ 75, 78, 84,188},		// rect
+		checkControl {{
+			NIL,			// flag
+			fCtlProcNotPtr+fCtlWantsEvents+refIsResource,	// moreFlags
+			NIL,			// refCon
+			UseSoundStr,	// titleRef
+			NIL,			// initialValue
+			0,			// colorTableRef
+			{"U","u",$0100,$0100}	// key equivalents
+		}};
+};
+
+resource rControlTemplate (ballStrCtl) {
+		3,			// ID
+		{ 49,114, 59,209},		// rect
+		statTextControl {{
+			NIL,			// flag
+			$1002,			// moreFlags
+			NIL,			// refCon
+			1			// textRef (rLeTextBox2)
+		}};
+};
+
+resource rControlTemplate (ballIconCtl) {
+		4,			// ID
+		{ 26,138, 49,186},		// rect
+		iconButtonControl {{
+			$000C,			// flag
+			$1020,			// moreFlags
+			NIL,			// refCon
+			moduleIcon,		// iconRef
+			NIL,			// titleRef
+			NIL,			// colorTableRef
+			NIL			// displayMode
+		}};
+};
+
+resource rControlTemplate (ballLineCtl) {
+		5,		// ID
+		{ 53, 60, 92,274},		// rect
+       	rectangleControl {{
+	       	$FF02,		    // flag (%10 = black pattern)
+	       	fCtlProcNotPtr,	    // moreFlags (required values)
+	       	NIL	      // refCon
+       	}};
+};
+
+
+// --- rPString Templates
+
+resource rPString (UseSoundStr) {
+	"Use Sound"
+};
+
+resource rPString (ballColorStr) {
+	" Ball Color: "
+};
+
+resource rPString (RedStr) {
+	"Red"
+};
+
+resource rPString (BlueStr, $C018) {
+	"Blue"
+};
+
+resource rPString (GreenStr, $C018) {
+	"Green"
+};
+
+resource rPString (PurpleStr, $C018) {
+	"Purple"
+};
+
+resource rPString (YellowStr, $C018) {
+	"Yellow"
+};
+
+resource rPString (TurquoiseStr, $C018) {
+	"Turquoise"
+};
+
+// --- Menu Definitions
+
+resource rMenu (colorMenu) {
+		1,					// menuID
+		$A000,				// menuFlag
+		ballColorStr, {		// menuTitleRef
+			redMenuItem,
+			blueMenuItem,
+			greenMenuItem,
+			purpleMenuItem,
+			yellowMenuItem,
+			turquoiseMenuItem
+		};
+};
+
+// --- Menu Item Definitions
+
+resource rMenuItem (blueMenuItem, $C018) {
+		$0001,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		BlueStr			// itemTitleRef
+};
+
+resource rMenuItem (greenMenuItem, $C018) {
+		$0010,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		GreenStr			// itemTitleRef
+};
+
+resource rMenuItem (purpleMenuItem, $C018) {
+		$0101,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PurpleStr			// itemTitleRef
+};
+
+resource rMenuItem (yellowMenuItem, $C018) {
+		$0110,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		YellowStr			// itemTitleRef
+};
+
+resource rMenuItem (turquoiseMenuItem, $C018) {
+		$0011,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		TurquoiseStr			// itemTitleRef
+};
+
+resource rMenuItem (redMenuItem) {
+		$0100,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		RedStr			// itemTitleRef
+};
+
+// --- rTextForLETextBox2 Templates
+
+resource rTextForLETextBox2 (1) {
+	" Ball Options "
+};
+
+// finally, the ball sound - read in a binary image of the rSound
+
+read rSoundSample (0x1,locked,nocrossbank,nospecialmemory) "rSound.bin";
