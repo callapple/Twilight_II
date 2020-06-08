@@ -1,0 +1,146 @@
+ MACRO
+ DefineStack
+ GBLA &DummyPC
+&DummyPC SETA 1
+ MEND
+ MACRO
+&lab BYTE
+&lab equ &DummyPC
+&DummyPC SETA &DummyPC+1
+ MEND
+ MACRO
+&lab WORD
+&lab equ &DummyPC
+&DummyPC SETA &DummyPC+2
+ MEXIT
+ MEND
+ MACRO
+&lab LONG
+&lab equ &DummyPC
+&DummyPC SETA &DummyPC+4
+ MEND
+ MACRO
+&lab BLOCK &Value
+ AIF C:&lab=0,.skiplab
+&lab equ &DummyPC
+.skiplab
+&DummyPC SETA &DummyPC+&Value
+ MEND
+ MACRO
+&lab Debug &string
+ aif t:debugSymbols="G",.begin
+ mexit
+.begin
+ dc i1'$82'
+ dc i2'(L:&string)+3'
+ dc i2'$7771'
+ dc i1'L:&string',C'&string'
+ MEND
+ macro
+&lab ~MMStartUp
+&lab WordResult
+ Tool $0202
+ mend
+ macro
+&lab ~MMShutDown &userID
+&lab ph2 &userID
+ Tool $0302
+ mend
+	MACRO
+&lab	name
+&lab	anop
+	aif t:DebugSymbols="G",.begin
+	MEXIT
+.begin
+	brl pastName&SYSCNT
+	dc	i'$7771'
+	dc	i1'L:&lab',c'&lab'
+pastName&SYSCNT anop
+.pastName
+	MEND
+ macro
+&lab db &location
+&lab anop
+ aif c:&location<>0,.exists
+ ds 1
+ mexit
+.exists
+ dc i1'&location'
+ mend
+ macro
+&lab dw &location
+&lab anop
+ aif c:&location<>0,.exists
+ ds 2
+ mexit
+.exists
+ dc i2'&location'
+ mend
+ macro
+&lab Tool &number
+&lab ldx #&number
+ jsl $E10000
+ mend
+ macro
+&lab ph2 &addr,&offset
+&lab anop
+ lclc &char
+&char amid "&addr",1,1
+ aif "&char"="@",.accumulator
+ aif "&char"="*",.smartmacros
+ aif "&char"="#",.immediate
+ aif "&char"="<",.directPage
+ aif "&char"="[",.zeropage
+ aif C:&offset=0,.nooffset
+ aif "&offset"="s",.stack
+ lda &addr,&offset
+ pha
+ mexit
+.nooffset
+ lda &addr
+ pha
+ mexit
+.stack
+ lda &addr,s
+ pha
+ mexit
+.smartmacros
+ mexit
+.accumulator
+ pha
+ mexit
+.directPage
+&addr amid &addr,2,L:&addr-1
+ pei &addr
+ mexit
+.immediate
+&addr amid &addr,2,L:&addr-1
+ pea &addr
+ mexit
+.zeropage
+ aif C:&offset<>0,.zeroPageOff
+ lda &addr
+ pha
+ mexit
+.zeroPageOff
+ aif "&offset"="X",.zeroPageReg
+ aif "&offset"="Y",.zeroPageReg
+ aif "&offset"="x",.zeroPageReg
+ aif "&offset"="y",.zeroPageReg
+ ldy #&offset
+ lda &addr,y
+ pha
+ mexit
+.zeroPageReg
+ lda &addr,&offset
+ pha
+ mend
+ macro
+&lab WordResult &zero
+&lab anop
+ aif c:&zeros=1,.zero
+ phd
+ mexit
+.zero
+&lab pea $0000
+ mend

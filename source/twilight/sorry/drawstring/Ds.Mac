@@ -1,0 +1,167 @@
+ MACRO
+&lab _ClosePort
+&lab ldx #$1A04
+ jsl $E10000
+ MEND
+ MACRO
+&lab _DrawString
+&lab ldx #$A504
+ jsl $E10000
+ MEND
+ MACRO
+&lab _GetMasterSCB
+&lab ldx #$1704
+ jsl $E10000
+ MEND
+ MACRO
+&lab _GetPort
+&lab ldx #$1C04
+ jsl $E10000
+ MEND
+ MACRO
+&lab _MoveTo
+&lab ldx #$3A04
+ jsl $E10000
+ MEND
+ MACRO
+&lab _OpenPort
+&lab ldx #$1804
+ jsl $E10000
+ MEND
+ MACRO
+&lab _PaintRect
+&lab ldx #$5404
+ jsl $E10000
+ MEND
+ MACRO
+&lab _Random
+&lab ldx #$8604
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetBackColor
+&lab ldx #$A204
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetForeColor
+&lab ldx #$A004
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetPort
+&lab ldx #$1B04
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetPortLoc
+&lab ldx #$1D04
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetSolidPenPat
+&lab ldx #$3704
+ jsl $E10000
+ MEND
+ MACRO
+&lab _StringBounds
+&lab ldx #$AD04
+ jsl $E10000
+ MEND
+ MACRO
+&lab WordResult
+&lab phd
+ MEND
+ MACRO
+&lab LongResult
+&lab phd
+ phd
+ MEND
+ MACRO
+&lab pushlong &addr,&offset
+&lab ANOP
+ LCLC &C
+ LCLC &REST
+&C AMID &addr,1,1
+ AIF "&C"="#",.immediate
+ AIF "&C"="[",.zeropage
+ AIF C:&offset=0,.nooffset
+ AIF "&offset"="s",.stack
+ pushword &addr+2,&offset
+ pushword &addr,&offset
+ MEXIT
+.nooffset
+ pushword &addr+2
+ pushword &addr
+ MEXIT
+.immediate
+&REST AMID &addr,2,L:&addr-1
+ dc I1'$F4',I2'(&REST)|-16'
+ dc I1'$F4',I2'&REST'
+ MEXIT
+.stack
+ pushword &addr+2,s
+ pushword &addr+2,s
+ MEXIT
+.zeropage
+ ldy #&offset+2
+ pushword &addr,y
+ ldy #&offset
+ pushword &addr,y
+ MEND
+ MACRO
+&lab pushword &SYSOPR
+&lab ANOP
+ AIF C:&SYSOPR=0,.b
+ LCLC &C
+&C AMID "&SYSOPR",1,1
+ AIF ("&C"="#").AND.(S:LONGA),.immediate
+ lda &SYSOPR
+ pha
+ MEXIT
+.b
+ pha
+ MEXIT
+.immediate
+ LCLC &REST
+ LCLA &BL
+&BL ASEARCH "&SYSOPR"," ",1
+ AIF &BL>0,.a
+&BL SETA L:&SYSOPR+1
+.a
+&REST AMID "&SYSOPR",2,&BL-2
+ dc I1'$F4',I2'&REST'
+ MEND
+ MACRO
+ DefineStack
+ GBLA &DummyPC
+&DummyPC SETA 1
+ MEND
+ MACRO
+&lab BYTE
+&lab equ &DummyPC
+&DummyPC SETA &DummyPC+1
+ MEND
+ MACRO
+&lab WORD
+&lab equ &DummyPC
+&DummyPC SETA &DummyPC+2
+ MEXIT
+ MEND
+ MACRO
+&lab LONG
+&lab equ &DummyPC
+&DummyPC SETA &DummyPC+4
+ MEND
+ MACRO
+&lab BLOCK &Value
+ AIF C:&lab=0,.skiplab
+&lab equ &DummyPC
+.skiplab
+&DummyPC SETA &DummyPC+&Value
+ MEND
+ MACRO
+&lab _UDivide
+&lab ldx #$0B0B
+ jsl $E10000
+ MEND

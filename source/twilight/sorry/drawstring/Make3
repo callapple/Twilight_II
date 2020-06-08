@@ -1,0 +1,23 @@
+echo unset keeptype
+unset keeptype
+
+echo asml DS2.asm keep=DS2.d
+asml DS2.asm keep=DS2.d
+
+echo compile DS2.rez keep=DS2.r
+compile DS2.rez keep=DS2.r
+
+echo duplicate -d DS2.d DS2
+duplicate -d DS2.d DS2
+
+echo duplicate -r DS2.r DS2
+duplicate -r DS2.r DS2
+
+echo filetype DS2 $BC
+filetype DS2 $BC
+
+echo setfile DS2 -at $4004
+setfile DS2 -at $4004
+
+echo copy DS2 /jim1/system/cdevs/Twilight/DrawString1.1
+copy -c DS2 /jim1/system/cdevs/Twilight/DrawString1.1

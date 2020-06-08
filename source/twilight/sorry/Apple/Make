@@ -1,0 +1,12 @@
+echo asml Apple.asm keep=Apple.d
+asml Apple.asm keep=Apple.d
+echo duplicate -d Apple.d Apple
+duplicate -d Apple.d Apple
+echo duplicate -r Apple.r Apple
+duplicate -r Apple.r Apple
+echo filetype Apple $BC
+filetype Apple $BC
+echo setfile Apple -at $4004
+setfile Apple -at $4004
+echo copy -c Apple /jim1/system/cdevs/Twilight/Bouncing.Apple
+copy -c Apple /jim1/system/cdevs/Twilight/Bouncing.Apple

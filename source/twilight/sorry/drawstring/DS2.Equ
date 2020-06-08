@@ -1,0 +1,30 @@
+*****************************************************************
+* Genesys created ASM65816 resource equates
+* Simple Software Systems International, Inc.
+* ORCAM.SCG 1.2
+*
+
+DelayRez GEQU $1
+
+Control_List GEQU $1003
+
+TextEditCtl GEQU $1
+PromptStrCtl GEQU $2
+CancelCtl GEQU $3
+OKCtl GEQU $4
+DelayStrCtl GEQU $5
+DelayLECtl GEQU $6
+
+SavedTextC1IStr GEQU $1
+
+ModuleNameStr GEQU $1
+CancelStr GEQU $2
+OKStr GEQU $3
+DefaultLEStr GEQU $4
+
+Prompt_LText GEQU $1
+Delay_LText GEQU $2
+
+Configuration_Window GEQU $1
+
+Configuration_Code GEQU $1

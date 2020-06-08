@@ -1,0 +1,104 @@
+
+#include "types.rez"
+
+// -- Module name resource
+
+resource rPString (0x1) {
+       "Bouncing Apple"
+};
+
+// --- Version resource
+
+resource rVersion (0x1, $0000) {
+       { $1,$1,$0,beta,$4 },                    // Version 1.1.0b4
+       verUS,                                   // US Version
+       "Twilight II Bouncing Apple Module",     // program's name
+       "By J. Maricondo.  Thanks D.Y!\$0D"
+       "Copyright 1991 Jim Maricondo."          // copyright notice
+};
+
+// --- About text resource
+
+#define LETXTBOX2 88
+
+resource rTextForLETextBox2 ($0010DD01) {
+       "\$01"
+       "J"
+       "\$00"
+       "\$00"
+       "\$01"
+       "L"
+       "\$00"
+       "\$00"
+       "\$01"
+       "R"
+       "\$04"
+       "\$00"
+       "\$01"
+       "F"
+       "\$FE"
+       "\$FF"
+       "\$00"
+       "\$08"
+       "\$01"
+       "C"
+       "\$11"
+       "\$11"
+       "\$01"
+       "B"
+       "\$FF"
+       "\$FF"
+       "This module bounces a colorful Apple"
+       "\$A8"
+       " logo around your screen."
+};
+
+// --- About icon resource
+
+resource rIcon ($0010DD01) {
+       $8000,                  // kind
+       $0014,                  // height
+       $001C,                  // width
+
+       $"FFF0000000000000000000000FFF"
+       $"FFF0FFFFFFFFFFFFFFFFFFFF0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0F000000000000200000F0FFF"
+       $"FFF0F030000000088088800F0FFF"
+       $"FFF0F0030000002AAAAA000F0FFF"
+       $"FFF0F000300000666666600F0FFF"
+       $"FFF0F0300300F0555555500F0FFF"
+       $"FFF0F003000F00011011000F0FFF"
+       $"FFF0F00030F00F000000000F0FFF"
+       $"FFF0F0300F00F00F0000000F0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0FFFFFFFFFFFFFFFFAFFF0FFF"
+       $"FFF0000000000000000000000FFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FF4AFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0CCCCCCCCCCCCCCCCCC0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFAFF0FFFF"
+       $"FFFF00000000000000000000FFFF",
+
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000";
+};

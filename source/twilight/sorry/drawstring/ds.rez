@@ -1,0 +1,12 @@
+
+#include "types.rez"
+#include ":jim4:dya:twilight:common.rez"
+
+resource rPString (0x1) {
+ "Draw String 1.0"
+};
+
+resource rPString (0x2) {
+ ""
+};
+

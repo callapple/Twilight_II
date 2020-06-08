@@ -1,0 +1,363 @@
+
+#include "types.rez"
+
+#define Prompt_LText_CNT 47
+#define Delay_LText_CNT 42
+
+// --- type $0001 defines
+#define DelayRez $00000001
+// --- type $8003 defines
+#define Control_List $00001003
+// --- type $8004 defines
+#define TextEditCtl $00000001
+#define PromptStrCtl $00000002
+#define CancelCtl $00000003
+#define OKCtl $00000004
+#define DelayStrCtl $00000005
+#define DelayLECtl $00000006
+// --- type $8005 defines
+#define SavedTextC1IStr $00000001
+// --- type $8006 defines
+#define ModuleNameStr $00000001
+#define CancelStr $00000002
+#define OKStr $00000003
+#define DefaultLEStr $00000004
+// --- type $800B defines
+#define Prompt_LText $00000001
+#define Delay_LText $00000002
+// --- type $800E defines
+#define Configuration_Window $00000001
+// --- type $8017 defines
+#define Configuration_Code $00000001
+
+// --- type $0001 is undefined and therefore created as hex DATA
+
+data $0001 (DelayRez, $0000) {
+       $"B400";
+};
+
+// --- Version resource
+
+resource rVersion (0x1, $0000) {
+       { $1,$0,$0,beta,$2 },              // Version 1.0.0b2
+       verUS,                             // US Version
+       "Twilight II DrawString Module",   // program's name
+       "Copyright 1991 Jim Maricondo."    // copyright notice
+};
+
+// --- Control List Definitions
+
+resource rControlList (Control_List, $0000) {
+       {
+       TextEditCtl,        // control 1
+       PromptStrCtl,        // control 2
+       CancelCtl,        // control 3
+       OKCtl,        // control 4
+       DelayStrCtl,        // control 5
+       DelayLECtl,        // control 6
+       };
+};
+
+// --- Control Templates
+
+resource rControlTemplate (TextEditCtl, $0000) {
+       $00000001,              // ID
+       { 13,  8, 44,244},      // rect
+       editTextControl {{
+               $0000,          // flag
+               $7400,          // moreFlags
+               $00000000,      // refCon
+               $23A80000,      // textFlags
+               {65535,65535,65535,65535},  // indentRect
+               $00000000,      // vertBar
+               $0000,          // vertAmount
+               $00000000,      // horzBar
+               $0000,          // horzAmount
+               $00000000,      // styleRef
+               $0000,          // textDescriptor
+               0,  // textRef
+               $00000000,      // textLength
+               $00000800,      // maxChars
+               $00000000,      // maxLines
+               $0000,          // maxCharsPerLine
+               $0000,          // maxHeight
+               0,              // colorTableRef
+               $0000,          // drawMode
+               $00000000       // filterProcPtr
+       }};
+};
+
+resource rControlTemplate (PromptStrCtl, $0000) {
+       $00000002,              // ID
+       {  3, 10, 12,163},      // rect
+       statTextControl {{
+               $0000,          // flag
+               $1002,          // moreFlags
+               $00000000,      // refCon
+               Prompt_LText,     // textRef
+               Prompt_LText_CNT, // textSize
+               $0000           // just
+       }};
+};
+
+resource rControlTemplate (CancelCtl, $0000) {
+       $00000003,              // ID
+       { 66, 26, 79,106},      // rect
+       simpleButtonControl {{
+               $0000,          // flag
+               $3002,          // moreFlags
+               $00000000,      // refCon
+               CancelStr,  // titleRef
+               0,              // colorTableRef
+               {"\$1B", "\$1B",$0000,$0000}  // key equivalents
+       }};
+};
+
+resource rControlTemplate (OKCtl, $0000) {
+       $00000004,              // ID
+       { 66,148, 79,228},      // rect
+       simpleButtonControl {{
+               $0001,          // flag
+               $3002,          // moreFlags
+               $00000000,      // refCon
+               OKStr,  // titleRef
+               0,              // colorTableRef
+               {"\$0D", "\$0D",$0000,$0000}  // key equivalents
+       }};
+};
+
+resource rControlTemplate (DelayStrCtl, $0000) {
+       $00000005,              // ID
+       { 47, 12, 57,131},      // rect
+       statTextControl {{
+               $0000,          // flag
+               $1002,          // moreFlags
+               $00000000,      // refCon
+               Delay_LText,     // textRef
+               Delay_LText_CNT, // textSize
+               $0000           // just
+       }};
+};
+
+resource rControlTemplate (DelayLECtl, $0000) {
+       $00000006,              // ID
+       { 45,134, 58,162},      // rect
+       editLineControl {{
+               $0000,          // flag
+               $7002,          // moreFlags
+               $00000000,      // refCon
+               $0002,          // maxSize
+               DefaultLEStr   // defaultRef
+       }};
+};
+
+// --- rC1InputString Templates
+
+resource rC1InputString (SavedTextC1IStr, $C000) {
+       "Welcome to Twilight II!"
+};
+
+// --- rPString Templates
+
+resource rPString (ModuleNameStr, $0000) {
+       "Draw String"
+};
+
+resource rPString (CancelStr, $0000) {
+       "Cancel"
+};
+
+resource rPString (OKStr, $0000) {
+       "OK"
+};
+
+resource rPString (DefaultLEStr, $0000) {
+       "2"
+};
+
+// --- rTextForLETextBox2 Templates
+
+resource rTextForLETextBox2 (Prompt_LText, $0000) {
+       "\$01"
+       "J"
+       "\$00"
+       "\$00"
+       "\$01"
+       "L"
+       "\$00"
+       "\$00"
+       "\$01"
+       "R"
+       "\$04"
+       "\$00"
+       "\$01"
+       "F"
+       "\$FE"
+       "\$FF"
+       "\$00"
+       "\$08"
+       "\$01"
+       "C"
+       "\$00"
+       "\$00"
+       "\$01"
+       "B"
+       "\$FF"
+       "\$FF"
+       "Enter string to draw:"
+};
+
+resource rTextForLETextBox2 (Delay_LText, $0000) {
+       "\$01"
+       "J"
+       "\$00"
+       "\$00"
+       "\$01"
+       "L"
+       "\$00"
+       "\$00"
+       "\$01"
+       "R"
+       "\$04"
+       "\$00"
+       "\$01"
+       "F"
+       "\$FE"
+       "\$FF"
+       "\$00"
+       "\$08"
+       "\$01"
+       "C"
+       "\$00"
+       "\$00"
+       "\$01"
+       "B"
+       "\$FF"
+       "\$FF"
+       "Delay (seconds):"
+};
+
+// --- Window Templates
+
+resource rWindParam1 (Configuration_Window, $0000) {
+       $20A0,                  // plFrame (frame bits)
+       NIL,                    // plTitle (no Title)
+       $00000000,              // plRefCon
+       {  0,  0,  0,  0},      // plZoomRect
+       NIL,                    // plColorTable (standard colors)
+       {$0000, $0000},         // plYOrigin, plXOrigin
+       {$0000, $0000},         // plDataHeight, plDataWidth
+       {$0000, $0000},         // plMaxHeight, plMaxWidth
+       {$0000, $0000},         // plVerScroll, plHorScroll
+       {$0000, $0000},         // plVerPage, plHorPage
+       $00000000,              // plInfoText (info RefCon)
+       $0000,                  // plInfoHeight
+       { 45,192,132,446},      // plPosition
+       infront,                // plPlane
+       Control_List,        // plControlList
+       $0009                   // plInDesc
+};
+
+// --- Code resources
+
+read rCodeResource (0x1,locked,convert) "DS2.config"; /* the config part */
+
+// --- Resource name resources
+
+data 0x8014 (0x10001) {
+	$"0100 0100 0000 0100 0000 0844 656C 6179"            /* ...........Delay */
+	$"5265 7A"                                            /* Rez */
+};
+
+data 0x8014 (0x18003) {
+	$"0100 0100 0000 0310 0000 0C43 6F6E 7472"            /* ...........Contr */
+	$"6F6C 204C 6973 74"                                  /* ol List */
+};
+
+data 0x8014 (0x18004) {
+	$"0100 0600 0000 0300 0000 0943 616E 6365"            /* ...........Cance */
+	$"6C43 746C 0600 0000 0A44 656C 6179 4C45"            /* lCtl.....DelayLE */
+	$"4374 6C05 0000 000B 4465 6C61 7953 7472"            /* Ctl.....DelayStr */
+	$"4374 6C04 0000 0005 4F4B 4374 6C02 0000"            /* Ctl.....OKCtl... */
+	$"000C 5072 6F6D 7074 5374 7243 746C 0100"            /* ..PromptStrCtl.. */
+	$"0000 0B54 6578 7445 6469 7443 746C"                 /* ...TextEditCtl */
+};
+
+data 0x8014 (0x18005) {
+	$"0100 0100 0000 0100 0000 0F53 6176 6564"            /* ...........Saved */
+	$"5465 7874 4331 4953 7472"                           /* TextC1IStr */
+};
+
+data 0x8014 (0x18006) {
+	$"0100 0400 0000 0200 0000 0943 616E 6365"            /* ...........Cance */
+	$"6C53 7472 0100 0000 0D4D 6F64 756C 654E"            /* lStr.....ModuleN */
+	$"616D 6553 7472 0300 0000 054F 4B53 7472"            /* ameStr.....OKStr */
+	$"0400 0000 0C44 6566 6175 6C74 4C45 5374"            /* .....DefaultLESt */
+	$"72"                                                 /* r */
+};
+
+data 0x8014 (0x1800B) {
+	$"0100 0200 0000 0200 0000 0B44 656C 6179"            /* ...........Delay */
+	$"204C 5465 7874 0100 0000 0C50 726F 6D70"            /*  LText.....Promp */
+	$"7420 4C54 6578 74"                                  /* t LText */
+};
+
+data 0x8014 (0x1800E) {
+	$"0100 0100 0000 0100 0000 1443 6F6E 6669"            /* ...........Confi */
+	$"6775 7261 7469 6F6E 2057 696E 646F 77"              /* guration Window */
+};
+
+data 0x8014 (0x18017) {
+	$"0100 0100 0000 0100 0000 1243 6F6E 6669"            /* ...........Confi */
+	$"6775 7261 7469 6F6E 2043 6F64 65"                   /* guration Code */
+};
+
+// --- About icon resource
+
+resource rIcon ($0010DD01) {
+       $8000,                  // kind
+       $0014,                  // height
+       $001C,                  // width
+
+       $"FFF0000000000000000000000FFF"
+       $"FFF0FFFFFFFFFFFFFFFFFFFF0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0F03FC00000000000000F0FFF"
+       $"FFF0F0FFF03FC0000003FC0F0FFF"
+       $"FFF0F0FFC0FFF003FC0FFF0F0FFF"
+       $"FFF0F03F00FFC00FFF03FF0F0FFF"
+       $"FFF0F003F03F0003FF00FC0F0FFF"
+       $"FFF0F0000003F000FC0F900F0FFF"
+       $"FFF0F0000000000F9000000F0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0FFFFFFFFFFFFFFFFAFFF0FFF"
+       $"FFF0000000000000000000000FFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FF4AFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0CCCCCCCCCCCCCCCCCC0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFAFF0FFFF"
+       $"FFFF00000000000000000000FFFF",
+
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000";
+};
