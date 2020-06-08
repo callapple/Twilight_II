@@ -1,0 +1,7 @@
+
+compile Mountains.cc keep=Mountains
+link Mountains random3.c dither keep=Mountains
+copy -f Mountains *:system:cdevs:twilight:Mountains
+filetype *:system:cdevs:twilight:Mountains $bc $4004
+nda
+grafoff

@@ -1,0 +1,6 @@
+
+compile Life.cc keep=Life
+link Life random3.c keep=Life
+copy -f Life *:system:cdevs:twilight:Life
+filetype *:system:cdevs:twilight:Life $bc $4004
+n

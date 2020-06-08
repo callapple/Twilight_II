@@ -1,0 +1,7 @@
+
+compile Scanner.cc keep=Scanner
+link Scanner keep=Scanner
+copy -f Scanner *:system:cdevs:twilight:Scanner
+filetype *:system:cdevs:twilight:Scanner $bc $4004
+nda
+grafoff

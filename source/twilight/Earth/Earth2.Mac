@@ -1,0 +1,120 @@
+ MACRO
+&lab LongResult
+&lab phd
+ phd
+ MEND
+ MACRO
+&lab _DisposeAll
+&lab ldx #$1102
+ jsl $E10000
+ MEND
+ MACRO
+&lab _GetAddress
+&lab ldx #$0904
+ jsl $E10000
+ MEND
+ MACRO
+&lab pulllong &addr1,&addr2
+&lab ANOP
+ AIF C:&addr1=0,.a
+ AIF C:&addr2=0,.b
+ LCLC &C
+&C AMID &addr1,1,1
+ AIF "&C"="[",.zeropage
+ pullword &addr1
+ sta &addr2
+ pullword &addr1+2
+ sta &addr2+2
+ MEXIT
+.a
+ pullword
+ pullword
+ MEXIT
+.b
+ pullword &addr1
+ pullword &addr1+2
+ MEXIT
+.zeropage
+ ldy #&addr2
+ pullword &addr1,y
+ ldy #&addr2+2
+ pullword &addr1,y
+ MEND
+ MACRO
+&lab pullword &SYSOPR
+&lab ANOP
+ pla
+ AIF C:&SYSOPR=0,.end
+ sta &SYSOPR
+.end
+ MEND
+ MACRO
+&lab pushword &SYSOPR
+&lab ANOP
+ AIF C:&SYSOPR=0,.b
+ LCLC &C
+&C AMID "&SYSOPR",1,1
+ AIF ("&C"="#").AND.(S:LONGA),.immediate
+ lda &SYSOPR
+ pha
+ MEXIT
+.b
+ pha
+ MEXIT
+.immediate
+ LCLC &REST
+ LCLA &BL
+&BL ASEARCH "&SYSOPR"," ",1
+ AIF &BL>0,.a
+&BL SETA L:&SYSOPR+1
+.a
+&REST AMID "&SYSOPR",2,&BL-2
+ dc I1'$F4',I2'&REST'
+ MEND
+ MACRO
+&lab longmx
+&lab ANOP
+ rep #%00110000
+ longa on
+ longi on
+ MEND
+ MACRO
+&lab longm
+&lab ANOP
+ rep #%00100000
+ longa on
+ MEND
+ MACRO
+&lab shortm
+&lab ANOP
+ sep #%00100000
+ longa off
+ MEND
+ MACRO
+ DefineStack
+ GBLA &DummyPC
+&DummyPC SETA 1
+ MEND
+ MACRO
+&lab BYTE
+&lab equ &DummyPC
+&DummyPC SETA &DummyPC+1
+ MEND
+ MACRO
+&lab WORD
+&lab equ &DummyPC
+&DummyPC SETA &DummyPC+2
+ MEXIT
+ MEND
+ MACRO
+&lab LONG
+&lab equ &DummyPC
+&DummyPC SETA &DummyPC+4
+ MEND
+ MACRO
+&lab BLOCK &Value
+ AIF C:&lab=0,.skiplab
+&lab equ &DummyPC
+.skiplab
+&DummyPC SETA &DummyPC+&Value
+ MEND

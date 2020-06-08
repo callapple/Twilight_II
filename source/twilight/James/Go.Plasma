@@ -1,0 +1,6 @@
+
+compile Plasma.cc keep=Plasma
+link Plasma random3.c plot2.c keep=Plasma
+copy -f Plasma *:system:cdevs:twilight:Plasma
+filetype *:system:cdevs:twilight:Plasma $bc $4004
+nda

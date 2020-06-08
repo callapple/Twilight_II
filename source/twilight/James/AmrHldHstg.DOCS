@@ -1,0 +1,59 @@
+!!!!! Quick note for people that never read the whole documentation file.  Please feel free to edit the AmrHldHstg.Data file. I put that data in a separate text file so it would be easy for you to edit it.  Have fun!!!!!
+
+What is this business about America being help hostage?
+
+As most of you probably already know, Rush Limbaugh is a very popular radio talk show host, best selling author (The Way Things Ought To be) and late night TV talk show host. You don't have to agree with his conservative views to enjoy the show.  He does a great job of entertaining his audience by poking fun of the news events of the day.
+
+Ever since the inauguration of Bill (and Hillary) Clinton, Rush has been providing special programming to cover this "crisis" situation.  He starts every show (radio and TV) by announcing that "This is a special edition of the Rush Limbaugh Show.  America Held Hostage".  Rush then says that for the middle class this is day x of the crises.  Thanks to retroactive taxes on the rich and the dead, this is day x+19 for the rich and the dead.  And there are 1460-x days left in the crises for all of us.  All of this is done in a fashion to more or less make fun of how the "dominate media culture" handles so called "crises" situations.
+
+The America Held Hostage screen saver module for Twilight II displays the vital statistics about the America Held Hostage crises.  Namely, the number of days we have endured the crises (for both the middle class and the rich & dead) and the number of days left.
+
+
+Installation
+
+To use the America Held Hostage screen saver, you need Twilight II.  (WARNING!  Here comes a blatant plug)  If you don't have Twilight II you REALLY should get it.  The retail price is only $39.95.  That includes over 40 spectacular modules.  It is available from Big Red Computer Club and Resource Central for as little as $29 + s/h.  Contact Digisoft Innovation (the publisher) for more information.
+
+Digisoft Innovations
+PO Box 380
+Trumbull, CT 06611
+203/375-0837
+
+(No, I wasn't paid to put that in there but I am paid every time some one buy Twilight II :)  )
+
+Once you have Twilight II installed in your system all you need to do to use America Held Hostage is copy the files AmrHldHstg and AmrHldHstg.Data into your Twilight folder.
+This folder should be located at *:System:CDevs:Twilight. In other words, the Twilight Folder is in your CDevs folder which is in your System folder which is on your boot drive.
+
+Once those two files are installed in your Twilight folder you can use AmericaHeldHostage just like any other Twilight II modules.  Open Twilight II by select Twilight II from the Apple menu.  Now select America Held Hstg from the list of modules and press the "Blank Now" button.  That's all there is to it.
+
+
+Customizing America Held Hostage
+
+If you highlight America Held Hstg in the Twilight II window and click on setup will get a setup window for America Held Hostage.  Here you can set what font is used to draw the America held Hostage title and the day counters.  You can select any font you like in any size you like.  Just don't pick something too big or it won't fit on the screen.
+
+If you are a bit more ambitious you can customize America Held Hostage even further.  The AmrHldHstg.Data file contains all the text that is used to label the day counters for the different categories.  For example, rather than always saying "Day x for the middle class", you will sometimes see "Day x for Joe 6 pack" or "Day x for member of bowling leagues".  These labels are pulled out of the AmrHldHstg.Data text file.  You can add your own labels or edit the existing ones if you like.  All you need is any application that can edit a text file.  Teach is probably the easiest application to use but if you have EgoEd, ShadowWrite, BigEditThing, AppleWorks GS, AppleWorks Classic, or just about any other word processor you can use them as well.
+
+Just double click on the AmrHldHstg.Data file and system 6 should launch teach and open the file.  The file contains several lines of text in groups of 3.  The first line in the group is the label for the middle class.  The second line is the label for the rich and the dead.  The third line is the label for everyone.  Always add or remove lines in groups of three.  When it is time to blank the screen, the module will pick at random one of the groups of lines and use it to label the day counters.
+
+Depending on your system setup, Twilight II may load the AmrHldHstg.Data file at startup and keep it in memory all the time.  This means that if you edit the file your changes will not take effect until the next time you reboot. Another way to get Twilight II to reload the file is simply open the Twilight II window and close it again.
+
+
+About the Author (James C. Smith)
+
+I have been writing Twilight II screen saver modules for almost a year and a half now.  I wrote several of the modules included with Twilight II.  I am most proud of Fireworks, Cyclone, Plasma, Headlines, Snow, Mountains, String Art, Life, and Fading Clock.  I also did several simpler modules including Inverter, Scroll, Scanner, Twilight, TunnelVision II, Drip Drop, Color By Color, and Short Out.
+
+
+ShareWare?
+
+Well, let's put it this way, if you want to send me a defecate awareness ribbon (made of any denomination) it would be GREATLY appreciated.  I made one for my self but I neaded the buck and spend it. :(  If you can't afford to send one you could at least drop me a line to let me know you like and use America Held Hostage.  If I get a good response from this modules I may release some other Rush related modules.  Suggestions are welcome.  You can reach me at
+
+James C. Smith
+4117 North 84th st.
+Milwaukee, WI  53222
+414/466-2506
+
+E-Mail address
+JamesSWI on America Online or if you have access to the internet you can reach that mail box as
+JamesSWI@aol.com
+
+
+

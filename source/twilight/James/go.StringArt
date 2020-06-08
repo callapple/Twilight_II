@@ -1,0 +1,6 @@
+
+compile StringArt.cc keep=StringArt
+link StringArt random3.c keep=StringArt
+copy -f StringArt *:system:cdevs:twilight:StringArt
+filetype *:system:cdevs:twilight:StringArt $bc $4004
+n

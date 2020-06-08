@@ -1,0 +1,19 @@
+First of all, one reminder.  SLED and my other recent Twilight II modules are NOT property of Digisoft Innovations.  In the future an agreement will probably be maid with DSI to distribute my new modules with an update to Twilight II.  However, for now I retain the rights.  If Soft Disk, GS+, or some one else expresses interest in them I may go that route.
+
+Now that that's over with, here is what's new in SLED.
+
+First I rewrote all the screen update code in assembly. When it was all finished it ended up being faster than the C version but not dramatically.  After some help from Jim over the phone I managed to optimize the ams code a LOT.  It is now MUCH faster.  You can actually scroll text at full speed on an un-accelerated GS without skipping any frames.
+
+Next I added some new commands.  You can now change colors, do wipes and fades, use inverse and more.
+
+With all the new commands my "scripts" got VERY cryptic.  I broke down a wrote a read script interpreter.  One that uses real words like <PRINT> and <SCROLL>.  Some of the command even have arguments. Even optional and multiple arguments. And LOOP!
+
+Unfortunately with the improved interpreter came a small loss of speed.  SLED skips a frame here and there when scrolling text on stock GS.
+
+Almost everyone said SLED scrolls text too fast.  To show you why I use the speed I do I have added a way to slow it down.  Normally SLED updates the screen once of 1/60th of a second.  If you hold down the command key it will slow down to one frame every 2/60th of a second.  You will see it looks very choppy.  BTW, you can hold option to see SLED go all out full speed.
+
+At the request of Greg I changed the way the LEDs are drawn to make them use two colors to make them look rounder and more 3D.  They don't look much better but now they do look more like LEDs than tinny red stop signs.  If you think you could draw a better one then feel free to play with the SHR screen I included in the archive.  If you come up with a better pallet and or LED shape let me know!
+
+Finally, I touched up the font a bit and made it proportional!  Now Ms, Ws, and Ts look better and there isn't all kinds of extra space after Is, 1s, and punctuation marks.  In the process of making the font proportional the justifications also became much improved.  There is now a command to make all numbers a fixed size to make clocks looks better.
+
+I have planes for a few more wipes and other transitions.  I also plan to speed things up a little more to keep up with a stock GS.  I also still want to make the LEDs and bit smaller so we can get more of them.  Lastly, I need to work on the options.  I especially need a way to set the number of bad LEDs.  The only thing is I have already spent way too much time on such a silly program.  Unless people express a lot of interest in SLED, I think I am going to have to start working on something a bit more productive.

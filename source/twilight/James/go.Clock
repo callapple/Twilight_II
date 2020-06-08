@@ -1,0 +1,6 @@
+
+compile Clock.cc keep=Clock
+link Clock random3.c keep=Clock
+copy -f Clock *:system:cdevs:twilight:Clock
+filetype *:system:cdevs:twilight:Clock $bc $4004
+nda

@@ -1,0 +1,7 @@
+
+compile ColorByColor.cc keep=ClrByClr
+link ClrByClr random3.c keep=ColorByColor
+copy -f ColorByColor *:system:cdevs:twilight:ColorByColor
+filetype *:system:cdevs:twilight:ColorByColor $bc $4004
+nda
+grafoff

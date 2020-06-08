@@ -1,0 +1,6 @@
+
+compile TV.cc keep=TV
+link TV keep=TV
+copy -f TV *:system:cdevs:twilight:TunnelVision.II
+filetype *:system:cdevs:twilight:TunnelVision.II $bc $4004
+nda

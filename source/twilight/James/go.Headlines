@@ -1,0 +1,6 @@
+
+compile Headlines.cc keep=Headlines
+link Headlines random3.c keep=Headlines
+copy -f Headlines *:system:cdevs:twilight:Headlines
+filetype *:system:cdevs:twilight:Headlines $bc $4004
+nda

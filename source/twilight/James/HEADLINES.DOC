@@ -1,0 +1,18 @@
+===================== Quick and dirty information ==========================
+
+Put Headlines and Headlines.Data in your Twilight folder.
+If you want to edit the headlines data you need to edit the Headlines.Src file with any text editor and then run the Compile.HLs program to generate a new Headlines.Data file.
+
+
+===================== Beta Headlines Documentation =========================
+
+
+Headline is my latest (and last for this release) module for Twilight II.  It reads data out of the Headlines.Data file and uses it to make up phrases that could be the headline on a tabloid.  Make sure you put the Headlines.Date file in the same folder as the Headline module.  In 99.9% of the cases this would be your *:System:CDev:Twilight folder.  The other two files that are included (Compile.HLs and Headlines.Src) are only needed if you want to edit the Headlines.Data file.  They are not used by the Headlines module and to not need to be in your Twilight folder.
+
+If you would like to experiment with making up headlines of your own you can load the Headlines.Src file into your favorite text editor.  There are some notes at the beginning of the file that explain the general format of the file.  When you are done editing the Headlines.Src file you need to run the Compile.HLs program.  It will generate a new Headlines.Data file that you can stick in your Twilight folder.  Headlines always loads the file called Headlines.Data and always looks for it in the same folder that the module is in.  The Compile.HLs program is currently a VERY "Quick and Dirty" type EXE program.  It is NOT intended for distribution.  Just a tool for me (and beta testers) to use to create the data file that will be distributed.  It does not do much error trapping and has no nice prompts.  It just automatically opens a file called Headlines.Src and outputs a file called Headlines.Data.  Since it is an EXE program it needs to be run from a command line shell like ORCA.  If you don't have a shell you could try changing the file type to S16 and using it that way but it may have trouble locating the source file because it will try to load it out of prefix 0 which is not nesicarely the directory the program is in.
+
+Please play around with Headlines and let me know what you think.  If you are adventures enough to play around with editing the headlines file please let me know what you think of the data in there.  I am very open to suggestions for new data in the headlines.data file.  Play around with editing the file and then e-mail me any suggestions you have for CHANGES.  E-Mailing your edited Headlines.Src file will not help me much because I have no way of combining 15 versions of one file.
+
+Thanks for actually reading this.
+_____
+James C. Smith

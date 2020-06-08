@@ -1,0 +1,94 @@
+SLED Commands
+
+All commands must be preseaded by the command character.  By default this is
+the "|" character.  See the ????? command below to see how to change the
+command character.  Fallowing the command character should be one of the single
+letter commands below.  Most of the commands must be fallowed by one or more
+arguments.  For example the wait command takes one integer argument to tell
+it how many 60ths of a second to wait.  An example of a wait command would be:
+|W30
+That would make the display pause for 30 60ths of a second or one half second.
+Next next command should imeadiatlu fallow the last character of the last
+command.  Characters with an ASCII value lass than 32 are ignored.  This means
+all returns and line feeds are ignored as well as tabs.  You can place those
+characters any where you want in the text to help space it out to make it
+easier for you to read.  Spaces or NOT ignored.  You can not put spaces in
+places they don't belong.  Using spaces in thext that is to be displayed is not
+a problem but putting them between commands or between command arguments will
+screw things up.
+
+Commands with an "*" after then can be nested inside of other
+commands.  (The "*" is NOT part of the command.  Do not put it in your text.)
+This nesting means that you can put them insie the text argument of another
+command.  For example, you can put the (T)ime command inside a scroll (L)eft
+command to make the time scroll across the scree.
+
+L   scroll Left
+    All the text fallowing the L and before the next command character will
+    be scrolled left.  The scrolling will stop as soon as the last character
+    in the text is fully on screen.  If you want the text centered or of you
+    want to to scroll all the way off the screen you will have to pad the text
+    with spaces at the end.  There is no limit to the number of characters you
+    can scroll using the L command.  They will just keep scrolling and
+    scrolling and scrolling forever.
+P   Print
+    Clears the display and then displays the specified text using the
+    specified justification.  The first argument is a single
+    character that specifies a justification for the text.  Valid options are
+    L, C, or R for Left, Center or Right.  Imeadiatly fallowing the
+    justification argument is the text argument.  This is the text you want
+    to be displayed.  It will be justified horizontaly according to the
+    justification argument.  You can only display one display full of
+    characters at a time using this command.  With the present display size and
+    font that means 8 characters.  If you try to display more than 8 characters
+    using this command you will get an error message.
+U   scroll Up
+    This command takes the exact same arguments as the Print command.
+    The text specified in the text argument will be scrool up onto the display
+    all at once.  The text will be justified horizontaly according to the
+    justification argument. The text will stop scrolling up as soon as it is
+    totaly on screen.  You can only scroll one display one full of characters
+    at a time using this command.  With the present display size and font that
+    means 8 characters.  If you try to display more than 8 characters using
+    this command you will get an error message.
+W   Wait
+    There are two forms of the Wait command.  The first is used to wait for
+    a specified amount of time.  This simply makes the display pause for
+    x/60ths of a second.  Nothing at all will happen during this time.  You
+    must specify one numeric argument that is the number of 60ths of a second
+    to wait.  30 would mean half a seconds, 60 would mean 1 second and 180
+    would mean 3 seconds.  The second form of the command tells the system to
+    wait for the sonds on the clock to change.  It will wait unlill the number
+    of seconds on the clock changes to a value different than the value it had
+    last time the wait for time change command was called.  To specify a wait
+    for time change simply fallow the W command with a T for Time.
+;   Comment
+    All characters after the ; character and up to the next command character
+    are ignored.  You can put anything you want in here.
+C   Clear
+    Clears the current display.
+T*  Time
+    This command will place the current time in your text.  It takes one
+    argument that is padding to make room to insert the correct time at run
+    time.  You can specify as meny or as few padding characters as you wish.
+    They will all be replaced with the current time or nulls.  The padding
+    characters must be fallowed by a command character to specify the end of
+    the padding.  This command character is NOT the start of the next command.
+    Is simply terminats the time command.  Remeber, the time command is nested
+    in side of another command.  If you want a command to imeadialy fallow
+    the time command you need to include a second command character. For example:
+    |D|Txxxxxxxx||W60
+    would display the first 8 characters of the current time and then wait one
+    second.  Normaly, you would nest the time command inside some text like
+    this:
+    |LThe time is |Txxxxxxxxxxx| acording to this stupid computer.
+D*  Date
+    Works exactly like the (T)ime command but replaces the padding characters
+    with the date rather than the time.
+
+
+If no command is specified at the begining of the text than the L command is
+assumed.  This menas that is all you want to do is scroll some text across
+the display you don't need to put the text in the file.  You don't need any
+special commands at all.  Just make sure the text don't contain the command
+character in it any where.

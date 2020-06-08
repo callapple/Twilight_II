@@ -1,0 +1,673 @@
+
+#include "types.rez"
+#include "22:t2common.rez"
+
+// --- Flags resource
+
+resource rT2ModuleFlags (moduleFlags) {
+	fSetup+fFadeOut+fFadeIn+fGrafPort320, // module flags word
+	$01,						// enabled flag (unimplemented)
+	$0110,					// minimum T2 version required
+	NIL,						// reserved
+	"Impulse 3D"					// module name
+};
+
+// --- About text resource
+
+resource rTextForLETextBox2 (moduleMessage) {
+	TBLeftJust
+	TBBackColor TBColorE
+	TBForeColor TBColor4
+	"Impulse 3D"
+	TBForeColor TBColor0
+	" zooms, scales and rotates dazzling wireframe 3D objects in real time.\n"
+	TBBackColor TBColorF
+	TBForeColor TBColor1
+	"Impulse works best with low memory mode turned off."
+};
+
+// --- Version resource
+
+resource rVersion (moduleVersion) {
+       {1,0,0,release,0},             // Version
+       verUS,                       // US Version
+       "T2 Impulse 3D Module",      // program's name
+       "By FTA & Jim Maricondo.\n"
+       "Copyright 1992-93 Jim Maricondo."    // copyright notice
+};
+
+// --- About icon resource
+
+resource rIcon (moduleIcon) {
+		$8000,				// kind
+		$0014,				// height
+		$0016,				// width
+
+		$"F00000000000000000000F"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0F000000000000000000F0"
+		$"0F000B3000000E300000F0"
+		$"0F0000B300000EE30000F0"
+		$"0F00000B30000E3E3000F0"
+		$"0F000BBBB3000E30E300F0"
+		$"0F000000B3000E30E300F0"
+		$"0F00000B30000E3E3000F0"
+		$"0F0000B300000EE30000F0"
+		$"0F000B3000000E300000F0"
+		$"0F000000000000000000F0"
+		$"0FFFFFFFFFFFFFFFFAFFF0"
+		$"0000000000000000000000"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FF4AFFFFFFFFFFFFFF0F"
+		$"F0CCCCCCCCCCCCCCCCCC0F"
+		$"F0FFFFFFFFFFFFFFFAFF0F"
+		$"F00000000000000000000F",
+
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0";
+};
+
+// --- type $8004 defines
+#define CTLTMP_00006FFD $00006FFD
+#define CTLTMP_00006FFE $00006FFE
+#define CTLTMP_00006FFF $00006FFF
+#define CTLTMP_00007000 $00007000
+#define CTLTMP_00007001 $00007001
+#define CTLTMP_00007002 $00007002
+#define CTLTMP_00007003 $00007003
+#define CTLTMP_00010012 $00010012
+// --- type $8006 defines
+#define PSTR_0000000D $0000000D
+#define PSTR_0000000E $0000000E
+#define PSTR_0000000F $0000000F
+#define PSTR_00000010 $00000010
+#define PSTR_00000011 $00000011
+#define PSTR_00000012 $00000012
+#define PSTR_000000FC $000000FC
+#define PSTR_00000107 $00000107
+#define PSTR_00000108 $00000108
+#define PSTR_00000109 $00000109
+#define PSTR_0000010A $0000010A
+#define PSTR_0000010B $0000010B
+#define PSTR_0000010C $0000010C
+#define PSTR_0000010D $0000010D
+#define PSTR_0000010E $0000010E
+#define PSTR_0000010F $0000010F
+#define PSTR_00000110 $00000110
+#define PSTR_00000111 $00000111
+#define PSTR_00000112 $00000112
+#define PSTR_00000113 $00000113
+#define PSTR_00000114 $00000114
+#define PSTR_00000115 $00000115
+#define PSTR_00000116 $00000116
+#define PSTR_00000117 $00000117
+#define PSTR_00000118 $00000118
+#define PSTR_00000119 $00000119
+#define PSTR_0000011A $0000011A
+// --- type $8009 defines
+#define MENU_00000001 $00000001
+#define MENU_00000002 $00000002
+// --- type $800A defines
+#define MENUITEM_00000001 $00000001
+#define MENUITEM_00000107 $00000107
+#define MENUITEM_00000108 $00000108
+#define MENUITEM_00000109 $00000109
+#define MENUITEM_0000010A $0000010A
+#define MENUITEM_0000010B $0000010B
+#define MENUITEM_0000010C $0000010C
+#define MENUITEM_0000010D $0000010D
+#define MENUITEM_0000010E $0000010E
+#define MENUITEM_0000010F $0000010F
+#define MENUITEM_00000110 $00000110
+#define MENUITEM_00000111 $00000111
+#define MENUITEM_00000112 $00000112
+#define MENUITEM_00000113 $00000113
+#define MENUITEM_00000114 $00000114
+#define MENUITEM_00000115 $00000115
+#define MENUITEM_00000116 $00000116
+#define MENUITEM_00000117 $00000117
+#define MENUITEM_00000118 $00000118
+#define MENUITEM_00000119 $00000119
+#define MENUITEM_0000011A $0000011A
+#define MENUITEM_0000011B $0000011B
+// --- type $800B defines
+#define LETXTBOX_00000001 $00000001
+#define LETXTBOX_00000002 $00000002
+// --- type $800E defines
+#define WPARAM1_00000FFF $00000FFF
+// --- type $8010 defines
+#define WCOLOR_00000001 $00000001
+
+// --- Control List Definitions
+
+resource rControlList (1) {
+		{
+		CTLTMP_00007002,			// control 1
+		CTLTMP_00007001,			// control 2
+		CTLTMP_00007000,			// control 3
+		CTLTMP_00006FFF,			// control 4
+		CTLTMP_00006FFE,			// control 5
+		CTLTMP_00006FFD,			// control 6
+		1,						// control 7
+		2,						// control 8
+		};
+};
+
+// --- Control Templates
+
+resource rControlTemplate (CTLTMP_00006FFE) {
+		1,			// ID
+		{ 82, 14, 91,338},		// rect
+		checkControl {{
+			$0000,			// flag
+			$3002,			// moreFlags
+			$00000000,			// refCon
+			PSTR_0000000D,	// titleRef
+			$0001,			// initialValue
+			0,			// colorTableRef
+			{"D","d",$0100,$0100}	// key equivalents
+		}};
+};
+
+resource rControlTemplate (CTLTMP_00006FFF) {
+		2,			// ID
+		{ 66, 12,  0,  0},		// rect
+		popUpControl {{
+			$0040,			// flag
+			$1002+fDrawPopDownIcon,	// moreFlags
+			$00000000,			// refCon
+			$0000,			// titleWidth
+			MENU_00000002,	// menuRef -- SHOW DELAY popup
+			2,			// initialValue
+			0				// colorTableRef
+		}};
+};
+
+resource rControlTemplate (CTLTMP_00007000) {
+		3,			// ID
+		{ 51, 12,  0,  0},		// rect
+		popUpControl {{
+			$0040,			// flag
+			$1002+fDrawPopDownIcon,	// moreFlags
+			$00000000,			// refCon
+			$0000,			// titleWidth
+			MENU_00000001,	// menuRef -- WHICH SHAPE popup
+			16,			// initialValue
+			0				// colorTableRef
+		}};
+};
+
+resource rControlTemplate (CTLTMP_00006FFD) {
+		4,			// ID
+		{108, 72,127,271},		// rect
+		statTextControl {{
+			$0000,			// flag
+			$1002,			// moreFlags
+			$00000000,			// refCon
+			LETXTBOX_00000002		// textRef
+		}};
+};
+
+resource rControlTemplate (CTLTMP_00007001) {
+		5,			// ID
+		{ 32,136, 42,255},		// rect
+		statTextControl {{
+			$0000,			// flag
+			$1002,			// moreFlags
+			$00000000,			// refCon
+			LETXTBOX_00000001		// textRef
+		}};
+};
+
+resource rControlTemplate (CTLTMP_00007002) {
+		6,			// ID
+		{ 25, 84, 48,130},		// rect
+		iconButtonControl {{
+			$000C,			// flag
+			$1020,			// moreFlags
+			$00000000,			// refCon
+			moduleIcon,		// iconRef
+			0,			// titleRef
+			0,			// colorTableRef
+			$0000			// displayMode
+		}};
+};
+
+resource rControlTemplate (1) {
+       7,              // ID
+       {105,42,106,296},           // rect
+       rectangleControl {{
+               $0002,               // flag (%10 = black pattern)
+               fCtlProcNotPtr,      // moreFlags (required values)
+               NIL            // refCon
+       }};
+};
+
+resource rControlTemplate (2) {
+		8,			// ID
+//		{ 93, 14,102,296},		// rect
+		{ 93, 14,102,338},		// rect
+		checkControl {{
+			$0000,			// flag
+			$3002,			// moreFlags
+			$00000000,			// refCon
+			10,	// titleRef
+			$0000,			// initialValue
+			0,			// colorTableRef
+			{"M","m",$0100,$0100}	// key equivalents
+		}};
+};
+
+// --- rPString Templates
+
+resource rPString (PSTR_0000000D) {
+	"Display Frames Per Second (fps) Counter"
+};
+
+resource rPString (10) {
+	"Maximum Zoom (Accelerator Recommended)"
+};
+
+// --- SHOW DELAY popup
+
+resource rPString (PSTR_0000000F) {
+	" Show Each Shape For: "
+};
+
+resource rPString (PSTR_0000000E) {		//1
+	"10 Seconds"
+};
+
+resource rPString (PSTR_00000115, $C018) {	//2 - DEFAULT
+	"20 Seconds"
+};
+
+resource rPString (PSTR_00000116, $C018) {	//3
+	"30 Seconds"
+};
+
+resource rPString (PSTR_00000117, $C018) {	//4
+	"1 Minute"
+};
+
+resource rPString (PSTR_00000118, $C018) {	//5
+	"2 Minutes"
+};
+
+resource rPString (PSTR_00000119, $C018) {	//6
+	"5 Minutes"
+};
+
+resource rPString (PSTR_0000011A, $C018) {	//7
+	"10 Minutes"
+};
+
+// --- WHICH SHAPE popup
+
+resource rPString (PSTR_00000011) {
+	" Shape: "
+};
+
+resource rPString (PSTR_00000010) {		//1 - default
+	"All"
+};
+
+resource rPString (PSTR_00000107, $C018) {	//2
+	"Random"
+};
+
+resource rPString (PSTR_0000010D, $C018) {	//3
+	"DYA 3D Logo"
+};
+
+resource rPString (3) {					//4
+	"Diamond"
+};
+
+resource rPString (4) {					//5
+	"Pyramid"
+};
+
+resource rPString (PSTR_0000010C, $C018) {	//6
+	"FTA Logo"
+};
+
+resource rPString (PSTR_0000010B, $C018) {	//7
+	"Cube I"
+};
+
+resource rPString (2) {					//8
+	"Car"
+};
+
+resource rPString (PSTR_0000010A, $C018) {	//9
+	"DYA 2D Logo"
+};
+
+resource rPString (PSTR_00000109, $C018) {	//10
+	"Cube II"
+};
+
+resource rPString (PSTR_00000108, $C018) {	//11
+	"ACS Logo 1"                              
+};
+
+resource rPString (PSTR_00000110, $C018) {	//12
+	"Apple Logo 1"
+};
+
+resource rPString (PSTR_0000010F, $C018) {	//13
+	"Apple Logo 2"
+};
+
+resource rPString (PSTR_0000010E, $C018) {	//14
+	"ACS Logo 2"
+};
+
+resource rPString (PSTR_00000111, $C018) {	//15
+	"Rebound"
+};
+
+resource rPString (PSTR_00000113, $C018) {	//16
+	"Dijon, France"
+};
+
+resource rPString (PSTR_00000112, $C018) {	//17
+	"World"
+};
+
+resource rPString (PSTR_00000114, $C018) {	//18
+	"Ship"
+};
+
+resource rPString (5) {	
+	"GS"
+};
+
+// --- Menu Definitions
+
+resource rMenu (MENU_00000001) {
+		$0001,				// menuID
+		$A000,				// menuFlag
+		PSTR_00000011, {		// menuTitleRef -- WHICH SHAPE popup
+			MENUITEM_0000010D,	// dya
+			3,				// diamond
+			4,				// pyramid
+			MENUITEM_0000010C,	// fta
+			MENUITEM_0000010B,	// cube
+			2,				// car
+			MENUITEM_0000010A,	// dya2d
+			MENUITEM_00000109,	// cuberev
+			MENUITEM_00000108,	// acs
+			MENUITEM_00000110,	// applealone
+			MENUITEM_0000010F,	// apple
+			MENUITEM_0000010E,	// acs2
+			MENUITEM_00000111,	// rebound
+			MENUITEM_00000113,	// fracne
+			MENUITEM_00000112,	// world
+			MENUITEM_00000114,	// ship
+			5,				// iigs
+			MENUITEM_00000107,	// random
+			MENUITEM_00000001 	// all  -- DEFAULT
+		};
+};
+
+resource rMenu (MENU_00000002) {
+		$0002,				// menuID
+		$A000,				// menuFlag
+		PSTR_0000000F, {		// menuTitleRef -- SHOW DELAY popup
+			MENUITEM_00000115,	// 10s
+			MENUITEM_00000116,	// 20s
+			MENUITEM_00000117,	// 30s
+			MENUITEM_00000118,	// 1m
+			MENUITEM_00000119,	// 2m
+			MENUITEM_0000011A,	// 5m
+			MENUITEM_0000011B	// 10m
+		};
+};
+
+// --- Menu Item Definitions
+
+// --- WHICH SHAPE popup defs
+
+resource rMenuItem (MENUITEM_00000001) {
+		1,				// itemID - ALL
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8002,				// itemFlag  - DEFAULT ("All")
+		PSTR_00000010			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000107, $C018) {
+		2,				// itemID - RANDOM
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8040,				// itemFlag
+		PSTR_00000107			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010D, $C018) {
+		3,				// itemID -- DYA
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000010D			// itemTitleRef
+};
+
+resource rMenuItem (3, $C018) {
+		4,				// itemID -- DIAMOND
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		3					// itemTitleRef
+};
+
+resource rMenuItem (4, $C018) {
+		5,				// itemID -- PYRAMID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		4					// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010C, $C018) {
+		6,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000010C			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010B, $C018) {
+		7,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000010B			// itemTitleRef
+};
+
+resource rMenuItem (2, $C018) {
+		8,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		2					// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010A, $C018) {
+		9,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000010A			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000109, $C018) {
+		10,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000109			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000108, $C018) {
+		11,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000108			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000110, $C018) {
+		12,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000110			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010F, $C018) {
+		13,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000010F			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010E, $C018) {
+		14,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000010E			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000111, $C018) {
+		15,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000111			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000113, $C018) {
+		16,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000113			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000112, $C018) {
+		17,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000112			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000114, $C018) {
+		18,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000114			// itemTitleRef
+};
+
+resource rMenuItem (5, $C018) {
+		19,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8040,				// itemFlag - underlined
+		5					// itemTitleRef
+};
+
+// --- SHOW DELAY popup defs
+
+resource rMenuItem (MENUITEM_00000115, $C018) {
+		1,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000000E			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000116, $C018) {
+		2,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8002,				// itemFlag  - DEFAULT
+		PSTR_00000115			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000117, $C018) {
+		3,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000116			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000118, $C018) {
+		1*6,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000117			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000119, $C018) {
+		2*6,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000118			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000011A, $C018) {
+		5*6,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000119			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000011B, $C018) {
+		10*6,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000011A			// itemTitleRef
+};
+
+// --- rTextForLETextBox2 Templates
+
+resource rTextForLETextBox2 (LETXTBOX_00000001) {
+	"Impulse Options"
+};
+
+resource rTextForLETextBox2 (LETXTBOX_00000002) {
+	TBLeftJust
+	TBForeColor TBColor1
+	TBBackColor TBColorF
+	"Special thanks to Joe Kohn, Matt Keller, and the FTA. (rip)"
+};

@@ -1,0 +1,131 @@
+SLED uses a very simple scripting language to allow you to control exactly what is displayed.  The scripts are stored in ordinary Text of Teach files that can be edited with any text editor or word processor.  The simplest script you can write is simply a file full of what ever text you want displayed on the LED display.  Any text you put int he script will be scrolled across the display from right to left with the default red color.  If you want to get fancy and add wipes, fades, colors, or other special effects you need to learn a few very simple commands and some basic rules about how commands are used.
+
+Any text that is not between open and close command characters is printed to the display using the current printing method.  Return characters (as well as any other control characters) are ignored by SLED.  This means you can use then to format your script to make it easier for you to read.  Just do not place any returns (or other control characters) in the middle of command.  That would confuse the SLED script interpreter.   Any character that is not in the SLED font is also ignored.  Currently the SLED font only contains the standard ACSII characters.  That is any letter or punctuation you have on your keyboard.  Extended characters that you type with the option key are not in the SLED font and will not be displayed.
+
+All commands must be between a begin command and end command character to let SLED know to interpret the command rather than display the word on the screen.  The default begin command character is the less than "<" characters and the default end command character is the greater than ">" character.   So, to place a pause command in your script you would simply type <PAUSE>.  To try to make it as easy as possible to write scripts, SLED has been designed to allow you to use several different words to get the same results. For example, the commands WAIT, PAUSE, and DELAY all cause the same action.  You can also abbreviate any command. Simply typing <P> will have the same result as typing <PAUSE>.  In cases where the command you type could be short for more than one command, SLED actual uses the command that comes first alphabetically.  For example, <P> could mean <PAUSE> or <PRINT>.  Since PAUSE comes before PRINT alphabetically, SLED would execute the PAUSE command.  To abbreviate PRINT you would have to type <PR> so that SLED wouldn't PAUSE when you wanted to PRINT.
+
+SLED doesn't care what case you use when you type commands. <print>, <Print>, <PRINT>, and <PrInT> all work equally well.
+
+You can never type a space in the middle of a command. Command such as BACKGROUNDCOLOR will NOT be recognized if you enter then as two word.  SLED would interpret the text
+<BACKGROUND COLOR> as the command BACKGROUND with an argument of COLOR.  This would cause an error.
+
+Several command have arguments.  These are options you specify when you enter the command.  For example, if you type <COLOR BLUE>, BLUE is an argument used with the command COLOR. Arguments are always between the begin and command characters along with a command but separated from the command with a space.  Some command have an optional argument.  For example, when you use the PAUSE command you can specify a number of milliseconds to pause or if you don't specify a duration PAUSE will use the default duration of 1 seconds.  Some commands may take more than one argument.  For example, with the color command you can specify a foreground and a background color.  Multiple arguments are separated by spaces or comas.  For example, <COLOR RED,GREEN> or <COLOR RED GREEN> or <COLOR RED, GREEN> would specify red text on a green background.  Some commands take numeric arguments.  For example PAUSE takes one argument to specify the number of milliseconds to pause. Most command take words as arguments.  For example, COLOR requires a word such as RED, GREEN, or BLUE to specify a new color.  When you enter words as arguments to commands they can be abbreviated just like commands can be.  For example, <COLOR RED, GREEN> could be abbreviated to <C R, G>.
+
+The begin and end command characters do not have to be "<" and ">".  If the first character in the file is a "{", "[" or "(" the begin and end command characters will be set to "{" and "}", "[" and "]", or "(" and ")" respectively.  If you often need to print a "<" on the screen but never use parentheses you could use parentheses to mark the beginning and ending of commands.  If you need to display the begin command character you can place it between a begin and end command character and one begin command character will be printed to the screen.  For example, "<<>" would print the "<" character on the screen.  The end command character can be printed by simply typing it.  As long as it is not preceeded by a begin command character, the end command character can be used just like any other character.  For example, "5 > 4" would print "5 > 4" and "5 <<> 6 would print "5 < 6".  Simply typing "5 < 6" would not work because SLED would be expecting a command after the "<".
+
+When SLED reaches the end of the script it automatically loops back to the beginning of the script.  All global setting, such as colors, justification, and printing mode, are reset to their default values before the script is executed again.
+
+The following is the list of command that SLED supports. The first line shows the word used to invoke the command and the names of any arguments the command has.  Arguments that appear inside of brackets ("[" and "]") are optional
+arguments.  The following describe what the command does and what valid values for the arguments are.
+
+
+BACKGROUNDCOLOR [OFF_COLOR]
+Changes what color is used to draw LEDs that are turned off. If no OFF_COLOR is specified, OFF_COLOR is set to OFF by default.  The COLOR command can also be used to change the background color. Valid colors are:
+	BLACK
+	BLUE
+	DARKRED (same as OFF)
+	DARKGREEN	
+     GREEN
+	ON (same as RED)
+	OFF (same of DARKRED)
+	RED (same as ON)
+	WHITE
+	YELLOW
+
+CLEAR
+Turns off all LEDs.  (Clears the display)
+ERASE can be used in place of CLEAR.
+
+COLOR [ON_COLOR] [OFF_COLOR]
+Changes what color is used to draw LEDs.  ON_COLOR is the color used to draw text and OFF_COLOR is the color used to draw the text background.  If no ON_COLOR is specified, ON_COLOR is set to ON by default.  If no OFF_COLOR is specified, the OFF_COLOR is not changed.  The  OFF_COLOR can also be changed with the BACKGROUNDCOLOR command.  See the BACKGROUNDCOLOR command for a list of valid colors.
+
+COLORBACKGROUND [OFF_COLOR]
+See BACKGROUNDCOLOR
+
+DATE
+Displays the current date with the correct printing method. The date is displayed in the format specified by the control panel.
+
+DELAY [DELAY_TIME]
+Pauses for DELAY_TIME milliseconds.  During this time nothing at all happens.  This gives the user time to read the display.  If no DELAY_TIME is specified a default delay of 60 milliseconds (1 second) is used.  PAUSE or WAIT can be used in place of DELAY.  A default 1 second delay
+
+DOWN
+Changes the printing method to SCROLLDOWN.  This means that any text that fallows will be displays by scrolling it onto the screen from top to bottom. SCROLLDOWN can be used in place of DOWN.
+
+ENDLOOP
+See NEXT.
+
+ERASE
+See CLEAR
+
+FADE
+Changes the printing method to FADE.  This means that any text that fallows will be displayed by slowly transitioning from the previous display to the new text.  This slow transition is done by slowly turning LEDs on or off one at a time in a random order.
+
+FONT [FONT_NAME]
+Changes the font that all text is drawn with.  Valid FONT_NAMEs and NORMAL and FIXEDNUMBERS.  If no FONT_NAME is specified, NORMAL is used.  FIXEDNUMBERS is especially useful when displaying a clock because all the numbers are a fixed size rather than the usual proportionally spaced numbers.  SETFONT can be used in place of FONT.
+
+FOR COUNT
+Marks the beginning of a loop that will be repeated COUNT times.  The end of the loop must be marked with a NEXT command.  This is much like a FOR, NEXT loop in BASIC.  You can nest FOR, NEXT loops up to 5 levels deep.  In other words, you can have one FOR, NEXT loop inside of another FOR, NEXT loop.  Just don't start more than 5 FOR loops inside of each other.   LOOP can be used in place of FOR.
+
+INVERSE
+Changes the color of every LED on the screen so that all ON LEDs turn OFF and all OFF LEDs turn ON.  The current ON_COLOR and OFF_COLOR will also be swapped so that all text that is printed in the future will also be inversed.  Using the INVERSE command a second time will put everything back to normal. INVERT can be used in place of INVERSE.
+
+INVERT
+See INVERSE.
+
+JUSTIFICATION JUSTIFICATION_MODE
+Changes the JUSTIFICATION_MODE.  The justification mode is used to determine how all text is printed.  The only exception is SCROLLLEFT text witch is not justified at all because it is always moving.  Valid values for JUSTIFICATION_MODE are CENTER, LEFT, or RIGHT. SETJUSTIFICATION can be used in place of JUSTIFICATION.
+
+LEFT
+Changes the printing method to SCROLLLEFT.  This means that any text that fallows will be displayed by scrolling it across the screen from right to left.  SCROLLLEFT can be used in place of LEFT.
+
+LOOP COUNT
+See FOR.
+
+NEXT
+Marks the end of a FOR, NEXT loop.  See FOR.  ENDLOOP can be used in place of NEXT.
+
+PAUSE [DELAY_TIME]
+See DELAY.
+
+PRINT
+Changes the printing method to PRINT.  This means that any text that fallows will be displayed by simply printing the letters on the display without any scrolling or other effects.
+
+SCROLLDOWN
+See DOWN.
+
+SCROLLLEFT
+See LEFT.
+
+SCROLLOFF
+Clears the display by scrolling the contents to the left one LED at a time.  This is usually used at the end of some text that is being displayed with the <SCROLLLEFT> or <LEFT> command.  If your script contained "<LEFT>Hello World!" the words "Hello World!" would scroll onto the screen from the left but stop scrolling as soon as the last character was fully visible on the screen.  Ff you added SCROLLOFF after the text like this "<LEFT>Hello World!<SCROLLOFF>" then the word would continue to scroll left until they are completely off the screen.  Adding extra spaces to the end of your text has a similar effect but is not very accurate because SLED uses a proportional font and it is hard to know exactly how many spaces are needed.
+
+SETFONT
+See FONT.
+
+SET JUSTIFICATION
+See JUSTIFICATION.
+
+SO
+See SCROLLOFF.
+
+SCROLLUP
+See UP.
+
+TIME [WIDTH]
+Displays the current time with the correct printing method. By default only the first 8 characters of the current time are printed.  If a WIDTH is specified then WIDTH characters of the time as displayed.  WIDTH can be a value between 1
+and 11.  The time is displayed in the format specified by the control panel.
+
+TIMECHANGEWAIT
+Waits for the seconds on the clock to change to a time greater that the time that was on the clock last time the TIMECHANGEWAIT command was used.  This is especially useful when creating clock displays.  The script "<UP><TIME><TIMECHANGEWAIT>" would make the current time scroll up onto the display, wait for the time to change, and then loop back to the beginning and scroll up the new time. WAITFORTIMECHANGE can be substituted for TIMECHANGE.
+
+UP
+Changes the printing method to SCROLLUP.  This means that any text that fallows will be displays by scrolling it onto the screen from  bottom to top. SCROLLUP can be used in place of UP.
+
+WAIT [DELAY_TIME]
+See DELAY
+
+WAITFORTIMECHANGE
+See TIMECHANGE.
+
+WIPE [DIRECTION] [SHOW_LINE]
+Changes the printing method to WIPE.  This means that any text that fallows will be displays using a wipe effect that slowly changes on line of the display at a time.  The transition can be made from top to bottom, bottom to top, left to right, or right to left by specifying a DIRECTION of DOWN, UP, RIGHT, or LEFT respectively.  If no direction is specified then a direction of DOWN is assumed.  SHOW_LINE is a logical value that specifies weather of not the transition line should be visible.  Just try it to see what I mean. :)

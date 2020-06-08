@@ -1,0 +1,6 @@
+
+compile Twilight.cc keep=Twilight
+link Twilight random3.c plot2.c keep=Twilight
+copy -f Twilight *:system:cdevs:twilight:Twilight
+filetype *:system:cdevs:twilight:Twilight $bc $4004
+n

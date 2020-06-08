@@ -1,0 +1,6 @@
+
+compile Snow.cc keep=Snow
+link Snow random3.c plot2.c keep=Snow
+copy -f Snow *:system:cdevs:twilight:Snow
+filetype *:system:cdevs:twilight:Snow $bc $4004
+n

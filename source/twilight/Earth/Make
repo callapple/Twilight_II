@@ -1,0 +1,18 @@
+
+echo asml Earth2.asm keep=Earth2.d
+asml Earth2.asm keep=Earth2.d
+
+echo duplicate -d Earth2.d Earth2
+duplicate -d Earth2.d Earth2
+
+echo duplicate -r Earth2.r Earth2
+duplicate -r Earth2.r Earth2
+
+echo filetype Earth2 $BC
+filetype Earth2 $BC
+
+echo setfile Earth2 -at $4004
+setfile Earth2 -at $4004
+
+echo copy -c Earth2 /jim1/system/cdevs/Twilight/Large.Earth
+copy -c Earth2 /jim1/system/cdevs/Twilight/Large.Earth

@@ -1,0 +1,1188 @@
+This is the "source" file for the Headlines.Data file.  After making changes
+to this file you need to run Compile.HLs to generate a new Headlines.Data file.
+
+
+ <> Marks a key word
+ #text Marks substituted text (blank line ends list)
+ Program starts substitution with first key word. In this case <CODE>.
+ \ inserts a new line
+
+ In the interest of keeping the size of the Headlines.Data file to a minimum,
+ one and two byte pointers are used througout the data file.  This could easily
+ be changed if it needed to be but for now I want to keep the size of the data
+ file down and the following limits do not seem to be a problem.  Because of
+ the small pointers the following limits are currently imposed.
+
+  * These can be no more than 224 key word.
+  * There can be no more than 256 possible substitutions for each key word
+  * A Key Word can be no longer than 32 characters
+  * The total size of the Headline.Data file must not exceed 64k
+
+ The code used to generate a headline currently imposes the following limits
+
+  * The final "headline" generated at run time can be no longer than 255 characters
+  * The length of any line of substitution text must not exceed 255 characters
+  * The length of all the substitutions strings used to generate on phrase must not exceed 512 bytes.
+
+
+#CODE
+<CONST>
+<CONST>
+<APPLE>
+<APPLE>
+<CONST>
+<CONST>
+<CONST>...\<TRAILER>
+
+#APPLE
+Apple Computer, Inc. Discontinues The <NEW MAC> And Introduces A <REAL OLD MAC> Classic
+Apple Computer, Inc. Rolls Out A New <OTHER COMPUTER> Clone
+<APPLE BAD GUY> Kills Himself With <WEAPON>
+<APPLE BAD GUY> Deis From <DISEASE>
+After <NUMBER> Years Of No Advertising, The <APPLE II> Still Outsells The <NEW MAC>
+<CELEB> Owns <NUMBER> <APPLE II> Computers
+<ALIEN>s Steal <NUMBER> <MAC> Computers To Use As Ammunition
+<APPLE GOOD GUY> Uses <APPLE II> Computers To Control His New <UFO> On Its Mission To <PLANET>
+<APPLE GOOD GUY> Ports <OTHER OS> To The <APPLE II>
+The New <DISEASE> Computer Virus Wipes Out All Of Apple's Data
+Apple Decides To Switch To <COLOR> Color Scheme For All Of Their New <NEW MAC> Computers
+Apple Rolls Out A New <NATIONALITY> <MAC>
+Apple <SAYS> They Will Include A Free <NOUN> With All Of Their New <CRAZY MAC NAME> Computers
+Apple <SAYS> Their New <CRAZY MAC NAME> Computer Will Be Made Out Of <FRUIT>s
+Apple <SAYS> Their New <CRAZY MAC NAME> Computer Will Have A Built In <NOUN>
+Apple Computer, Inc. Has Changed Their Name To <FRUIT> Computer Inc.
+<CELEB> Buys The Rights To The Apple II Computer Family And Hires <APPLE GOOD GUY> To Continue Development
+Apple Offers An Upgrade To An <OLD APPLE> For <NEW MAC> Owners
+Apple Launches An Advertising Campaign Starring <FICTCHAR> To Promote Their New <CRAZY MAC NAME> Computer
+Apple Files Lawsuit Against <CLONE MANUFACTURER> For Copying The "Look And Feel" Of Their <COMPUTER DEVICE>
+<CLONE MANUFACTURER> Introduces An Apple IIGS Clone.
+<CLONE MANUFACTURER> Introduces A Notebook Version Of Their Apple IIGS Clone
+
+
+#MAC NAME SUFFIX
+<ROMAN NUMERALS><LETTERS>
+
+#CRAZY MAC NAME
+Macintosh <MAC NAME SUFFIX>
+Macintosh <MAC NAME SUFFIX>
+Mac <MAC NAME SUFFIX>
+Mac <MAC NAME SUFFIX>
+Power Book <LOW DIGIT><DIGIT>0
+Power Book Duo <LOW DIGIT><DIGIT>0
+Performa <DIGIT>00
+Quadra <DIGIT><DIGIT>00
+
+#APPLE BAD GUY
+John Sculley
+Sculley
+Bill Gates
+Steve Jobs
+
+#APPLE GOOD GUY
+The DYA
+Burger Bill
+Alan Bird
+Randy Brandt
+Matt Deatherage
+The FTA
+Bert Kersey
+Gary B. Little
+Dave Lyons
+Mark Simones
+Roger Wagner
+Steve Wozniak
+Woz
+
+#OTHER OS
+OS/2
+Windows 3.1
+Windows NT
+Macintosh System 7.1
+
+
+#COMPUTER
+<APPLE COMPUTER>
+<OTHER COMPUTER>
+
+#APPLE COMPUTER
+<MAC>
+<APPLE II>
+<OLD APPLE>
+
+#APPLE II
+Apple IIgs
+IIgs
+GS
+Apple IIc+
+Apple IIc
+Apple IIe
+Apple II
+Apple ][
+
+#OLD APPLE
+Apple ///
+Apple II+
+Apple I
+Apple Lisa
+Apple <REAL OLD MAC>
+
+
+#MAC
+<NEW MAC>
+<MID MAC>
+<OLD MAC>
+<REAL OLD MAC>
+<CRAZY MAC NAME>
+
+#NEW MAC
+<CRAZY MAC NAME>
+Quadra 950
+Quadra 800
+Quadra 700
+Power Book 180
+Power Book 145
+Power Book 160
+Power Book 165c
+Mac IIvx
+Mac IIci
+Mac IIsi
+Mac LC II
+Mac LC III
+Mac Classic II
+Can Color Classic
+Performa 200
+Performa 400
+Performa 600
+Mac Centris 610
+Mac Centris 650
+
+
+
+#MID MAC
+Power Book 170
+Power Book 140
+Power Book 100
+Mac LC
+Mac Classic
+
+#OLD MAC
+<REAL OLD MAC>
+Mac SE
+Mac SE/30
+Mac II
+Mac IIx
+Mac IIcx
+Mac IIfx
+Mac Portable
+
+#REAL OLD MAC
+Mac 128
+Mac 512
+Mac 512e
+Mac Plus
+
+#CLONE MANUFACTURER
+Acer
+AST
+Canon
+Compaq
+Compudyne
+Dell
+Gateway 2000
+Hewlett Packard
+IBM
+NEC
+Packard Bell
+Texas Instruments
+Toshiba
+Zenith
+Zeos
+
+
+#COMPUTER DEVICE
+Keyboard
+Mouse
+Monitor
+Floppy Disk Drive
+RAM Chips
+Power Switch
+Power Cord
+Printer Cable
+Printer Ribbon
+
+
+#OTHER COMPUTER
+Amiga 500
+Commodore 64
+IBM PS/2
+IBM PS/1
+IBM XT
+IBM PC
+IBM AT
+486
+386
+286
+PC Junior
+PC Convertible
+
+#ROMAN NUMERAL
+I
+I
+II
+I
+I
+I
+I
+I
+I
+II
+X
+M
+
+#ROMAN NUMERALS
+<ROMAN NUMERAL>
+<ROMAN NUMERAL><ROMAN NUMERAL>
+<ROMAN NUMERAL><ROMAN NUMERAL>
+
+#LETTERS
+<LETTER>
+<LETTER>
+<LETTER>
+c<LETTER>
+c<LETTER>
+<LETTER>x
+<LETTER>x
+<LETTER><LETTER>
+<LETTER>/<DIGIT>0
+
+#LETTER
+a
+b
+c
+d
+e
+f
+g
+h
+i
+j
+k
+l
+m
+n
+o
+p
+q
+r
+s
+t
+u
+v
+w
+x
+y
+s
+
+#PERSONCELEB
+<PERSON>
+<CELEB>
+
+#PERSON
+<KILLER>
+<OCCUPATION>
+Football Player
+Baseball Player
+Man
+Woman
+TV Personality
+Game Show Host
+Network Anchorman
+Best-selling Author
+Politician
+<CELEB>'s <RELATIVE>
+Environmentalist
+Famous Economist
+<SCIENTIST>
+<DOCTOR>
+<NATIONALITY> <SCIENTIST>
+<NATIONALITY> <DOCTOR>
+Student
+<NATIONALITY> Student
+
+#PEOPLE
+People
+Men
+Women
+Senior Citizens
+Politicians
+Real-Estate Agents
+<SCIENTIST>s
+Students
+Movie-goers
+Voters
+<DOCTOR>s
+College Professors
+Bystanders
+<RELIGION> Students
+<NATIONALITY> Nationals
+
+#CELEB
+<MCELEB>
+<FCELEB>
+<MCELEB>
+<FCELEB>
+<MCELEB>
+<FCELEB>
+<APPLE GOOD GUY>
+<APPLE BAD GUY>
+
+#MCELEB
+Douglas Adams
+Mohammad Ali
+James Brown
+George Bush
+Johnny Carson
+Prince Charles
+Chevy Chase
+Howard Cosell
+Bill Clinton
+Clint Eastwood
+Elvis
+Dwight Gooden
+Al Gore
+Michael Jackson
+Mick Jagger
+Brian Kernighan
+Mohammar Khadafi
+Henry Kissinger
+Rush Limbaugh
+George Lucas
+Richard Nixon
+Donny Osmond
+Ross Perot
+Dan Quayle
+Ronald Reagan
+Dennis Ritchie
+George Schultz
+Frank Sinatra
+Sylvester Stallone
+Donald Trump
+Mike Wallace
+
+#FCELEB
+Barbara Bush
+Hillary Clinton
+Princess Diana
+Queen Elizabeth
+Jane Fonda
+Whoopie Goldberg
+Tipper Gore
+Mary Hart
+Madonna
+Nancy Reagan
+Mary Lou Retten
+Linda Rondstadt
+Doctor Ruth
+Cybil Shepherd
+Elizabeth Taylor
+Margaret Thatcher
+Barbara Walters
+Vanna White
+Oprah Winfrey
+
+#TOUGH
+Rambo
+Ninja Warrior
+Dirty Harry
+James Dean
+James Bond
+Al Capone
+Bruce Lee
+The Godfather
+
+#RELATIVE
+Father
+Mother
+Stepfather
+Stepmother
+Brother
+Sister
+Uncle
+Aunt
+Grandfather
+Grandmother
+Son
+Daughter
+Illegitimate Son
+Illegitimate Daughter
+Nephew
+Niece
+
+#RELIGION
+Buddhist
+Methodist
+Baptist
+Jewish
+Scientologist
+Rajneeshi
+Islamic
+Moslem
+Roman Catholic
+Atheist
+Fundamentalist
+Agnostic
+Taoist
+Presbyterian
+Lutheran
+Mormon
+
+#OCCUPATION
+Avon Lady
+Clown
+Computer Programmer
+Dog-Catcher
+Fuller Brush Salesman
+Garbageman
+Gardener
+Hairdresser
+IRS Agent
+Manicurist
+Mailman
+Milkman
+Paperboy
+Postman
+UPS Deliveryman
+
+#WEAPON
+Axe
+Carving Knife
+Chainsaw
+Crossbow
+Meat Cleaver
+Hatchet
+Howitzer
+Garden Hoe
+Machete
+Grenade
+Hacksaw
+Samurai Sword
+Razor Blade
+Switchblade
+Penknife
+Swiss Army Knife
+Shotgun
+Machine Gun
+Laser Beam
+Particle Beam
+Uzi Submachine Gun
+
+#BODYPART
+Leg
+Arm
+Head
+Hand
+Foot
+Finger
+Toe
+Nose
+Ear
+Eye
+Hair
+Lungs
+Stomach
+Intestine
+Liver
+Heart
+Pancreas
+Spleen
+Pituitary Gland
+Kidney
+Brain
+Skin
+Fat
+
+#FRUIT
+Mango
+Tomato
+Banana
+Cherry
+Plum
+Pear
+Peach
+Watermelon
+Kiwi Fruit
+Rhubarb
+Orange
+Tangerine
+Lemon
+Lime
+Grape
+Raisin
+
+#LUNCH
+Taco
+<FRUIT>
+Enchilada
+Burrito
+Chile Relleno
+Tostada
+Hamburger
+TV Dinner
+Chicken McNuggets
+Fried Chicken
+Fish and Chips
+Pizza
+English Muffin
+Bagel
+Ham Sandwich
+Tuna Casserole
+
+#COLOR
+Purple
+Orange
+Violet
+Red
+Green
+Yellow
+Magenta
+Vermillion
+Fuchsia
+Pink
+Blue
+White
+Black
+Grey
+
+#NATIONALITY
+American
+Australian
+Belgian
+British
+Canadian
+Chinese
+Cuban
+French
+German
+Haitian
+Iranian
+Israeli
+Italian
+Japanese
+Russian
+Soviet
+Polish
+Swiss
+Spanish
+Mexican
+Nicaraguan
+Bolivian
+Swedish
+Romanian
+Libyan
+Scottish
+
+#LOW DIGIT
+1
+2
+3
+
+#DIGIT
+1
+2
+3
+4
+5
+6
+7
+8
+9
+
+#NUMBER
+<NUMBER1>
+<NUMBERTEXT>
+Twenty-<NUMBER1>
+Thirty-<NUMBER1>
+Forty-<NUMBER1>
+Fifty-<NUMBER1>
+Sixty-<NUMBER1>
+Seventy-<NUMBER1>
+Eighty-<NUMBER1>
+Ninety-<NUMBER1>
+
+#NUMBER1
+One
+Two
+Three
+Four
+Five
+Six
+Seven
+Eight
+Nine
+
+#NUMBERTEXT
+Ten
+Eleven
+Twelve
+Thirteen
+Fourteen
+Fifteen
+Sixteen
+Seventeen
+Eighteen
+Nineteen
+
+#KILLER
+<KILLERX>
+<KILLERX>
+<KILLERX>
+<MADNESS> <KILLERX>
+
+#KILLERX
+<FRUIT>
+<ANIMAL>
+<ANIMAL>
+<ANIMAL>
+<ANIMAL>
+<ANIMAL>
+<RELATIVE>
+
+#ANIMAL
+Baboon
+Bat
+Bear
+Beatle
+Beaver
+Bison
+Boar
+Brontosaur
+Bulldog
+Bullfrog
+Burro
+Buffalo
+Camel
+Catfish
+Chimpanzee
+Chipmunk
+Clam
+Collie
+Cougar
+Cow
+Crocodile
+Dachshund
+Deer
+Dinosaur
+Doberman
+Dolphin
+Donkey
+Eagle
+Elephant
+Ewok
+Flamingo
+Fox
+Giraffe
+Goat
+Gorilla
+Great White Shark
+Guinea Pig
+Hippopotamus
+Honeybee
+Hyena
+Kitten
+Lion
+Leopard
+Lobster
+Panda
+Pig
+Piranha
+Rhinoceros
+Rooster
+Shark
+Stegosaur
+Teddy Bear
+Tiger
+Wasp
+Whale
+Wolf
+Wombat
+Worm
+
+#SPIRITUAL
+Spiritual
+Holy
+Psychic
+Mystical
+Psionic
+Telepathic
+Telekinetic
+
+#MADNESS
+Crazed
+Drug-Crazed
+Insane
+Demented
+Manic-Depressive
+Neurotic
+Psychotic
+Psychopathic
+Right-Wing
+Left-Wing
+Religious
+Fanatical
+Pathological
+
+#PLACE
+Australia
+Boise
+Burbank
+Cavern
+Chicago
+Cosmos
+Cupertino
+England
+Far East
+Honolulu
+LA
+Milwaukee
+Missouri
+Nevada
+New Jersey
+New York
+Outer Space
+Portland
+Redwood City
+San Franciso
+San Jose
+Seattle
+St. Louis
+Universe
+Waikiki Beach
+Washington
+
+#PLANET
+Pluto
+Mars
+Venus
+Mercury
+Neptune
+Uranus
+Saturn
+Jupiter
+Titan
+Alpha Centauri
+The Moon
+Voltron
+Vulcan
+Romulus
+
+#SAYS
+Says
+Reveals
+Admits
+Claims
+Insists
+
+#SAY
+Say
+Reveal
+Admit
+Claim
+Insist
+
+#BABY
+Baby
+Newborn
+Child
+Infant
+Son
+Daughter
+
+#FICTCHAR
+James Bond
+Lochness Monster
+Captain Hook
+Micky Mouse
+Santa Claus
+Bigfoot
+Snow White
+Great Pumpkin
+Missing Link
+Captain Hook
+Tinkerbell
+Winnie the Pooh
+Peter Pan
+Mary Poppins
+Loch Ness Monster
+Wicked Witch of the East
+Wizard of Oz
+Captain Kirk
+Kermit the Frog
+Batman
+Superman
+Spiderman
+Easter Bunny
+Abominable Snowman
+Honest Politician
+Dracula
+Cyclops
+Bigfoot
+Elvis
+Elvis
+<ALIEN>
+
+#ALIEN
+Alien
+ET
+Extra-Terrestrial
+Space Alien
+Space Creature
+Space Being
+Space Robot
+Alien Creature
+Alien Being
+Alien Robot
+
+#GHOST
+Ghost
+Evil Spirit
+Poltergeist
+Demon
+Phantom
+Boogieman
+Wolfman
+Vampire
+Leprechaun
+Banshee
+Gremlin
+Zombie
+
+#DISEASE
+Herpes
+Flu
+Cold
+Arthritis
+Leprosy
+VD
+Mumps
+Acne
+Sinusitis
+Skin Rash
+The Plague
+Hemorrhoids
+Athlete's Foot
+Hay Fever
+Shingles
+Varicose Veins
+Backache
+Chicken Pox
+Tooth Decay
+Bad Breath
+Headache
+
+#DOCTOR
+Doctor
+Psychologist
+Psychiatrist
+Physician
+Neurologist
+Proctologist
+Gynecologist
+Dentist
+Optician
+
+#SCIENTIST
+Scientist
+Scientist
+Scientist
+<DOCTOR>
+Chemist
+Paleontologist
+Archaeologist
+Physicist
+Meta-Physicist
+Engineer
+Computer Scientist
+Professor
+
+#KILLED
+Ate
+Devoured
+Kidnapped
+Took
+Killed
+Maimed
+Injured
+Assassinated
+
+#KILLS
+Kills
+Murders
+Maims
+Crushes
+Strangles
+Terrorizes
+Socks
+Punches
+Slaughters
+Mutilates
+Shoots
+Mugs
+
+#AIRCRAFT
+Aeroplane
+Airplane
+Helicopter
+Hang Glider
+Airship
+Hot-Air Balloon
+Helium Balloon
+<UFO>
+Space Shuttle
+Jet Fighter
+Stealth Fighter
+747
+DC-10
+
+#UFO
+Flying Saucer
+Alien Ship
+Alien Spacecraft
+Alien Space Probe
+Invisible Spaceship
+Spaceship
+Spacecraft
+Space Cruiser
+Death Star
+
+#MILITARY
+Army
+Air Force
+Navy
+National Guard
+Coast Guard
+
+#ADJECTIVE
+Morbid
+Organic
+Lucid
+Volatile
+Ultraviolet
+Incestuous
+Insipid
+Mangy
+Beautiful
+Sensuous
+Pulsating
+Autonomous
+Royal
+Turbo-Charged
+Jet-Propelled
+Subnormal
+Hasty
+Lovely
+Happy
+Ecstatic
+Lonely
+<COLOR>
+Hard
+Slimy
+Awful
+Wonderful
+Grotesque
+Decent
+Indecent
+Homicidal
+Cloudy
+Smelly
+Synthetic
+Heavy
+Cosmic
+Mutant
+Radioactive
+Brutal
+Love-Crazed
+
+#NOUN
+<COMPUTER>
+<COMPUTER DEVICE>
+Camera
+Lemon
+Laxative
+Snob
+Idiot
+Genius
+Intellectual
+Yogurt
+Alien
+Iron Lung
+Car
+Airplane
+Aluminum
+Aphrodisiac
+Diarrhea
+Yellow Submarine
+Torso
+Bubblegum
+Peanut Butter
+Bagel
+Gnome
+Rabbit
+Carp
+Chicken Sandwich
+<ANIMAL>
+<FRUIT>
+Coke Machine
+Aardvark
+Gorilla
+Tyrannosaurus Rex
+Mug Root Beer
+Hitchhikers Guide To The Galaxy
+
+#VERB
+Massacre
+Murder
+Love
+Magnify
+Beautify
+Violate
+Rotate
+Scream
+Murmur
+Whisper
+Enlighten
+Nuke
+Pinch
+Throw
+Thrash
+Abandon
+Create
+Destroy
+Mount
+Gestate
+Generate
+Maintain
+Fly
+Hasten
+Frequent
+Approach
+Laminate
+Herniate
+Concatenate
+Write
+Dilate
+Articulate
+Plant
+Rescind
+Plough
+Eat
+Mow
+Grow
+Grope
+Sacrifice
+Idolize
+Jellify
+Adulterate
+Stipulate
+Hallucinate
+Support
+Fondle
+Caress
+Touch
+Descend
+Ascend
+Meditate
+Project
+Eject
+Incarcerate
+Remove
+Protect
+Tumble
+
+#TRAILER
+<PERSON> Reveals All
+Exclusive Pictures Inside
+Photographic Evidence Offers Proof
+Rare Photos Uncovered
+Public Shocked
+
+#CONST
+<PERSONCELEB> Caught Selling <NATIONALITY> Army <WEAPON>s
+<FCELEB> <SAYS> <BABY> Is <ADJECTIVE>
+<FCELEB> Gives Birth To <BABY> With Extra <BODYPART>
+<FCELEB> Gives Birth To <BABY> With <COLOR> <BODYPART>
+<ALIEN> Discovered With <DISEASE>
+<CELEB> Caught Selling <NATIONALITY> Army <WEAPON>s
+<PERSONCELEB> Sights <ALIEN> In <PLACE>
+<CELEB> Accepts Job As <OCCUPATION>
+<PERSONCELEB> Goes To <PLACE> In Search Of <ALIEN>
+<PERSONCELEB> Goes To <PLACE> In Search Of <RELATIVE>
+Giant <FRUIT> Seen Heading Toward <PLACE>
+Giant <COLOR> <FRUIT> Seen Heading Toward <PLACE>
+<MCELEB> Weds <FCELEB> At <NATIONALITY> Court House
+"Killer <KILLER>s From <PLANET> <KILLED> My <BABY>" <SAYS> <CELEB>
+"<CELEB> Is Really <ALIEN> From <PLANET>," <SAYS> <CELEB>
+"<CELEB> Is Really <ALIEN> From <PLANET>," <SAY> <NATIONALITY> <SCIENTIST>s
+<MCELEB> And <FCELEB> Secretly Wed In <PLACE>, It's Official!
+Eating <FRUIT>s Can Give You <DISEASE>, <SAY> <NATIONALITY> <DOCTOR>s
+"<ALIEN>s From <PLANET> Gave Me <DISEASE>" <SAYS> <CELEB>
+"<FICTCHAR> Is For Real." <SCIENTIST>s Come Up With Irrefutable Proof
+"<MCELEB> Is Really My Father," <SAYS> <CELEB>
+"<FCELEB> Is Really My Mother," <SAYS> <CELEB>
+<AIRCRAFT> Lands After Missing For <NUMBER> Years.  <CELEB> Was Still On Board
+<CELEB> <KILLS> <NUMBER> <PEOPLE> In Drunken Rampage
+<CELEB> Falls <NUMBER> Thousand Feet Out Of <AIRCRAFT>...\And Survives
+"<ALIEN>s From <PLANET> Landed In My Garden And Ate <NUMBER> <FRUIT>s," <CELEB> <SAYS>
+<FCELEB> Gives Birth To <NUMBERTEXT>th <BABY>
+<RELIGION> Monks Report <UFO> Sighting In <PLACE>
+Real Life Ghost Busters Exorcise <GHOST>\From <CELEB>'s Home In <PLACE>
+Pet <KILLER> <KILLS> <BABY>
+<ANIMAL> Photographed In Flight, Reveal <NATIONALITY> <SCIENTIST>s
+"I Chopped My <RELATIVE> To Death With <WEAPON>" <SAYS> <PERSON>
+<MCELEB> Sold Arms To <NATIONALITY> Government, <SAYS> <RELIGION> Terrorist
+<NATIONALITY> Government Supplying Arms To <RELIGION> Rebels
+<PERSON> Goes Berserk And <KILLS>\<NUMBER> <PEOPLE> With <WEAPON>
+<FCELEB> Tells Of Night Of Terror With <MCELEB>:\"He Threatened Me With <WEAPON>."
+<MCELEB> Tells Of Night Of Terror With <FCELEB>:\"She Threatened Me With <WEAPON>."
+<FRUIT>s Have <SPIRITUAL> Powers, Say <MADNESS> <SCIENTIST>s
+<PERSONCELEB> Sees Face Of <FICTCHAR> In <LUNCH>
+<SCIENTIST>s Produce <MADNESS> <SPIRITUAL> Girl
+<PERSON> <KILLS> <NUMBER> <PEOPLE> With <WEAPON>, Then Is Acquitted By Jury
+<NUMBER> Years For <WEAPON> Murderer:\"I Would Do It Again" Says <PERSON>
+<PERSON> Struck By Lightning For The <NUMBERTEXT>th Time
+Jury Acquits Notorious <WEAPON> Murderer From <PLACE>
+"My <DOCTOR> Told Me To Smoke <FRUIT>s," <PERSON> <SAYS> Following Drug Test
+<FCELEB>'s Famous Diet: "I Ate My Own <BODYPART>."
+<FCELEB> Pregnant With My Child, <SAYS> <MCELEB>
+"I'm Pregnant With <MCELEB>'s Child," <SAYS> <FCELEB>
+<RELIGION> <SCIENTIST> Really <ALIEN> From <PLANET>
+<WEAPON> Murderer Survives Electric Chair For <NUMBERTEXT>th Time
+<MCELEB> And <FCELEB> Seen Together In <PLACE>:\"Is It Love?"
+<CELEB>'s Famous <FRUIT> Diet Really Works
+<TOUGH> <KILLS> <FICTCHAR> In Latest Flick
+<PERSONCELEB>'s Bizarre Claim:\"<SCIENTIST>s Planted Mind Control Device In My Head."
+"Does <FICTCHAR> Exist?" <SCIENTIST>s Offer New Evidence
+"<FICTCHAR> <KILLED> My <BABY>," <SAYS> <PERSON>
+<MCELEB> Kills <NUMBER> <PEOPLE>; "I Thought I Was <TOUGH>."
+Nude Pictures Of <CELEB>'s <RELATIVE> Cause Uproar
+<FICTCHAR> Seen In Ancient Cave Paintings, <SAY> <SCIENTIST>s
+<RELIGION> <DOCTOR> Finds Cure For <DISEASE>, <SAY> <SCIENTIST>s
+Weight Loss Scandal: <DOCTOR> Removes <PERSON>'s <BODYPART>
+<CELEB> Has <DISEASE>: "<PERSONCELEB> Gave It To Me."
+<AIRCRAFT> Fends Off <ALIEN> From <PLANET>
+<ALIEN>s From <PLANET> Held Captive By <MILITARY>
+Astronomers See <UFO> <NUMBER> Light-Years Away,\And Coming Our Way
+<PERSON> Lost On <PLACE> Freeways For <NUMBERTEXT> Days
+<MCELEB> To Portray <TOUGH> In Next Flick
+<DOCTOR> With <DISEASE> Allowed To Practice In <PLACE>
+<NOUN> Traded for Human <BODYPART> By <NATIONALITY> <PERSON>
+<MADNESS> <SCIENTIST>s <VERB> <NOUN>\"Drugs Are Suspected"
+<ADJECTIVE> <NOUN> Found On <PLANET>, Reveal <SCIENTIST>s
+<FICTCHAR> Sighted Buying <NOUN> In <PLACE> Shopping Mall
+Elvis Sighted Buying <NOUN> In <PLACE> Shopping Mall
+"I Ran Into <FICTCHAR> In <PLACE> McDonald's," <PERSON> <SAYS>
+I Sold My <BABY> To <CELEB> For <NUMBER> Dolars <SAYS> <PERSON>
+Half Man, Half <ANIMAL> Baffles <SCIENTIST>
+<FCELEB> Gives Birth To Baby <ANIMAL>
+<NATIONALITY> Woman Gives Birth To Siamese Twins Joined At The <BODYPART>
+<FCELEB> Gives Birth To Siamese Twins Connected At The <BODYPART>
+Teenage <ADJECTIVE> Ninja <ANIMAL>s Invade <PLACE>

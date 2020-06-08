@@ -1,0 +1,6 @@
+
+compile Inverter.cc keep=Inverter
+link Inverter keep=Inverter
+copy -f Inverter *:system:cdevs:twilight:Inverter
+filetype *:system:cdevs:twilight:Inverter $bc $4004
+nda

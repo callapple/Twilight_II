@@ -1,0 +1,6 @@
+
+compile Scroll.cc keep=Scroll
+link Scroll keep=Scroll
+copy -f Scroll *:system:cdevs:twilight:Scroll
+filetype *:system:cdevs:twilight:Scroll $bc $4004
+n

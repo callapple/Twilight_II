@@ -1,0 +1,83 @@
+
+#include "types.rez"
+#include "22:t2common.rez"
+
+resource rT2ModuleFlags (moduleFlags) {
+	fFadeOut+fFadeIn,	// module flags word
+	$01,						// enabled flag (unimplemented)
+	$0101,					// minimum T2 version required
+	NIL,						// reserved
+	"Earth"					// module name
+};
+
+// --- About text resource
+
+resource rTextForLETextBox2 (moduleMessage) {
+	TBLeftJust
+	TBBackColor TBColorF
+	TBForeColor TBColor4
+	"Earth"
+	TBForeColor TBColor1
+	" gives you a dazzling full-color view of the rotating earth, as it would"
+	" appear from outer space."
+};
+
+// --- Version resource
+
+resource rVersion (moduleVersion) {
+       { 1,0,1,alpha,1 },             // Version 1.0.1a1
+       verUS,                             // US Version
+       "T2 Earth Module",     // program's name
+       "By J.Maricondo. Art by R&D Bagdadi.\n"
+       "Copyright 1991-4, Jim Maricondo."    // copyright notice
+};
+
+// --- icon resource
+
+resource rIcon (moduleIcon) {
+       $8000,                  // kind
+       $0014,                  // height
+       $001C,                  // width
+
+       $"FFF0000000000000000000000FFF"
+       $"FFF0FFFFFFFFFFFFFFFFFFFF0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0F000000000001111100F0FFF"
+       $"FFF0F030000000081811880F0FFF"
+       $"FFF0F003000000088111180F0FFF"
+       $"FFF0F000300000081111110F0FFF"
+       $"FFF0F0300300F0018111110F0FFF"
+       $"FFF0F003000F00001111100F0FFF"
+       $"FFF0F00030F00F000000000F0FFF"
+       $"FFF0F0300F00F00F0000000F0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0FFFFFFFFFFFFFFFFAFFF0FFF"
+       $"FFF0000000000000000000000FFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FF4AFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0CCCCCCCCCCCCCCCCCC0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFAFF0FFFF"
+       $"FFFF00000000000000000000FFFF",
+
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000";
+};

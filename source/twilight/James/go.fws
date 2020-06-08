@@ -1,0 +1,6 @@
+
+compile Fireworks.cc keep=Fireworks
+link Fireworks random3.c plot2.c keep=Fireworks
+copy -f fireworks *:system:cdevs:twilight:fireworks.slnt
+filetype *:system:cdevs:twilight:fireworks.slnt $bc $4004
+nda

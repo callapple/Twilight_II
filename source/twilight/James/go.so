@@ -1,0 +1,6 @@
+
+compile ShortOut.cc keep=ShortOut
+link ShortOut Random3.c keep=ShortOut
+copy -f ShortOut *:system:cdevs:twilight:ShortOut
+filetype *:system:cdevs:twilight:ShortOut $bc $4004
+nda

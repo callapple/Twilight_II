@@ -1,0 +1,6 @@
+
+compile DripDrop.cc keep=DripDrop
+link DripDrop random3.c keep=DripDrop
+copy -f DripDrop *:system:cdevs:twilight:DripDrop
+filetype *:system:cdevs:twilight:DripDrop $bc $4004
+nda

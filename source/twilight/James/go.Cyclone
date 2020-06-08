@@ -1,0 +1,6 @@
+
+compile Cyclone.cc keep=Cyclone
+link Cyclone random3.c keep=Cyclone
+copy -f Cyclone *:system:cdevs:twilight:Cyclone
+filetype *:system:cdevs:twilight:Cyclone $bc $4004
+nda
