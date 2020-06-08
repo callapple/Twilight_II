@@ -1,0 +1,85 @@
+
+#include "types.rez"
+#include "22:t2common.rez"
+
+resource rT2ModuleFlags (moduleFlags) {
+	fMostCommonPalette+
+	fLeavesUsableScreen+
+	fReqUsableScreen, 			// module flags word
+	$01,						// enabled flag (unimplemented)
+	$0110,					// minimum T2 version required
+	NIL,						// reserved
+	"Puzzling"				// module name
+};
+
+// --- About text resource
+
+resource rTextForLETextBox2 (moduleMessage) {
+	TBLeftJust
+	TBBackColor TBColorF
+	TBForeColor TBColor5
+	"Puzzling"
+	TBForeColor TBColor1
+	" turns your screen into a mosaic of constantly swapping rectangular "
+	"puzzle pieces."
+};
+
+// --- Version resource
+
+resource rVersion (moduleVersion) {
+       {1,0,0,release,0},        // Version
+       verUS,                    // US Version
+       "T2 Puzzling Module",     // program's name
+       "By J. Maricondo and Stich.\n"
+       "Copyright 1991-93, Jim Maricondo."    // copyright notice
+};
+
+// --- About icon resource
+
+resource rIcon (moduleIcon) {
+       $8000,                  // kind
+       $0014,                  // height
+       $001C,                  // width
+
+       $"FFF0000000000000000000000FFF"
+       $"FFF0FFFFFFFFFFFFFFFFFFFF0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0F0FFFFFF00000FFFFF0F0FFF"
+       $"FFF0F0F8888A00000F888A0F0FFF"
+       $"FFF0F0F88AA0000FF8888A0F0FFF"
+       $"FFF0F0F8A00000F888888A0F0FFF"
+       $"FFF0F0F8A00000F888888A0F0FFF"
+       $"FFF0F0F88BB0000AA8888A0F0FFF"
+       $"FFF0F0F8888A00000F888A0F0FFF"
+       $"FFF0F0FAAAAA00000FAAAA0F0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0FFFFFFFFFFFFFFFFAFFF0FFF"
+       $"FFF0000000000000000000000FFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FF4AFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0CCCCCCCCCCCCCCCCCC0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFAFF0FFFF"
+       $"FFFF00000000000000000000FFFF",
+
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000";
+};

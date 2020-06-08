@@ -1,0 +1,127 @@
+Twilight II Quotes Module v1.1					Notes
+by Eric D. Shepherd
+
+Quotes randomly selects a text message and displays it in a colored frame on the 640-mode super-hires screen.  You can easily add, replace, and delete quotes using Setup in Twilight II.
+
+The default display time is 15 seconds; you can change this by using the data field control labelled “Time”.  You can select from among the following options: 5 seconds, 10 seconds, 15 seconds, 20 seconds, 30 seconds, 1 minute, 2 minutes, 5 minutes, 10 minutes, and 15 minutes.
+
+The quotes are kept in are kept in a file in the Twilight directory called "QuotesFile", as is the resource which tracks how many quotes are available.  The delay setting is kept in Twilight.Setup.  This has changed since Quotes v1.0, which kept all these resources in Quotes' own resource fork.  Actually, the file must have the same pathname as Quotes, but with “File” appended to the end of it.  So if Quotes is located at “:Googolplex:Zippy:Dee:Doo:Dah”, then QuotesFile must be named “:Googolplex:Zippy:Dee:Doo:DahFile”.
+
+By the way, if you made lots of changes to the quotes back before QuotesFile, you can just rename your old copy of Quotes as QuotesFile, although you’ll be missing out on lots of new stuff.  That should work with no problems.  If you want, you can remove the data fork and the non-LETextBox2 resources (although you need to leave the quotecount resource).
+
+The horizontal scroll bar at the bottom of the window is used to select which quote you wish to view and/or modify.  The number to the right of that is the quote number you are viewing.  The most visible control is the large, black, TextEdit box.  This is where the quote text is displayed.  This scroll bar will be changed into a series of easy-to-use icons in the next version of Quotes; I've begun the coding, but have had no end of trouble actually getting it to work, so I’ll deal with it for another version.  If you’ve set your WaitUntil delay to be smaller than normal, you’ll find that the scroll bar is terribly difficult to maneuver (part of the reason I want to replace it).  Also, if you try to scroll without saving a changed quote, an alert will ask if you’d like to save it first.
+
+Above this are three buttons: Add, Replace, and Delete.  Clicking the Delete button will delete the currently displayed quote.  Clicking the Replace button will save the current contents of the TextEdit box into the quote number displayed in the lower-right corner of the Setup window.  Clicking the Add button will add a new quote, placing the contents of the TextEdit box into it.  Note that clicking these buttons causes their respective actions to occur immediately, and that the Update button is only used for the Delay data field control and Disk events unblank checkbox.
+
+All the standard TextEdit keys function normally; the most useful are:
+
+	Control-C		Copy
+	Control-V		Paste
+	Control-X		Cut
+
+There is a limit of 768 characters in the TextEdit box.  This is done to avoid excessively large quotes which might be too long to read in the period of time they are displayed onscreen.  However, for extremely long quotes, Quotes automatically adds three seconds to the time the text is displayed onscreen.  If you really want to get around the 768 character limit, edit QuotesFile using Foundation. :)  This value has been changed from 500 to 768 because some very cool quotes really need more space to be included (ignoring entirely the fact that very few people read fast enough to catch the entire message before a new one appears— but that’s why the speed is configurable).
+
+There are also a number of keyboard equivalents:
+
+	Apple-?	Help (lists these keys)
+	Apple-A	Select all
+	Apple-B	Bold
+	Apple-F	Fix colors (sets current selection to white on black)
+	Apple-I	Italic
+	Apple-L	Underline (this works if you have ShastonUL.8 installed in your
+			  *:System:Fonts folder)
+	Apple-O	Outline
+	Apple-S	Shadow
+	Apple-T	Plain text
+
+Fix Colors is provided so that if you paste text into the Quotes text box, you can correct the colors, which will usually be black on white instead of white on black.
+
+Changes Intended to Go In Eventually
+1. I intend to remove that annoying scroll bar and replace it with a set of icons for moving through the quotes.  By the way, if you've set your WaitUntil scaling fast, you'll have a tough time handling this scroll bar.
+2. I want to make the cursor change into an I-beam when it is over the TextEdit control, but I’m generally too lazy to do it.  This feature will be added if/when Jim adds a T2Idle message.
+3. I’d like to add a “search” feature, where the user could enter text and scan all the quotes for any occurrances of that text.
+4. I plan to eventually add code so that if the first line of the quote begins with a certain character combination or string, the remainder of that line is interpreted as commands to Quotes, including a “width” parameter, which would allow odd-sized quotes to specify special widths so that they look better onscreen.
+
+
+Eventually I’m going to write an application for merging quotes files together.  I’ve decided “to hell with my plan to add it right into the module”.  What a pain in the neck that’d be. :)
+
+
+Version 1.1f6 a.k.a version 1.1
+I had a thought (don’t be too surprised): some of the quotes contained in this default QuotesFile might not be appropriate for certain users (or perhaps might be offensive).  Some kind of warning may be warranted.  Opinions?
+
+1. Corrected some glitches in the moduleFlags; I was using a number of archaic definitions left over from T2 v1.0 and 1.0.1.
+2. Fixed the Twilight II required version number from 1.0.1 to 1.1.
+3. Changed the maximum size of the text in the TextEdit control from 500 to 768 characters.
+4. Scanned all the quotes and did the best I could to make them look decent onscreen.  Also added and removed a few more quotes.
+
+
+Version 1.1f5
+I don’t know what came of this version.  I sent out an f4 version, and the next time I remember examining the resource fork, it was set to f6, so I assume that I accidentally incremented the version twice.  No big deal.
+
+
+Version 1.1f4
+My TransWarp GS completely died yesterday, leaving me running at 2.6 MHz.  It would have to wait until my life savings/college education fund was down to $650.  Damn!
+
+0. This version of Quotes requires T2 version, er... 1.1f4?  Is that the one?  At any rate, it requires the version with T2ShareMemory implemented. :)
+1. When setup is open, any form of blanking will always display the quote that Setup is displaying first.  This allows the user to look at each quote to verify that it looks acceptable at blank time.  At the moment, this is being done by storing “TQ” and the quote number at $00/0350, which isn’t really proper behavior.  If I don’t find a more appropriate way to do this before release time, I may remove this feature.
+2. Corrected several system-killer bugs in the help feature.  I had intentionally been allowing the user to manipulate desk accessories while help was open, but this did not work well since closing Quotes with the help window open would orphan the help window.  I fixed this so that closing Quotes would also close the help window, but that left the DoModalWindow loop for the help feature orphaned and still running with no windows onscreen after closing Quotes with Help open!  So now I just don’t allow DA actions while viewing Help, which is a damned shame.  However, there is still code in place to close the Help window when Quote setup closes, just in case.  Eventually, when I lose my current touch of laziness, I’ll rig this up to work.
+5. Now uses T2ShareMemory to save the quote number to display [see (1)], so Quotes no longer does anything illegal.
+6. Cleaned up more quotes.  By the time Twilight II 1.1 is finished, I intend to have gone through every quote one by one, doing the best I can to make them look acceptable at blank time.
+
+Version 1.1f3
+1. Added the best of the remaining quotes sent to me by Marc Wolfgram and Jim.  If you have any you’d like to see added, send ‘em!
+2. The “Fix Colors” option (Apple-F) now also sets the font to Shaston and the size to 8.  This makes it even easier to cut-and-paste text from other files.
+3. Adjusted the help text somewhat.
+4. Now uses the new $D001 resource type for the rT2ModuleFlags resource, which makes this version compatible with/require version 1.0.1f2 of Twilight II.
+5. Added more quotes out of a book of mine, as well as some others.  There are now over 630 quotes.  If you see typos, quotes that look funny onscreen, or any quotes that you think should be removed, let me know!
+6. Clicking the message that says “Press Apple-? for help” will pop up the help window.
+7. Error messages are now accompanied by the error code which generated the error (in all cases where possible).
+
+
+Version 1.1f2
+1. Replaced the old help alert with a modal window containing two controls: a scrollable TextEdit box and the OK button.
+2. Removed some dead code and resources.
+3. Eventually I’ll stick in some code so that the error messages are accompanied by the error codes.  Probably in f3, since I’m too busy to do it at the moment. :)
+4. Hmmm... I don’t know why it didn’t work last time I did it, but the Apple-? and Apple-/ keys are now both accepted for the Help function.  I know I had that coded just like this when Jim first told me it wasn’t working.  Sigh.  Cosmic rays. :)
+5. Revised a number of the quotes to look better, and corrected some grammar.  Added and removed a few quotes, as well.
+6. The Delete button no longer asks you if you want to save the current quote if you’ve changed it.  This was extra-bad because it asked you after it had already deleted the quote!
+
+Version 1.1f1
+1. Okay, so it wasn’t fixed in d3.  But it wasn’t entirely my fault.  T2 wasn’t always setting the resource app correctly before calling the modules, which is fixed in T2 v1.0.1f1.
+2. There were still some bugs in my code, though.  I no longer preserve the resource app, since T2 does it.  Also, the routine that closes the resource fork was being called twice each time unblanking occurred.  The first time it would close QuotesFile.  The second time, it would close the current application’s resource file!  Ouch!  Fixed.
+3. Added code to handle more errors.  The only major error that I know I’m not checking yet (no flames, It’ll be done before I send this version off) is the case when the QuotesFile can’t be opened.
+4. The pathname for QuotesFile is now built on the fly.  I obtain Quotes’ pathname, copy it into a new buffer, and append “File” to the end of it.  So if Quotes’ path is “:Hard.Disk:SlickWillie:AlBore:CoolModule”, QuotesFile would be read from “:Hard.Disk:SlickWillie:AlBore:CoolModuleFile”.  If the pathname comes out too long, then the user can’t possibly have placed the file in the right place anyway, so it gets handled like a “QuotesFile not found” error (which isn’t handled yet).  It will be handled at blanktime as if the QuotesFile were empty.  At setup time, it will be handled by placing a static text control in the Setup window which reads something like “The Quotes Module requires that a Quotes data file called “xxx” be located in the same directory as Quotes”.
+5. The error managing routine has been fixed to work correctly.
+6. If the QuotesFile isn’t found at Setup time, the Setup window contains a large text box explaining the problem.
+7. Fixed a number of bugs involving userIDs and closing the wrong resource file.
+8. Now uses the way-cool data field control to select the delay for quotes!  Very nice, although it was a bear to implement...
+9. To do (8), I had to slightly move a few of the controls.
+10. I hopefully will remember to slip in the new icon before sending it off.  Whoever created it: do you have a way to convert it to Rez source?
+
+Version 1.1d3
+1. Hallelujah!  The old "blanking-at-setup" bug has, as far as my testing shows, been crushed at last!  And there was much rejoicing!
+
+Version 1.1d2
+1. Changed the way updating of the contents of the TextEdit control is handled.  It used to be handled at HitT2 time; it is now done during the scroll bar's control handling code, which saves code elsewhere.
+2. If you've edited the contents of the TextEdit control and try to manipulate the scroll bar without using Replace or Add first, you are told that you haven't saved the current record and are asked if you'd like to do so.  Note that this does just Replace right now.  If you think it's necessary, I'll make it so you can choose between "Add", "Replace", and "Don't Save".
+3. Removed badly written (and, to top it off, dead) code from the HitT2 code.  This code used to recognize that the scroll bar was hit, update the current quote number indicator, load the text, and update the TE record.  However, after adding the verification in (2), I found that I was being asked for permission to save twice, once by the scroll routine, and once by HitT2.  So I was able to pull dead code.  Coolness. :)
+4. Added a new rAlertString(2) to the resource fork.  It contains the "permission to save" alert.
+
+
+Version 1.1d1
+1. Quotes are now stored in a file called QuotesFile in the Twilight folder on the boot volume.  The next version of Quotes will be intelligent enough to build the pathname based on the path in which Quotes itself is loaded (in other words, Quotes' pathname minus the last part, which is the name of Quotes itself, plus "QuotesFile").
+2. Quotes finally correctly manipulates resource file switching.  I don't know why I had so much trouble getting it to work, but I sat down with it today and it worked the first time!  Sigh. :)
+3. Fixed a bug which caused QuotesFile to be closed after the Setup window was brought up.  This meant that you couldn't actually edit any quotes!  Ack!  Now the resource file isn't closed until KillT2 time.
+4. Again began scanning quotes for errors.  Thanks to JP1 for sending me a list of errors.
+5. Oh, yes!  Of course, I changed the version number to 1.1. :)
+6. Found a nasty bug which has always been in there but just happened to work because the quotes were being stored in the same resource file as Quotes itself.  What was happening was this: I was switching in the resource file for the quotes, copying the text from the TextEdit control into its resource, switching out the resource file for the quotes, and then marking the resource as changed.  Of course, now that the resource file actually changes in this case, this no longer works, since the wrong file's resources get changed!  Oops!  Now the MarkResourceChange call is done before switching out QuotesFile.
+7. The Update button is no longer enabled by using the TextEdit control since that control doesn't do anything with the TextEdit control.
+8. Fixed more bugs in the code for updating controls.  Man, was that dealt with poorly!  I'm amazed it ever worked!  Whew; it seems okay now.
+9. Revised code so that it would actually know when to write to Twilight.Setup and when to write to QuotesFile.
+
+Problems, Glitches, and Known Bugs
+None at this time.
+
+If you find any bugs, or if you have questions or comments about Quotes, drop me email at uerics@mcl.mcl.ucsb.edu (or, if you must, AOL: Sheppy :).
+
+- Eric S.

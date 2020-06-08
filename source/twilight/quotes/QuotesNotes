@@ -1,0 +1,92 @@
+Twilight II Quotes Module v1.0					Notes
+by Eric D. Shepherd
+
+Quotes randomly selects a text message and displays it in a colored frame on the 640-mode super-hires screen.  You can easily add, replace, and delete quotes using Setup in Twilight II.
+
+The default display time is 15 seconds; you can change this by simply entering the number of seconds you would like the delay to last in the Delay edit line.  Negative numbers are pinned to zero.  The maximum allowed delay is 1092 seconds (amazingly, this happens to be the maximum number of seconds which can be represented in 60ths of a second in a word :); any higher value will be pinned to this.  If the value is zero, Quotes reacts predictably—it simply flashes the quotes on the screen as quickly as it can, with no delay between them— and although this isn't necessarily lightning-fast, it is fast enough to make reading the quotes impossible (unless you're a really, really fast reader).
+
+The quotes are kept in the resource fork of the module itself, as is the resource which tracks how many quotes are available.  The delay setting is kept in Twilight.Setup.
+
+The horizontal scroll bar at the bottom of the window is used to select which quote you wish to view and/or modify.  The number to the right of that is the quote number you are viewing.  The most visible control is the large, black, TextEdit box.  This is where the quote text is displayed.  This scroll bar will be changed into a series of easy-to-use icons in the next version of Quotes; I've begun the coding, but ran out of time to complete the implementation before the Twilight II v1.0 release date.
+
+Above this are three buttons: Add, Replace, and Delete.  Clicking the Delete button will delete the currently displayed quote.  Clicking the Replace button will save the current contents of the TextEdit box into the quote number displayed in the lower-right corner of the Setup window.  Clicking the Add button will add a new quote, placing the contents of the TextEdit box into it.  Note that clicking these buttons causes their respective actions to occur immediately, and that the Update button is only used for the Delay edit line and Disk events unblank checkbox.
+
+All the standard TextEdit keys function normally; the most useful are:
+
+	Control-C		Copy
+	Control-V		Paste
+	Control-X		Cut
+
+There is a limit of 500 characters in the TextEdit box.  This is done to avoid excessively large quotes which might be too long to read in the period of time they are displayed onscreen.  However, for extremely long quotes, Quotes automatically adds three seconds to the time the text is displayed onscreen.
+
+There are also a number of keyboard equivalents:
+
+	Apple-?	Help (lists these keys)
+	Apple-A	Select all
+	Apple-B	Bold
+	Apple-F	Fix colors (sets current selection to white on black)
+	Apple-I	Italic
+	Apple-L	Underline (this works if you have ShastonUL.8 installed in your
+			  *:System:Fonts folder)
+	Apple-O	Outline
+	Apple-S	Shadow
+	Apple-T	Plain text
+
+Fix Colors is provided so that if you paste text into the Quotes text box, you can correct the colors, which will usually be black on white instead of white on black.
+
+Changes New to d11
+The Select all key, Apple-A, has been added.  Also, Quotes now validates that you don't add more than 65,535 quotes by dimming the Add button if there are that many quotes (this has not been tested).  Finally, the scroll bar is much less sensitive.  The WaitUntil call was sort of screwed up: I was passing 4 as the delay time; the problem, of course, is that I meant 4 ticks, not 1/4 tick.  Oops.  Anyway, it's definitely much better now. :)
+
+Also, thanks to Marc Wolfgram for supplying hundreds of new quotes.  I haven't finished shuffling through them all yet (some of them don't work in the Quotes context, and some are just too darned long; and they all need some reworking to look right onscreen), but I have added a number of them.  There are now about 160 quotes in the default module.  If you have any you'd like to suggest, email me and I'll be happy to toss 'em in. :)  Also, if there are any that you think are particularly stupid and should be removed, let me know!
+
+Changes New to d12
+I have added about 200 more quotes for this version.  Also, if TextEdit is not started, the Quotes setup box fills with a nice text message telling you to try again from another application.  Formerly, Quotes would crash in this situation.  For d13 I plan to add a color fix key equivalent to adjust the colors of the selected text; this will be provided because pasting text into the Quotes text box comes out with the colors inverted (and although you might want it that way, then again, you might not).
+
+Changes New to d13
+The Fix Colors key has been implemented.  Some spelling and formatting errors in quotes have been corrected, and more quotes have been added.
+
+Changes New to d14
+Due to a combination of bugs in d13 and in T2 d34, version 1.0d13 of Quotes was extremely unstable and should not be used.  The bug would cause Quotes to load and save the QuotesDelay resource from the wrong resource fork, and would confuse it until it crashed.  This has been fixed; however, the delay time is still not loaded and saved correctly.
+
+Changes New to d15
+Apparently, while I was editing the Rez source for Quotes, I accidentally deleted a random character, which just happened to be part of the control ID for one of the buttons.  This made that button have the same ID as the Delay edit line, and using _SetLETextByID and _GetLETextByID on this was bad.  This has been fixed.
+
+Smoothed the icon by putting appropriate grays in the corners, making it look much better.  I still have lots more quotes to add yet! :)
+
+When the TextEdit box was getting updated, I was making an unneeded _DrawOneCtl call, wasting both memory and time.  Removed.
+
+Changes New to d16
+Added more quotes, bringing the current total to 439.  Eventually, I'm going to go through and change quotes and apostrophes to use the curly quotes available on the super-hires screen.
+
+Made some changes so that the Add button wouldn't flicker strangely.  I think I've finally corrected all problems with controls that flicker and flash when they're updated due to multiple redraws.
+
+Changes New to d17
+Adjusted the size of the TextEdit control so that no partial lines of text will ever appear.  Also slightly moved most of the controls to make room for a line of text at the bottom of the Setup window.  This text advises the user to press Apple-? for help.
+
+Pressing Apple-? brings up a dialog (an alert window) with information on the keys available in Quotes setup.
+
+A cool new addition: while the Quotes module is running, inserting and ejecting disks will unblank the screen just like mouse movements and keypresses do.  This is done by calling ScanDevices during the loop that looks for the Movement flag.  If ScanDevices returns a non-zero value, indicating an insertion or ejection, the screen is unblanked.
+
+Changes New to b1
+Reworked the code which deals with the parameters passed to the module.  The code is smaller and faster now.  Removed redundant error checking on one tool call in the blank routine and improved error handling elsewhere.  Removed quite a bit of unneeded code—code that was saving and restoring port information unnecessarily.  Tuned up the code responsible for the delay between quotes so that it would be a few bytes shorter.
+
+The random number generator is now seeded differently.  Previously, it was being seeded with the current value of the tick counter.  Since this number rarely got unusually large, the possibilities for the seeding were limited.  It is now seeded with an arrangement of the date and time returned by the ReadHexTime call.
+
+Also cleaned up the appearance of the quotes, and removed several boring and stupid ones.
+
+Finally fixed the problem that caused the screen not to blank during setup.  Using the new t2ShareWord request procedure, I pass Quotes' resource app between the setup copy of Quotes and the blanking copy.  Once I've done this, I can manipulate the resource path to get access the the files I need to blank.
+
+Moved the scroll bar up one more line to make room for a checkbox at the bottom of the window.  The "Disk events unblank" checkbox turns on and off the ScanDevices call Quotes makes in its delay loop.  When this box is checked, disk insertions and ejections will unblank.  When it is not checked, disk events will be ignored.  This box is provided because certain devices are physically activated each time they are polled, and this can be really annoying (an example of this is the UniDisk 3.5).  Users of the UniDisk 3.5 can now turn off this option to eliminate the constant polling of their drives at blank time.
+
+Changes New to v1.0 (release version)
+I had begun replacing the scroll bar with icons to allow better control over the selection of the quote to be edited.  Since I ran out of time, I've put the scroll bar back in, and will have the icons back in there for v1.0.1 or v1.1 (whichever).
+
+Also cleaned up and added more quotes, and touched up the Help alert.  I still don't like the help alert, and will probably redo it from scratch for the next version.
+
+
+Problems, Glitches, and Known Bugs
+No known bugs at this time.
+
+If you find any bugs, or if you have questions or comments about Quotes, drop me email at uerics@mcl.mcl.ucsb.edu (or, if you must, AOL: Sheppy :).
+
+- Eric S.

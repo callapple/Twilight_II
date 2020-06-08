@@ -1,0 +1,391 @@
+/***************************************************
+* Resources for T2 Quotes module
+****************************************************/
+
+#include "types.rez"
+#include "t2common.rez"
+
+/***** Required resources *****/
+
+resource rPString(moduleName) {
+    "Quotes"
+};
+
+resource rTextForLETextBox2(moduleMessage) {
+    TBForeColor
+    TBColor1
+    "While your IIGS is idle, let it entertain you "
+    "with a collection of zany and thought- provoking "
+    "quotes!"
+};
+
+resource rIcon(moduleIcon) {
+    $8000,      /* color */
+    $0014,
+    $001C,
+    $"0000000000000000000000000000"
+    $"0000000000000000000000000000"
+    $"0000000000000000000000000000"
+    $"0000000000000000000000000000"
+    $"00000FFFF0000000FFFF00000000"
+    $"0000FFFFFF00000FFFFFF0000000"
+    $"0000FFFFFF00000FFFFFF0000000"
+    $"0000FFFFF000000FFFFF00000000"
+    $"00000FFFF0000000FFFF00000000"
+    $"00000FFFFF000000FFFFF0000000"
+    $"0000000FFFFF000000FFFFF00000"
+    $"0000000000FFF00000000FFF0000"
+    $"0000000000000000000000000000"
+    $"0000000000000000000000000000"
+    $"0000000000000000000000000000"
+    $"0000000000000000000000000000"
+    $"0000000000000000000000000000"
+    $"0000000000000000000000000000"
+    $"0000000000000000000000000000"
+    $"0000000000000000000000000000",
+
+    $"0000000000000000000000000000"
+    $"FFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    $"FFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    $"FFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    $"FFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    $"FFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    $"FFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    $"FFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    $"FFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    $"FFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    $"FFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    $"FFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    $"FFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    $"FFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    $"FFFFFFFFFFFFFFFFFFFFFFFFFFFF"
+    $"0000000000000000000000000000"
+    $"0000000000000000000000000000"
+    $"0000000000000000000000000000"
+    $"0000000000000000000000000000"
+    $"0000000000000000000000000000",
+};
+
+resource rT2ModuleFlags(moduleFlags) {
+    fSetupSupported+fWantFadeOut+fWantFadeIn+fWantForceGrafPortMode640+fForceLoadSetupAtBoot
+};
+
+resource rVersion(moduleVersion) {
+    {1,0,0,development,7},
+    verUS,
+    "Twilight II Quotes Module v1.0",
+    "By Eric D. Shepherd (June 2, 1992)"
+};
+
+/***************************************************
+*********** NOTE: LETextBox2 resources *************
+***********       from $0001-$FFFF are *************
+***********       RESERVED for quotes. *************
+****************************************************/
+
+/***************************************************
+* Setup controls
+*
+***/
+
+resource rControlTemplate(1) {
+    1,  /* ID */
+    {26,5,36,52},   /* Rect */
+    statTextControl {{
+        0,
+        $1002,
+        0,
+        $10000
+    }};
+};
+
+resource rTextForLETextBox2($10000) {
+    "Delay:"
+};
+
+resource rControlTemplate(2) {
+    2,  /* ID */
+    {25,53,37,100},  /* Rect */
+    editLineControl {{
+        0,  /* Visible */
+        $7002,  /* moreFlags */
+        0,
+        4,  /* Size in characters */
+        0
+    }};
+};
+
+resource rControlTemplate(3) {
+    3,  /* ID */
+    {40,5,110,343},    /* Rect */
+    editTextControl {{
+        0,  /* visible */
+        $7402,  /* moreflags */
+        0,
+        fSingleFormat+fSmartCutPaste+fTabSwitch+fDrawBounds,
+        {$FFFF,$FFFF,$FFFF,$FFFF},
+        $FFFFFFFF
+    }};
+};
+
+resource rControlTemplate(4) {
+    4,  /* ID */
+    {24,110,0,0},    /* Rect */
+    simpleButtonControl {{
+        0,  /* visible, round, single-outline */
+        $1002,
+        0,
+        $1000
+    }};
+};
+
+resource rPString($1000) {
+    "Add"
+};
+
+resource rControlTemplate(5) {
+    5,  /* ID */
+    {24,172,0,0},   /* Rect */
+    simpleButtonControl {{
+        0,
+        $1002,
+        0,
+        $1001
+    }};
+};
+
+resource rPString($1001) {
+    "Replace"
+};
+
+resource rControlTemplate(6) {
+    6,  /* ID */
+    {24,265,0,0},  /* Rect */
+    simpleButtonControl {{
+        0,
+        $1002,
+        0,
+        $1002
+    }};
+};
+
+resource rPString($1002) {
+    "Delete"
+};
+
+resource rControlTemplate(7) {
+    7,  /* ID */
+    {114,5,127,290},
+    scrollControl {{
+        $001C,  /* has left & right arrows */
+        $1000,
+        0,      /* Refcon */
+        100,    /* maxSize -- to be set in Quotes */
+        1,      /* see one at a time */
+        1       /* initial setting */
+    }};
+};
+
+resource rControlTemplate(8) {
+    8,  /* ID */
+    {115,294,126,343},   /* Rect */
+    statTextControl {{
+        $80,    /* invisible */
+        $1000,
+        0,
+        0
+    }};
+};
+
+
+resource rControlList(1) {
+    {
+        3,  /* TextEdit */
+        1,  /* Static text */
+        2,  /* edit line */
+        4,  /* Add button */
+        5,  /* Replace button */
+        6,  /* Delete button */
+        7,  /* scroll bar */
+        8,  /* current selection statText */
+        0
+    };
+};
+
+
+/***************************************************
+* Quote strings & stuff
+*
+***/
+
+resource rT2ModuleWord(1) {
+    $0016                       /* The number of string resources 0-65535 */
+};
+
+resource rTextForLETextBox2(1) {
+    "For every man there one day will come an answer, "
+    "custom-tailored to suit his soul."
+    TBEndOfLine
+    "      -- Anonymous"
+};
+
+resource rTextForLETextBox2(2) {
+    "Quoth the raven: 'Eat my shorts!'"
+    TBEndOfLine
+    "      -- Bart Simpson"
+};
+
+resource rTextForLETextBox2(3) {
+    "Apple II Forever        "
+    TBEndOfLine
+    "      -- Apple Computer, Inc."
+};
+
+resource rTextForLETextBox2(4) {
+    "I'll hack anything, anytime, as long as it's fun!"
+    TBEndOfLine
+    "      -- Anonymous"
+};
+
+resource rTextForLETextBox2(5) {
+    "'Tis better to have loved and lost... yadda yadda yadda."
+    TBEndOfLine
+    "      -- Bart Simpson"
+};
+
+resource rTextForLETextBox2(6) {
+    "Yield to temptation; it may not pass your way again."
+    TBEndOfLine
+    "      -- Lazarus Long"
+};
+
+resource rTextForLETextBox2(7) {
+    TBStyleBold
+    "Quotes Module"
+    TBStylePlain
+    " v1.0d7"
+    TBStyleBold
+    TBEndOfLine
+    "for Twilight II"
+    TBStylePlain
+    TBEndOfLine
+    TBEndOfLine
+    "Module by Eric Shepherd"
+};
+
+resource rTextForLETextBox2(8) {
+    "Always listen to experts.  They'll tell you what can't be done, "
+    "and why.  Then do it."
+    TBEndOfLine
+    "      -- Lazarus Long"
+};
+
+resource rTextForLETextBox2(9) {
+    TBStyleItalic
+    TBStyleBold
+    "Twilight II"
+    TBEndOfLine
+    TBStylePlain
+    "         by Jim Maricondo"
+};
+
+resource rTextForLETextBox2($000A) {
+    TBStyleBold
+    "You can add quotes to this module!"
+    TBStylePlain
+    TBEndOfLine
+    "At this time, you have to manually modify the Quotes module's "
+    "resources, since setup isn't implemented in this version."
+};
+
+resource rTextForLETextBox2($000B) {
+    "In the beginning the Universe was created.  This has made "
+    "a lot of people very angry and been widely regarded as a bad "
+    "move."
+    TBEndOfLine
+    "      -- Douglas Adams"
+    TBEndOfLine
+    TBStyleItalic
+    "           The Restaurant at the End of the Universe"
+};
+
+resource rTextForLETextBox2($000C) {
+    "There is a theory which states that if ever anyone discovers "
+    "exactly what the Universe is for and why it is here, it will "
+    "instantly disappear and be replaced by something even more "
+    "bizarre and inexplicable."
+    TBEndOfLine
+    TBEndOfLine
+    "There is another which states that this has already happened."
+    TBEndOfLine
+    "      -- Douglas Adams"
+    TBEndOfLine
+    TBStyleItalic
+    "            The Restaurant at the End of the Universe"
+};
+
+resource rTextForLETextBox2($000D) {
+    "Mr. President, we must not allow a mine shaft gap!"
+    TBEndOfLine
+    "      -- George C. Scott"
+};
+
+resource rTextForLETextBox2($000E) {
+    "Mr. Tangent for President in 1992!"
+};
+
+resource rTextForLETextBox2($000F) {
+    "Life is made up of sobs, sniffles, and smiles, "
+    "with sniffles predominating."
+    TBEndOfLine
+    "      -- O. Henry"
+};
+
+resource rTextForLETextBox2($0010) {
+    "Once there were two brothers.  One ran away to sea, the other "
+    "was elected Vice-President, and nothing was ever heard of "
+    "either of them again."
+    TBEndOfLine
+    "      -- Thomas R. Marshall"
+};
+
+resource rTextForLETextBox2($0011) {
+    "He travels the fastest who travels alone."
+    TBEndOfLine
+    "      -- Rudyard Kipling"
+};
+
+resource rTextForLETextBox2($0012) {
+    "What is history but a fable agreed upon?"
+    TBEndOfLine
+    "      -- Napoleon Bonaparte"
+};
+
+resource rTextForLETextBox2($0013) {
+    "Familiarity breeds contempt-- and children."
+    TBEndOfLine
+    "      -- Mark Twain"
+};
+
+resource rTextForLETextBox2($0014) {
+    "You can fool some of the people all of the time, and all "
+    "of the people some of the time, but you cannot fool all "
+    "of the people all the time."
+    TBEndOfLine
+    "      -- Abraham Lincoln"
+};
+
+resource rTextForLETextBox2($0015) {
+    "O, what a tangled web we weave,"
+    TBEndOfLine
+    "  When first we practice to deceive!"
+    TBEndOfLine
+    "      -- Walter Scott"
+};
+
+resource rTextForLETextBox2($0016) {
+    "Grow up as soon as you can.  It pays.  The only time "
+    "you really live fully is from thirty to sixty."
+    TBEndOfLine
+    "      -- Hervey Allen"
+};
