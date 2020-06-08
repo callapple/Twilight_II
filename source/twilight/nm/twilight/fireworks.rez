@@ -1,0 +1,95 @@
+// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010D, $C018) {
+		3,				// itemID -- DYA
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000010D			// itemTitleRef
+};
+
+resource rMenuItem (3, $C018) {
+		4,				// itemID -- DIAMOND
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		3					// itemTitleRef
+};
+
+resource rMenuItem (4, $C018) {
+		5,				// itemID -- PYRAMID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		4					// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010C, $C018) {
+		6,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000010C			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010B, $C018) {
+		7,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000010B			// itemTitleRef
+};
+
+resource rMenuItem (2, $C018) {
+		8,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		2					// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010A, $C018) {
+		9,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000010A			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000109, $C018) {
+		10,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000109			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000108, $C018) {
+		11,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000108			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_00000110, $C018) {
+		12,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_00000110			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010F, $C018) {
+		13,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck
+		$8000,				// itemFlag
+		PSTR_0000010F			// itemTitleRef
+};
+
+resource rMenuItem (MENUITEM_0000010E, $C018) {
+		14,				// itemID
+		"","",				// itemChar, itemAltChar
+		NIL,					// itemCheck

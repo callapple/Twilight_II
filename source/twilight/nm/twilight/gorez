@@ -1,0 +1,50 @@
+
+**************************************************
+*	FTA/DYA	Three-D	T2	Module	"Impulse"												*
+*																																																*
+*	Originally	by	FTA.																													*
+*	Enhanced	by	Jim	Maricondo,	DYA.																*
+**************************************************
+	lst	off
+	rel
+	xc
+	xc
+	mx	%00
+	TR	OFF
+
+	USE	MACROS
+	USE	MACROS2
+
+	put	t2common.equ
+
+*=================================================
+*	Etalon	=	Zoom,	Pnt	=	Ptr,	VIT	=	SPEED
+*	BOU	=	LOOP,	Comptuer	=	Counter,	Calculateur	=
+*	Calculator,	Moins	=	Minus
+*-------------------------------------------------
+FPSCtlID	=	1
+DelayPopCtlID	=	2
+ShapePopCtlID	=	3
+MaxZoomCtlID	=	8
+CtlLst	=	1
+resourceToResource	=	9
+
+*	Bits	of	ImpulseFlag...
+fFPSCounter	=	1
+fBigShapes	=	2
+
+*	SendRequest	sendHow	values
+stopAfterOne	equ	$8000
+sendToAll	equ	0
+sendToName	equ	1
+sendToUserID	equ	2
+
+*	NewHandle	attributes
+attrNoPurge	equ	$0000	;Handle Attribute Bits - Not purgeable
+attrBank	equ	$0001	;Handle Attribute Bits - fixed bank
+attrAddr	equ	$0002	;Handle Attribute Bits - fixed address
+attrPage	equ	$0004	;Handle Attribute Bits - page aligned
+attrNoSpec	equ	$0008	;Handle Attribute Bits - may not use speci
+attrNoCross	equ	$0010	;Handle Attribute Bits - may not cross	ba
+attrFixed	equ	$4000	;Handle Attribute Bits - not movable
+attrLocked	equ	$

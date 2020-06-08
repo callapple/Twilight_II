@@ -1,0 +1,138 @@
+tCurResourceFile
+	PushWord	RezFileID
+	_SetCurResourceFile
+
+	jsr	load_setup
+
+noShapes1	anop
+MoveOn	_SetCurResourceFile
+
+	lda	FishBreed
+	clc
+	adc	#299
+	pha
+	LongResult
+	PushLong	WindPtr
+	PushLong	#2	;FishBreed Popup
+	_GetCtlHandleFromID
+	_SetCtlValue
+
+	lda	SharkBreed
+	clc
+	adc	#299
+	pha
+	LongResult
+	PushLong	WindPtr
+	PushLong	#4	;SharkBreed Popup
+	_GetCtlHandleFromID
+	_SetCtlValue
+
+	lda	Starve
+	clc
+	adc	#299
+	pha
+	LongResult
+	PushLong	WindPtr
+	PushLong	#5	;Starve Popup
+	_GetCtlHandleFromID
+	_SetCtlValue
+
+	lda	Prefs
+	pha
+	LongResult
+	PushLong	WindPtr
+	PushLong	#6	;Cycle Colors Popup
+	_GetCtlHandleFromID
+	_SetCtlValue
+
+	LongResult
+	PushWord	StNumFish
+	PushWord	#20	;divisor
+	_UDivide		;divide
+	pla		;Dividend
+	plx		;modulo result
+	clc
+	adc	#299
+	pha
+	LongResult
+	PushLong	WindPtr
+	PushLong	#1	;NumFish Popup
+	_GetCtlHandleFromID
+	_SetCtlValue
+                         
+	LongResult
+	PushWord	StNumSharks
+	PushWord	#10	;divisor
+	_UDivide		;divide
+	pla		;Dividend
+	plx		;modulo result
+	clc
+	adc	#299
+	pha
+	LongResult
+	PushLong	WindPtr
+	PushLong	#3	;NumSharks Popup
+	_GetCtlHandleFromID
+	_SetCtlValue
+
+	lda	#11
+	sta	T2Result
+	brl	Bye
+
+*=================================================
+
+Prefs	ds	2
+
+temp	ds	4
+
+rSNFStuff	str	'SNF Preferences'
+
+* Format: Upper byte=clock type (ignored for now)
+*                   0=DClock; 1= AClock; 2=Random on Entry
+*         Lower byte=Refreshes between movement...
+
+*=================================================
+doLoadSetup	anop
+
+	jsr	load_setup
+	brl	Bye
+
+load_setup	anop
+
+*	Load	the	fps/maxzoom/delay	resource.
+
+	LongResult
+	Pushword	#$1012	;type: rByteArray
+	PushLong	#rSNFStuff
+	_RMLoadNamedResource
+	bcc	HaveFishBreed1
+	plx
+	plx		;setup not saved yet...
+	lda	#$3	;Random Clock Type; Normal Speed
+	sta	FishBreed
+	lda	#380	;Random Clock Type; Normal Speed
+	sta	StNumFish
+	lda	#30	;Random Clock Type; Normal Speed
+	sta	StNumSharks
+	lda	#4	;Random Clock Type; Normal Speed
+	sta	SharkBreed
+	lda	#3	;Random Clock Type; Normal Speed
+	sta	Starve
+	lda	#1	;Random Clock Type; Normal Speed
+	sta	Prefs
+	bra	DoFishNum
+
+HaveFishBreed1 anop
+	jsr	makePdp
+	lda	[3]
+	sta	FishBreed
+	ldy	#2
+	lda	[3],y
+	sta	StNumFish
+	iny
+	iny
+	lda	[3],y
+	sta	StNumSharks
+	iny
+	iny
+	lda

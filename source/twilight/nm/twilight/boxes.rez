@@ -1,0 +1,454 @@
+s	anop
+	makePdp
+	lda	DClockPrefs
+	sta	[3]
+	killLdp
+
+	PushWord	#TRUE	;	changeflag:	true
+	PushWord	#rT2ModuleWord	;	rtype
+
+	LongResult
+	PushWord	#rT2ModuleWord
+	PushLong	#rDClockPrefs
+	PushLong	#Temp	;don't care about filenum, but toolbox does
+	_RMFindNamedResource	;get it
+	_MarkResourceChange
+
+created1	anop
+            PushWord	RezFileID
+	_UpdateResourceFile
+	_SetCurResourceFile
+	brl	Bye
+
+*=================================================
+*	Hit
+*
+*	handle	item	hits
+
+doHit	anop
+
+	stz	T2Result+2
+	stz	T2Result
+	lda	T2data2+2	;ctlID hi word must be zero
+	bne	nothingHit
+	lda	T2data2	;get ctlID
+	cmp	#1
+	beq	enable
+	cmp	#2
+	beq	enable
+nothingHit	brl	Bye
+
+enable	lda	#TRUE
+	sta	T2Result
+	bra	nothingHit
+
+
+MyID	ds	2
+WindPtr	ds	4
+RezFileID	ds	2
+
+DoAClock	anop
+	mov	#45,XCenter+1
+	mov	#39,YCenter+1
+	mov	#HoursDX,HoursDXRef+1
+	mov	#HoursDy,HoursDYRef+1
+	mov	#6,HrPenSize+1
+	dec	a
+	dec	a		;now 4
+	sta	MinPenSize+1
+	dec	a
+	dec	a		;now 2
+	sta	SecPenSize+1
+	sta	TickSize+1
+	mov	#MinSecDX,MinDXRef+1
+	mov	#MinSecDY,MinDYRef+1
+	mov	#TickEndX,TickEndXRef+1
+	mov	#TickEndY,TickEndYRef+1
+	mov	#TickStartX,TickStXRef+1
+	mov	#TickStartY,TickStYRef+1
+	mov	#85*160,NumLines1+1
+	sta	NumLines2+1
+	mov	#85,Lines2Move+1
+	mov	#$32,Bytes2Move+1
+	mov	#319-98,RMargin+1
+	mov	#199-82,BotMargin+1
+	bra	StartAClock
+
+DoASClock	anop
+	mov	#25,XCenter+1
+	mov	#21,YCenter+1
+	mov	#HoursDX2,HoursDXRef+1
+	mov	#HoursDy2,HoursDYRef+1
+	mov	#3,HrPenSize+1
+	dec	a		;now 2
+	sta	MinPenSize+1
+	dec	a		;now 1
+	sta	SecPenSize+1
+	sta	TickSize+1
+	mov	#MinSecDX2,MinDXRef+1
+	mov	#MinSecDY2,MinDYRef+1
+	mov	#TickEndX2,TickEndXRef+1
+	mov	#TickEndY2,TickEndYRef+1
+	mov	#TickStartX2,TickStXRef+1
+	mov	#TickStartY2,TickStYRef+1
+	mov	#52*160,NumLines1+1
+	sta	NumLines2+1
+	mov	#52,Lines2Move+1
+	mov	#$1C,Bytes2Move+1
+	mov	#319-58,RMargin+1
+	mov	#199-52,BotMargin+1
+	                            
+
+StartAClock	ldx	#14	;move our palette into place
+nextPal	lda	MyPal,x
+	sta	>$E19e00,x
+	dex
+	dex
+	bpl	NextPal
+
+	jsr	GetTime
+NewLocA	WordResult
+	_Random
+	pla
+	and	#$7F
+	clc
+	adc	#96
+	sta	CenterX	;center it on the field
+	sec
+XCenter	sbc	#45
+	sta	Left
+	WordResult
+	_Random
+	pla
+	and	#$3F
+	clc
+	adc	#68
+	sta	CenterY
+	sec
+YCenter	sbc	#39
+	sta	Top
+	jsr	DrawTicks
+	jsr	DrawHrMin
+	jsr	DrawSecond
+
+LessThanA	mov	#1,WasAbove
+
+WaitAroundA	lda	[T2Data1]	;check done ptr in long mode just in case
+	beq	ContAClock
+	brl	Done
+
+ContAClock	lda	>$E0C02E	;vertical counter, upper 8 bits of it
+	and	#$FF	;dump horiz count in upper 8 bits of a
+	rol	a	;insert a 0 or 1, for full 9 bits
+	cmp	WaitFor
+	blt	LessThanA
+
+	lda	WasAbove	;check position on screen
+	beq	WaitAroundA	;check if we've already displayed it...
+	stz	WasAbove	;flag below
+	dec	CountTwo
+	bpl	WaitAroundA
+	lda	DClockPrefs
+	xba
+	and	#$FF
+	sta	CountTwo
+
+	jsr	MoveItA
+	jsr	GetTime
+
+	lda	LastSeconds
+	cmp	TheTime
+	beq	WaitAroundA
+
+	lda	LastSeconds	;move back to last second
+	jsr	DrawSecond2	;erase last second
+	jsr	DrawSecond	;draw new one
+
+	lda	LastMinHr	;last minute & hour drawn
+	cmp	TheTime+1
+	beq	WaitAroundA
+	jsr	DrawHrMin2
+	jsr	DrawHrMin	;draw update
+
+	bra	WaitAroundA
+
+GetTime	pha
+	pha
+	pha
+	pha
+	_ReadTimeHex
+	pla
+	sta	TheTime
+	pla
+	sta	TheTime+2
+	pla
+	sta	TheTime+4
+	pla
+	sta	TheTime+6
+	rts
+
+DrawHrMin	lda	TheTime+1
+DrawHrMin2	pha		;and save it on stack
+	sta	LastMinHr	;save minute & hour drawn
+	and	#$FF
+	sta	Minutes	  ;minutes Only
+	pla
+	xba		;flip hours into low byte
+	and	#$FF	;mask to hours only
+	cmp	#12
+	blt	HoursOk	;if hours >12, then
+	sec
+	sbc	#12	;make 0-11 (like regular clock)
+HoursOk	tay
+	lda	#0
+	tyx		;re-set flags
+AddupHours	beq	AddMins	;multiply hours by 60
+	clc
+	adc	#60
+	dex
+	bra	AddUpHours	;do all hours
+AddMins	clc
+	adc	Minutes	  ;+ minutes=minutes so far today
+	lsr	a
+	lsr	a	;divide by 4 for offsets
+	ldx	CenterX
+	dex
+	dex
+	phx		;end of line
+	ldx	CenterY
+	dex
+	dex
+	phx
+	tax		;change into offset
+HoursDXRef	lda	HoursDX,x
+	and	#$FF	;1 byte only
+	pha
+HoursDYRef	lda	HoursDY,x
+	and	#$FF
+	pha
+	PushWord Left
+	PushWord Top
+	_MoveTo
+	PushWord #1
+	_SetSolidPenPat	;blue pen
+HrPenSize	lda	#6
+	pha
+	pha		;6*6 pen
+	_SetPenSize
+	_Move
+	_LineTo		;data is sitting on the stack!
+	lda	#2
+	pha		;red pen
+MinPenSize	lda	#4
+	pha
+	pha		;4*4 pen
+	_SetPenSize	;for minute hand
+	_SetSolidPenPat
+	lda	CenterX
+	dec	a	;account for 4*4 pen
+	pha
+	lda	CenterY
+	dec	a
+	pha		;save it on stack for draw
+
+	lda	Minutes
+	ldy	#-51	 ;offset to drawing: just negative
+	bra	DrawMinSec
+
+DrawSecond	lda	TheTime
+DrawSecond2 sta	LastSeconds	;save value plotted
+	pha		;save thru toolbox calls
+SecPenSize	lda	#2
+	pha
+	pha		;2*2 pen
+	lda	#4
+	pha		;green
+	_SetSolidPenPat
+	_SetPenSize	;for minute hand
+	pla		;restore value
+	ldy	#0	;no delta in drawing
+	ldx	CenterX
+	phx		;end of line
+	ldx	CenterY
+	phx
+DrawMinSec	and	#$FF	;mask to low byte (seconds only)
+	tax		;use as index
+MinDXRef	lda	MinSecDX,x
+	and	#$FF	;1 byte only
+	iny
+	bpl	XIsOk
+	dec	a	;-1 for 4*4 pen
+XIsOk	pha
+MinDYRef	lda	MinSecDY,x
+	and	#$FF	;1 byte only
+	iny		;test y-reg
+	bpl	YIsOk
+	dec	a	;-1 for 4*4 pen
+YIsOk	pha
+	PushWord Left
+	PushWord Top
+	_MoveTo
+	_Move
+	_LineTo		;already on stack!
+	rts
+
+DrawTicks	PushWord #7	;white
+	_SetSolidPenPat
+TickSize	lda	#2
+	pha
+	pha
+	_SetPenSize	;2*2 pen
+	ldx	#22
+DrawAllTiks phx
+TickEndXRef	PushWord TickEndX,x
+TickEndYRef	PushWord TickEndY,x
+TickStXRef	PushWord TickStartX,x
+TickStYRef	PushWord TickStartY,x
+	lda	CenterX
+	pha
+	lda	CenterY
+	pha
+	_MoveTo
+	_Move
+	_Line
+	plx
+	dex
+	dex
+	bpl	DrawAllTiks
+	rts
+
+MoveItA	Long	I,m
+	lda	Left
+	cmp	#6
+	bge	NotTooLeftA
+	mov	#1,MoveDirectX
+NotTooLeftA	lda	Left
+RMargin	cmp	#319-98
+	blt	NotTooRightA
+	mov	#-1,MoveDirectX
+NotTooRightA lda	Top
+	cmp	#6
+	bge	NotTooHighA
+	mov	#1,MoveDirectY
+NotTooHighA	lda	Top
+BotMargin	cmp	#199-82
+	blt	NotTooLowA
+	mov	#-1,MoveDirectY
+NotTooLowA	lda	Top	;y coord
+	dec	a	;move one blank line above it for safety
+	dec	a
+	dec	a
+	xba
+	lsr	a	;now, y* 128
+	pha
+	lsr	a	;*64
+	lsr	a	;*32
+	clc
+	adc	1,s
+	adc	#$2000
+	sta	1,s
+	lda	Left
+	lsr	a	;320-pixel to byte conv
+	dec	a	;minus two for erase area
+	dec	a
+	clc
+	adc	1,s
+	sta	TopLeftByte
+	pla
+	lda	MoveDirectY
+	bmi	MovingUpA
+	lda	#160	;next row is +160 bytes away
+	dc	h'cf'	;skip next 3 bytes
+MovingUpA	lda	#-160
+	clc
+	adc	MoveDirectX	;could be negative, so keep carry ok
+	clc
+	adc	TopLeftByte
+	sta	<DestByte
+	lda	MoveDirectY
+	bmi	SetMovingUpAA
+	lda	#-160
+	sta	AddPos1a+1
+	sta	AddPos2a+1
+	lda	TopLeftByte
+	clc
+NumLines1	adc	#85*160
+	sta	TopLeftByte
+	lda	<DestByte
+	clc
+NumLines2	adc	#85*160
+	sta	<DestByte
+	bra	DoDrawingA
+SetMovingUpAA lda	#160
+	sta	AddPos1a+1
+	sta	AddPos2a+1
+
+DoDrawingA	phb
+Lines2Move	lda	#85	;lines to move
+	ldx	TopLeftByte
+	ldy	<DestByte
+MoveLinesA	pha
+	phy
+	phx
+Bytes2Move	lda	#$32	;# bytes to move
+MvnLoc2	dc	h'54e1e1'	;Mvn e1e1
+	pla
+	clc
+AddPos1a	adc	#$a0
+	tax
+	pla
+	clc
+AddPos2a	adc	#$a0
+	tay
+	pla
+	dec	a
+	bne	MoveLinesA
+	plb
+	
+	lda	Top
+	clc
+	adc	MoveDirectY
+	sta	Top
+	clc
+	adc	#WaitForVBLa
+	sta	WaitFor
+	lda	CenterY
+	clc
+	adc	MoveDirectY
+	sta	CenterY
+	lda	MoveDirectX
+	asl	a
+	tax		;save for a minute
+	clc
+	adc	left
+	sta	Left
+	txa
+	clc
+	adc	CenterX
+	sta	CenterX
+	rts
+
+;................................................................
+
+*BlueMax=C, RedMax=E,GreenMax=D
+MyPal	dc	i'$0000,$000F,$0F00,$0F0F,$00F0,$00FF,$0FF0,$0FFF'
+
+Minutes	ds	2
+CenterX	ds	2
+CenterY	ds	2
+LastSeconds ds	2
+LastMinHr	ds	2
+Top	ds	2
+Left	ds	2
+TheTime	ds	10
+MoveDirectX	dc	i4'1'
+MoveDirectY	dc	i4'1'
+TopLeftByte	ds	2
+WaitFor	ds	2
+WasAbove	ds	2
+CountTwo	ds	2
+EntryStack	ds	2
+
+MinSecDX	anop
+ dc i1'45,50,54,59,63,67,71,75,78,81,84,86,88,89,90,90,90,89,88,86,84,81,78,75,71,68,63,59,54,50,45'
+ dc i1'40,36,31,27,23,19,15,12,9,6

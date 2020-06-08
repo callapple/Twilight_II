@@ -1,0 +1,101 @@
+ MACRO
+&lab _GetTick
+&lab ldx #$2503
+ jsl $E10000
+ MEND
+ MACRO
+&LAB LONG &A,&B
+ LCLB &I
+ LCLB &M
+&A AMID &A,1,1
+&M SETB ("&A"="M").OR.("&A"="m")
+&I SETB ("&A"="I").OR.("&A"="i")
+ AIF C:&B=0,.A
+&B AMID &B,1,1
+&M SETB ("&B"="M").OR.("&B"="m").OR.&M
+&I SETB ("&B"="I").OR.("&B"="i").OR.&I
+.A
+&LAB REP #&M*32+&I*16
+ AIF .NOT.&M,.B
+ LONGA ON
+.B
+ AIF .NOT.&I,.C
+ LONGI ON
+.C
+ MEND
+ MACRO
+&LAB SHORT &A,&B
+ LCLB &I
+ LCLB &M
+&A AMID &A,1,1
+&M SETB ("&A"="M").OR.("&A"="m")
+&I SETB ("&A"="I").OR.("&A"="i")
+ AIF C:&B=0,.A
+&B AMID &B,1,1
+&M SETB ("&B"="M").OR.("&B"="m").OR.&M
+&I SETB ("&B"="I").OR.("&B"="i").OR.&I
+.A
+&LAB SEP #&M*32+&I*16
+ AIF .NOT.&M,.B
+ LONGA OFF
+.B
+ AIF .NOT.&I,.C
+ LONGI OFF
+.C
+ MEND
+ MACRO
+&lab WordResult
+&lab pha
+ MEND
+ MACRO
+&lab LongResult
+&lab pha
+ pha
+ MEND
+ MACRO
+&lab mov &num1,&num2
+&lab lda &num1
+ sta &num2
+ MEND
+ MACRO
+&lab _SetRandSeed
+&lab ldx #$8704
+ jsl $E10000
+ MEND
+ MACRO
+&lab pullword &SYSOPR
+&lab ANOP
+ pla
+ AIF C:&SYSOPR=0,.end
+ sta &SYSOPR
+.end
+ MEND
+ MACRO
+&lab pushword &SYSOPR
+&lab ANOP
+ AIF C:&SYSOPR=0,.b
+ LCLC &C
+&C AMID "&SYSOPR",1,1
+ AIF ("&C"="#").AND.(S:LONGA),.immediate
+ lda &SYSOPR
+ pha
+ MEXIT
+.b
+ pha
+ MEXIT
+.immediate
+ LCLC &REST
+ LCLA &BL
+&BL ASEARCH "&SYSOPR"," ",1
+ AIF &BL>0,.a
+&BL SETA L:&SYSOPR+1
+.a
+&REST AMID "&SYSOPR",2,&BL-2
+ dc I1'$F4',I2'&REST'
+ MEND
+ MACRO
+&lab _GetCtlHandleFromID
+&lab ldx #$3010
+ jsl $E10000
+ MEND
+ MACRO

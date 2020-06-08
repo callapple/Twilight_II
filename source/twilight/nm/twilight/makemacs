@@ -1,0 +1,42 @@
+#include "types.rez"
+#include "t2common.rez"
+
+// --- Flags resource
+
+resource rT2ModuleFlags (moduleFlags) {
+	fFadeOut+fFadeIn+fGrafPort320+fLeavesUsableScreen, // module flags word
+	$01,						// enabled flag (unimplemented)
+	$0110,					// minimum T2 version required
+	NIL,						// reserved
+	"Perspective"				// module name
+};
+
+// --- About text resource
+
+resource rTextForLETextBox2 (moduleMessage) {
+	TBLeftJust
+	TBBackColor TBColorF
+	TBForeColor TBColor1
+	"Perspective"
+	TBForeColor TBColor0
+	" generates random patterns, as if looking down a hallway.\n"
+	TBForeColor TBColor4
+	"Written by Nathan Mates, dedicated to Ah-Ram Kim."
+};
+
+// --- Version resource
+
+resource rVersion (moduleVersion) {
+       {1,0,0,final,2},             // Version
+       verUS,                         // US Version
+       "T2 Perspective Module",     // program's name
+       "By Nathan Mates.\n"
+       "Special Thanks to Jim Maricondo."    // copyright notice
+};
+
+// --- About icon resource
+
+resource rIcon (moduleIcon) {
+		$8000,				// kind
+		$0014,				// height
+		$0016,				// widt

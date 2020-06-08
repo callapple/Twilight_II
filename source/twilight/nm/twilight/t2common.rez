@@ -1,0 +1,129 @@
+Byte     ;go space-and-half right
+	eor	#1
+	sta	EvenByte
+	bne	HdRight
+	inc	XPosn
+HdRight	ldx	#255
+	dc	h'cf'
+MedRight	ldx	#220
+	stx	LastKey
+	rts
+MsgColor	ds	2
+	
+HSFlag	ds	2
+	End
+A	#0
+]lp	SEC
+	SBC	Buf_VAL
+	STA	]3,X
+	DEX
+	DEX
+	BPL	]lp
+Here	EOM
+
+Add	MAC
+	CPY	]1
+	BEQ	Same_Signe0
+	SEC
+	SBC	]2
+	DEY
+	BEQ	First_Negatif0
+	BCC	Inverse_Value0
+	BRA	Cont_Calc0
+Inverse_Value0	EOR	#$FFFF
+	INC
+	INC	]3
+	BRA	Cont_Calc0
+First_Negatif0	BCS	Cont_Calc0
+	EOR	#$FFFF
+	INC	;	Change	le	signe
+	STZ	]3
+	BRA	Cont_Calc0
+Same_Signe0	CLC
+	ADC1.0.1b4
+// v1.6 - 1/28/93 - Revised for _NEW_ rT2ModuleFlags format. - T2 v1.0.1f1
+// v1.7 - 2/7/93 - "f" flag word names, $D001 - T2 v1.0.1f2
+// v1.7a - 2/16/93 - $1000 -> $D001 - T2 v1.0.1f2
+// v1.8 - 03/02/93 - new moduleflagword bits - T2 v1.1f3
+// =====================================================
+
+// =====================================================
+// Module resource IDs.
+// =====================================================
+
+/***** Required *****/
+// #define moduleName  	$00000001
+#define moduleMessage	$0010DD01
+#define moduleIcon		$0010DD01
+#define moduleVersion	$00000001
+#define moduleFlags     $00000001
+
+/***** Added for you... *****/
+#define moduleComment   $00000001
+#define moduleInfo      $00000002
+
+// =====================================================
+// --- custom resource type defines
+// =====================================================
+#define rT2ModuleFlags  $D001
+#define rT2ExtSetup1    $1001
+#define rT2ModuleWord   $1002
+
+// =====================================================
+// Defined bits of T2ModuleFlags module flag word.
+// =====================================================
+#define fSetup			$0001
+#define fFadeOut			$0002
+#define fFadeIn			$0004
+#define fGrafPort320 		$0008
+#define fGrafPort640 		$0010
+#define fLoadSetupBoot 		$0020
+#define fLoadSetupBlank 	$0040
+#define fOpenRForkWriteEnabled $0080
+// #define fNoBlackScreen		$0100
+#define fReqUsableScreen	$0200
+#define fLeavesUsableScreen	$0400
+#define fForeground 		$0000
+#define fBackground 		$4000
+#define fInternal 			$8000
+
+// =====================================================
+// Custom resource type defines.
+// =====================================================
+type rT2ModuleFlags {
+	byte = $01;				/* module flags version - use 1 */
+	hex unsigned word;			/* module flags word */
+	byte;					/* enabled flag (unimplemented) - use 1 now */
+	hex unsigned word;			/* minimum T2 version required */
+	hex unsigned word;			/* reserved */
+	pstring[25];				/* module name */
+};
+
+type rT2ModuleWord {
+	unsigned word;
+};
+
+// =====================================================
+// Current common comments.
+// =====================================================
+resource rComment (ModuleComment) {
+    "Twilight II\$AA Module.\n"
+   	"Part of DYA\$D5s Twilight II Project.\n"
+	"\n"
+    "Twilight II, the ultimate screen saver for your Apple IIgs!  Competition? "
+    " Ha!\n"
+	"\n"
+	"Twilight II: A quality DYA product, from DigiSoft Innovations.  "
+	"Support the II: do not distribute any parts of Twilight II!  "
+	"II Infinitum!"
+	"\n"
+        "Dedicated to Ah-Ram Kim"
+//	"v5a"
+};
+
+resource rComment (moduleInfo) {
+	"This is a Twilight II\$AA screen saver module.  "
+	"Place in the \$D2Twilight\$D3 module folder (located in the same directory "
+    "as the Twilight II control panel) and access via Twilight II!\n"
+    "For more information, refer to the Twilight II manual."
+};

@@ -1,0 +1,198 @@
+eID	ds	2
+
+KeyLeft	ds	2
+KeyRight	ds	2
+KeyStop	ds	2
+ControlType	ds	2
+BeforeGame	ds	2
+LastCompPos	ds	2
+LastKey	ds	2
+CompTime	ds	2
+BOTTEXT	STR	'Press Caps Lock down to start game'
+BotText2	str	'Let Caps Lock up to quit'
+NewTime	ds	2
+
+makePdp     anop
+TheHandle   equ   3
+
+	plx                      ; yank return address
+            phd
+            tsc
+            tcd
+            ldy   #2
+            lda   [TheHandle],y
+            tay
+            lda   [TheHandle]
+            sta   <TheHandle
+            sty   <TheHandle+2
+            phx                      ; push back return address
+            rts
+CapsMode	ds	2
+
+ReadControl	Short	M
+	LDA	>$00C025
+	Long	M
+	AND	#4	;check caps bit
+	beq	CapsUp	;if up, let the computer at it
+	lda	CapsMode
+	bne	IgnoreCaps
+	lda	MvnLoc+1
+	pha
+	plb		;screen bank
+	ldx	#$63e
+ClearMessage stz	$96c0,x
+	dex
+	dex
+	bpl	ClearMessage
+	plb		;local bank
+	PUSHWORD	#$F
+	_SETSOLIDPENPAT
+	PUSHWORD #75
+	PUSHWORD	#197
+	_MOVETO
+	PUSHLONG	#BOTTEXT2
+	_DRAWSTRING
+	mov	#1,CapsMode
+	lda	#$787
+	sta	MsgColor
+IgnoreCaps	brl	IsGame
+
+CapsUp	lda	CapsMode
+	stz	CapsMode
+	beq	ComputerFly
+	lda	MvnLoc+1
+	pha
+	plb		;screen bank
+	ldx	#$63e
+ClearMessage2 stz	$96c0,x
+	dex
+	dex
+	bpl	ClearMessage2
+	plb		;local bank
+	PUSHWORD	#$F
+	_SETSOLIDPENPAT
+	PUSHWORD #36
+	PUSHWORD	#197
+	_MOVETO
+	PUSHLlcl	#BOTTEXT
+	_DRAWSTRING
+	mov	#$FFF,MsgColor
+
+ComputerFly	anop	
+	lda	maxLeft
+	clc
+	adc	MinRight	;get average of 2
+	lsr	a	;cut in half...
+	sec
+	sbc	XPosn	;compare to where ship is
+	beq	CompCenter
+	bpl	CompRight
+	bmi	CompLeft
+CompCenter	anop		;can get here from any position
+	stz	LastCompPos
+	ldx	#127	;no change
+	rts                 
+CompLeft	CMP	#-4
+	BGE	COMPCENTER
+	lda	LastCompPos
+	ldy	#-1
+	sty	LastCompPos
+	dec	a
+	bpl	CompCenter	;have to stay still first
+	ldx	#50
+	rts                 
+CompRight	CMP	#4
+	BLT	COMPCENTER
+	lda	LastCompPos
+	ldy	#1
+	sty	LastCompPos
+	tay		;test a-reg
+	bmi	CompCenter	;go center before going right
+	ldx	#200	;right
+	rts                 
+
+Joystick	php
+	sei
+	lda	>$00c070	;trigger paddles
+	ldy	#0
+	ldx	#3
+PRTime	dex
+	bne	PRTime	;timing loop for first count
+PRead2	lda	>$00c064
+	and	#$8080	;check high bits of each
+	beq	PRXit
+	cmp	#$80	;see if only x only is active
+	bmi	PRBoth	;> no, do both
+	beq	PRXOnly
+PRYOnly	iny
+	bpl	PRYMore	;(just for timing)
+	bmi	PRXit
+PRYmore	bra	PRead2	;go back for more
+PRXOnly	inx
+	bmi	PRXit
+	bra	PRead2
+PRBoth	inx
+	iny
+	nop		;match timing of others
+	bpl	PRead2
+PRXit	plp
+	rts
+
+
+IsGame	anop
+	lda	ControlType
+	dec	a
+	beq	Joystick
+	dec	a
+	bne	ComputerFly	;let the computer fly it...
+*	WordResult
+*	PushWord	NewTime
+*	PushWord	#$0004	;1/2 tick
+*	_WaitUntil
+*	PullWord	NewTime
+	ldx	#500
+	Short	M
+	lda	>$E1c036
+	tay
+	and	#$80
+	sta	HSFlag
+	tya		;original value
+	and	#$7F	;force system speed slow, now
+	sta	>$E1C036	;force system fast now!
+
+KeyWait	lda	>$e0c000
+	bmi	GetKey2
+	dex
+	bpl	KeyWait
+
+GetKey2	lda	>$E1c036
+	ora	HSFlag
+	sta	>$E1c036
+	lda	>$e0c025
+	and	#%1000
+	tay
+	lda	>$e0c000
+	sta	>$e0c010	;clear kbd strobe
+	Long	i,M
+	cmp	#$80
+	blt	KeepAlong	;ignore if no key down
+	cmp	#$61	;lower case?
+	blt	ChkKey1
+	and	#$5F	;mask to upper case
+ChkKey1	cmp	KeyLeft
+	beq	DoKeyLeft
+	cmp	KeyStop
+	beq	DoKeyStop
+	cmp	KeyRight
+	beq	DoKeyRight
+KeepAlong	ldx	LastKey
+	rts
+DoKeyLeft	tya		;check y-reg.
+	and	#$ff	;only low bits also
+	beq	MedLeft
+	lda	EvenByte	;go space & half on repeat...
+	eor	#1
+	sta	EvenByte
+	beq	HdLeft
+ 	dec	XPosn
+HdLeft	ldx	#0

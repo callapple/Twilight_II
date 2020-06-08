@@ -1,0 +1,289 @@
+ MACRO
+&lab _GetCtlHandleFromID
+&lab ldx #$3010
+ jsl $E10000
+ MEND
+ MACRO
+&lab _GetCtlValue
+&lab ldx #$1A10
+ jsl $E10000
+ MEND
+ MACRO
+&lab _NewControl2
+&lab ldx #$3110
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetCtlValue
+&lab ldx #$1910
+ jsl $E10000
+ MEND
+ MACRO
+&lab _UDivide
+&lab ldx #$0B0B
+ jsl $E10000
+ MEND
+ MACRO
+&lab _MMStartUp
+&lab ldx #$0202
+ jsl $E10000
+ MEND
+ MACRO
+&lab _NewHandle
+&lab ldx #$0902
+ jsl $E10000
+ MEND
+ MACRO
+&lab _ReadAsciiTime
+&lab ldx #$0F03
+ jsl $E10000
+ MEND
+ MACRO
+&lab _ReadTimeHex
+&lab ldx #$0D03
+ jsl $E10000
+ MEND
+ MACRO
+&LAB JCC &BP
+&LAB BCS *+5
+ BRL &BP
+ MEND
+ MACRO
+&LAB JEQ &BP
+&LAB BNE *+5
+ BRL &BP
+ MEND
+ MACRO
+&LAB LONG &A,&B
+ LCLB &I
+ LCLB &M
+&A AMID &A,1,1
+&M SETB ("&A"="M").OR.("&A"="m")
+&I SETB ("&A"="I").OR.("&A"="i")
+ AIF C:&B=0,.A
+&B AMID &B,1,1
+&M SETB ("&B"="M").OR.("&B"="m").OR.&M
+&I SETB ("&B"="I").OR.("&B"="i").OR.&I
+.A
+&LAB REP #&M*32+&I*16
+ AIF .NOT.&M,.B
+ LONGA ON
+.B
+ AIF .NOT.&I,.C
+ LONGI ON
+.C
+ MEND
+ MACRO
+&LAB SHORT &A,&B
+ LCLB &I
+ LCLB &M
+&A AMID &A,1,1
+&M SETB ("&A"="M").OR.("&A"="m")
+&I SETB ("&A"="I").OR.("&A"="i")
+ AIF C:&B=0,.A
+&B AMID &B,1,1
+&M SETB ("&B"="M").OR.("&B"="m").OR.&M
+&I SETB ("&B"="I").OR.("&B"="i").OR.&I
+.A
+&LAB SEP #&M*32+&I*16
+ AIF .NOT.&M,.B
+ LONGA OFF
+.B
+ AIF .NOT.&I,.C
+ LONGI OFF
+.C
+ MEND
+ MACRO
+&lab WordResult
+&lab pha
+ MEND
+ MACRO
+&lab LongResult
+&lab pha
+ pha
+ MEND
+ MACRO
+&lab PushLLcl &Num1
+&lab phb
+ phb
+ PushWord &Num1
+ MEND
+ MACRO
+&lab mov &num1,&num2
+&lab lda &num1
+ sta &num2
+ MEND
+ MACRO
+&Lab MakePdp
+&Lab phd
+ tsc
+ tcd
+ ldy #2
+ lda [3],y
+ tay
+ lda [3]
+ sta <3
+ sty <3+2
+ MEND
+ MACRO
+&lab killLdp
+&lab pld
+ pla
+ pla
+ MEND
+ MACRO
+&lab _EraseRect
+&lab ldx #$5504
+ jsl $E10000
+ MEND
+ MACRO
+&lab _Line
+&lab ldx #$3D04
+ jsl $E10000
+ MEND
+ MACRO
+&lab _LineTo
+&lab ldx #$3C04
+ jsl $E10000
+ MEND
+ MACRO
+&lab _Move
+&lab ldx #$3B04
+ jsl $E10000
+ MEND
+ MACRO
+&lab _MoveTo
+&lab ldx #$3A04
+ jsl $E10000
+ MEND
+ MACRO
+&lab _PaintOval
+&lab ldx #$5904
+ jsl $E10000
+ MEND
+ MACRO
+&lab _Random
+&lab ldx #$8604
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetPenMode
+&lab ldx #$2E04
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetPenSize
+&lab ldx #$2C04
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetSolidBackPat
+&lab ldx #$3804
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetSolidPenPat
+&lab ldx #$3704
+ jsl $E10000
+ MEND
+ MACRO
+&lab _ShowPen
+&lab ldx #$2804
+ jsl $E10000
+ MEND
+ MACRO
+&lab pullword &SYSOPR
+&lab ANOP
+ pla
+ AIF C:&SYSOPR=0,.end
+ sta &SYSOPR
+.end
+ MEND
+ MACRO
+&lab pushlong &addr,&offset
+&lab ANOP
+ LCLC &C
+ LCLC &REST
+&C AMID &addr,1,1
+ AIF "&C"="#",.immediate
+ AIF "&C"="[",.zeropage
+ AIF C:&offset=0,.nooffset
+ AIF "&offset"="s",.stack
+ pushword &addr+2,&offset
+ pushword &addr,&offset
+ MEXIT
+.nooffset
+ pushword &addr+2
+ pushword &addr
+ MEXIT
+.immediate
+&REST AMID &addr,2,L:&addr-1
+ dc I1'$F4',I2'(&REST)|-16'
+ dc I1'$F4',I2'&REST'
+ MEXIT
+.stack
+ pushword &addr+2,s
+ pushword &addr+2,s
+ MEXIT
+.zeropage
+ ldy #&offset+2
+ pushword &addr,y
+ ldy #&offset
+ pushword &addr,y
+ MEND
+ MACRO
+&lab pushword &SYSOPR
+&lab ANOP
+ AIF C:&SYSOPR=0,.b
+ LCLC &C
+&C AMID "&SYSOPR",1,1
+ AIF ("&C"="#").AND.(S:LONGA),.immediate
+ lda &SYSOPR
+ pha
+ MEXIT
+.b
+ pha
+ MEXIT
+.immediate
+ LCLC &REST
+ LCLA &BL
+&BL ASEARCH "&SYSOPR"," ",1
+ AIF &BL>0,.a
+&BL SETA L:&SYSOPR+1
+.a
+&REST AMID "&SYSOPR",2,&BL-2
+ dc I1'$F4',I2'&REST'
+ MEND
+ MACRO
+&lab str &string
+&lab dc i1'L:&string',C'&string'
+ MEND
+ MACRO
+&lab _AddResource
+&lab ldx #$0C1E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _GetCurResourceApp
+&lab ldx #$141E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _GetCurResourceFile
+&lab ldx #$121E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _MarkResourceChange
+&lab ldx #$101E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _ReleaseResource
+&lab ldx #$171E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetCurResourceFile
+&lab ldx #$111E
+ jsl $E1

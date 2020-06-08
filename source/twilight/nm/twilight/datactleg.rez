@@ -1,0 +1,446 @@
+	sta	>$E12000,x
+	rts
+PlotError	ply	
+	pla
+	rts
+OddPix	clc
+	adc	1,s
+	cmp	#$8000
+	bge	PlotError	;don't plot if off screen
+	ply
+	tax		;byte address of pixel
+	pla		;color
+	and	#$000F	;right pixel
+	sta	Color
+	lda	>$e12000,x
+	and	#$FFF0
+	ora	Color
+	sta	>$E12000,x
+	rts
+Color	ds	2
+
+ChkColor	phx
+	pha		;original value
+	jsr	SplitColor
+	lda	Red
+	sec
+	sbc	Blue
+	bpl	ChkRedBlue
+	eor	#-1
+	inc	a
+ChkRedBlue	cmp	#ColorDiff
+	blt	Bad2
+	lda	Red
+	sec
+	sbc	Green	;difference between red & green
+	bpl	ChkRedGreen
+	eor	#-1
+	inc	a
+ChkRedGreen	cmp	#ColorDiff
+	blt	Bad2
+	lda	Green
+	sec
+	sbc	Blue	;diff between blu & green
+	bpl	ChkBlueGrn
+	eor	#-1
+	inc	a
+ChkBlueGrn	cmp	#ColorDiff
+	blt	Bad2	;good, bright color here!
+	pla		;original value
+	plx		;entry value
+	clc		;good value
+	rts
+
+Bad2	pla		;orig value
+	plx		;original color
+	sec		;return w/error
+	rts
+
+SplitColor	pha
+	and	#$F
+	sta	Blue
+	lda	1,s
+	lsr	a
+	lsr	a
+	lsr	a
+	lsr	a
+	and	#$F
+	sta	Green
+	pla		;get original value off stack
+	xba
+	and	#$F
+	sta	Red
+	rts
+
+IncColor	sta	OrigColor
+	jsr	SplitColor
+	lda	Red
+	cmp	#$F
+	bge	BadInc
+	lda	Green
+	cmp	#$F
+	bge	BadInc
+	lda	Blue
+	cmp	#$F
+	bge	BadInc
+	inc	Red
+	inc	Green
+	inc	Blue
+MakeColor	lda	Red
+	asl	a
+	asl	a
+	asl	a
+	asl	a
+	ora	Green
+	asl	a
+	asl	a
+	asl	a
+	asl	a
+	ora	Blue
+	rts
+BadInc	lda	OrigColor
+	rts
+
+DecColor	sta	OrigColor
+	jsr	SplitColor
+	lda	Red
+	beq	BadInc	;if 0, don't go any farther
+	lda	Green
+	beq	BadInc
+	lda	Blue
+	beq	BadInc
+	dec	Red	;ok, none are 0, so can drop
+	dec	Green
+	dec	Blue
+DoneDec	bra	MakeColor	;from Red, Green & blue components
+
+
+;................................................................
+
+OrigColor	ds	2
+Red	ds	2
+Green	ds	2
+Blue	ds	2
+EntryStack	ds	2
+StartX	ds	4	;4 for 32-bit frac adds
+StartY	ds	4	;ditto
+TargetX	ds	2
+TargetY	ds	2
+XDSpeed	ds	4
+YSpeed	ds	4
+OldBorder	ds	2
+ParamOffset	ds	2
+ColorH	ds	2
+ColorL	ds	2
+Erase	ds	2
+Running	ds	2
+Block1	ds	50
+Block2	ds	50
+
+Blocks	dc	a'Block1,Block2'
+
+EndFW	equ	245
+SetColor	equ	246
+WaitTick	equ	247
+SetErase	equ	248
+SetRunBlock	equ	249
+RunNow	equ	250
+Brighter	equ	$FFFF	;-1
+Darker	equ	$FFFE	;-2
+
+FWs	dc	a'FW1Code,FW2Code,FW3Code,FW4Code,FW5Code,FW6Code,FW7Code'
+	dc	a'FW8Code,FW9Code,FW10Code,FW11Code,FW12Code,FW13Code'
+	dc	a'FW14Code,FW15Code,FW16Code'
+
+Colors	dc	H'EEEEEEEEEEDDDDDDCCCCCCBBBBBBAAAAAA9999999999999999' ;1-25
+	DC	H'99999999999999999999FF' ;26-36
+	dc	H'EEEEEEEEEEDDDDDDCCCCCCBBBBBBAAAAAA99999999999999FF' ;1-25
+	dc	H'EEEEEEEEEEDDDDDDCCCCCCBBBBBBAAAAAA99999999999999FF' ;1-25
+
+FWDTrans	dc	a'FW1D1,FW1D2,FW1D3,FW1D4,FW1D5,FW1D6,FW1D7,FW1D8,FW1D9'
+	DC	A'FW1D10,FW1D11,FW1D12,FW1D13,FW1D14,FW1D15,FW1D16'
+	DC	A'FW1D17,FW1D18,FW1D19,FW1D20,FW1D21,FW1D22,FW1D23'
+	DC	A'FW1D24,FW1D25,FW1D26,FW1D27,FW1D28,FW1D29,FW1D30'
+	DC	A'FW1D31,FW1D32,FW1D33,FW1D34,FW1D35,FW1D36'
+	dc	a'FW2D1,FW2D2,FW2D3,FW2D4,FW2D5,FW2D6,FW2D7,FW2D8,FW2D9'
+	DC	A'FW2D10,FW2D11,FW2D12,FW2D13,FW2D14,FW2D15,FW2D16'
+	DC	A'FW2D17,FW2D18,FW2D19,FW2D20,FW2D21,FW2D22,FW2D23'
+	DC	A'FW2D24,FW2D25'
+	dc	a'FW3D1,FW3D2,FW3D3,FW3D4,FW3D5,FW3D6,FW3D7,FW3D8,FW3D9'
+	DC	A'FW3D10,FW3D11,FW3D12,FW3D13,FW3D14,FW3D15,FW3D16'
+	DC	A'FW3D17,FW3D18,FW3D19,FW3D20,FW3D21,FW3D22,FW3D23'
+	DC	A'FW3D24,FW3D25'
+FW1P1	EQU	1+15
+FW1P2	EQU	2+15
+FW1P3	EQU	3+15
+FW1P4	EQU	4+15
+FW1P5	EQU	5+15
+FW1P6	EQU	6+15
+FW1P7	EQU	7+15
+FW1P8	EQU	8+15
+FW1P9	EQU	9+15
+FW1P10	EQU	10+15
+FW1P11	EQU	11+15
+FW1P12	EQU	12+15
+FW1P13	EQU	13+15
+FW1P14	EQU	14+15
+FW1P15	EQU	15+15
+FW1P16	EQU	16+15
+FW1P17	EQU	17+15
+FW1P18	EQU	18+15
+FW1P19	EQU	19+15
+FW1P20	EQU	20+15
+FW1P21	EQU	21+15
+FW1P22	EQU	22+15
+FW1P23	EQU	23+15
+FW1P24	EQU	24+15
+FW1P25	EQU	25+15
+FW1P26	EQU	26+15
+FW1P27	EQU	27+15
+FW1P28	EQU	28+15
+FW1P29	EQU	29+15
+FW1P30	EQU	30+15
+FW1P31	EQU	31+15
+FW1P32	EQU	32+15
+FW1P33	EQU	33+15
+FW1P34	EQU	34+15
+FW1P35	EQU	35+15
+FW1P36	EQU	36+15
+FW2P1	EQU	37+15
+FW2P2	EQU	38+15
+FW2P3	EQU	39+15
+FW2P4	EQU	40+15
+FW2P5	EQU	41+15
+FW2P6	EQU	42+15
+FW2P7	EQU	43+15
+FW2P8	EQU	44+15
+FW2P9	EQU	45+15
+FW2P10	EQU	46+15
+FW2P11	EQU	47+15
+FW2P12	EQU	48+15
+FW2P13	EQU	49+15
+FW2P14	EQU	50+15
+FW2P15	EQU	51+15
+FW2P16	EQU	52+15
+FW2P17	EQU	53+15
+FW2P18	EQU	54+15
+FW2P19	EQU	55+15
+FW2P20	EQU	56+15
+FW2P21	EQU	57+15
+FW2P22	EQU	58+15
+FW2P23	EQU	59+15
+FW2P24	EQU	60+15
+FW2P25	EQU	61+15
+FW3P1	EQU	62+15
+FW3P2	EQU	63+15
+FW3P3	EQU	64+15
+FW3P4	EQU	65+15
+FW3P5	EQU	66+15
+FW3P6	EQU	67+15
+FW3P7	EQU	68+15
+FW3P8	EQU	69+15
+FW3P9	EQU	70+15
+FW3P10	EQU	71+15
+FW3P11	EQU	72+15
+FW3P12	EQU	73+15
+FW3P13	EQU	74+15
+FW3P14	EQU	75+15
+FW3P15	EQU	76+15
+FW3P16	EQU	77+15
+FW3P17	EQU	78+15
+FW3P18	EQU	79+15
+FW3P19	EQU	80+15
+FW3P20	EQU	81+15
+FW3P21	EQU	82+15
+FW3P22	EQU	83+15
+FW3P23	EQU	84+15
+FW3P24	EQU	85+15
+FW3P25	EQU	86+15
+
+FW1Code	anop
+	dc	i1'SetErase,5'
+	dc	i1'SetRunBlock,1,FW1P1,FW1P36'
+	dc	i1'RunNow'
+	dc	i1'EndFW'          
+
+FW2Code	anop
+	dc	i1'SetErase,5'
+	dc	i1'SetRunBlock,1,FW1P1,FW1P20'
+	dc	i1'RunNow'
+	dc	i1'SetRunBlock,1,FW1P21,FW1P36'
+	dc	i1'SetRunBlock,2,FW1P1,FW1P16'
+	dc	i1'RunNow'
+	dc	i1'EndFW'                    
+
+FW3Code	anop
+	dc	i1'SetErase,5'
+	dc	i1'SetRunBlock,1,FW2P1,FW2P25'
+	dc	i1'RunNow'
+	dc	i1'EndFW'          
+
+FW4Code	anop
+	dc	i1'SetErase,5'
+	dc	i1'SetRunBlock,1,FW1P1,FW1P20'
+	dc	i1'RunNow'
+	dc	i1'SetRunBlock,1,FW1P21,FW1P36'
+	dc	i1'SetRunBlock,2,FW2P1,FW2P16'
+	dc	i1'RunNow'
+	dc	i1'EndFW'                    
+
+FW5Code	anop
+	dc	i1'SetErase,5'
+	dc	i1'SetRunBlock,1,FW3P1,FW3P25'
+	dc	i1'RunNow'
+	dc	i1'EndFW'          
+
+FW6Code	anop
+	dc	i1'SetErase,25'
+	dc	i1'SetRunBlock,1,FW2P1,FW2P25'
+	dc	i1'RunNow'
+	dc	i1'EndFW'          
+                                               
+FW7Code	anop
+	dc	i1'SetErase,25'
+	dc	i1'SetRunBlock,1,FW3P1,FW3P25'
+	dc	i1'RunNow'
+	dc	i1'EndFW'          
+
+FW8Code	anop
+	dc	i1'SetErase,5'
+	dc	i1'SetRunBlock,1,FW2P1,FW2P15'
+	dc	i1'RunNow'
+	dc	i1'SetRunBlock,1,FW2P16,FW2P25'
+	dc	i1'SetRunBlock,2,FW3P1,FW3P10'
+	dc	i1'RunNow'
+	dc	i1'SetRunBlock,1,FW3P11,FW3P25'
+	dc	i1'RunNow'
+	dc	i1'EndFW'                   
+
+FW9Code	anop
+	dc	i1'SetErase,5'
+	dc	i1'SetRunBlock,1,FW1P1,FW1P13'
+	dc	i1'RunNow'
+	dc	i1'SetRunBlock,1,FW2P14,FW2P25'
+	dc	i1'RunNow'
+	dc	i1'SetRunBlock,1,FW1P26,FW1P35'
+	dc	i1'RunNow'
+	dc	i1'EndFW'                   
+
+FW10Code	anop
+	dc	i1'SetErase,5'
+	dc	i1'SetRunBlock,1,FW1P1,FW1P13'
+	dc	i1'RunNow'
+	dc	i1'SetRunBlock,1,FW2P14,FW2P25'
+	dc	i1'RunNow'
+	dc	i1'EndFW'                   
+
+FW11Code	anop
+	dc	i1'SetErase,5'
+	dc	i1'SetRunBlock,1,FW2P1,FW2P25'
+	dc	i1'RunNow'
+	dc	i1'SetRunBlock,1,FW1P26,FW1P36'
+	dc	i1'RunNow'
+	dc	i1'EndFW'                   
+
+FW12Code	anop
+	dc	i1'SetErase,5'
+	dc	i1'SetRunBlock,1,FW1P1,FW1P13'
+	dc	i1'RunNow'
+	dc	i1'SetRunBlock,1,FW3P14,FW3P25'
+	dc	i1'RunNow'
+	dc	i1'SetRunBlock,1,FW1P26,FW1P35'
+	dc	i1'RunNow'
+	dc	i1'EndFW'                   
+
+FW13Code	anop
+	dc	i1'SetErase,5'
+	dc	i1'SetRunBlock,1,FW1P1,FW1P13'
+	dc	i1'RunNow'
+	dc	i1'SetRunBlock,1,FW3P14,FW3P25'
+	dc	i1'RunNow'
+	dc	i1'EndFW'                   
+
+FW14Code	anop
+	dc	i1'SetErase,5'
+	dc	i1'SetRunBlock,1,FW3P1,FW3P25'
+	dc	i1'RunNow'
+	dc	i1'SetRunBlock,1,FW1P26,FW1P36'
+	dc	i1'RunNow'
+	dc	i1'EndFW'                   
+
+FW15Code	anop
+	dc	i1'SetErase,5'
+	dc	i1'SetRunBlock,1,FW1P1,FW1P20'
+	dc	i1'RunNow'
+	dc	i1'SetRunBlock,1,FW1P21,FW1P36'
+	dc	i1'SetRunBlock,2,FW3P1,FW3P16'
+	dc	i1'RunNow'
+	dc	i1'EndFW'                    
+
+FW16Code	anop
+	dc	i1'SetErase,5'
+	dc	i1'SetRunBlock,1,FW1P1,FW1P20'
+	dc	i1'RunNow'
+	dc	i1'SetRunBlock,1,FW1P21,FW1P25'
+	dc	i1'SetRunBlock,2,FW3P1,FW3P5'
+	dc	i1'RunNow'
+	dc	i1'SetRunBlock,1,FW3P6,FW3P25'
+	dc	i1'RunNow'
+	dc	i1'EndFW'                    
+
+FW1D1 anop
+ dc h'E52125232423242324232323E321E321E321A320A420A420A420A520E521E521FFFF'
+FW1D2 anop
+ dc h'2623252365246424632423232223E221A220A320A320641FA520A520A620E621FFFF'
+FW1D3 anop
+ dc h'27236624A525A425A32562242123E121A120621F631F641F651F661FA720E721FFFF'
+FW1D4 anop
+ dc h'6824A725E626E426E226A1256024E021A020611F221E241E261E671FA820E821FFFF'
+FW1D5 anop
+ dc h'6924A825E6262428E226A0255F24DF219F20201EE21CE41CE61C281EA920E921FFFF'
+FW1D6 anop
+ dc h'6A24E826262864292228E0265E24DE215E1F201EE21CA41BE61C281E6A1FEA21FFFF'
+FW1D7 anop
+ dc h'AA2529286729A42A61291F289E251D235E1FDF1CA11B641AA71BE91C6A1F2B23FFFF'
+FW1D8 anop
+ dc h'AB256A29A72AE42BA12A5E299D251C235D1FDE1C611A641A671AEA1C6B1F2C23FFFF'
+FW1D9 anop
+ dc h'EC266A29E72B242DE12B5E29DC261B235C1F9E1B211924192719AA1B6C1F2D23FFFF'
+FW1D10 anop
+ dc h'ED26AB2A282D642E202D9D2ADB261A231B1E9D1B2019E4172819AB1B2D1E2E23FFFF'
+FW1D11 anop
+ dc h'2E28EC2B682E642E602EDC2B1A2819231A1E5C1AE017A416E8176C1A2E1E2F23FFFF'
+FW1D12 anop
+ dc h'2F28EC2BA92FA42F9F2FDC2B19281823191E1C199F166415A9162C192F1E3023FFFF'
+FW1D13 anop
+ dc h'30282D2DE930E430DF301B2D18281723181E1B195F15641569152D19301E3123FFFF'
+FW1D14 anop
+ dc h'71296E2EE9302432DF305A2E57291623D71CDA175F1524146915EE17F11C3223FFFF'
+FW1D15 anop
+ dc h'72296F2E2A3264331E32592E56291523D61CD9171E14E4122A14EF17F21C3323FFFF'
+FW1D16 anop
+ dc h'B32AAF2F6A33A4345E33992F952A1423D51C9916DE12A411EA12AF16F31C3423FFFF'
+FW1D17 anop
+ dc h'B42AF030AB34E4359D34D830942A1323D41C9816DD126410EB12B016F41C3523FFFF'
+FW1D18 anop
+ dc h'B52A3132EB352437DD351732932A1223931B57159D116410AB117115B51B3623FFFF'
+FW1D19 anop
+ dc h'F62B31322B3764381D371732D22B5124921B57155D10240F6B107115B61B7724FFFF'
+FW1D20 anop
+ dc h'F62B72336C38A4395C385633D22B5024921B16141C0FE40D2C0F3214B61B7824FFFF'
+FW1D21 anop
+ dc h'372DB334AC39E43A9C399534112D4F24911B15141C0FA40C2C0F3314B71B7924FFFF'
+FW1D22 anop
+ dc h'382DB434EC3A243CDC3A9434102D4E24901BD412DC0DA40CEC0DF412B81B7A24FFFF'
+FW1D23 anop
+ dc h'792EF4352D3C643D1B3CD4354F2E4D244F1AD4129B0C640BAD0CF412791A7B24FFFF'
+FW1D24 anop
+ dc h'7A2E35376D3DA43E5B3D13374E2E4C244E1A93119B0C240AAD0CB5117A1A7C24FFFF'
+FW1D25 anop
+ dc h'BB2F76386E3DE43F5A3D52388D2F4B244D1A92115A0BE4086E0BB6117B1A7D24FFFF'
+FW1D26 anop
+ dc h'BC2F7638AE3E24419A3E52388C2F4A244C1A52101A0AE4082E0A76107C1A7E24FFFF'
+FW1D27 anop
+ dc h'FD30B739EE3F6442DA3F9139CB3089250B1951101A0AA4072E0A77103D19BF25FFFF'
+FW1D28 anop
+ dc h'FE30F83A2F41A44319

@@ -1,0 +1,28 @@
+* This sample code shows how to manipulate a DataField control using two custom
+* control messages. DataField supports all other normal control activity. For
+* example, you can set the ctlInvis bit in the control flags field, and the
+* control will not draw.
+
+* To find out what tag value the first field is set to, use this code:
+
+	LongResult
+               PushLong DataCtlHand
+               PushWord #GetFieldValue
+               PushWord #0	;not used for GetFieldValue
+               PushWord #34	;field number - they start at 34
+	_CallCtlDefProc
+               pla	                	;this is the current tag
+               plx		;always zero
+
+* To change the value of a field, use this code:
+
+	LongResult
+               PushLong DataCtlHand
+               PushWord #SetFieldValue
+               PushWord #4	;new tag value for this field
+               PushWord #34	;field number - they start at 34
+	_CallCtlDefProc
+               plx		;always zero
+               plx		;same
+
+                    
