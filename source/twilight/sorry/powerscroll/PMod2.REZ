@@ -1,0 +1,101 @@
+
+#include "types.rez"
+
+// --- Module name resouce
+
+resource rPString (0x1) {
+ "Power Scroll"
+};
+
+// --- About text resource
+
+resource rTextForLETextBox2 ($0010DD01) {
+       "\$01"
+       "J"
+       "\$00"
+       "\$00"
+       "\$01"
+       "L"
+       "\$00"
+       "\$00"
+       "\$01"
+       "R"
+       "\$04"
+       "\$00"
+       "\$01"
+       "F"
+       "\$FE"
+       "\$FF"
+       "\$00"
+       "\$08"
+       "\$01"
+       "C"
+       "\$11"
+       "\$11"
+       "\$01"
+       "B"
+       "\$FF"
+       "\$FF"
+       "This module scrolls text you create in the sleek looking DYA PowerFont "
+       "at speeds you choose."
+};
+
+// --- Version resource
+
+resource rVersion (0x1) {
+       { $1,$0,$1,beta,$1 },             // Version 1.0.1b1
+       verUS,                             // US Version
+       "Twilight II Meltdown Module",     // program's name
+       "By J. Maricondo.  Art by M. Keller.\$0D"
+       "Copyright 1991 Jim Maricondo."    // copyright notice
+};
+
+// --- About icon resource
+
+resource rIcon ($0010DD01) {
+       $8000,                  // kind
+       $0014,                  // height
+       $001C,                  // width
+
+       $"FFF0000000000000000000000FFF"
+       $"FFF0FFFFFFFFFFFFFFFFFFFF0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0F00DDDDD00100100100F0FFF"
+       $"FFF0F0D0000010010010010F0FFF"
+       $"FFF0F0D0DDD010010010010F0FFF"
+       $"FFF0F0D0000010010010010F0FFF"
+       $"FFF0F0D0111010010010010F0FFF"
+       $"FFF0F0D010D010010010010F0FFF"
+       $"FFF0F0D010D010010010010F0FFF"
+       $"FFF0F0D110D110010010010F0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0FFFFFFFFFFFFFFFFAFFF0FFF"
+       $"FFF0000000000000000000000FFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FF4AFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0CCCCCCCCCCCCCCCCCC0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFAFF0FFFF"
+       $"FFFF00000000000000000000FFFF",
+
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000";
+};

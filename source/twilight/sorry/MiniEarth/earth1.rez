@@ -1,0 +1,101 @@
+
+#include "types.rez"
+
+// Module name resource
+
+resource rPString (0x1) {
+ "Bouncing Earth 1"
+};
+
+// --- About text resource
+
+resource rTextForLETextBox2 ($0010DD01) {
+       "\$01"
+       "J"
+       "\$00"
+       "\$00"
+       "\$01"
+       "L"
+       "\$00"
+       "\$00"
+       "\$01"
+       "R"
+       "\$04"
+       "\$00"
+       "\$01"
+       "F"
+       "\$FE"
+       "\$FF"
+       "\$00"
+       "\$08"
+       "\$01"
+       "C"
+       "\$11"
+       "\$11"
+       "\$01"
+       "B"
+       "\$FF"
+       "\$FF"
+       "This module simulates a view of the earth from far away in the depths "
+       "of outer space."
+};
+
+// --- Version resource
+
+resource rVersion (0x1) {
+       { $1,$0,$1,final,$1 },             // Version 1.0.1f1
+       verUS,                             // US Version
+       "Twilight II Bouncing Earth 1 Module",     // program's name
+       "By J. Maricondo.  Art by M. Keller.\$0D"
+       "Copyright 1991 Jim Maricondo."    // copyright notice
+};
+
+// --- About icon resource
+
+resource rIcon ($0010DD01) {
+       $8000,                  // kind
+       $0014,                  // height
+       $001C,                  // width
+
+       $"FFF0000000000000000000000FFF"
+       $"FFF0FFFFFFFFFFFFFFFFFFFF0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0F030000000000111000F0FFF"
+       $"FFF0F003000000008811800F0FFF"
+       $"FFF0F000300000008111100F0FFF"
+       $"FFF0F030030000F00111000F0FFF"
+       $"FFF0F00300300F000000000F0FFF"
+       $"FFF0F0003000F00F0000000F0FFF"
+       $"FFF0F000030F00F00000000F0FFF"
+       $"FFF0F00000F00F000000000F0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0FFFFFFFFFFFFFFFFAFFF0FFF"
+       $"FFF0000000000000000000000FFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FF4AFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0CCCCCCCCCCCCCCCCCC0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFAFF0FFFF"
+       $"FFFF00000000000000000000FFFF",
+
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000";
+};

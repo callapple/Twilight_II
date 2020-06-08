@@ -1,0 +1,14 @@
+echo unset keeptype
+unset keeptype
+echo asml PMod2.asm keep=PMod2.d
+asml PMod2.asm keep=PMod2.d
+echo duplicate -d PMod2.d PMod2
+duplicate -d PMod2.d PMod2
+echo duplicate -r PMod2.r PMod2
+duplicate -r PMod2.r PMod2
+echo filetype PMod2 $BC
+filetype PMod2 $BC
+echo setfile PMod2 -at $4004
+setfile PMod2 -at $4004
+echo copy PMod2 /jim1/system/cdevs/Twilight/PowerScroll1.0
+copy -c PMod2 /jim1/system/cdevs/Twilight/PowerScroll1.0

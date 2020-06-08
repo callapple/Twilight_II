@@ -1,0 +1,12 @@
+#include "types.rez"
+
+resource rPString (0x1) {
+$"A5"
+  "Slide Show"
+$"A5"
+};
+
+resource rPString (0x2) {
+  "Directory:"
+};
+

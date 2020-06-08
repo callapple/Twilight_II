@@ -1,0 +1,277 @@
+ MACRO
+&LAB JCS &BP
+&LAB BCC *+5
+ BRL &BP
+ MEND
+ MACRO
+&lab LongResult
+&lab phd
+ phd
+ MEND
+ MACRO
+&lab _DisposeAll
+&lab ldx #$1102
+ jsl $E10000
+ MEND
+ MACRO
+&lab _GetAddress
+&lab ldx #$0904
+ jsl $E10000
+ MEND
+ MACRO
+&lab pulllong &addr1,&addr2
+&lab ANOP
+ AIF C:&addr1=0,.a
+ AIF C:&addr2=0,.b
+ LCLC &C
+&C AMID &addr1,1,1
+ AIF "&C"="[",.zeropage
+ pullword &addr1
+ sta &addr2
+ pullword &addr1+2
+ sta &addr2+2
+ MEXIT
+.a
+ pullword
+ pullword
+ MEXIT
+.b
+ pullword &addr1
+ pullword &addr1+2
+ MEXIT
+.zeropage
+ ldy #&addr2
+ pullword &addr1,y
+ ldy #&addr2+2
+ pullword &addr1,y
+ MEND
+ MACRO
+&lab pullword &SYSOPR
+&lab ANOP
+ pla
+ AIF C:&SYSOPR=0,.end
+ sta &SYSOPR
+.end
+ MEND
+ MACRO
+&lab pushword &SYSOPR
+&lab ANOP
+ AIF C:&SYSOPR=0,.b
+ LCLC &C
+&C AMID "&SYSOPR",1,1
+ AIF ("&C"="#").AND.(S:LONGA),.immediate
+ lda &SYSOPR
+ pha
+ MEXIT
+.b
+ pha
+ MEXIT
+.immediate
+ LCLC &REST
+ LCLA &BL
+&BL ASEARCH "&SYSOPR"," ",1
+ AIF &BL>0,.a
+&BL SETA L:&SYSOPR+1
+.a
+&REST AMID "&SYSOPR",2,&BL-2
+ dc I1'$F4',I2'&REST'
+ MEND
+ MACRO
+&lab longmx
+&lab ANOP
+ rep #%00110000
+ longa on
+ longi on
+ MEND
+ MACRO
+&lab longm
+&lab ANOP
+ rep #%00100000
+ longa on
+ MEND
+ MACRO
+&lab shortm
+&lab ANOP
+ sep #%00100000
+ longa off
+ MEND
+ MACRO
+ DefineStack
+ GBLA &DummyPC
+&DummyPC SETA 1
+ MEND
+ MACRO
+&lab BYTE
+&lab equ &DummyPC
+&DummyPC SETA &DummyPC+1
+ MEND
+ MACRO
+&lab WORD
+&lab equ &DummyPC
+&DummyPC SETA &DummyPC+2
+ MEXIT
+ MEND
+ MACRO
+&lab LONG
+&lab equ &DummyPC
+&DummyPC SETA &DummyPC+4
+ MEND
+ MACRO
+&lab BLOCK &Value
+ AIF C:&lab=0,.skiplab
+&lab equ &DummyPC
+.skiplab
+&DummyPC SETA &DummyPC+&Value
+ MEND
+ MACRO
+&lab _GetMasterSCB
+&lab ldx #$1704
+ jsl $E10000
+ MEND
+ MACRO
+&lab pushlong &addr,&offset
+&lab ANOP
+ LCLC &C
+ LCLC &REST
+&C AMID &addr,1,1
+ AIF "&C"="#",.immediate
+ AIF "&C"="[",.zeropage
+ AIF C:&offset=0,.nooffset
+ AIF "&offset"="s",.stack
+ pushword &addr+2,&offset
+ pushword &addr,&offset
+ MEXIT
+.nooffset
+ pushword &addr+2
+ pushword &addr
+ MEXIT
+.immediate
+&REST AMID &addr,2,L:&addr-1
+ dc I1'$F4',I2'(&REST)|-16'
+ dc I1'$F4',I2'&REST'
+ MEXIT
+.stack
+ pushword &addr+2,s
+ pushword &addr+2,s
+ MEXIT
+.zeropage
+ ldy #&offset+2
+ pushword &addr,y
+ ldy #&offset
+ pushword &addr,y
+ MEND
+ MACRO
+&lab _GetHandleSize
+&lab ldx #$1802
+ jsl $E10000
+ MEND
+ MACRO
+&lab _NewHandle
+&lab ldx #$0902
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SoundStartUp
+&lab ldx #$0208
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SoundShutDown
+&lab ldx #$0308
+ jsl $E10000
+ MEND
+ MACRO
+&lab _FFStartSound
+&lab ldx #$0E08
+ jsl $E10000
+ MEND
+ MACRO
+&lab _FFStopSound
+&lab ldx #$0F08
+ jsl $E10000
+ MEND
+ MACRO
+&lab _LoadResource
+&lab ldx #$0E1E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SoundToolStatus
+&lab ldx #$0608
+ jsl $E10000
+ MEND
+ MACRO
+&lab _GetCurResourceApp
+&lab ldx #$141E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetCurResourceApp
+&lab ldx #$131E
+ jsl $E10000
+ MEND
+ MACRO
+&lab GSStr &GSstring
+&lab dc i2'L:&GSstring',C'&GSstring'
+ MEND
+ MACRO
+&lab WordResult
+&lab phd
+ MEND
+ MACRO
+&lab _CloseResourceFile
+&lab ldx #$0B1E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _DetachResource
+&lab ldx #$181E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _GetCurResourceFile
+&lab ldx #$121E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _OpenResourceFile
+&lab ldx #$0A1E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _ResourceShutDown
+&lab ldx #$031E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _ResourceStartUp
+&lab ldx #$021E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetCurResourceFile
+&lab ldx #$111E
+ jsl $E10000
+ MEND
+ MACRO
+&lab _FFSoundStatus
+&lab ldx #$1008
+ jsl $E10000
+ MEND
+ macro
+&lab deref &locations,&handle
+&lab lda [&handle]
+ lcla &count
+&count seta 1
+.loop
+ sta &locations(&count)
+&count seta &count+1
+ aif &count<=C:&locations,^loop
+ ldy #2
+ lda [&handle],y
+&count seta 1
+.loop
+ sta &locations(&count)+2
+&count seta &count+1
+ aif &count<=C:&locations,^loop
+ mend

@@ -1,0 +1,4 @@
+
+compile fr.cc
+link fr psea keep=fr
+fr

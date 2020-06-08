@@ -1,0 +1,12 @@
+echo asml SKULLey.asm keep=SKULLey.d
+asml SKULLey.asm keep=SKULLey.d
+echo duplicate -d SKULLey.d SKULLey
+duplicate -d SKULLey.d SKULLey
+echo duplicate -r SKULLey.r SKULLey
+duplicate -r SKULLey.r SKULLey
+echo filetype SKULLey $BC
+filetype SKULLey $BC
+echo setfile SKULLey -at $4004
+setfile SKULLey -at $4004
+echo copy -c SKULLey /jim1/system/cdevs/Twilight/SKULLey
+copy -c SKULLey /jim1/system/cdevs/Twilight/SKULLey

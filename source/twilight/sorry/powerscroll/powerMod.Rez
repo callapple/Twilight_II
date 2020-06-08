@@ -1,0 +1,9 @@
+#include "types.rez"
+
+resource rPString (0x1) {
+ "PowerScroll 1.0"
+};
+
+resource rPString (0x2) {
+ "Text to scroll:"
+};

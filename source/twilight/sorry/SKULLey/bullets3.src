@@ -1,0 +1,38 @@
+
+BulletDATA     Data
+
+bullet4            anop ;11112222333344445555    * 15 lines
+                    dc h'00000000000000E00000'
+                    dc h'000000E000000E0E0000'
+                    dc h'000000E0E000E4EE0000'
+                    dc h'00000EEE4EEE4EE00000'
+                    dc h'0000E4E4444444E0E500'
+                    dc h'04E44334411144E54000'
+                    dc h'0004444110002440E000'
+                    dc h'00000444100013E00000'
+                    dc h'000000EE210014EE0000'
+                    dc h'000004EE431133EE0000'
+                    dc h'000000E44434EEEEE000'
+                    dc h'0000000EE44EEEE0E000'
+                    dc h'000000E0EE044E00E000'
+                    dc h'00000000000400000000'
+                    dc h'000000E0000000000000'
+
+bulmsk4             anop
+                    dc h'FFFFFFFFFFFFFF0FFFFF'
+                    dc h'FFFFFF0FFFFFF0F0FFFF'
+                    dc h'FFFFFF0F0FFF0000FFFF'
+                    dc h'FFFFF0000000000FFFFF'
+                    dc h'FFFF00000000000F00FF'
+                    dc h'F0000000000000000FFF'
+                    dc h'FFF000000000000F0FFF'
+                    dc h'FFFFF0000000000FFFFF'
+                    dc h'FFFFFF0000000000FFFF'
+                    dc h'FFFFF00000000000FFFF'
+                    dc h'FFFFFF00000000000FFF'
+                    dc h'FFFFFFF00000000F0FFF'
+                    dc h'FFFFFF0F00F000FF0FFF'
+                    dc h'FFFFFFFFFFF0FFFFFFFF'
+                    dc h'FFFFFF0FFFFFFFFFFFFF'
+
+               End
