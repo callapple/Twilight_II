@@ -1,0 +1,18 @@
+
+echo asml Strobe.asm keep=Strobe.d
+asml Strobe.asm keep=Strobe.d
+
+echo duplicate -d Strobe.d Strobe
+duplicate -d Strobe.d Strobe
+
+echo duplicate -r Strobe.r Strobe
+duplicate -r Strobe.r Strobe
+
+echo filetype Strobe $BC
+filetype Strobe $BC
+
+echo setfile Strobe -at $4004
+setfile Strobe -at $4004
+
+echo copy -c Strobe /jim1/system/cdevs/Twilight/Strobe
+copy -c Strobe /jim1/system/cdevs/Twilight/Strobe

@@ -1,0 +1,226 @@
+
+#include "types.rez"
+#include "22:T2Common.Rez"
+
+// --- type rDataList ($1986) defines
+#define imageDelayDataList 	1
+// --- type rTaggedStrings ($802E) defines
+#define field1Strings		1
+// --- type $8003 defines
+#define spiroCtlLst 1
+// --- type $8004 defines
+#define imageDelayCtl 1
+#define forceSmallPenCtl 2
+#define imageDelayStatTextCtl 3
+#define spiroOptsStatTextCtl 4
+#define iconCtl 5
+// --- type $8006 defines
+#define forceSmallPen_pstr 2
+#define spiroOpts_pstr 3
+// --- type $800B defines
+#define imageDelay_LText 1
+
+
+// --- custom resource type defines
+
+resource rT2ModuleFlags (moduleFlags) {
+	fSetup +
+	fFadeOut +
+	fFadeIn +
+	fLeavesUsableScreen +
+	fGrafPort640,				// module flags
+	$01,						// enabled flag (unimplemented)
+	$0110,					// minimum T2 version required
+	NIL,						// reserved
+	"Spirographics"			// module name
+};
+
+// --- Icon Definitions
+
+resource rIcon (moduleIcon) {
+		$8000,				// kind
+		$0014,				// height
+		$0016,				// width
+
+		$"F00000000000000000000F"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0F0000000EEE00000000F0"
+		$"0F000000E000E0000000F0"
+		$"0F00000E00E00E000000F0"
+		$"0F0000E00E0E0E0D0000F0"
+		$"0F0000E0E00B0E0E0000F0"
+		$"0F0000E0E0000E0E0000F0"
+		$"0F0000E00E00E00E0000F0"
+		$"0F00000E00EE00E00000F0"
+		$"0F000000E0000E000000F0"
+		$"0F0000000EEEE0000000F0"
+		$"0FFFFFFFFFFFFFFFFAFFF0"
+		$"0000000000000000000000"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FFFFFFFFFFFFFFFFFF0F"
+		$"F0FF4AFFFFFFFFFFFFFF0F"
+		$"F0CCCCCCCCCCCCCCCCCC0F"
+		$"F0FFFFFFFFFFFFFFFAFF0F"
+		$"F00000000000000000000F",
+
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"FFFFFFFFFFFFFFFFFFFFFF"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0"
+		$"0FFFFFFFFFFFFFFFFFFFF0";
+};
+
+// --- Control List Definitions
+
+resource rControlList (spiroCtlLst) {
+		{
+		iconCtl,			// control 3
+		imageDelayStatTextCtl,			// control 5
+		forceSmallPenCtl,			// control 6
+		};
+};
+
+// --- Control Templates
+
+resource rControlTemplate (forceSmallPenCtl) {
+		1,			// ID
+		{ 92, 14,101,232},		// rect
+		checkControl {{
+			$0000,			// flag
+			$3002,			// moreFlags
+			$00000000,			// refCon
+			forceSmallPen_pstr,	// titleRef
+			$0000,			// initialValue
+			0,			// colorTableRef
+			{"F","f",$0100,$0100}	// key equivalents
+		}};
+};
+
+resource rControlTemplate (imageDelayStatTextCtl) {
+		2,			// ID
+		{ 77, 12, 87,249},		// rect
+		statTextControl {{
+			$0000,			// flag
+			$1002,			// moreFlags
+			$00000000,			// refCon
+			imageDelay_LText		// textRef
+		}};
+};
+
+resource rControlTemplate (iconCtl) {
+		3,			// ID
+		{ 30, 58, 63,286},		// rect
+		iconButtonControl {{
+			$000C,			// flag
+			$1022,			// moreFlags
+			NIL,			// refCon
+			moduleIcon,		// iconRef
+			spiroOpts_pstr,			// titleRef
+			NIL,			// colorTableRef
+			$0000			// displayMode
+		}};
+};
+
+resource rControlTemplate (imageDelayCtl,locked) {
+       4,		    // control ID
+		{ 75,250, 88,302},		// rect      - 306
+       dataFieldControl {{
+               ctlVisible,			// flag
+               fCtlCanBeTarget+RefIsResource,
+               NIL,            			// refCon
+               imageDelayDataList,			// dataListRef
+               {0,0,0,0,0,0,0,0}  // fieldValues
+       }};
+};
+
+// --- rPString Templates
+
+resource rPString (forceSmallPen_pstr) {
+	"Force Small Pen Size"
+};
+
+resource rPString (spiroOpts_pstr) {
+	"Spirographics Options"
+};
+
+// --- rTextForLETextBox2 Templates
+
+resource rTextForLETextBox2 (imageDelay_LText) {
+	"Delay between images (seconds):"
+};
+
+resource rTextForLETextBox2 (moduleMessage) {
+	TBLeftJust
+	TBBackColor TBColorF
+	TBForeColor TBColor4
+	"Spirographics"
+	TBForeColor TBColor1
+	" generates intriguing progressive geometric "
+	"figures randomly on the screen.\nWho said geometry was boring?"
+};
+
+// --- datafield stuff
+
+/* This structure describes the relative locations and strings associated with
+   each data field. Since there may be from 1 to 8 data fields in each control,
+   these location/string reference pairs repeat for each field. */
+
+resource rDataList (imageDelayDataList, nospecialmemory,nocrossbank) {
+	{
+       	{2,6},			// relative location of this field
+       	field1Strings	// reference to this field's string list
+	};
+};
+
+/* These are the tagged strings that are associated with each field in the
+   control. The tag value that is specified is used to track the current value
+   of each field. If you wish only to have a list of integers displayed, simply
+   provide the tag values and null (empty) strings as in the second field. */
+
+resource rTaggedStrings (field1Strings) {
+	{
+		0,"0",
+	     1,"1",
+         2,"2",
+		3,"3",
+		4,"4",
+         5,"5",
+		6,"6",
+		7,"7",
+		8,"8",
+		9,"9",
+		10,"10",
+		15,"15",
+		20,"20",
+		25,"25",
+		30,"30",
+		45,"45",
+		60,"60",
+		120,"120"
+    };  
+};
+
+// --- rVersion Templates 
+
+resource rVersion (moduleVersion) {
+       {1,0,0,release,0},         // Version
+       verUS,                     // US Version
+       "T2 Spirographics Module", // program's name
+       "By Jim Maricondo.\n"
+       "Copyright 1992-93, Jim Maricondo."    // copyright notice
+};
