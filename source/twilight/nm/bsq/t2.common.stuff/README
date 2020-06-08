@@ -1,0 +1,39 @@
+Nathan Mates's Twlight II common asm routine documentation
+
+    These are very sketchy docs, as I simply wrote the things for myself,
+and was asked today to upload them. I hope to be getting the sample "Ball"
+T2 module source in C or Pascal soon so that I can distribute a sample module's
+source that isn's copyrighted. :)
+
+   Anyways, this set of files should include the file e16.t2, which is a
+modified version of what Jim sent me earlier. I commented out some stack
+offsets that aren't useful anymore, as my code takes care of the stack and
+all on entry.
+
+[ Jim- Modify the e16.t2 file to your linking; you wrote 90% of it :) ]
+
+   Also included are a set of files, asm, macros, and exec files designed
+to let you build the set of common routines.
+
+[ Jim- If you don't want the datactl stuff to get out (I don't have the
+datactl dox in this archive anyways), just delete the references to the
+datactl file in "go" and "makemacs" as well as the datactl file. ]
+
+   To save the time used in recompiling these common routines every time, I
+have come up with a slightly new system, which I call objLibraries. That is,
+the compiled form resides in your Libraries folder (13: under orca), and
+they are linked in at link time. To do this, you simply need to tell the
+computer to do so. Assuming that you have a blanker assembled to the name
+objfile (with orca making the extensions .root, .a, .b and so forth), simply
+use the command
+
+link 13:t2.comm objfile
+
+   Of course, you can add the KEEP= directive, the -x flag (T2 blankers are so
+small that expressing is a waste) as you like.
+
+   The 'build libraries' exec "go" is included so that you can run it and
+copies of the objLibraries are in the right place.
+
+[Jim- Just send me the Ball sample source and I'll make up a full demo. It's
+a little hard to explain everything without referring to some source ]

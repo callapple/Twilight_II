@@ -1,0 +1,2 @@
+compile t2.common.asm Keep=13:t2.comm
+compile t2.datactl.asm Keep=13:t2.data

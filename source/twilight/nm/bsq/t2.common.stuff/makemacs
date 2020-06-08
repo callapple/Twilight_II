@@ -1,0 +1,2 @@
+macgen t2.common.asm t2.common.macs 18/m16=
+macgen t2.datactl.asm t2.datactl.macs 18/m16=
