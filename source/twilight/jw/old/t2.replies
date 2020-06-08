@@ -1,0 +1,46 @@
+I'm glad you like how it's progressing.  I will try to get a few more modules converted soon.  Once I get most of the CDev done, however, I will spend much more time on modules.  Supporting old style modules is out of the question, for two reasons: 1-It is impossible to detect which version from a software point of view, and 2-WHY would I want to?  I changed the module format for good reason; I do not want to regress into the limits imposed by the old format which I escaped with G2MF! :-)
+
+Thanks a lot for your comments.  I wish everyone was as verbal as the few people like yourself.  The people who contribute the least will be the first to go when I reach my maximum tester limit.
+
+Let me address your comments now..
+
+>> The command-help dialog doesn't have your AOL address as AFC DYA Jim... :-) <<
+	The reason why I originally decided to leave it that way was you never know how long I'll be AFC, while I'll always have my DYA Jim account.  However, I figure now what the hell - I'll change it.
+
+>> The control panel's list control has a focus frame on it when it's the only targetable control <<
+	That is exactly how it's supposed to be!  If it didn't have the automatic focus frame then you couldn't navigate the list via the keyboard until you clicked in the listCtl's boundsRect with the mouse first! (yuck, icky; I hate programs that make you do that [i.e. DTUtils v3.3])
+
+>> How are you implementing the non-watch cursor blanking???  I'm gunna start work on Cool Cursor 1.1 soon and it'll be able to tell you (SendRequest to EGO Systems~Cool Cursor~ and ask for the WaitStatus, I believe it'll be... plus you can request to load and animate a special Twilight cursor if ya want... :-) <<
+	I haven't really decided yet, altho I've been bouncing around in my head using the same method CC does to patch out the appropriate addresses.  I'd like to use CC calls, but chances are 90% of the users won't have CC, and I'm not sure I want to make having CoolCursor a requirement to use all features of T2.. :-(
+
+>> New Module Idea:  Man, it'd be way cool if the Fill Maze (in demo mode where the computer finds its way out) could be converted into a blanker... <<
+	Hmm, I wonder if I could get Jason to do it..
+
+>> I like the seconds before blank now idea... but more appropriate would probably be some way for the screen to blank until a key is pressed or the mouse button is clicked (i.e. ignore mouse movements) <<
+	Oh well, it's gone now!  I removed it to make room for features I consider to be more important.  However I just added a check box for not allowing mouse movement to restore a blanked screen when in a desktop program. :-)
+
+>> I think that Phantasm has some kind of way to "slideshow" all its available blankers - ya might want to think about something like that - I dunno how useful it'd be, though <<
+	Yeah, why really bother?  Just navigate the list and click blank now for each one.. :)
+
+>> Speaking of Phantasm... sure would be way cool if T2 could use Phantasm blanker modules... but that would be one of the last things I would work on <<
+	Sure, it would be cool.  But I doubt if it would be practical.  First off, Phantasm puts its blankers into its resource fork (EEW!!!).  Second of all I don't feel like spending the time to disassemble the appropriate portions of Phantasm to decode the format (I feel my time would be better spent implementing other aspects of T2).
+
+>> re: KillT2 message - wouldn't it just be easier for T2 to call KillControls to kill the controls?  It'd have to re-make the pop-up, update button, and divider controls... but that'd be a heckuva lot easier than a loop to kill setup controls - especially if they're created with a single NewControl2 call which refers to a control list, eh?  I don't remember if KillControls actually hides 'em first, so you'd probably have to call invalRect or something on the setup control area. <<
+	When you call KillControls, I suppose it also disposes of all the memory used by the controls.  Then it would dispose of the entire structure belonging to the Setup popup.  Rebuilding this structure each time would be tedious and time consuming :-(  However É I might be making all the references in the Setup popup as refIsPointer - if this is so then they can't be disposed of when the control is killed by killCtls.  I will have to look - it's been awhile since I wrote that code.  Then there is the problem of erasing the controls, as you said.  I believe I tried InvalRect before using EraseControl and it did not work.  What I ended up settling on was the EraseControl DisposeControl loop, and then calling InvalCtls after making the new controls.
+	But the current setup isn't as difficult or tedious as you seem to imply.  Sure, it might not be as good as what you're suggesting to replace it (if it is feasible that is), but it still isn't difficult - just do a loop killing off ctls with IDs 1 thru whatever the highest Id you have.  I call my killCtl routine recursively (inside my modules) so killing all the ctls from a control list is easy.
+
+>> re: BlankT2 message - instead of a pointer to the movement flag (which tells the module to return to T2) I think the T2Data1 parameter should be a pointer to a structure - first the movement flag, then a grafPortPtr.  This would work in conjunction with a new flag bit (0=setup,1=fade in,2=fade out,3=grafPort) which would let T2 automatically call GetPort/OpenPort/SetPort before dispatching to the module (since I would hope that grafPorts would be used a lot and having each module do this is a waste of code, eh?) and then the ClosePort/SetPort calls would be made by T2 when the blanker module returns.  Also, a way of specifying whether the mode should be either 320 or 640 mode would be appropriate, too, but I haven't thought about this too much... <<
+	Excellent idea!!!  I will try to implement it soon!  Perhaps I will define 2 new bits of T2ModuleFlags: 3=grafport640, 4=grafport320.  But, I'm really not too too familiar with QuickDraw II - I thought you just open up a grafport and it automatically has to use the mode QDII was started up with.  So I'm kinda confused now :-)
+
+>> re: Twilight.Setup - Yeek!  I dunno if I like that file format.  The "rT2ExtSetup2 ($1002)	Reserved for internal CDev use.  (Module name of selected module.)" should actually be a rPString resource, most likely with ID of 1.  The "rT2ExtSetup1 ($1001)	Reserved for internal CDev use.  (Internal integer flags.)" is probably okay.  However, the "rTilerSetup ($0100)	User adjustable configuration resources for Tiler module." is what gets me.  I believe that some standard types should be declared like rCheckBox ($0001?), rRadio ($0002?), (rPString and rText have already been defined) and that the preferences be saved and loaded by name, rather than by number.  So, for example, if a module is named "Tiler" and it wants to load a pString, it would load the pString named "Tiler" from the Twilight.Setup file.  Also, if there are more than one pStrings, it should load "Tiler - 1" and then "Tiler - 2" or something like that.  What do you think about this, eh?  I think it'd be much more flexible than assigning a type for each blanker. <<
+	I like your ideas here as well!  How come I couldn't think of that? :-)  I'll try to get this done for d32 as to do it before many other people write modules.
+
+>> I'd be nice if the Twilight II Active checkbox was on the main control panel window <<
+	Done in d32.  (Still not implemented, but it's moved :-)
+
+>> I did a new T2 icon for the Twilight.Preferences file... probably not too good, buy hey, what do I know?  :-) <<
+	I like it!  I'm adding it to the T2.Icons file! :-)  Thanks a lot!
+
+Thanks again for all the comments..  I appreciate it!
+
+Ç Jim

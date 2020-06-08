@@ -1,0 +1,5 @@
+Twilight Bug Found!  :-)
+
+Here's how to reproduce it.  Open Twilight II.  Click on "Setup...".  Select the Tiler setup from the pop-up menu.  Click on the Twilight II window to make it active.  Click on "About Module..." to get information on Tiler.  Click to dismiss the dialog.  Watch your system die a horrible death.  (HINT:  What resource is in common with both the About Module dialog AND the Tiler setup window, eh?  Hmmmm... could it be... some kind of pictorial representation of the blanker? ;-)
+
+Included with this is also the latest-gratest version of the Messages module which actually supports setup - the only problem is that the setup controls are still drawn screwy.  No comments for you in this version - you should read them from the last one (that bit of code hasn't changed).

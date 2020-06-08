@@ -1,0 +1,209 @@
+Cool Cursor v2.0 Request Information
+By Josef W. Wankerl
+Copyright © 1993 by EGO Systems
+
+Please remember, Cool Cursor is NOT public domain or shareware.  If you give copies of Cool Cursor (or this documentation) away, we will not be able to stay in business!  It really is that simple!
+
+A lot of the hard work that Cool Cursor does is now handled by a request procedure.  The Cool Cursor control panel makes extensive use of the request handler code to configure Cool Cursor.
+
+For convenience, I have created several interface files for Cool Cursor which define constants and structures for various languages.  Using the interface files should simplify calling the Cool Cursor request handler.  For ORCA/M, you'll need to copy the E16.CCCP file to your 13:AInclude directory.  Simply put a Copy 13:AInclude:E16.CCCP line at the start of your program that will be making calls to the Cool Cursor request handler.  For ORCA/C, you’ll need to copy the CCCP.H file to your 13:ORCACDefs directory.  Simply put a #include <CCCP.h> line at the start of your program that will be making calls to the Cool Cursor request handler.  For ORCA/Pascal, you’ll need to copy the CCCP.INT file to your 13:ORCAPascalDefs directory.  Simply put a Uses CCCP line with the rest of your uses for your program which will be making calls to the Cool Cursor request handler.  The interface files for ORCA/C and ORCA/Pascal (CCCP.H and CCCP.PAS) contain the information on the constants and structures that you will need to know in order to send requests to the Cool Cursor request handler.
+
+The requests that Cool Cursor accepts are:
+
+reqCode	Name
+$8000	cccpAreYouThere
+$8001	cccpGetActive
+$8002	cccpSetActive
+$8003	cccpGetSpeed
+$8004	cccpSetSpeed
+$8005	cccpGetAppPriority
+$8006	cccpSetAppPriority
+$8007	cccpGetSafe
+$8008	cccpSetSafe
+$8009	cccpGetCursorList
+$800A	cccpSetCursorList
+$800B	cccpGetCursor
+$800C	cccpSetCursor
+$800D	cccpLoadCursor
+$800E	cccpDisposeCursor
+$800F	cccpAnimateCursor
+$8010	cccpGetCursorState
+
+Master Handle
+A lot of the requests that Cool Cursor handles require, or return, a master handle.  A master handle is a handle that contains all the information necessary for a cursor animation.  The first word in the handle is a count of the number of cursor frames in the animation.  After the count word, there are entries for each cursor frame.  A cursor frame entry consists of two elements:  a handle to the actual cursor data, and a smooth animation flag word.  Each cursor entry is six bytes long (four bytes for the cursor data handle and two bytes for the smooth flag word).  The smooth flag word determines whether the cursor’s mask, hot spot, and size are the same as the previous cursor frame.
+
+cccpAreYouThere			$8000
+If Cool Cursor is present, it always accepts this request and returns no error.
+
+dataIn:
+Reserved.
+
+dataOut buffer:
+$00	recvCount			Word—Number of times the request was received
+$02	cccpID			Word—Permanent memory ID for Cool Cursor
+$04	cccpVersion		Long—Cool Cursor’s version number (from its rVersion resource)
+
+cccpGetActive			$8001
+This tells Cool Cursor to return its active setting.  When the active flag is true, whenever a program issues the WaitCursor call, Cool Cursor will present an animated cursor instead of the static watch cursor.  When the active flag is not true, Cool Cursor will not automatically animate the cursor, however, requests will still be accepted and acted on by the Cool Cursor request handler (except for requests to animate the cursor).
+
+dataIn:
+Reserved.
+
+dataOut buffer:
+$00	recvCount			Word—Number of times the request was received
+$02	cccpActiveFlag		Word—Cool Cursor active flag
+
+cccpSetActive			$8002
+This tells Cool Cursor to change its active setting.  When the active flag is true, whenever a program issues the WaitCursor call, Cool Cursor will present an animated cursor instead of the static watch cursor.  When the active flag is not true, Cool Cursor will not automatically animate the cursor, however, requests will still be accepted and acted on by the Cool Cursor request handler (except for requests to animate the cursor).
+
+dataIn is a pointer to a buffer which contains:
+$00	cccpActiveFlag		Word—New Cool Cursor active flag
+
+dataOut:
+Reserved.
+
+cccpGetSpeed			$8003
+This tells Cool Cursor to return the minimum time (in 1/60 second increments) between cursor animation frames.
+
+dataIn:
+Reserved.
+
+dataOut buffer:
+$00	recvCount			Word—Number of times the request was received
+$02	cccpSpeed			Word—Animation speed
+
+cccpSetSpeed			$8004
+This tells Cool Cursor to change the minimum time (in 1/60 second increments) between cursor animation frames.
+
+dataIn is a pointer to a buffer which contains:
+$00	cccpSpeed			Word—New animation speed
+
+dataOut:
+Reserved.
+
+cccpGetAppPriority			$8005
+This returns how the Cool Cursor request procedure handles a finderSaysBeforeOpen request.  If cccpPriority is non-zero, then all finderSaysBeforeOpen requests are being ignored.
+
+dataIn:
+Reserved.
+
+dataOut buffer:
+$00	recvCount			Word—Number of times the request was received
+$02	cccpPriority		Word—Application gets files first flag
+
+cccpSetAppPriority			$8006
+This tells the Cool Cursor request procedure how to handle a finderSaysBeforeOpen request.  If cccpPriority is non-zero, then all finderSaysBeforeOpen requests are ignored.
+
+dataIn is a pointer to a buffer which contains:
+$00	cccpPriority		Word—New applications get files first flag
+
+dataOut buffer:
+Reserved.
+
+cccpGetSafe			$8007
+This tells Cool Cursor to return the animate only when safe flag.  If cccpSafeFlag is non-zero, then Cool Cursor will attempt to animate the cursor even if the system busy flag is set, but only when the busy level is the same as when the animation started.
+
+dataIn:
+Reserved.
+
+dataOut buffer:
+$00	recvCount			Word—Number of times the request was received
+$02	cccpSafe			Word—Animate only when safe flag
+
+cccpSetSafe			$8008
+This tells Cool Cursor to change the animate only when safe flag.  If cccpSafeFlag is non-zero, then Cool Cursor will attempt to animate the cursor even if the system busy flag is set, but only when the busy level is the same as when the animation started.
+
+dataIn is a pointer to a buffer which contains:
+$00	cccpSafe			Word—New animate only when safe flag
+
+dataOut:
+Reserved.
+
+cccpGetCursorList			$8009
+This tells Cool Cursor to return the handle to its list of random cursor filenames.  The handle to this list must not be disposed of.  The list of random cursor filenames is in the rWStringList format.  To get the pathname for a Cool Cursor document file, prepend *:System:CDevs:Cursors: to the filename.
+
+dataIn:
+Reserved.
+
+dataOut buffer:
+$00	recvCount			Word—Number of times the request was received
+$02	cccpCursorListHandle	Long—Random cursor filename list handle
+
+cccpSetCursorList			$800A
+This is used to tell Cool Cursor about a new list of random cursor filenames.  The old list of random cursor filenames handle is disposed of by the cccpSetCursorList call.  The memory ID of the handle passed to cccpCursorListHandle will be changed to Cool Cursor’s permanent ID.  The list of random cursor filenames should be in the rWStringList format.  To get the pathname for a Cool Cursor document file, prepend *:System:CDevs:Cursors: to the filename.
+
+dataIn is a pointer to a buffer which contains:
+$00	cccpCursorListHandle	Long—New random cursor filename list handle
+
+dataOut:
+Reserved.
+
+cccpGetCursor			$800B
+This tells Cool Cursor to return the master handle for a WaitCursor animation.  The handle to this list must not be disposed of.  The cccpCursorMode parameter determines which master cursor to return.  When cccpCursorMode is zero, the 320 mode master cursor handle is returned.  When cccpCursorMode is non-zero, the 640 mode master cursor handle is returned.
+
+dataIn is a pointer to a buffer which contains:
+$00	cccpCursorMode		Word—QuickDraw II mode for the cursor
+
+dataOut buffer:
+$00	recvCount			Word—Number of times the request was received
+$02	cccpMasterHandle		Long—Animation master handle
+
+cccpSetCursor			$800C
+This tells Cool Cursor to set the master handle for a WaitCursor animation.  The old master handle (and all the information relating to the master handle) is disposed of by the cccpSetCursor call.  The memory ID of the handle passed to cccpMasterHandle will be changed to Cool Cursor’s permanent ID, as well as all the handles relating to the master handle.  The cccpCursorMode parameter determines which master cursor to set.  When cccpCursorMode is zero, the 320 mode master cursor handle is set.  When cccpCursorMode is non-zero, the 640 mode master cursor handle is set.
+
+dataIn is a pointer to a buffer which contains:
+$00	cccpCursorMode		Word—QuickDraw II mode for the cursor
+$02	cccpMasterHandle		Long—New animation master handle
+
+dataOut:
+Reserved.
+
+cccpLoadCursor			$800D
+This tells Cool Cursor to load a cursor animation.  The entire animation will be in all unlocked handles and the animation will be returned in an unlocked master handle.  The memory ID for all the handles will be Cool Cursor’s permanent memory ID.  If the cccpPathnamePtr is NIL, the animation is assumed to be in the current resource chain and no version resource validation is performed.  If the cccpPathnamePtr is not NIL, the animation is assumed to be in a Cool Cursor document file and version resource validation is performed.  If you don’t want version validation to be performed, set bit 31 of the cccpPathnamePtr parameter.  If a version error is encountered (the rVersion resource contains a version that Cool Cursor doesn’t know about—an absent rVersion resource indicates a version 1.0 Cool Cursor document file), the cccpError field will contain the cccpVersionError code ($CCC9 — looks ominously like CCCP, doesn’t it?).
+
+dataIn is a pointer to a buffer which contains:
+$00	cccpPathnamePtr		Long—Pointer to the pathname to load the animation from
+$04	cccpCursorStartID		Long—Resource ID for first cursor in the animaton
+
+dataOut buffer:
+$00	recvCount			Word—Number of times the request was received
+$02	cccpError			Word—Error code for any error that occurred while loading
+$04	cccpMasterHandle		Long—Animation master handle
+
+cccpDisposeCursor			$800E
+This tells Cool Cursor to dispose of all the information related to a master handle and then the master handle itself.  This is useful for when a program calls cccpLoadCursor to load a custom animation.  This request should not be used to dispose of a master handle returned from cccpGetCursor.  Since animations loaded with cccpLoadCursor have Cool Cursor’s permanent memory ID attached to them, you should make certain that you are disposing of the master handle when you are through with it.
+
+dataIn is a pointer to a buffer which contains:
+$00	cccpMasterHandle		Long—Animation master handle
+
+dataOut:
+Reserved.
+
+cccpAnimateCursor			$800F
+This tells Cool Cursor to begin a custom cursor animation.  This is useful for when a program wants to animate a custom cursor.  The cursor should first be loaded with the cccpLoadCursor request.  After the cccpAnimateCursor request is made, all the handles relating to the master handle will be locked (except for the master handle, which should remain unlocked).  The handles will remain locked until the animation is finished, at which point, they will all be unlocked.
+
+dataIn is a pointer to a buffer which contains:
+$00	cccpMasterHandle		Long—Animation master handle
+
+dataOut:
+Reserved.
+
+cccpGetCursorState		$8010
+This tells Cool Cursor to return the type of the current cursor.  The values for cccpCursorType are:
+
+cccpCursorType	Name		Meaning
+$0000		cccpPointer	Cursor is the pointer (arrow) cursor
+$0001		cccpWait		Cursor is the watch cursor or currently animating
+$0002		cccpIBeam		Cursor is the I-Beam cursor
+$0003		cccpCustom	Cursor is animating because of the cccpAnimateCursor request
+$0004		cccpOther		Cursor is an unknown application-specific cursor
+
+dataIn:
+Reserved.
+
+dataOut buffer:
+$00	recvCount			Word—Number of times the request was received
+$02	cccpCursorType		Word—Current cursor type
+
+osef W. Wankerl
+Technical Editor of GS+ Magazine

@@ -1,0 +1,21 @@
+Help is turning into a TextEdit control in d34.  Discovered a bug in TextEdit and LETextBox2 resources in the process.
+
+A background blank module will be coming in the not too distant future.
+
+I now give you credit for those two suggestions of yours that I forgot to tie your name to.  (oops)
+
+I'll stop disabling the setup ctl for d34, and I'll add a DoubleClick: ignore function too- thanks.  Look for HitT2 to change too.
+
+I really don't care for the idea of giving each module its own setup - but thanks for bringing it up so I could think about it.
+
+the fForce bits were slightly buggy in d33 - a combination of palette and masterSCB problems.  These are fixed for d34.
+
+I'll try making the YDI pathname control larger for you.  Stashing your ATF's away on some huge server folder? ;-)
+
+As for modules now - Messages is REAL COOL, Shapes is nifty too.  You forgot to get rid of the palette buffer you previously used in the old messages but no longer is nececessary because T2 does it for you.  So kill the line defining this palette.  As for distribution, very soon the module format should settle down pretty much.  At that time I'll rip out the guts (like I did for the tiler and shell.asm) and distribute stripped C and Pascal module shells pending your final approval.
+
+Selling a whole package of modules (or including some now and then with GS+) sounds ok to me.
+
+as always, many thanks for everything!!!
+
+<<Jim

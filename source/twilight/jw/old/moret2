@@ -1,0 +1,11 @@
+More Twilight Suggestions:
+
+Provide a blanker which is not a module, but actually built into Twilight II, called "Background Blank" which performs a background blank when the specified blank time has elapsed.
+
+When the setup window is displayed, have the "Update" button inactive unless a change has been made.  When the "Update" button is selected, call the T2Save routine in the blanker, then disable the "Update" button.  You'll probably have to have a T2Hit message which would allow the blanker module to discover which control was hit (just like the control panel does) and return a flag which will let T2 know if it should enable the "Update" button or not.  (Some hits might not necessarily enable the "Update" button.)
+
+You might want to change the "Help" information for T2 to be a TextEdit control instead of the two static text controls toggled by the option key.  As you may know, Control Panels NDA 2.0 starts up and shuts down TextEdit for you when the help button is hit, so all you need to do is create the control and shove in the text.  It'd be really neato if the text was styled and colored and stuff, but I haven't yet been able to figure out exactly how to create a rStyleBlock and incorporate it into a help TextEdit control... but I haven't played with it all that much, either.
+
+re: Tiler b7 & AppleWorks GS - I was on GEnie with AWGS and Tiler kicked in.  So I moved the mouse to restore the screen.  Things were really screwy after that.  The text scrolled up and was replaced by black instead of white.  I dunno what happened.  Unless you have an idea, I'd just chalk it up to an AWGS peculiarality (everyone else special cases AWGS... sheesh!  what a piece of trash!) and ignore it.  :-)
+
+I've noticed that when I'm in ORCA, and I compile something that takes a while (long enough for the text screen to background blank) and then the compile finished and control transfers to a desktop program (my make script for Replicator automatically launches it when the compile is done) and then I quit my desktop application to return to ORCA that the screen is really fucked.  Ya might wanna look for the deskShutDown and/or deskStartUp requests (there is a startup request, is there not?  I don't remember...) and unblank any blanked screen.

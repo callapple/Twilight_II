@@ -1,0 +1,31 @@
+>> Supporting old style modules is out of the question, for two reasons: 1-It is impossible to detect which version from a software point of view <<
+    Well, not if you move the T2 blanker main code to the resource fork - if a blanker has a data fork length > 0 then it's an old style one.  :-)
+>> 2-WHY would I want to?  I changed the module format for good reason; I do not want to regress into the limits imposed by the old format which I escaped with G2MF! :-) <<
+True, true... but it'd keep other people from having to re-write their modules.  But I also see your point entirely.  I think I agree that old style blankers should be left alone and T2 should only support the new.
+
+>> Thanks a lot for your comments.  I wish everyone was as verbal as the few people like yourself. <<
+   I just hope you don't take my comments too personally.  :-)
+
+>>>> The control panel's list control has a focus frame on it when it's the only targetable control <<<<
+>> That is exactly how it's supposed to be!  If it didn't have the automatic focus frame then you couldn't navigate the list via the keyboard until you clicked in the listCtl's boundsRect with the mouse first! (yuck, icky; I hate programs that make you do that [i.e. DTUtils v3.3]) <<
+   ...then how does SFGetFile do it?  All you have to do is set the fCtlWantsEvents bit in the moreflags? word and it'll do the ListKey for you, right?  Or, you could call ListKey yourself... the point is that there shouldn't be a focus frame if there's only one targetable control.
+
+re: Cool Cursor - yup, I understand that you don't want to require ppl to have CCCP.  That's cool.  Lemmie know if you need any help with the code there... hey, but you're a subscriber - you have the source code anyhow, eh?  :-)
+
+>> re: KillT2 message:
+	But the current setup isn't as difficult or tedious as you seem to imply.  Sure, it might not be as good as what you're suggesting to replace it (if it is feasible that is), but it still isn't difficult - just do a loop killing off ctls with IDs 1 thru whatever the highest Id you have.  I call my killCtl routine recursively (inside my modules) so killing all the ctls from a control list is easy. <<
+You might want to do this yourself, then.  When The KillT2 message is sent, the blanker sends back it's highest blanker ID and then T2 goes though and does the recursive erase/kill calls for the blanker.  I'm just trying to weed out as much unnecessary module code as necessary.  :-)
+
+>>  Excellent idea!!!  I will try to implement it soon!  Perhaps I will define 2 new bits of T2ModuleFlags: 3=grafport640, 4=grafport320.  But, I'm really not too too familiar with QuickDraw II - I thought you just open up a grafport and it automatically has to use the mode QDII was started up with.  So I'm kinda confused now :-) <<
+   Actually, I think 3=grafPort, and if 3 is set then 4 determines the mode (320/640) - that way if 4 is set and 3 isn't then things don't go crazy.  Eh?  What I mean by mode is that T2 would go thru and update all the SCBs to be 640 or 320 mode.  I know that when blankers start up they switch in the mode their animation will take place in, right?  Or am I totally off base here?
+
+>> re: named setup resources <<
+	I like your ideas here as well!  How come I couldn't think of that? :-)  I'll try to get this done for d32 as to do it before many other people write modules. <<
+Cool!  Glad you liked the idea.  :-)
+
+>>>> I did a new T2 icon for the Twilight.Preferences file... probably not too good, buy hey, what do I know?  :-) <<<<
+>> I like it!  I'm adding it to the T2.Icons file! :-)  Thanks a lot! <<
+Well, it's kinda a ripoff of my Replicator preferences file icon... :-)  Yah, those icons are pretty nifty.  I remember you saying that the icon file is better than the rBundle shit... is it really?  I would think that if each blanker module carried around its own icon for the finder to display that it'd eliminate a lot of icon stuff - but I really haven't looked at the finder docs too closely to figure out exactly how all that stuff works.  But yah, I like the icons file. :-)
+
+>> Thanks again for all the comments..  I appreciate it! <<
+Hey, glad to help out!  Eagerly waiting for d32 or whatever it'll be... :-)

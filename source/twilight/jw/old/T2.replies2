@@ -1,0 +1,27 @@
+>> I just hope you don't take my comments too personally.  :-) <<
+	Don't worry about it at all!  Same goes here. :-)
+
+>>>> The control panel's list control has a focus frame on it when it's the only targetable control <<<<
+>> ...then how does SFGetFile do it?  All you have to do is set the fCtlWantsEvents bit in the moreflags? word and it'll do the ListKey for you, right?  Or, you could call ListKey yourself... the point is that there shouldn't be a focus frame if there's only one targetable control. <<
+	I think you have a point now!  I'll look into it further!
+
+>> re: Cool Cursor - yup, I understand that you don't want to require ppl to have CCCP.  That's cool.  Lemmie know if you need any help with the code there... hey, but you're a subscriber - you have the source code anyhow, eh?  :-) <<
+	Thanks, I won't hesitate to take advantage of your offer :-)  Yes, I have the source thru my subscription, but my comprehension of C code is another matter entirely :-)
+
+>> re: KillT2 message:
+You might want to do this yourself, then.  When The KillT2 message is sent, the blanker sends back it's highest blanker ID and then T2 goes though and does the recursive erase/kill calls for the blanker.  I'm just trying to weed out as much unnecessary module code as necessary.  :-) <<
+	Ahh.  I like it that way, good point! :-)
+
+>> Actually, I think 3=grafPort, and if 3 is set then 4 determines the mode (320/640) - that way if 4 is set and 3 isn't then things don't go crazy.  Eh?  What I mean by mode is that T2 would go thru and update all the SCBs to be 640 or 320 mode.  I know that when blankers start up they switch in the mode their animation will take place in, right?  Or am I totally off base here? <<
+	You are correct.  I will try to implement this as soon as possible.  Another good idea!
+
+>> re: named setup resources
+	Cool!  Glad you liked the idea.  :-) <<
+	It's already implemented - I just have to update the G2MF ERS.
+
+>>>>>> I did a new T2 icon for the Twilight.Preferences file... probably not too good, buy hey, what do I know?  :-) <<<<<<
+>> Well, it's kinda a ripoff of my Replicator preferences file icon... :-)  Yah, those icons are pretty nifty.  I remember you saying that the icon file is better than the rBundle shit... is it really?  I would think that if each blanker module carried around its own icon for the finder to display that it'd eliminate a lot of icon stuff - but I really haven't looked at the finder docs too closely to figure out exactly how all that stuff works.  But yah, I like the icons file. :-) <<
+	This is a good rule of thumb I've discovered: rBundles are shit except for if you're an application.  I would also have thought that it would be easier for each module to have its own rBundle - and it could reference the same copy of the module icon that appears in the module about box, but it's a bitch and a half! (understatement)  First off, in order for the finder to even LOOK at each rBundle, you must get info on each individual module or file with one!  Second, the icons take effect the next time you QUIT back to the finder.  Third, if you get info multiple times on the same file with an rBundle, it places copies of its rbundle in your desktop file!  In my experiments, I wound up with 4 copies of one SAME RBUNDLE in my Desktop file, just testing the concept!!!
+
+>> Hey, glad to help out!  Eagerly waiting for d32 or whatever it'll be... :-) <<
+	d32 should hopefully be out this weekend! :-)  Thanks again.

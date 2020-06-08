@@ -1,0 +1,96 @@
+
+#include "types.rez"
+#include "22:t2common.rez"
+
+resource rT2ModuleFlags (moduleFlags) {
+	fFadeIn +
+	fFadeOut +
+	fLeavesUsableScreen +
+	fGrafPort320,				// module flags word
+	$01,						// enabled flag (unimplemented)
+	$0110,					// minimum T2 version required
+	NIL,						// reserved
+	"Kaleidoscope"				// module name
+};
+
+// --- Version resource
+
+resource rVersion (moduleVersion) {
+    {1,0,1,release,0},				// Version
+    verUS,						// US Version
+    "T2 Kaleidoscope Module",		// program's name
+    "By Derek Young & J. Stephen 3.\n"	// copyright notice
+    "Copyr. 1991-93 DigiSoft Innovations."         
+};
+
+resource rTextForLETextBox2 (moduleMessage) {
+	TBFont TBShaston "\$00\$08"
+	TBLeftJust
+	TBBackColor TBColorF
+	TBForeColor TBColor4 "K"
+	TBForeColor TBColor1 "a"
+	TBForeColor TBColor0 "l"
+	TBForeColor TBColor5 "e"
+	TBForeColor TBColor2 "i"
+	TBForeColor TBColor7 "d"
+	TBForeColor TBColor9 "o"
+	TBForeColor TBColor4 "s"
+	TBForeColor TBColor2 "c"
+	TBForeColor TBColor1 "o"
+	TBForeColor TBColor5 "p"
+	TBForeColor TBColor3 "e"
+	TBForeColor TBColor0
+	" creates a colorful mirrored kaleidoscope effect on your computer"
+	" screen.\n"
+	"Based on a program by John Stephen III."
+};
+
+// --- About icon resource
+
+resource rIcon (moduleIcon) {
+       $8000,                  // kind
+       $0014,                  // height
+       $001C,                  // width
+
+       $"FFF0000000000000000000000FFF"
+       $"FFF0FFFFFFFFFFFFFFFFFFFF0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0F00770660550BB0DD00F0FFF"
+       $"FFF0F0100700700700D00A0F0FFF"
+       $"FFF0F00107070EE070D0A00F0FFF"
+       $"FFF0F0401050E00E050A040F0FFF"
+       $"FFF0F040A050E00E0501040F0FFF"
+       $"FFF0F00A0D070EE07070100F0FFF"
+       $"FFF0F0A00D0070070070010F0FFF"
+       $"FFF0F00DD0BB05506607700F0FFF"
+       $"FFF0F000000000000000000F0FFF"
+       $"FFF0FFFFFFFFFFFFFFFFAFFF0FFF"
+       $"FFF0000000000000000000000FFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0FF4AFFFFFFFFFFFFFF0FFFF"
+       $"FFFF0CCCCCCCCCCCCCCCCCC0FFFF"
+       $"FFFF0FFFFFFFFFFFFFFFAFF0FFFF"
+       $"FFFF00000000000000000000FFFF",
+
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"000FFFFFFFFFFFFFFFFFFFFFF000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000"
+       $"0000FFFFFFFFFFFFFFFFFFFF0000";
+};

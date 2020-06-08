@@ -1,0 +1,7 @@
+I'm Running Out Of T2 Titles To Put On These Things:  :-)
+
+When the front window changes during a screen blank (normal OR background) un-blank the screen.  Whenever a server shuts down, I never know what's going on.  :-)  This is mostly a cosmetic fix.
+
+Enclosed in this archive is the latest-gratest Messages blanker.  The blanker module *should* work with the changed d34 HitT2 message, but since I don't have it, I can't test it.  :-)  The Messages blanker is pretty much in its final form, complete with lots of silly comments.  Go ahead and distribute this guy with d34 if you want.  You can either distribute it in its entirety, or you can cut between the two "cut here" comments to distribute just an ORCA/C blanker shell.  I purposefully put the second "cut here" above the statements that perform a five second wait so other people can see the "correct" way to do it.  :-)  Oh yeah, make sure that the T2.h file is in the 13:ORCACDefs: folder before you recompile.
+
+I would have also sent you a new Shapes module, but I don't have the new 6.0 interfaces for ORCA/Pascal, so my RMLoadNamedResource calls don't compile and I haven't had the heart to go in and change the interfaces manually yet.  The Shapes module should work under d34 since it doesn't need the HitT2 message.

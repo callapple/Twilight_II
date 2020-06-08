@@ -1,0 +1,12 @@
+EVEN MORE T2 junk...
+
+¥ The key equivalent for "About Module..." should be Command-?, not Command-A.
+¥ The key equivalent for "Twilight II Active" should be Command-A.
+¥ The key equivalent for "Randomize" should be Command-R.
+¥ The focus frame is still on the list control... :-)
+
+For the next version, could you at least get the caps lock lock working, as well as being able to turn off that damned blinking menu bar box?  :-)
+
+I've tried writing a blanker for T2... and included is the source code, plus the module.  Check it out, eh?  The blanker portion works fine, but the setup is really screwy.  Can you figure out why?  There are some comments for you to look at in the Messages.CC file.  And, in thinking about them, if the wantFadeOut bit is set then most likely the stuff I've commented about the wantInitPort (is that what I called it?) should probably be done - so the wantFadeOut bit is the wantInitPort bit if wantGrafPort is set.  Does that make any sense???
+
+Okay, funky, just saw something weird.  When I choose Messages from the setup pop-up menu, the controls are drawn really screwy.  When I cover the window with EGOed and then look again, the update routine is called, and the controls all look dandy.  Any ideas on this one?

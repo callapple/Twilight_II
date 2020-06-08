@@ -1,0 +1,8 @@
+
+Prototypes for random:
+
+extern int random(void);
+extern void set_random_seed(void);
+
+random returns an integer between 0 and 0xFFFF.
+set_random_seed sets the random seed for you, based on GetTick and VERTCNT.

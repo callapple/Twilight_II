@@ -1,0 +1,251 @@
+/*****************************************************************************\
+|*									     *|
+|*				     Shapes				     *|
+|*									     *|
+|*			      by: Josef W. Wankerl			     *|
+|*									     *|
+|*				  Version: 1.0				     *|
+|*				    06/23/92				     *|
+|*									     *|
+\*****************************************************************************/
+
+#include "types.rez"
+#include "T2Common.Rez"
+
+// --- type $8003 defines
+
+#define CTLLST_00000001 $00000001
+
+// --- type $8004 defines
+
+#define CTLTMP_00000001 $00000001
+#define CTLTMP_00000002 $00000002
+#define CTLTMP_00000003 $00000003
+#define CTLTMP_00000004 $00000004
+#define CTLTMP_00000005 $00000005
+#define CTLTMP_00000006 $00000006
+
+// --- type $8006 defines
+
+#define PSTR_00000100 $00000100
+#define PSTR_00000101 $00000101
+#define PSTR_00000102 $00000102
+#define PSTR_00000103 $00000103
+
+// --- type $800B defines
+
+#define LETXTBOX_00000001 $00000001
+
+// --- type $800E defines
+
+#define WPARAM1_00000001 $00000001
+
+resource rT2ModuleFlags (moduleFlags, $0000) {
+	fSetupSupported +
+	fWantFadeOut +
+	fWantWipeIn +
+	fWantForceGrafPortMode320
+};
+
+// --- Icon Definitions
+
+resource rIcon (moduleIcon, $0000) {
+	$8000,                  // kind
+	$0014,                  // height
+	$001C,                  // width
+
+	$"FFF0000000000000000000000FFF"
+	$"FFF0FFFFFFFFFFFFFFFFFFFF0FFF"
+	$"FFF0F000000000000000000F0FFF"
+	$"FFF0F0FFFFFFFFFFAAAA550F0FFF"
+	$"FFF0F0FF4444444444AA550F0FFF"
+	$"FFF0F0F444444444444AAA0F0FFF"
+	$"FFF0F0F444444444444AAA0F0FFF"
+	$"FFF0F0F444444444444AAA0F0FFF"
+	$"FFF0F0F24444444444FFFF0F0FFF"
+	$"FFF0F0F22222FFFFFFFFFF0F0FFF"
+	$"FFF0F0FF222FFFFFFFFFFF0F0FFF"
+	$"FFF0F000000000000000000F0FFF"
+	$"FFF0FFFFFFFFFFFFFFFFAFFF0FFF"
+	$"FFF0000000000000000000000FFF"
+	$"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+	$"FFFF0FFFFFFFFFFFFFFFFFF0FFFF"
+	$"FFFF0FF4AFFFFFFFFFFFFFF0FFFF"
+	$"FFFF0CCCCCCCCCCCCCCCCCC0FFFF"
+	$"FFFF0FFFFFFFFFFFFFFFAFF0FFFF"
+	$"FFFF00000000000000000000FFFF",
+
+	$"000FFFFFFFFFFFFFFFFFFFFFF000"
+	$"000FFFFFFFFFFFFFFFFFFFFFF000"
+	$"000FFFFFFFFFFFFFFFFFFFFFF000"
+	$"000FFFFFFFFFFFFFFFFFFFFFF000"
+	$"000FFFFFFFFFFFFFFFFFFFFFF000"
+	$"000FFFFFFFFFFFFFFFFFFFFFF000"
+	$"000FFFFFFFFFFFFFFFFFFFFFF000"
+	$"000FFFFFFFFFFFFFFFFFFFFFF000"
+	$"000FFFFFFFFFFFFFFFFFFFFFF000"
+	$"000FFFFFFFFFFFFFFFFFFFFFF000"
+	$"000FFFFFFFFFFFFFFFFFFFFFF000"
+	$"000FFFFFFFFFFFFFFFFFFFFFF000"
+	$"000FFFFFFFFFFFFFFFFFFFFFF000"
+	$"000FFFFFFFFFFFFFFFFFFFFFF000"
+	$"0000FFFFFFFFFFFFFFFFFFFF0000"
+	$"0000FFFFFFFFFFFFFFFFFFFF0000"
+	$"0000FFFFFFFFFFFFFFFFFFFF0000"
+	$"0000FFFFFFFFFFFFFFFFFFFF0000"
+	$"0000FFFFFFFFFFFFFFFFFFFF0000"
+	$"0000FFFFFFFFFFFFFFFFFFFF0000";
+};
+
+// --- Control List Definitions
+
+resource rControlList (CTLLST_00000001, $0000) {
+	{
+	CTLTMP_00000006,        // control 1
+	CTLTMP_00000005,        // control 2
+	CTLTMP_00000004,        // control 3
+	CTLTMP_00000003,        // control 4
+	CTLTMP_00000002,        // control 5
+	CTLTMP_00000001,        // control 6
+	};
+};
+
+// --- Control Templates
+
+resource rControlTemplate (CTLTMP_00000001, $0000) {
+	$00000001,		// ID
+	{ 31, 94, 52,138},	// rect
+	iconButtonControl {{
+		$000C,		// flag
+		$1020,		// moreFlags
+		$00000000,	// refCon
+		moduleIcon,	// iconRef
+		0,		// titleRef
+		0,		// colorTableRef
+		$0000		// displayMode
+	}};
+};
+
+resource rControlTemplate (CTLTMP_00000002, $0000) {
+	$00000002,		// ID
+	{ 43,152, 52,257},	// rect
+	statTextControl {{
+		$0000,		// flag
+		$1002,		// moreFlags
+		$00000000,	// refCon
+		LETXTBOX_00000001	// textRef
+	}};
+};
+
+resource rControlTemplate (CTLTMP_00000003, $0000) {
+	$00000003,		// ID
+	{ 68,  4, 77,158},	// rect
+	checkControl {{
+		$0000,		// flag
+		$1002,		// moreFlags
+		$00000000,	// refCon
+		PSTR_00000100,	// titleRef
+		$0001		// initialValue
+	}};
+};
+
+resource rControlTemplate (CTLTMP_00000004, $0000) {
+	$00000004,		// ID
+	{ 79,  4, 88,158},	// rect
+	checkControl {{
+		$0000,		// flag
+		$1002,		// moreFlags
+		$00000000,	// refCon
+		PSTR_00000101,	// titleRef
+		$0001		// initialValue
+	}};
+};
+
+resource rControlTemplate (CTLTMP_00000005, $0000) {
+	$00000005,		// ID
+	{ 90,  4, 99,158},	// rect
+	checkControl {{
+		$0000,		// flag
+		$1002,		// moreFlags
+		$00000000,	// refCon
+		PSTR_00000102,	// titleRef
+		$0001		// initialValue
+	}};
+};
+
+resource rControlTemplate (CTLTMP_00000006, $0000) {
+	$00000006,		// ID
+	{101,  4,110,158},	// rect
+	checkControl {{
+		$0000,		// flag
+		$1002,		// moreFlags
+		$00000000,	// refCon
+		PSTR_00000103,	// titleRef
+		$0001		// initialValue
+	}};
+};
+
+// --- rPString Templates
+
+resource rPString (moduleName, $0000) {
+	"Shapes"
+};
+
+resource rPString (PSTR_00000100, $0000) {
+	"Ovals"
+};
+
+resource rPString (PSTR_00000101, $0000) {
+	"Rectangles"
+};
+
+resource rPString (PSTR_00000102, $0000) {
+	"Round Rectangles"
+};
+
+resource rPString (PSTR_00000103, $0000) {
+	"Arcs"
+};
+
+// --- rTextForLETextBox2 Templates
+
+resource rTextForLETextBox2 (LETXTBOX_00000001, $0000) {
+	TBStyleBold
+	"Shapes Setup"
+};
+
+resource rTextForLETextBox2 (moduleMessage, $0000) {
+	TBCenterJust
+	TBForeColor TBColor4
+	"\n"
+	"This module generates random QuickDraw II shapes and draws "
+	"them on the screen."
+};
+
+// --- Window Templates
+
+resource rWindParam1 (WPARAM1_00000001, $0000) {
+       $80A0,                  // plFrame (frame bits)
+       NIL,                    // plTitle (no Title)
+       $00000000,              // plRefCon
+       {  0,  0,  0,  0},      // plZoomRect
+       NIL,                    // plColorTable (standard colors)
+       {$0000, $0000},         // plYOrigin, plXOrigin
+       {$0000, $0000},         // plDataHeight, plDataWidth
+       {$0000, $0000},         // plMaxHeight, plMaxWidth
+       {$0000, $0000},         // plVerScroll, plHorScroll
+       {$0000, $0000},         // plVerPage, plHorPage
+       $00000000,              // plInfoText (info RefCon)
+       $0000,                  // plInfoHeight
+       { 51,246,179,590},      // plPosition
+       infront,                // plPlane
+       CTLLST_00000001,        // plControlList
+       $0209                   // plInDesc
+};
+
+resource rVersion (moduleVersion, $0000) {
+	{1, 0, 0, beta, 2},
+	verUS,
+	"Twilight II Shapes Module",
+	"Copyright 1992 by Josef W. Wankerl"
+};

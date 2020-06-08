@@ -1,0 +1,102 @@
+; File:  E16.CCCP
+;
+; By:  Josef W. Wankerl
+;
+; Copyright EGO Systems 1993
+; All Rights Reserved
+;
+
+; SendRequest codes sent to Cool Cursor (target = "EGO Systems~Cool Cursor~")
+cccpAreYouThere	gequ $8000
+cccpGetActive	gequ $8001
+cccpSetActive	gequ $8002
+cccpGetSpeed	gequ $8003
+cccpSetSpeed	gequ $8004
+cccpGetAppPriority gequ $8005
+cccpSetAppPriority gequ $8006
+cccpGetSafe	gequ $8007
+cccpSetSafe	gequ $8008
+cccpGetCursorList gequ $8009
+cccpSetCursorList gequ $800A
+cccpGetCursor	gequ $800B
+cccpSetCursor	gequ $800C
+cccpLoadCursor	gequ $800D
+cccpDisposeCursor gequ $800E
+cccpAnimateCursor gequ $800F
+cccpGetCursorType gequ $8010
+
+; *****************************************************************************
+
+; Cool Cursor constants
+
+cccpMode320	gequ $0000
+cccpMode640	gequ $0001
+
+cccpPointer	gequ $0000
+cccpWait	gequ $0001
+cccpIBeam	gequ $0002
+cccpCustom	gequ $0003
+cccpOther	gequ $0004
+
+rSmooth		gequ $0001
+
+cccpVersionError gequ $CCC9
+
+; *****************************************************************************
+
+; Cool Cursor dataIn structure offsets
+
+occcpActiveFlagSetActiveIn gequ $0000
+
+occcpSpeedSetSpeedIn gequ $0000
+
+occcpPrioritySetAppPriorityIn gequ $0000
+
+occcpSpeedSetSafeIn gequ $0000
+
+occcpCursorListHandleSetCursorListIn gequ $0000
+
+occcpCursorModeGetCursorIn gequ $0000
+
+occcpCursorModeSetCursorIn gequ $0000
+occcpMasterHandleSetCursorIn gequ occcpCursorModeSetCursorIn+2
+
+occcpPathnamePtrLoadCursorIn gequ $0000
+occcpCursorStartIDLoadCursorIn gequ occcpPathnamePtrLoadCursorIn+4
+
+occcpMasterHandleDisposeCursorIn gequ $0000
+
+occcpMasterHandleAnimateCursorIn gequ $0000
+
+; *****************************************************************************
+
+; Cool Cursor dataOut structure offsets
+
+orecvCountAreYouThereOut gequ $0000
+occcpIDAreYouThereOut gequ orecvCountAreYouThereOut+2
+occcpVersionAreYouThereOut gequ occcpIDAreYouThereOut+2
+
+orecvCountGetActiveOut gequ $0000
+occcpActiveFlagGetActiveOut gequ orecvCountGetActiveOut+2
+
+orecvCountGetSpeedOut gequ $0000
+occcpSpeedGetSpeedOut gequ orecvCountGetSpeedOut+2
+
+orecvCountGetAppPriorityOut gequ $0000
+occcpPriorityGetAppPriorityOut gequ orecvCountGetAppPriorityOut+2
+
+orecvCountGetSafeOut gequ $0000
+occcpSafeFlagGetSafeOut gequ orecvCountGetSafeOut+2
+
+orecvCountGetCursorListOut gequ $0000
+occcpCursorListHandleGetCursorListOut gequ orecvCountGetCursorListOut+2
+
+orecvCountGetCursorOut gequ $0000
+occcpMasterHandleGetCursorOut gequ orecvCountGetCursorOut+2
+
+orecvCountLoadCursorOut gequ $0000
+occcpErrorLoadCursorOut gequ orecvCountLoadCursorOut+2
+occcpMasterHandleLoadCursorOut gequ occcpErrorLoadCursorOut+2
+
+orecvCountGetCursorStateOut gequ $0000
+occcpCursorTypeGetCursorStateOut gequ orecvCountGetCursorStateOut+2

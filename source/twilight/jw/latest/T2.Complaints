@@ -1,0 +1,26 @@
+***EEEK!
+	I just lost part of my Messages source code.  I had a hard drive crash a while ago, and I recovered most of the stuff that was important.  Including the Messages source.  So I backed the stuff up.  But, the messages.cc file didn't get recovered correctly.  So now I have a backup of a corrupted file.  Not very nice.  Overwrote the old backup with the uncorrupted source.  So... wouldja mind sending me back a copy of the messages.cc file?  I hope I sent you an uncorrupted copy.  Doesn't matter how far back it goes, I don't think, as long as the BlankT2 function is intact.  I have everything else but that.  Thanx.
+
+Now onto business... ;-)
+
+Why doesn't Setup work in 320 mode?  Is it because the window won't fit?  You know, if you make it a bit skinnier, and a bit taller, it'll fit just fine.  It's really annoying not to have setup in 320 mode programs.  The same for the module about dialog.  It shouldn't be all that difficult to have two separate windows, one for 640 and one for 320, for the about text to fit in, should it?
+
+w/d33:
+I put my ORCA.Sys16 icon out on the Finder's desktop in the lower lefthand corner of the screen.  That's the background blank now corner.  So, I slap my mouse pointer in the lower lefthand corner, double click, and launch ORCA.  So I get there.  I change my prefix.  The screen blanks.  I press shift to bring it back.  It comes back.  It blanks again.  I press shift to bring it back.  It comes back.  It blanks again.  I move the mouse... everything's dandy.  Ya might wanna check into that - no mouse corners when text is up and no mouse is there or something.  Beats me how you'd do it, though.  :-)
+
+I've had some weird occurances of the screen blanking, then the application quits.  Most notibly in the Finder.  One minute the screen is blanked (animated) and then the Finder quits to the System 6 launcher.  I can't reproduce this one reliably at all.  (Only happened three or so times randomly.)
+
+w/d34:
+I dynamically installed d34 and it corrupted my setup file, so when I rebooted my system got hosed.  Just thought you'd want to know.  :-)  Probably never happen again.
+
+Diz suggested that T2 also do some kind of password protection before the screen unblanks.  He says a lot of the MacBlankers do that.  And, of course, he'd want it to work in both text and graphical environments.  Probably not when you do a forced background blank in a screen corner, though, but any other time the screen blanks.  It'll be an option, of course.  I dunno how viable this is, but hey, might as well suggest it, eh?
+
+I *LOVE* that new wipe in.  It doesn't correctly restore the screen, though, some bits are blocky and missing - most notibly along the left edge of the screen.  Adding a RefreshDesktop(0) will clear that up, but just fixing the wipe to restore the screen all the way will probably work better.  Have you given any thought to adding "wiper" modules to T2?  The fWantFadeIn and fWantFadeOut bits could change to fWantWipeIn and fWantWipeOut (heh!) and you (not the blanker) could select the types of wipes you want.  Fades, the circular thing, and any other that may come along.  Just a thought...
+
+Oh yeah... ya didn't credit me with the T2Hit is now like control panels thing in d34.  :-)
+
+Instead of having us delete our Twilight.Setup file every time, why not just put a rVersion resource in there?  Check it against Twilight's rVersion number, and if they're incompatible, notify the user that the file will be deleted, then delete the file.  This will also help if you make Twilight.III and its data file changes.  :-)
+
+I'm haveing some really fucked up stuff happen with the Shapes blanker now.  I'm sending you the source code so maybe you can figure out what's going on.  Basically, when anything to do with the blanker has to hapen, the system will crash.  Bad bad bad.  I have no idea what's going on.  Do you?
+
+Say, how are you gunna be distributing Twilight II?  ShareWare?  You know, we'd love to publish it for you.  :-)  Maybe not in GS+, but as a stand alone product.  We could pay you royalties or something.  But, if you decide to go ShareWare... I'll letcha in on a little secret.  We here at GS+ are thinking about starting a mail order business.  One of the things that we would do is sell ShareWare.  We'd work out a deal with the ShareWare author so they'd give us a discount on the price.  In exchange, we'd sell their ShareWare.  So what would happen is ther user would pay us $10 for the ShareWare fee, plus any shipping and disk costs, and we'd then pay the author the discounted price so we would make a buck.  Why is this better than getting people to pay you the full price directly?  Well, we would take credit cards.  Just call us up and place your order.  No check writing or mailing things in.  BIG plus there.  What do you think about this idea?  Still in the planning stages here.  Also, in the last GS+, we ran an article on how to write Phantasm screen blankers.  We'd like to do the same for T2 blankers.  Would you like to write the article?  If not, I'll probably end up doing it.  It'd carry more weight if you did it, though.  :-)  Of course we'd pay you for it.

@@ -1,0 +1,22 @@
+The "Setup..." button should not be inactive whenever the setup window is open.  Instead, its function should be to bring the setup window to the front.
+
+And, just to remind you, it'd be nice if there was a built-in blanker called "Background Blank" that would perform a background blank instead of an animated one.
+
+You most likely want to change the help dialog to be a TextEdit control and describe the various functions of all those setup controls.  :-)
+
+The DoubleClick function pop-up menu should most likely have an "Ignore" setting so that double-clicking doesn't do anything.
+
+The T2Hit message should be exactly like the hit message for control panels in that data1 and data2 contain the handle of the control hit and the id of the control hit.  (maybe it's the other way around... check FTN.C7.XXXX for the specifics :-)
+
+Speaking of control panels... looks like that's what you're doing with T2.  Why not give each setup a different window?  :-)  Just a thought... it'd be just fine if there was only one setup window.
+
+The fWantForceGrafPortMode640 and fWantForceGrafPortMode320 bits don't seem to work very well... I was in platypus paint and the thing freaked out when Messages b2 ran.  Also, I was in the Finder and Shapes b1 ran and things freaked out... maybe you need to call SetMasterSCB???
+
+The pathname area for the YDI blanker is a bit small... you might want to enlarge it some.  :-)
+
+Feel free to distribute the blankers and source code for Messages and Shapes in the next beta of T2, provided they will still work with the g2mf.  If you change the module format so drastically (like change the hit message) so that the blankers won't work, let me know and I'll re-compile a version that will and send it off to you so you can include it.  I've made some header files for both Pascal and C, as well, that you can distribute, even after beta stage.  I really dunno what I'm gunna do with the Messages and Shapes modules yet... I think Diz wants to make an entire package of blankers and sell them or something.  But, since I wrote them, I'm gunna make them available to the beta developers on good faith.  When T2 reaches a final stage, if you like, I can rip the guts out (like you did for Tiler) and just let you distribute the shell parts in a module developer package.  These guys are still developmental, and there aren't any comments that I know of... but they're cool enough to get a feel for what to do.  I think I'll eventually put some kind of configuration on Shapes.
+
+And, just to give you a hard time 'cause my name wasn't on them, didn't I ask for these?  ;-)
+
+	¥ T2 now sets all the SCBs to use palette 0 (AND #$8080) before calling modules.  There are several other GrafPort and mode changes too Ð see G2MF ERS v1.2.1.
+	¥ About Module control is dimmed when the setup window is opened so there are no control (specifically, Icon) conflicts.
