@@ -1,0 +1,9 @@
+#include "types.rez"
+
+resource rPString (0x1) {
+  "LED Message"
+};
+
+resource rPString (0x2) {
+  "Enter Message:"
+};

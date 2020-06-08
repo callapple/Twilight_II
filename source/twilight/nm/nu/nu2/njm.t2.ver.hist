@@ -1,0 +1,165 @@
+Clocks
+	v1.2b2 - First Tracked version...
+
+	Changes Since T2 1.1
+	- Digital Clock now uses color cycling to draw things much more smoothly.
+	- Timing should be much smoother for all modes
+
+	Want to do
+	- Make Analog Clock use color cycling, too.
+	- Clinton Clocks (run backwards)
+	- Chimes on the hour/half?
+
+Fish
+	v1.2b2 - First Tracked version...
+
+	New for T2 1.2
+
+	v1.2b3
+
+	Changes Made
+	- APF Support. (Finally!).
+
+	Want to do
+	- Make even faster
+	- Sounds
+	- Bubbles?
+	- Seafloor?
+
+Flames
+	v1.2b2 - First Tracked version
+
+	New for T2 1.2
+
+	Changes since earlier beta versions
+	- New default option: bouncing around. (Not so if you've had an
+	  earlier Flames beta.)
+
+	Want to do
+	- Make Twice as fast, and use 3200 colors, and cook eggs as well ;)
+
+Globe
+	v1.2b2 - First Tracked version
+
+	New for T2 1.2
+
+	Changes since earlier beta versions
+	- Smoother error handling, no debugging crashes. (Whoooooops! :)
+	- Default direction is correct for this planet
+
+	v1.2b3
+	- 16 color APF support added
+
+	Want to do
+	- 256 APF support (I promised it in the Toast Contest file)
+	- Sounds? Can anyone thing of any?
+
+LedMsg
+	v1.2b2 - First Tracked version
+
+	Changes since T2 1.1
+	- 2 New fonts, selectable from a pop-up menu
+	- Slightly faster scrolling code
+	- Default message is put in Setup menu if all text is deleted, and
+	  module re-selected. This text was being put on the screen anyways
+	  (in lieu of an error string), so I just put it in the setup.
+	- Smart Timing of the scrolling ensures that the scrolling speed
+	  will be much better. Basically, it always waits the max time that
+	  it's taken so far to scroll.
+	- Briefly experimented with fillmode; too slow. I have the source
+	  to pour over later, though.
+
+MiniFireworks
+	v1.2b2 - First Tracked version
+
+	Changes since T2 1.1
+	- Up to 15 fireworks at once, and optional launching.
+
+Modern Art
+	v1.2b2 - First Tracked Version
+
+	No significant changes since T2 1.1. If anyone has any ideas, I'd love
+	to hear them.
+
+Perspective
+	v1.2b2 - First Tracked Version
+
+	No significant changes since T2 1.1. If anyone has any ideas, I'd love
+	  to hear them. Don't ask about 640 mode; I think it stinks.
+
+Sharks And Fish
+	v1.2b2 - First Tracked Version
+
+	No significant changes since T2 1.1. If anyone has any ideas, I'd love
+	to hear them.
+
+Snowflakes
+	v1.2b2 - First Tracked Version
+
+	New since T2 1.1
+
+        v1.2b3
+
+	Changes Made
+	- About dialog changed to reflect the 2.10 * 10^90 possible snowflakes
+	- Brighter snowflakes. (Before, they could be any color, including
+	  black).
+
+Spirals
+	v1.2b2 - First Tracked Version
+
+	New since T2 1.1
+
+Swirls
+	v1.2b2 - First Tracked Version
+
+	New since T2 1.1
+
+Toast
+	v1.2b2 - First Tracked Version
+
+	New since T2 1.1
+
+	Changes from earlier public release
+	- Contest file approved by Jim.
+	- Small memory-trashing bug fixed.
+	- Error Handling nicened up
+
+	v1.2b3
+	Changes Made
+	- APF support
+
+	Want to do
+	- Make even faster
+	- Sounds
+	- "Classic" movement
+
+Tunnelgame
+	v1.2b2 - First Tracked Version
+
+	No significant changes since T2 1.1. If anyone has any ideas, I'd love
+	to hear them.
+
+
+Beta Testers:
+	Have fun with these modules. If you want to get in contact with me
+directly, you can do so on the internet at nathan@cco.caltech.edu. If you're
+on AOL or GEnie, you can probably get in contact with me; bug Jim for details.
+Note: Jim may want bug reports funneled through him.
+
+	If you have any sound effects you think would just be the coolest
+thing for some module, please send it on. I'm always open to suggestions for
+improvements, and new modules, as well.
+
+
+Modules I want to do. Some of these things are just random notes, so don't
+expect to understand them.
+Clinton Clocks
+THX
+MineHunt (port from my NDA source)
+Power Grid (port from NDA)
+MultiTris (port from NDA)
+Randomness(statc)
+Silver
+Waves?
+Terraform?

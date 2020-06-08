@@ -1,0 +1,54 @@
+unset exit
+Set AuxType $5457
+Set KeepType RTL
+Set A */system/cdevs/twilight
+Echo Assembling {1}
+if {1} == "Boxes"
+  asml +w -x boxes.asm
+  delete {a}/boxes
+  copy boxes {a}
+else if {1} == "DClock"
+  asml +w -x DClock.Asm
+  delete {a}/dclock
+  copy DClock {a}
+else if {1} == "AClock"
+  asml +w -x AClock.Asm
+  delete {a}/aclock
+  copy AClock {a}
+else if {1} == "LedMsg"
+  asml +w -x LedMsg.Asm
+  delete {a}/led.msg
+  copy Led.Msg {a}
+else if {1} == "Comedy"
+  asml +w -x Comedian.Asm
+  delete {a}/Comedian
+  copy Comedian {a}
+else if {1} == "Fire"
+  asml +x -x Fireworks.Asm
+  delete {a}/Fireworks
+  copy Fireworks {a}
+else if {1} == "MSlides"
+  asml +w -x MSlides.asm
+  delete {a}/mslides
+  copy MSlides {a}
+else if {1} == "Persp"
+  asml +w -x Perspective.Asm
+  copy -f persp.temp Perspective
+  delete {A}/Perspective
+  copy Perspective {A}
+else if {1} == "Tunnel"
+  asml +w -x Tunnel.asm
+  delete {a}/TunnelGame
+  copy TunnelGame {A}
+else           
+  Echo Known programs:
+  Echo "  Aclock - AClock.Asm"
+  Echo "  Boxes - Boxes.Asm"
+  Echo "  Comedy - Comedian.Asm"
+  Echo "  DClock - DClock.Asm"
+  Echo "  Fire - Fireworks.Asm"
+  Echo "  LedMsg - LedMsg.Asm"
+  Echo "  MSlides - MSlides.Asm"
+  Echo "  Persp - Perspective.Asm"
+  Echo "  Tunnel - TunnelGame.Asm"
+  end

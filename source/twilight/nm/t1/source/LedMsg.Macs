@@ -1,0 +1,210 @@
+ MACRO
+&lab _DisposeHandle
+&lab ldx #$1002
+ jsl $E10000
+ MEND
+ MACRO
+&lab _NewHandle
+&lab ldx #$0902
+ jsl $E10000
+ MEND
+ MACRO
+&LAB LONG &A,&B
+ LCLB &I
+ LCLB &M
+&A AMID &A,1,1
+&M SETB ("&A"="M").OR.("&A"="m")
+&I SETB ("&A"="I").OR.("&A"="i")
+ AIF C:&B=0,.A
+&B AMID &B,1,1
+&M SETB ("&B"="M").OR.("&B"="m").OR.&M
+&I SETB ("&B"="I").OR.("&B"="i").OR.&I
+.A
+&LAB REP #&M*32+&I*16
+ AIF .NOT.&M,.B
+ LONGA ON
+.B
+ AIF .NOT.&I,.C
+ LONGI ON
+.C
+ MEND
+ MACRO
+&LAB SHORT &A,&B
+ LCLB &I
+ LCLB &M
+&A AMID &A,1,1
+&M SETB ("&A"="M").OR.("&A"="m")
+&I SETB ("&A"="I").OR.("&A"="i")
+ AIF C:&B=0,.A
+&B AMID &B,1,1
+&M SETB ("&B"="M").OR.("&B"="m").OR.&M
+&I SETB ("&B"="I").OR.("&B"="i").OR.&I
+.A
+&LAB SEP #&M*32+&I*16
+ AIF .NOT.&M,.B
+ LONGA OFF
+.B
+ AIF .NOT.&I,.C
+ LONGI OFF
+.C
+ MEND
+ MACRO
+&lab WordResult
+&lab pha
+ MEND
+ MACRO
+&lab LongResult
+&lab pha
+ pha
+ MEND
+ MACRO
+&lab PushLLcl &Num1
+&lab phb
+ phb
+ PushWord &Num1
+ MEND
+ MACRO
+&lab mov &num1,&num2
+&lab lda &num1
+ sta &num2
+ MEND
+ MACRO
+&lab _GetMasterSCB
+&lab ldx #$1704
+ jsl $E10000
+ MEND
+ MACRO
+&lab _GetPort
+&lab ldx #$1C04
+ jsl $E10000
+ MEND
+ MACRO
+&lab _OpenPort
+&lab ldx #$1804
+ jsl $E10000
+ MEND
+ MACRO
+&lab _PaintOval
+&lab ldx #$5904
+ jsl $E10000
+ MEND
+ MACRO
+&lab _Random
+&lab ldx #$8604
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetMasterSCB
+&lab ldx #$1604
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetPenMode
+&lab ldx #$2E04
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetPort
+&lab ldx #$1B04
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetPortLoc
+&lab ldx #$1D04
+ jsl $E10000
+ MEND
+ MACRO
+&lab _SetSolidPenPat
+&lab ldx #$3704
+ jsl $E10000
+ MEND
+ MACRO
+&lab pulllong &addr1,&addr2
+&lab ANOP
+ AIF C:&addr1=0,.a
+ AIF C:&addr2=0,.b
+ LCLC &C
+&C AMID &addr1,1,1
+ AIF "&C"="[",.zeropage
+ pullword &addr1
+ sta &addr2
+ pullword &addr1+2
+ sta &addr2+2
+ MEXIT
+.a
+ pullword
+ pullword
+ MEXIT
+.b
+ pullword &addr1
+ pullword &addr1+2
+ MEXIT
+.zeropage
+ ldy #&addr2
+ pullword &addr1,y
+ ldy #&addr2+2
+ pullword &addr1,y
+ MEND
+ MACRO
+&lab pullword &SYSOPR
+&lab ANOP
+ pla
+ AIF C:&SYSOPR=0,.end
+ sta &SYSOPR
+.end
+ MEND
+ MACRO
+&lab pushlong &addr,&offset
+&lab ANOP
+ LCLC &C
+ LCLC &REST
+&C AMID &addr,1,1
+ AIF "&C"="#",.immediate
+ AIF "&C"="[",.zeropage
+ AIF C:&offset=0,.nooffset
+ AIF "&offset"="s",.stack
+ pushword &addr+2,&offset
+ pushword &addr,&offset
+ MEXIT
+.nooffset
+ pushword &addr+2
+ pushword &addr
+ MEXIT
+.immediate
+&REST AMID &addr,2,L:&addr-1
+ dc I1'$F4',I2'(&REST)|-16'
+ dc I1'$F4',I2'&REST'
+ MEXIT
+.stack
+ pushword &addr+2,s
+ pushword &addr+2,s
+ MEXIT
+.zeropage
+ ldy #&offset+2
+ pushword &addr,y
+ ldy #&offset
+ pushword &addr,y
+ MEND
+ MACRO
+&lab pushword &SYSOPR
+&lab ANOP
+ AIF C:&SYSOPR=0,.b
+ LCLC &C
+&C AMID "&SYSOPR",1,1
+ AIF ("&C"="#").AND.(S:LONGA),.immediate
+ lda &SYSOPR
+ pha
+ MEXIT
+.b
+ pha
+ MEXIT
+.immediate
+ LCLC &REST
+ LCLA &BL
+&BL ASEARCH "&SYSOPR"," ",1
+ AIF &BL>0,.a
+&BL SETA L:&SYSOPR+1
+.a
+&REST AMID "&SYSOPR",2,&BL-2
+ dc I1'$F4',I2'&REST'
+ MEND
