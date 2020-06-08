@@ -1,0 +1,38 @@
+unset exit
+Set AuxType $4004
+Set KeepType $BC
+Echo Assembling {1}
+if {1} == "Boxes"
+  asml +w -x boxes.asm
+else if {1} == "Clocks"
+  asml +w -x Clocks.Asm
+else if {1} == "LedMsg"
+  mv Led.Message Led.Msg
+  asml +w -x LedMsg.Asm
+  mv Led.Msg Led.Message
+else if {1} == "Fire"
+  mv MiniFireworks Fireworks
+  asml +w -x fireworks.asm Keep=Fireworks
+  mv Fireworks MiniFireworks
+else if {1} == "Persp"
+  mv Perspective Persp.Temp
+  asml +w -x Perspective.Asm
+  mv Persp.Temp Perspective
+else if {1} == "Plasma"
+  asml +w -x Plasma.Asm
+else if {1} == "SNF"
+  mv SharksAndFish SNF
+  asml +w -x SNF.asm
+  mv SNF SharksAndFish
+else if {1} == "Tunnel"
+  asml +w -x TunnelGame.asm
+else           
+  Echo Known programs:
+  Echo "  Boxes - Boxes.Asm"
+  Echo "  Clocks - Clocks.Asm"
+  Echo "  Fire - Fireworks.Asm"
+  Echo "  LedMsg - LedMsg.Asm"
+  Echo "  Persp - Perspective.Asm"
+  Echo "  SNF - SNF.Asm"
+  Echo "  Tunnel - TunnelGame.Asm"
+  end

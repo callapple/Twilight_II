@@ -1,0 +1,2 @@
+macgen delta.asm macros/delta.macs macros/delta.macs 18/m16=
+macgen udelta.asm macros/udelta.macs macros/udelta.macs 18/m16=

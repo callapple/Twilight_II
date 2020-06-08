@@ -1,0 +1,287 @@
+Clocks
+	v1.2b2 - First Tracked version...
+
+	Changes Since T2 1.1
+	- Digital Clock now uses color cycling to draw things much more smoothly.
+	- Timing should be much smoother for all modes
+
+	Want to do
+	- Make Analog Clock use color cycling, too.
+	- Clinton Clocks (run backwards)
+	- Chimes on the hour/half?
+
+Fish
+	v1.2b2 - First Tracked version...
+
+	New for T2 1.2
+
+	v1.2b3
+
+	Changes Made
+	- APF Support. (Finally!).
+
+	v1.2b4 - Not released yet
+
+	Changes Made
+	- Datactl is now selected on setup
+
+	Want to do
+	- Make even faster
+	- Sounds
+	- Bubbles?
+	- Seafloor?
+
+Flames
+	v1.2b2 - First Tracked version
+
+	New for T2 1.2
+
+	Changes since earlier beta versions
+	- New default option: bouncing around. (Not so if you've had an
+	  earlier Flames beta config saved to your disk)
+
+	v1.2b3
+
+	Changes Made:
+	- Default height of flames now 8. That makes the blue bits just
+	  touch the top of the screen. (Also, we haven't had any flames
+	  around Southern California in a little bit :)
+	- Bouncing area enlarged. (I was bouncing off about the 180th
+	  screen row)
+	- Damn nasty bug (to find, at least) fixed that caused small traces
+	  to be left when bounced on left side heading up near the top-left
+	  corner.
+	- Datactl selected on setup entry
+
+
+	Want to do
+	- Make Twice as fast, use 3200 colors, and cook eggs ;)
+
+Globe
+	v1.2b2 - First Tracked version
+
+	New for T2 1.2
+
+	Changes since earlier beta versions
+	- Smoother error handling, no debugging crashes. (Whoooooops! :)
+	- Default direction is correct for this planet
+
+	v1.2b3
+	- 16 color APF support added
+
+	v1.2b4
+	- APF loader fixed. Before, if it loaded 2 APFs from the setup
+	  screen, it would crash real hard. I made a wrong assumption
+	  that my varbs would be 0 on entry. (Well, if it's reloaded,
+	  that's the case).
+
+	Want to do
+	- 256 APF support (I promised it in the Toast Contest file)
+	- Sounds? Can anyone thing of any?
+
+LedMsg
+	v1.2b2 - First Tracked version
+
+	Changes since T2 1.1
+	- 2 New fonts, selectable from a pop-up menu
+	- Slightly faster scrolling code
+	- Default message is put in Setup menu if all text is deleted, and
+	  module re-selected. This text was being put on the screen anyways
+	  (in lieu of an error string), so I just put it in the setup.
+	- Smart Timing of the scrolling ensures that the scrolling speed
+	  will be much better. Basically, it always waits the max time that
+	  it's taken so far to scroll.
+	- Briefly experimented with fillmode; too slow. I have the source
+	  to pour over later, though.
+
+MineHunt
+	v1.2b1 - First Tracked version
+
+	New since T2 1.1
+
+	- Not yet complete. More setup options need to be implemented,
+	  and there are a few tweaks that need to be made. Send me
+	  feedback on the music; I've listened to it enough times to
+	  have it get on my nerves. (If you have any good SS songs or
+	  neat MODs, send them on). Also want to put text scroller at
+	  the bottom of the intro screen, and a help button in the
+	  setup window.
+	- Error handling sucks. If it can't get the memory for music, it'll
+	  hopefully not try to play anything. If it can't get the memory
+	  for its screens, it'll put gunk on the screen. This'll be fixed
+	- Known bugs: Doesn't listen to T2's Sound override. That'll be
+	  fixed.
+
+	v1.2b2 -Released 2/20/94
+	- Info text from setup screen now. But, sometimes, the "Info"
+	  button isn't totally redrawn... Ought to put in a _InvalCtl
+	  on it.
+	- Scroller now during intro text. How is it?
+	- Music is now compressed. T2's LZSS routine handles the packing
+	  of just the SS screen, with some bugs: (Fix these, Jim!!!!)
+
+	  1) You can move the mouse all you like while it's decompressing...
+	     it doesn't respond.
+	  2) Under GNO, the "Welcome. Please Wait..." text on the SHR
+	     screen is ok. But, outside of GNO, the first ~20 lines on
+	     the screen are randomly overwritten with garbage.
+
+	- Error text message is now put on screen if there's a problem with
+	  the music and all. 0201= Out of Memory, 0818= someone else has
+	  sound memory.
+
+	v1.2b3 -Released 4/10/94
+	- Some people were having problems getting any recognizable error
+	  messages out of it, and not playing music... Made sure it prints
+	  an error # I can trace.
+
+	Want to do:
+	- "Marking" thought mines, a la the Windoze variant.
+	- Maybe compress the DOC, if it would really help, and not increase
+	  load time too much. Is ~130K acceptible, Jim?
+
+MiniFireworks
+	v1.2b2 - First Tracked version
+
+	Changes since T2 1.1
+	- Up to 15 fireworks at once, and optional launching.
+
+	v1.2b3 - Not released yet
+
+	Changes Made
+	- Datactl is now selected on setup
+
+Modern Art
+	v1.2b2 - First Tracked Version
+
+	No significant changes since T2 1.1. If anyone has any ideas, I'd love
+	to hear them.
+
+Perspective
+	v1.2b2 - First Tracked Version
+
+	No significant changes since T2 1.1. If anyone has any ideas, I'd love
+	  to hear them. Don't ask about 640 mode; I think it stinks.
+
+Power Grid!
+	v1.2b1 - First Tracked version
+
+	New since T2 1.1
+
+	v1.2b1 -Released 4/10/94
+	- A clone of my NDA game... Didn't take too long to convert the
+	  base code, but I'm a slow, critical artist. (If you can call drawing
+	  suchg things art). Game shell code concurrent with MineHunt 1.2b3
+
+	- Any suggestions, folks?
+
+
+Sharks And Fish
+	v1.2b2 - First Tracked Version
+
+	No significant changes since T2 1.1. If anyone has any ideas, I'd love
+	to hear them.
+
+Snowflakes
+	v1.2b2 - First Tracked Version
+
+	New since T2 1.1
+
+        v1.2b3
+
+	Changes Made
+	- About dialog changed to reflect the 2.10 * 10^90 possible snowflakes
+	- Brighter snowflakes. (Before, they could be any color, including
+	  black).
+
+	v1.2b4 - Not released yet
+
+	Changes Made
+	- Datactl is now selected on setup
+
+
+Spirals
+	v1.2b2 - First Tracked Version
+
+	New since T2 1.1
+
+	v1.2b3 - Not released yet
+
+	Changes Made
+	- Datactl is now selected on setup
+
+
+Swirls
+	v1.2b2 - First Tracked Version
+
+	New since T2 1.1
+
+Toast
+	v1.2b2 - First Tracked Version
+
+	New since T2 1.1
+
+	Changes from earlier public release
+	- Contest file approved by Jim.
+	- Small memory-trashing bug fixed.
+	- Error Handling nicened up
+
+	v1.2b3
+	Changes Made
+	- APF support
+
+	v1.2b4 - Not released yet
+
+	Changes Made
+	- Datactl is now selected on setup
+
+	Want to do
+	- Make even faster
+	- Sounds
+	- "Classic" movement
+
+Tunnelgame
+	v1.2b2 - First Tracked Version
+
+	No significant changes since T2 1.1. If anyone has any ideas, I'd love
+	to hear them.
+
+Voting
+	v1.2b1 - First Tracked Version
+
+	New since T2 1.1
+
+	First released version
+
+	v1.2b2 Released 2/20/94
+
+	- About window now functional from Setup window
+	- Yeah, it's lame and cheesy. Got any better ideas? I wanted to
+	  program this simulation, and this is the result. If you don't
+	  like it, well, neither do I. Suggestions for improvements
+	  would be appreciated....
+
+	Want to do:
+	- Implement some form of color cycling for the colors to reduce
+	  burn-in.
+
+
+Beta Testers:
+	Have fun with these modules. If you want to get in contact with me
+directly, you can do so on the internet at nathan@cco.caltech.edu. If you're
+on AOL or GEnie, you can probably get in contact with me; bug Jim for details.
+Note: Jim may want bug reports funneled through him.
+
+	If you have any sound effects you think would just be the coolest
+thing for some module, please send it on. I'm always open to suggestions for
+improvements, and new modules, as well.
+
+Modules I want to do. Some of these things are just random notes, so don't
+expect to understand them.
+Clinton Clocks
+THX
+MultiTris (port from NDA)
+Silver
+Waves?
+Terraform?
+Satori.... (Found algorithm.... Is it possible with only 16 colors???)
