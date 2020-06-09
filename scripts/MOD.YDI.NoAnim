@@ -1,0 +1,25 @@
+SCRIPT
+
+V2.00
+
+RR1b
+
+Module:ÊYDI! (no animations)
+This script installs the Twilight II You Draw It! module onto the startup disk you select.  It does not install any of the animations that are required to use You Draw It!  If you use this script you must also select one or more individual animations. \\
+~*
+
+~:::Workspace:::
+1
+
+
+
+Twilight:YouDrawIt
+System:CDevs:Twilight:YouDrawIt
+~:::Workspace:::
+4 Delete the old YDI module if it is there
+
+
+
+
+System:CDevs:Twilight:YouDrawIt
+~~

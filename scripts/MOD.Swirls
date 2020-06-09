@@ -1,0 +1,18 @@
+SCRIPT
+
+V2.00
+
+RR1b
+
+Module: Swirls
+This script installs the Twilight II Swirls module onto the startup disk you select.\\
+~*
+
+~:::Workspace:::
+1
+
+
+
+Twilight:Swirls
+System:CDevs:Twilight:Swirls
+~~

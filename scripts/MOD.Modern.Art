@@ -1,0 +1,18 @@
+SCRIPT
+
+V2.00
+
+RR1b
+
+Module: Modern Art
+This script installs the Twilight II Modern Art module onto the startup disk you select.\\
+~*
+
+~:::Workspace:::
+1
+
+
+
+Twilight:Modern.Art
+System:CDevs:Twilight:Modern.Art
+~~

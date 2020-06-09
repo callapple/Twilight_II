@@ -1,0 +1,18 @@
+SCRIPT
+
+V2.00
+
+RR1b
+
+Module: Meltdown
+This script installs the Twilight II Meltdown module onto the startup disk you select.\\
+~*
+
+~:::Workspace:::
+1
+
+
+
+Twilight:Meltdown
+System:CDevs:Twilight:Meltdown
+~~

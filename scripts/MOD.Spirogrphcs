@@ -1,0 +1,18 @@
+SCRIPT
+
+V2.00
+
+RR1b
+
+Module: Spirographics
+This script installs the Twilight II Spirographics module onto the startup disk you select.\\
+~*
+
+~:::Workspace:::
+1
+
+
+
+Twilight:Spirographics
+System:CDevs:Twilight:Spirographics
+~~

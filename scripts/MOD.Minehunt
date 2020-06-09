@@ -1,0 +1,18 @@
+SCRIPT
+
+V2.00
+
+RR1b
+
+Module: MineHunt
+This script installs the Twilight II MineHunt module onto the startup disk you select.\\
+~*
+
+~:::Workspace:::
+1
+
+
+
+Twilight:MineHunt
+System:CDevs:Twilight:MineHunt
+~~

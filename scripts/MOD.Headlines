@@ -1,0 +1,25 @@
+SCRIPT
+
+V2.00
+
+RR1b
+
+Module: Headlines
+This script installs the Twilight II Headlines module and its data file onto the startup disk you select.\\
+~*
+
+~:::Workspace:::
+1
+
+
+
+Twilight:Headlines
+System:CDevs:Twilight:Headlines
+~:::Workspace:::
+1
+
+
+
+Twilight:Headlines.Data
+System:CDevs:Twilight:Headlines.Data
+~~

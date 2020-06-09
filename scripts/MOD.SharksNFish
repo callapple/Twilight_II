@@ -1,0 +1,18 @@
+SCRIPT
+
+V2.00
+
+RR1b
+
+Module: Sharks and Fish
+This script installs the Twilight II Sharks And Fish module onto the startup disk you select.\\
+~*
+
+~:::Workspace:::
+1
+
+
+
+Twilight:SharksAndFish
+System:CDevs:Twilight:SharksAndFish
+~~

@@ -1,0 +1,18 @@
+SCRIPT
+
+V2.00
+
+RR1b
+
+Module: Fireworks With Sound
+This script installs the Twilight II Fireworks module onto the startup disk you select.\\
+~*
+
+~:::Workspace:::
+1
+
+
+
+Twilight:FireWorks
+System:CDevs:Twilight:Fireworks
+~~

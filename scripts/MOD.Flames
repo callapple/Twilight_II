@@ -1,0 +1,18 @@
+SCRIPT
+
+V2.00
+
+RR1b
+
+Module: Flames
+This script installs the Twilight II Flames module and the font used by the clock onto the startup disk you select.\\
+~*
+
+~:::Workspace:::
+1
+
+
+
+Twilight:Flames
+System:CDevs:Twilight:Flames
+~~

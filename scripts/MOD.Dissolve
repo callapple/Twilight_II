@@ -1,0 +1,18 @@
+SCRIPT
+
+V2.00
+
+RR1b
+
+Module: Dissolve
+This script installs the Twilight II Dissolve module onto the startup disk you select.\\
+~*
+
+~:::Workspace:::
+1
+
+
+
+Twilight:Dissolve
+System:CDevs:Twilight:Dissolve
+~~

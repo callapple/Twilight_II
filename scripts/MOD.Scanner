@@ -1,0 +1,18 @@
+SCRIPT
+
+V2.00
+
+RR1b
+
+Module: Scanner
+This script installs the Twilight II Scanner module onto the startup disk you select.\\
+~*
+
+~:::Workspace:::
+1
+
+
+
+Twilight:Scanner
+System:CDevs:Twilight:Scanner
+~~

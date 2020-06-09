@@ -1,0 +1,18 @@
+SCRIPT
+
+V2.00
+
+RR1b
+
+Module: Perspective
+This script installs the Twilight II Perspective module onto the startup disk you select.\\
+~*
+
+~:::Workspace:::
+1
+
+
+
+Twilight:Perspective
+System:CDevs:Twilight:Perspective
+~~

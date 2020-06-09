@@ -1,0 +1,18 @@
+SCRIPT
+
+V2.00
+
+RR1b
+
+Module: Voting
+This script installs the Twilight II Voting module onto the startup disk you select.\\
+~*
+
+~:::Workspace:::
+1
+
+
+
+Twilight:Voting
+System:CDevs:Twilight:Voting
+~~

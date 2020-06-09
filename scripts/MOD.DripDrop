@@ -1,0 +1,25 @@
+SCRIPT
+
+V2.00
+
+RR1b
+
+Module: Drip Drop
+This script installs the Twilight II Drip Drop module onto the startup disk you select.\\
+~*
+
+~:::Workspace:::
+1
+
+
+
+Twilight:DripDrop
+System:CDevs:Twilight:DripDrop
+~:::Workspace:::
+4 Delete the old Rain module if it is there
+
+
+
+
+System:CDevs:Twilight:Rain
+~~

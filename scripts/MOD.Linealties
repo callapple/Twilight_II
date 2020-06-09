@@ -1,0 +1,18 @@
+SCRIPT
+
+V2.00
+
+RR1b
+
+Module: Linealities
+This script installs the Twilight II Linealities module onto the startup disk you select.\\
+~*
+
+~:::Workspace:::
+1
+
+
+
+Twilight:Linealities
+System:CDevs:Twilight:Linealities
+~~

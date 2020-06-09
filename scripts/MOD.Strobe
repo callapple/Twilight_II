@@ -1,0 +1,18 @@
+SCRIPT
+
+V2.00
+
+RR1b
+
+Module: Strobe
+This script installs the Twilight II Strobe module onto the startup disk you select.\\
+~*
+
+~:::Workspace:::
+1
+
+
+
+Twilight:Strobe
+System:CDevs:Twilight:Strobe
+~~

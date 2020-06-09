@@ -1,0 +1,25 @@
+SCRIPT
+
+V2.00
+
+RR1b
+
+Module: Fading Clock
+This script installs the Twilight II Fading Clock module and the font used by the clock onto the startup disk you select.\\
+~*
+
+~:::Workspace:::
+1
+
+
+
+Twilight:FadingClock
+System:CDevs:Twilight:FadingClock
+~:::Workspace:::
+1
+
+
+
+T2.Clock.Font
+System:Fonts:T2.Clock.Font
+~~

@@ -1,0 +1,18 @@
+SCRIPT
+
+V2.00
+
+RR1b
+
+Module: Scroll
+This script installs the Twilight II Scroll module onto the startup disk you select.\\
+~*
+
+~:::Workspace:::
+1
+
+
+
+Twilight:Scroll
+System:CDevs:Twilight:Scroll
+~~
