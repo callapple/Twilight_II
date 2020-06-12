@@ -1,0 +1,19 @@
+*
+* Random T2 Revision notes....
+*
+* By Nathan Mates
+* 4/10/94
+*
+
+What it does:
+   Random T2 is an init that sits in your system, and watches for Twilight
+II starting up. When T2 starts off, 45 seconds later, RandomT2 checks the
+system. If the mouse's coord is <3 on either the x or y axis, RandomT2
+fakes a keyhit to make Twilight II shuffle the modules. QuickResponse
+must be turned off.
+
+   This is an internal release for the Twilight II 2.0 beta testers only.
+It is aslo designed to bug Jim into working some more. :)
+
+
+Nathan
