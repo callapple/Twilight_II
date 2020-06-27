@@ -35,7 +35,7 @@ disptch2	equ	$E10004
 	longm
 
 	PushLong #BellVectPatch	; source pointer
-	LongResult	; destionation handle space
+	LongResult 0	; destionation handle space
 	PushLong #bPatchEnd-bPatchStart
 	~GetNewID #$2000	; get new control program ID
 	PushWord #attrLocked+attrFixed+attrNoSpec+attrNoCross

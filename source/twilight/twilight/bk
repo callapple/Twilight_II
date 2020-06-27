@@ -1,0 +1,14 @@
+
+bs
+cp beat.asm beat.asm.c
+cp cdev.asm cdev.asm.c
+cp dispatch.asm dispatch.asm.c
+cp init.asm init.asm.c
+cp ipc.asm ipc.asm.c
+cp library.asm library.asm.c
+cp misc.asm misc.asm.c
+cp request.asm request.asm.c
+cp setup.asm setup.asm.c
+cp tii.rez tii.rez.c
+cp blank.asm blank.asm.c
+es

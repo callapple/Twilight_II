@@ -1,7 +1,7 @@
          setcom 80
-               mcopy list.mac
-               copy  13:ainclude:e16.memory
-               copy  13:ainclude:e16.gsos
+         mcopy list.mac
+         copy  13:ainclude:e16.memory
+         copy  13:ainclude:e16.gsos
 	copy	13:ainclude:e16.locator
 	copy	13:ainclude:e16.types
 	copy	13:ainclude:e16.resources

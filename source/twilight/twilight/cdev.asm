@@ -1,4 +1,4 @@
-         setcom 80
+               setcom 80
                mcopy cdev.mac
                copy  13:ainclude:e16.quickdraw
                copy  13:ainclude:e16.control
@@ -94,7 +94,7 @@ MyMessage      anop
 *              str  'DYA (JRM): Twilight II'
 *	str	'Digital Creations: Twilight II (JRM)'
                str  'DigiSoft Innovations: Twilight II (DYA)'
-BlankPtr       ptr   0                  ; Pointer to the blanker entry point
+BlankPtr       ptr  0                   ; Pointer to the blanker entry point
 MyID           ds    2                  ; Our memory ID
 ModulePath     ptr   0                  ; Ptr to full GS path of module folder
 T2Pathname     ptr   0                  ; Ptr to our full pathname & filename
@@ -122,7 +122,7 @@ HndlSize       ds    4                  ; size of a given handle
 BlankTime      ds    2                  ; Number of minutes to blank * 720
 Minutes        ds    2                  ; Number of minutes to blank
 TimeTxt        ds    2                  ; Text string version of Minutes
-
+                     
 T2WindP        ptr   0                  ; Pointer to the CDev window (Data1)
 
 FM_dp_handle	handle                   ; handle to the dp block we allocate

@@ -13,7 +13,7 @@
 	copy	13:ainclude:e16.cccp
 	keep  init
 	copy	equates
-               copy  TII.equ
+         copy  TII.equ
 	copy	v1.2.equ
 	copy	debug.equ
 *-----------------------------------------------------------------------------*
@@ -632,7 +632,7 @@ LoadDATA       Data
 SavePath	C1Result 256
 
 ModulePath     C1Result 256             ; Full pathname of module folder
-FolderStrPtr   ptr
+FolderStrPtr   ptr   0
 FolderStrLen   ds    2
 
 PathHandle     handle
@@ -734,13 +734,13 @@ MyMessage      anop
                str  'DigiSoft Innovations: Twilight II (DYA)'
                ptr   BlankRtn           ; Pointer to the blanker entry point
 MyID	ds    2
-;ModuleIDPtr	ptr	iModuleID	; pointer to module memory Id
+;ModuleIDPtr	ptr   iModuleID	; pointer to module memory Id
                ptr   ModulePath_textLen ; Ptr to full GS path of module folder
                ptr   iNameBuffer_textLen ; Ptr to our full pathname & filename.
                ptr   DefaultB
                dc    h'5c'              ; jmp long
                dc    a3'GetRezWord'
-ConfigPathPtr	ptr
+ConfigPathPtr	ptr   0
 	dc	i4'ModuleFlags'
 nonremovableT2Vol ds	2
 	ptr	PrefRezFileID	; ptr to rezFileID and rezAppID of pref
@@ -807,9 +807,9 @@ PrefID         ds    2                  ; rezFile id of pref rezFile
 PrefErrorCode	ds	2	; error code (if applicable)
 
 RectHandle	handle
-RectPtr	ptr
+RectPtr	      ptr   0
 SetupPathHndl	handle
-SetupPathPtr	ptr
+SetupPathPtr	ptr   0
 
 * Current mouse clamp values
 

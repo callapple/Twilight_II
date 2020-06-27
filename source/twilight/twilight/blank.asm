@@ -1527,7 +1527,7 @@ looped2	anop
 	iny
 	cpx	#200
 	blt	looped2	
-               rts
+         rts
 
 
 *************************************
@@ -1575,10 +1575,10 @@ looped3	phy
 
 	End
 *-----------------------------------------------------------------------------*
-Alloc_DP Start
+Alloc_DP	Start
 	Using	BlankDATA                ; get module's DP space (1 page)
 	Using	InitDATA
-	debug	'Alloc DP'	; AV 202005
+	debug	'Alloc_DP'
 
 * Get another handle to give the module it's own direct page.
 

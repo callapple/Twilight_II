@@ -1,17 +1,17 @@
          setcom 80
 	mcopy	setup.mac
-               copy  tii.equ	; get all the equates
+         copy  tii.equ	; get all the equates
 	copy	v1.2.equ
 	copy	equates
 	copy	cdev.equ
 	copy	debug.equ
-               copy  13:ainclude:e16.memory
-               copy  13:ainclude:e16.types
-               copy  13:ainclude:e16.window
-               copy  13:ainclude:e16.control
-               copy  13:ainclude:e16.resources
-               copy  13:ainclude:e16.gsos
-               copy  13:ainclude:e16.locator
+         copy  13:ainclude:e16.memory
+         copy  13:ainclude:e16.types
+         copy  13:ainclude:e16.window
+         copy  13:ainclude:e16.control
+         copy  13:ainclude:e16.resources
+         copy  13:ainclude:e16.gsos
+         copy  13:ainclude:e16.locator
 	copy	13:ainclude:e16.quickdraw
 	keep	setup
 *-----------------------------------------------------------------------------*

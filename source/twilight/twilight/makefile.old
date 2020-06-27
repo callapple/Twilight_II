@@ -1,0 +1,75 @@
+
+# Twilight II UNIX MakeFile
+# by Jim Maricondo
+# v1.0 (inital version) - 8/20/92 1:42am
+# v1.1 (init modularity) - 8/24/92 6:00pm
+# v1.2 (cdev modularity) - 8/28/92 8:16pm
+# v1.3 (misc logic fixes) - 12/23/92 8:56pm
+# v1.4 (new rez files) - 12/26/92 4:07pm
+# v1.5 (ipc.asm) - 12/27/92 2:11am
+# v1.6 (misc.asm) - 1/1/93 7:40pm
+# v1.7 (equates->dsdb.equ) - 1/2/93 10:52pm
+# v1.8 (library.asm) - 1/18/93 4:57pm
+# v1.9 (o/) - 1/18/93 8:51pm
+# v2.0 (dsdb.equ->debug.equ) - 2/22/93 3:06pm
+# v2.1 (blank.asm) - 2/23/93 12:18am
+# v2.2 (list.asm) - 4 Jan 94, 9:41pm (no skool!tue!) (some .root->.a)
+# v2.3 (rez stuff!! what happened to it?) - 10 Jun 94 (beth?!)
+
+# First deal with all the init files...
+
+o/blank.root: blank.asm blank.mac debug.equ
+   compile +w blank.asm keep=o/blank
+
+o/init.root: init.asm dispatch.asm init.mac debug.equ
+   compile +w init.asm keep=o/init
+
+o/beat.root: beat.asm beat.mac debug.equ
+   compile +w beat.asm keep=o/beat
+
+o/request.root: request.asm request.mac debug.equ
+   compile +w request.asm keep=o/request
+
+o/ipc.root: ipc.asm ipc.mac debug.equ
+   compile +w ipc.asm keep=o/ipc
+
+o/library.root: library.asm library.mac debug.equ
+   compile +w library.asm keep=o/library
+
+o/init: o/init.root o/blank.root o/beat.root o/request.root o/ipc.root o/library.root
+   link +w -x o/init o/beat o/request o/blank o/ipc o/library keep=o/init
+
+# Now work with the CDev...
+
+o/cdev.a: cdev.asm cdev.mac debug.equ
+   compile +w cdev.asm keep=o/cdev
+
+o/setup.a: setup.asm setup.mac debug.equ
+   compile +w setup.asm keep=o/setup
+
+o/misc.root: misc.asm misc.mac debug.equ
+   compile +w misc.asm keep=o/misc
+
+o/list.a: list.asm list.mac debug.equ
+   compile +w list.asm keep=o/list
+
+o/cdev: o/cdev.root o/setup.root o/misc.root o/list.root
+   link +w -x o/cdev o/setup o/misc o/list keep=o/cdev
+
+# Now handle the rezfork.  (8808 = locked+nospec+converter)
+# type 8017 = rCodeResource; type 8018 = rcdevcode
+#   rdelete -k twilight.ii $8018(1)
+
+twilight.ii: tii.rez
+   compile tii.rez keep=twilight.ii rez=(-t $C7)
+   duplicate twilight.ii /jim1/system/cdevs/twilight.ii
+
+twilight.ii: o/init o/cdev
+   compile newboth.rez keep=twilight.ii rez=(-a -t $C7)
+   duplicate twilight.ii /jim1/system/cdevs/twilight.ii
+
+# /jim1/system/cdevs/twilight.ii: init
+#   compile newinit.rez keep=twilight.ii rez=(-a)
+#   duplicate twilight.ii /jim1/system/cdevs/twilight.ii
+# /jim1/system/cdevs/twilight.ii: twilight.ii
+#   duplicate twilight.ii /jim1/system/cdevs/twilight.ii
