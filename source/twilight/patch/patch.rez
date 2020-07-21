@@ -59,8 +59,8 @@ resource rVersion (1) {
 	{1,0,0,release,0},		     // Version
 	verUS,				     // US Version
 	"Twilight\$CAII\$AA Sound Patcher",     // program's name
-	"Copyright 1993, DigiSoft Innovations.\n" // copyright notice
-	"All rights reserved."
+	"(c) 1990-2020 A.P.P.L.E.\n" // copyright notice
+	"All rights reserved worldwide."
 };
 
 // --- Control Templates
@@ -135,7 +135,7 @@ resource rPString (PSTR_000000FF, $C018) {
 };
 
 resource rPString (PSTR_00000100, $C018) {
-	"About Sound Patcher \$C9"
+	"About Sound Patcher\$C9"
 };
 
 resource rPString (PSTR_00000101, $C018) {
@@ -143,12 +143,12 @@ resource rPString (PSTR_00000101, $C018) {
 };
 
 resource rPString (PSTR_00000103, $C018) {
-	"Patch "
+	"Patch"
 	"\$C9"
 };
 
 resource rPString (PSTR_00000107, $C018) {
-	"Help \$C9"
+	"Help\$C9"
 };
 
 // --- Menu Bar Definitions
@@ -246,7 +246,7 @@ resource rMenuItem (MENUITEM_000000FF, $0018) {
 
 resource rMenuItem (MENUITEM_00000100, $0018) {
 		$0100,				// itemID --ABOUT
-		"","",				// itemChar, itemAltChar
+		"?","?",				// itemChar, itemAltChar
 		NIL,					// itemCheck
 		$8000,				// itemFlag
 		PSTR_00000100			// itemTitleRef
@@ -270,7 +270,7 @@ resource rMenuItem (MENUITEM_00000103, $0018) {
 
 resource rMenuItem (MENUITEM_00000107, $0018) {
 		$0103,				// itemID --HELP
-  		"?","/",				// itemChar, itemAltChar
+  		"H","h",				// itemChar, itemAltChar
 		NIL,					// itemCheck
 		$8040,				// itemFlag
 		PSTR_00000107			// itemTitleRef
@@ -352,8 +352,8 @@ resource rAlertString (awAreYouSure) {
 
 resource rAlertString (awAbout) {
 	"53~Sound Patcher v1.0, by Jim Maricondo.\n"
-	"Copyright 1993, DigiSoft Innovations.\n"
-	"All rights reserved.~^#0"
+	"(c) 1990-2020 A.P.P.L.E.\n"
+	"All rights reserved worldwide.~^#0"
 	"\$00"
 };
 
@@ -381,9 +381,9 @@ resource rAlertString (awPatchSuccessful) {
 resource rText (TXT_00000004) {
 	"Sound Patcher v1.0\n"
 	"by Jim Maricondo\n"
-	"Copyright 1993, DigiSoft Innovations, All rights reserved."
+	"(c) 1990-2020 A.P.P.L.E. All rights reserved worldwide."
 	"\n\n"
-	"This program is part of DigiSoft Innovations\$D5 Twilight\$CA"
+	"This program is part of Twilight\$CA"
 	"II\$AA screen saver package.  Twilight\$CA"
 	"II and all its support files are fully copyrighted work.  Please"
 	" support the Apple II by not distributing them, so we can stay i"
@@ -407,35 +407,23 @@ resource rText (TXT_00000004) {
 	"do the rest!  After being patched, you will be able to assign be"
 	"eps to \$D2Screen Blanking\$D3 and \$D2Screen Unblanking.\$D3"
 	"  It\$D5s that simple!"
-	"\n\n"
-	"For more help, or information on other DigiSoft products, you ca"
-	"n contact us at:"
-	"\n\n"
-	"\tDigiSoft Innovations\n"
-	"\tP.O. Box 380\n"
-	"\tTrumbull, CT  06611\n"
-	"\t(203) 375-0837"
-	"\n\n"
-	"\tAmerica Online: DigiSoft\n"
-	"\tInternet: digisoft@aol.com\n"
-	"\tDelphi: DYAJIM\n"
-	"\tGEnie: DYA\n"
 };
 
 resource rComment (1) {
-	"\n"
-	"Sound Patcher.\n"
-   	"Part of DYA\$D5s Twilight\$CAII\$AA Screen Saver Project.\n"
-	"\n"
-    "Twilight\$CAII, the ultimate screen saver for your Apple IIgs.  "
-	"Support us, so we can support you, and make Twilight\$CAII even better "
-	"for the future!\n"
-	"\n"
-	"Twilight\$CAII requires System 6.  Special thanks to all the fantastic "
-	"people who helped in the creation of this product.\n"
-	"\n"
-	"Twilight II: A quality DYA product, from DigiSoft Innovations.  "
-	"Support the II: do not distribute any parts of Twilight II!  "
-	"II Infinitum!"
-//	"\n"
+	"If you have any questions, comments, or suggestions for improving "
+        "Twilight\$CAII; or would like information on other A.P.P.L.E. "
+        "programs, please contact us! We welcome your feedback and ideas."
+        "\n\n"
+        "Support of Twilight\$CAII 2.0 and future versions of Twilight\$CAII "
+        "and other products from A.P.P.L.E. can be accessed via the contact "
+        "points below:"
+        "\n\n"
+        "Apple Pugetsound Program Library Exchange"
+        "\n\n"
+        "Twitter: @callapple\n"
+        "Facebook: facebook.com/APPLEug/\n"
+        "Internet: sales@callapple.org"
+        "\n\n"
+        "Original programming: Jim R. Maricondo\n"
+        "Additional programming: Antoine Vignau"
 };
