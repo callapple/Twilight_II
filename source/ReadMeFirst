@@ -1,7 +1,7 @@
 AV 202005 - A couple of information to be able to assemble Twilight II v2.0
 
 ASSEMBLER
-I used Byteworks Orca/m 2.0.4 to assemble Twilight II v2.0.
+I used Byteworks Orca/m 2.0.3 to assemble Twilight II v2.0.
 
 ONE-TIME OPERATIONS
 In the orca folder, you will find a couple of modified or new files. Those must be copied into your Orca Libraries folder or you can update your own files there. If you choose to update, search for "AV 202005" and you'll know what to update.
