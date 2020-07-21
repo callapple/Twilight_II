@@ -1,0 +1,18 @@
+SCRIPT
+
+V2.00
+
+XR1b
+
+   Sound Control Panel Patcher
+This script installs the Sound CDev Patch program into the selected folder.  You need to run this program if you want to patch the Sound Control Panel so that is can play sounds for “Screen Blanking” and “Screen Unblanking” events.\\
+~
+
+~:::Workspace:::
+1
+
+
+
+Sound.Patcher
+Sound.Patcher
+~~
