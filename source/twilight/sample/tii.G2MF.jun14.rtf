@@ -1,0 +1,1323 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 ArialMT;\f1\fswiss\fcharset0 Arial-BoldItalicMT;\f2\froman\fcharset0 TimesNewRomanPSMT;
+\f3\fmodern\fcharset0 CourierNewPSMT;\f4\froman\fcharset0 TimesNewRomanPS-ItalicMT;\f5\froman\fcharset0 TimesNewRomanPS-BoldMT;
+}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\vieww12000\viewh15840\viewkind0
+\deftab720
+\pard\pardeftab720\qc\partightenfactor0
+
+\f0\fs72 \cf0 \
+\
+\
+\
+\
+\
+\
+\
+\
+\
+Twilight II Generation 2 Module Format\
+Reference\
+\pard\pardeftab720\qc\partightenfactor0
+
+\fs36 \cf0 \
+ June 14, 1993 Revision\
+Featuring Twilight\'a0II v1.1\
+James R. Maricondo\
+\
+Part of the Twilight II v1.1 Developer Kit\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+Copyright \'a9 1992-3, James R. Maricondo\
+All Rights Reserved\
+Distribute freely.\
+\page \pard\pardeftab720\partightenfactor0
+
+\f1\i\b\fs28 \cf0 Introduction\
+\pard\pardeftab720\partightenfactor0
+
+\f2\i0\b0\fs24 \cf0 \
+\
+If you feel some parts of this document are vague, let us know!  We want to make everything as clear as possible for you!  This document will be updated as time goes on to be clearer and more complete and to reflect any modifications to the format.\
+\
+The Generation 2 Module Format (G2MF) represents a vast change from the way modules were previously called. Twilight\'a0I v1.0 brought a very simple module format (see the Twilight I developer kit for more information.)  But along with that simplicity was lack of power, and lack of expansion ability.  The G2MF, as implemented in Twilight\'a0II, represents a vast step forward.  It has been designed with all the present and potential future needs in mind.  (Old modules are not directly compatible and need to be recompiled \'96 sorry.)\
+\
+At all times, try to keep your module changing the screen enough to prevent burn in!  Use some discretion on this issue; when modules are automatically switched after a given amount of time (to be implemented in a future version of Twilight\'a0II) hopefully your module won't have to worry so much about protecting the screen (since the next module will probably change the screen in a different way).\
+\
+In addition to the documentation contained within this document, please note that we also have provided sample sample module source code in C, Orca/M Assembly, and Merlin Assembly.\
+\
+Very special thanks to the fantastic beta testers who contributed direct suggestions toward improving this document or the G2MF in general!\
+\
+For the future we are looking into adding some IPC requests that modules can use to make modules featuring setup easier to write.  This will be for the next significant revision of T2.\
+\
+This documentation is provided only as interim specifications to serve you until the Twilight\'a0II Module Format filetype note (FTN) comes out from Apple Computer's Developer Technical Support center, hopefully this July.\
+\
+\page \pard\pardeftab720\partightenfactor0
+
+\f1\i\b\fs28 \cf0 Twilight II Module File Format\
+\pard\pardeftab720\partightenfactor0
+
+\f2\i0\b0\fs24 \cf0 \
+\
+A Twilight\'a0II module is defined by a file with filetype $BC (Generic Load File \'97 GLF) auxtype $4004 (suggested abbreviation: T2M) with a data fork containing a routine capable of handling at least a 
+\f3 BlankT2
+\f2  message, and a resource fork containing a minimum of the following:\
+\
+\pard\tx3033\tx3528\pardeftab720\partightenfactor0
+\cf0 \ul \ulc0 Resource Type				Resource ID	Description\
+
+\f3 \ulnone rLETextBox2
+\f2  ($800B)	$0010DD01	Module specific message to be printed in the \'93About Module\'94 dialog box.\
+
+\f3 rIcon
+\f2  ($8001)	$0010DD01	Module specific icon to be displayed in the \'93About Module\'94 dialog box.\
+
+\f3 rVersion
+\f2  ($8029)	$00000001	Version resource for the module.\
+
+\f3 rT2ModuleFlags
+\f2  ($D001)	$00000001	Special resource similar to 
+\f3 rCDevFlags
+\f2  in concept.\
+\
+In addition, it is recommended the following are also present:\
+\
+
+\f3 rComment
+\f2  ($802A)	$00000001	Comment for the user, for Finder 6.0.\
+
+\f3 rComment
+\f2  ($802A)	$00000002	Message to tell the user to access modules thru T2, not by double-click.\
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+The about module window may eventually display your about LETextBox2 string in a textEdit control, so be prepared for this.\
+\
+The Rez definition for the format of 
+\f3 rT2ModuleFlags
+\f2  is as follows:\
+\
+\pard\tx702\tx5027\pardeftab720\partightenfactor0
+
+\f3\fs30 \cf0 type rT2ModuleFlags \{\
+	byte = $01;	/* module flags version \'97 use 1 */\
+	hex unsigned word;	/* module flags word */\
+	byte;	/* enabled flag (unimplemented) */\
+	hex unsigned word;	/* minimum T2 version required */\
+	hex unsigned word;	/* reserved */\
+	pstring[25];	/* module name */\
+\};\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs18 \cf0 \
+\pard\tx2850\pardeftab720\partightenfactor0
+
+\fs24 \cf0 Currently, these bits of the flag word of r
+\f3 T2ModuleFlags
+\f2  are defined and implemented:\
+\
+\pard\tx698\tx2146\pardeftab720\li719\fi-720\partightenfactor0
+\cf0 Bit 
+\f4\i 0
+\f2\i0  ($0001)	
+\f3 fSetup\
+
+\f2 	The module supports setup.  The module must be capable of receiving and doing something specific for 
+\f3 MakeT2
+\f2 , 
+\f3 SaveT2
+\f2 , 
+\f3 LoadSetupT2
+\f2 , and 
+\f3 HitT2
+\f2  (minimum.)\
+Bit 
+\f4\i 1
+\f2\i0  ($0002)	
+\f3 fFadeOut\
+
+\f2 	The module wants the previous screen to fade out before receiving a 
+\f3 BlankT2
+\f2  message. After fading out, the SCBs, palettes, and pixel data will be set to NIL.  There is no need for you to re-zero them if you have this bit set!\
+Bit 
+\f4\i 2
+\f2\i0  ($0004)	
+\f3 fFadeIn\
+
+\f2 	The module wants the saved screen to fade in after returning from a 
+\f3 BlankT2
+\f2  message.\
+Bit 
+\f4\i 3
+\f2\i0  ($0008)	
+\f3 fGrafPort320\
+
+\f2 	This bit when set tells Twilight\'a0II to open a new port and then set all the SCBs to 320 mode before calling 
+\f3 BlankT2
+\f2 .  Twilight II will save the old port, open up a new port, set the current port to the new port, and then set all the SCBs to use palette $0, 320 mode, and then will set the 
+\f3 LocInfo
+\f2  of the new port to have a 
+\f3 bounds
+\f2  of (0,0,200,320) and a 
+\f3 visRgn
+\f2  of the same size.\
+Bit 
+\f4\i 4
+\f2\i0  ($0010)	
+\f3 fGrafPort640
+\f2 \
+	This bit when set tells Twilight\'a0II to open a new port and then set all the SCBs to 640 mode before calling 
+\f3 BlankT2
+\f2 .  Twilight II will save the old port, open up a new port, set the current port to the new port, and then set all the SCBs to use palette $0, 640 mode, and then will set the 
+\f3 LocInfo
+\f2  of the new port to have a 
+\f3 bounds
+\f2  of (0,0,200,640) and a 
+\f3 visRgn
+\f2  of the same size.\
+Bit 
+\f4\i 5
+\f2\i0  ($0020)	
+\f3 fLoadSetupBoot\
+	LoadSetupT2
+\f2  will be called right after the module is loaded (either at boot time, or when the CDev window is being closed), and 
+\f3 UnloadSetupT2
+\f2  will be called only right before your module is being disposed of.\
+Bit 
+\f4\i 6
+\f2\i0  ($0040)	
+\f3 fLoadSetupBlank\
+	LoadSetupT2
+\f2  will be called right before 
+\f3 BlankT2
+\f2 , and 
+\f3 UnloadSetupT2
+\f2  will be called right after 
+\f3 BlankT2
+\f2 , 
+\f4\i not
+\f2\i0  when the module has been just loaded.\
+Bit 
+\f4\i 7
+\f2\i0  ($0080)	
+\f3 fOpenRForkWriteEnabled
+\f2  \
+	Open the module's resource fork with read and write access instead of normal read access only before sending 
+\f3 MakeT2
+\f2 .  This bit is for special circumstances 
+\f5\b only
+\f2\b0 .  Usage is strongly discouraged whenever possible.\
+Bit 
+\f4\i 8
+\f2\i0  ($0100)	
+\f3 fMostCommonPalette
+\f2 \
+	Have Twilight\'a0II take a tally of which lines use which palette, and set all the SCBs to use the most  commonly used palette.\
+Bit 
+\f4\i 9
+\f2\i0  ($0200)	
+\f3 fReqUsableScree\
+
+\f2 	The module requires a \'93usable\'94 screen.  (See discussion below.)\
+Bit 
+\f4\i 10
+\f2\i0  ($0400)	
+\f3 fLeavesUsableScreen\
+
+\f2 	The module leaves a \'93usable\'94 screen.\
+Bit 
+\f4\i 11
+\f2\i0  ($0800)	
+\f3 fLeavesCycleScreen\
+
+\f2 	The module leaves a screen which can be color cycled by the next module,where applicable.  Note: this is not implemented in Twilight\'a0II v1.1, but you should be ready for it.\
+Bit 
+\f4\i 12
+\f2\i0  ($1000)	
+\f3 fPrematureExit\
+
+\f2 	The module always exits 
+\f4\i before
+\f2\i0  
+\f3 movePtr
+\f2  becomes true, when in random mode (e.g. Short Out, Color by Color.)  This feature is not implemented in Twilight\'a0II v1.1 but is present to make switching modules after so many minutes much better in the future!\
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+The minimum Twilight\'a0II version word of 
+\f3 T2ModuleFlags
+\f2  is BCD, in the same format as toolbox version words in Apple IIgs technote 100.  For example, $0101 represents Twilight\'a0II version 1.0.1.  If the version of Twilight\'a0II is not great enough, Twilight\'a0II will display the module as dimmed.  If the version of the 
+\f3 rT2ModuleFlags
+\f2  resource is incorrect (i.e. not $01) or the Twilight\'a0II module has been inactivated (given an auxtype of $C004), then the module will not be displayed at all.\
+\
+In addition, it should be noted that modules are free to put whatever else they want in their resource forks.  Please put your setup controls in your resource fork if your module supports setup.  Please use our defined resource types (i.e. 
+\f3 rT2ModuleWord
+\f2 , 
+\f3 rByteArray
+\f2 , etc.), where applicable, for consistency.  Also, we suggest that you put as much of your data in resources as possible, for three reasons: 1) your module's data doesn't have to stay around in memory 
+\f4\i all the time
+\f2\i0 , using valuable memory space (instead it can be loaded in LoadSetupT2, which can be called right before your module is called for super-memory-efficiency); 2) the advanced user can use a resource editor to modify your module data if necessary, and 3) resources should be used whenever and wherever possible because of the flexibility they offer.\
+\page \pard\pardeftab720\partightenfactor0
+
+\f1\i\b\fs28 \cf0 Twilight II Module Messages\
+\pard\pardeftab720\partightenfactor0
+
+\f2\i0\b0\fs24 \cf0 \
+\
+Twilight\'a0II modules are now sent \'93messages\'94 to perform certain actions in the same way the Control Panel NDA sends action event codes to CDevs.  (As a side effect, this makes modules a lot easier to write in \'93C\'94 for you can just define them as CDevs for practical purposes \'97 see the Orca/C sample module source for more information!)  Currently there are seven defined action types.  The only one modules are required to support is 
+\f3 BlankT2
+\f2 .  Support of the rest is optional, but recommended.\
+\
+At 
+\f4\i any
+\f2\i0  time, your module may call 
+\f3 MMStartUp
+\f2  to get the ID it is running under.  The ID returned from 
+\f3 MMStartUp
+\f2  is what the data fork of the module was loaded with using the System Loader, so it is advisable to first create a few new modified auxID's to allocate all your memory with.  Create as many auxID's as you wish, and do whatever you want with them, just don't delete the id returned from 
+\f3 MMStartUp
+\f2  and don't use it to allocate extra memory.\
+\
+When the data fork of a module is called and sent an action message, the stack is set up like this:\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \ul \ulc0 Inputs:\
+\pard\pardeftab720\li720\fi-1\partightenfactor0
+
+\f3\fs30 \cf0 \ulnone |previous contents|\
+|-----------------|\
+|    T2Result     |  Long - Result space.\
+|-----------------|\
+|    T2Message    |  Word - Action to perform.\
+|-----------------|\
+|     T2data1     |  Long - Action specific input.\
+|-----------------|\
+|     T2data2     |  Long - Action specific input.\
+|-----------------|\
+|     rtlAddr     |  3 bytes - Return address.\
+|-----------------|\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs18 \cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf0 The module must return control to Twilight\'a0II with the stack arranged as follows:\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \ul \ulc0 Outputs:\
+\pard\pardeftab720\li719\fi0\partightenfactor0
+
+\f3\fs30 \cf0 \ulnone |previous contents|\
+|-----------------|\
+|    T2Result     |  Long - Action specific output.\
+|-----------------|\
+|     rtlAddr     |  3 bytes - Return address.\
+|-----------------|\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs24 \cf0 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 Message 0: MakeT2\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf0 \
+This message is sent only to modules which support setup, as indicated by their 
+\f3 T2ModuleFlags
+\f2  resource.  A 
+\f3 MakeT2
+\f2  message is sent when the module's menu item is selected from the setup popup control in the setup window.  It tells the module to create its setup-specific controls in the setup window.  When the user selects the popup menu item for setup for your module, Twilight\'a0II loads the data fork of your module into memory (again if necessary) and calls 
+\f3 MakeT2
+\f2 .  It is the module's responsibility to position its controls below the setup window's pseudo-info bar.\
+\
+Your module must return in 
+\f3 T2Result
+\f2  (lo) the highest control ID (
+\f4\i not
+\f2\i0  resource ID!) of the controls it just created.  This means that you must start numbering your control IDs with 1, going 
+\f4\i consecutively
+\f2\i0  
+\f4\i through
+\f2\i0  the highest ID that must be returned in 
+\f3 T2Result
+\f2  (lo).  This highest ID number will be used by Twilight\'a0II when it is time to erase and dispose of the controls.\
+\
+If you need to load the last saved setup configuration values of your module so you can set up your controls to reflect the current status of these flags, you must save the current resource file, set the current resource file to 
+\f3 T2Data2
+\f2  (lo), read in or create, if necessary, your configuration flag resources, then restore the original resource file (probably that of your own module's resource fork.)  Again, see our sample source if this sounds confusing.  (You can create your config resources from scratch at either 
+\f3 MakeT2
+\f2  or 
+\f3 SaveT2
+\f2 ; we recommend making new setup resources \'97 if they don't already exist \'97 during 
+\f3 SaveT2
+\f2 .)  You must create your setup resources the first time the user configures your module after installation or after deleting 
+\f3 Twilight.Setup
+\f2 .  The resource search path should be preset by Twilight\'a0II to: \'abYour Module \'bb, 
+\f3 Twilight.II
+\f2 , 
+\f3 ControlPanel
+\f2 , 
+\f3 Sys.Resources
+\f2 .\
+\
+Modules are free to use TextEdit controls in their setup dialogs without any problems or extra effort.  Try to take care that the setup window may enlarge in the future when designing your control layout.\
+\
+Just for your information, the horizontal line control always present in the setup window has QuickDraw\'a0II coordinates of (20,0,21,350).\
+\
+All direct page space is 
+\f5\b reserved
+\f2\b0  for use by Twilight\'a0II.  The following parameters are passed on the stack:\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3 \cf0 T2Message
+\f2  = 
+\f3 MakeT2
+\f2  ($0000.)\
+
+\f3 T2Data1
+\f2  = Window pointer of the setup modeless window.\
+
+\f3 T2Data2
+\f2  (hi) = reserved (do 
+\f4\i not
+\f2\i0  modify!)\
+
+\f3 T2Data2
+\f2  (lo) = Resource file ID of the opened resource fork of 
+\f3 Twilight.Setup
+\f2 .\
+
+\f3 T2Result
+\f2  (hi) = reserved (do 
+\f4\i not
+\f2\i0  modify!)\
+
+\f3 T2Result
+\f2  (lo) = Highest control ID of module specific setup controls.\
+\
+Control IDs in the range $07FEFFE0 through $07FEFFFF are currently reserved for use by the CDev and should 
+\f4\i not
+\f2\i0  be used by modules.\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 Message 1: SaveT2\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf0 A 
+\f3 SaveT2
+\f2  message is passed to your module when your module is presently being configured, and the user clicks on the \'93update\'94 control in the pseudo-info bar.  Saving new configuration data was implemented in this fashion so that the user can choose not to save the new settings if a mistake is made somewhere.  Typically in your 
+\f3 SaveT2
+\f2  handler you will first set the current resource file to 
+\f3 Twilight.Setup
+\f2 , and then you will load in any existing configuration resources specific to your module and modify them to reflect the user's new changes.  Don't forget to handle a first-case scenario \'97 the resources may not be there if your module was never configured before, so you might have to create them and then store the new values the user just chose.  (See 
+\f3 Twilight.Setup
+\f2  section below.)  All parameters are reserved, but ones passed with 
+\f3 MakeT2
+\f2  are still valid for use.  All direct page space is also 
+\f5\b reserved
+\f2\b0  for use by Twilight\'a0II.\
+\pard\pardeftab720\partightenfactor0
+
+\f3 \cf0 \
+T2Message
+\f2  = 
+\f3 SaveT2
+\f2  ($0001.)\
+
+\f3 T2Data1
+\f2  = reserved (do 
+\f4\i not
+\f2\i0  modify!)\
+
+\f3 T2Data2
+\f2  = reserved (do 
+\f4\i not
+\f2\i0  modify!)\
+
+\f3 T2Result
+\f2  = reserved (do 
+\f4\i not
+\f2\i0  modify!)\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 \
+\
+Message 2: BlankT2\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f3 \cf0 BlankT2
+\f2  is the one message modules are 
+\f5\b required
+\f2\b0  to support.  Modules are provided with a direct page of their own to be used in any manner.  Do whatever you need to animate the screen!  Note that the resource search path is undefined, and usually should be left that way (i.e. in most cases you should not be loading any resources in the 
+\f3 BlankT2
+\f2  handler!)  Please see the special section \'93Special Notes on When Resources Are and Should Be Loaded\'94 under \'93Setup Resources\'94 for if your module has a valid reason to be loading data resources from your own resource fork during 
+\f3 BlankT2
+\f2  and not during 
+\f3 LoadSetupT2
+\f2 .\
+\
+Remember, that if you set the appropriate 
+\f3 T2ModuleFlags
+\f2  bits, the screen might be already faded out when your 
+\f3 BlankT2
+\f2  handler gets control.  Twilight\'a0II will automatically preserve and restore the user's original border color for you and set the current color to black.  Twilight II will also always open a new GrafPort for your use.  
+\f3 T2ModuleFlags
+\f2  bits 
+\f3 fGrafPort320
+\f2  and 
+\f3 fGrafPort640
+\f2  will govern any special properties of this port.  (See description above.)  Otherwise you will just get whatever default port QuickDraw\'a0II gave to Twilight\'a0II when it called 
+\f3 OpenPort
+\f2 .\
+\
+To ease the creation of modules with high speed advanced animation effects that require the shadow screen to work their magic, Twilight\'a0II does all the work in securing shadow memory for all modules.  Twilight\'a0II indicates that it was able to secure the shadowing screen for your module's use by turning on shadowing before calling your module.  (So if you're drawing to the SHR screen directly, be sure to check if shadowing is on.  If it is, 
+\f5\b you must 
+\f2\b0 use bank $01 SHR, else 
+\f5\b you must 
+\f2\b0 use bank $E1 SHR.  If you're using QuickDraw\'a0II exclusively, you don't have to worry about checking which bank to use.)  When shadowing is on and your 
+\f3 BlankT2
+\f2  handler is called, $012000-A000 is guaranteed to be the same as $E12000-A000.\
+\
+What if your module absolutely 
+\f4\i requires
+\f2\i0  shadowing to function properly?  This is okay \'96 it is a tradeoff.  What you should do in such a situation is first to check if shadowing is already on.  If it is, do your stuff \'96 modify any parts of $012000-A000 and $E12000-A000 and feel free to turn shadowing off and on if you need to for your animation (just make sure that the value of the 
+\f3 SHADOW
+\f2  softswitch is the same when your module exits 
+\f3 BlankT2
+\f2  as when it was first called.)  However, if shadowing is not available (indicated by SHR shadowing turned off when your module gets control) you should exit back with an error string that the internal 
+\f3 DrawString
+\f2  error module can show to the user.\
+\
+Twilight\'a0II will also make sure the Font Manager is started before calling 
+\f3 BlankT2
+\f2 .\
+\
+The state of the system is as follows:\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \ul \ulc0 Port\ulnone  = A default new port, or a specific mode (see above.)\
+\ul Pen/background color and pattern\ulnone  = Undefined, but the pen is hidden for you.\
+\ul Resource file path\ulnone  = Undefined.  (That set by the bottom application.)\
+\ul Resource Application\ulnone  = Undefined except when the Twilight\'a0II main window is open and your module is called by the user moving to a blank now corner.  In this case, the resource application is guaranteed to be that of the Control Panel NDA.  (This supports modules storing resources that have to be loaded during blank in their own resource fork, using 
+\f3 T2ShareMemory
+\f2  so they can be blanked while being configured.)\
+\ul Module's resource fork\ulnone  = Not open and module not logged into Resource Manager, except if the module's setup window is open at the same time of blank.\
+\ul Color tables\ulnone  = Table $0 set to default QuickDraw\'a0II palette, tables $1 through $F set to black ($000) if 
+\f3 fFadeOut
+\f2  was set.  If 
+\f3 fGrafPort320
+\f2  or 
+\f3 fGrafPort640
+\f2  is set then table $0 will be set to the default color table.  Otherwise palettes are those set by the bottom application.\
+\ul Current pixel data\ulnone  = Screen memory initialized to $00 if 
+\f3 fFadeOut
+\f2  was set.  Otherwise set to that of the bottom application.\
+\ul Current screen mode\ulnone  = 320 (all SCBs ANDed with $7F) if 
+\f3 fGrafPort320
+\f2  is set, 640 (all SCBs ORed with $80) if 
+\f3 fGrafPort640
+\f2  is set, otherwise set to that of the bottom application.\
+\ul Border color\ulnone  = Black.\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3 \cf0 T2Message
+\f2  = 
+\f3 BlankT2
+\f2  ($0002.)\
+
+\f3 T2Data1
+\f2  = pointer to boolean movement flag (
+\f3 movePtr
+\f2 ) indicating whether the module should return to T2 or not.  The following are currently defined values for 
+\f3 movePtr
+\f2 ; all other values are reserved.\
+\pard\tx2156\pardeftab720\li2158\fi-1439\partightenfactor0
+
+\f3 \cf0 $0000
+\f2 	No movement has occurred; module should remain active unless returning to T2 with an 	error string.\
+
+\f3 $0001	
+\f2 The user has interacted with the computer; your module should now return normally to T2.\
+
+\f3 $2-FFFE
+\f2 	 Reserved.\
+
+\f3 $FFFF
+\f2 	The module must exit because a specified number of minutes have elapsed in Random Mode, \
+	and Twilight II is moving onto the next selected random module.  Note: this is not \
+	implemented in Twilight\'a0II v1.1 but you would be wise to make your modules aware of it \
+	for the future.\
+\pard\pardeftab720\partightenfactor0
+\cf0 As soon as 
+\f3 movePtr
+\f2  turns non-zero, the module is required to return to T2.  (If Caps Lock \'93Lock\'94 is on, and caps lock is down, your module can keep running forever, but 
+\f3 movePtr
+\f2  also will not turn to 1 until caps lock is released.)  If you don't return to T2 at least within 2 seconds after movePtr has become 1, then be sure you test your module well, as it has the potential to wreck havoc on Twilight\'a0II.\
+\pard\pardeftab720\partightenfactor0
+
+\f3 \cf0 T2Data2
+\f2  (hi) = reserved (do 
+\f4\i not
+\f2\i0  modify!)\
+
+\f3 T2Data2
+\f2  (lo) = bits defined as follows:\
+\pard\tx2162\pardeftab720\li2159\fi-1434\partightenfactor0
+
+\f3 \cf0 bmiBlankNow
+\f2 	$0001	Module is being called from \'93blank now\'94\
+
+\f3 bmiCycleColors
+\f2 	$0002	The previous module left a screen which can be color cycled.    Note: this is not implemented in Twilight\'a0II v1.1, but you should be ready for it.\
+\pard\pardeftab720\partightenfactor0
+
+\f3 \cf0 T2Result
+\f2  (lo 3 bytes) = handle to error c-string.  If no errors occurred, pass NIL.  Otherwise pass a handle (allocated using your memory ID) containing an error string that you'd like T2 to inform the user about.  The error string must be a c-string.  Up to one carriage return ($0D) may be embedded.  This handle is passed to the internal DrawString error module \'96 experiment with appropriate lengths of the string.  Keep it as short as possible.\
+
+\f3 T2Result
+\f2  = optional flag byte (
+\f3 BlankFlag
+\f2 ).  Bits defined as follows (bmr = blank message result), with the rest reserved:\
+\
+\pard\tx2162\pardeftab720\li2158\fi-1439\partightenfactor0
+
+\f3 \cf0 bmrNextModule	$01000000\
+
+\f2 	Skip to the next module.  
+\f5\b Only
+\f2\b0  set this if you want to exit your module without 
+\f3 movePtr
+\f2  becoming true.  Also make sure that more than one module has been selected.  If 
+\f3 movePtr
+\f2  has become true or only one module is selected or you are being called from \'93blank now\'94, do 
+\f5\b not
+\f2\b0  set this.\
+
+\f3 bmrFadeIn	$02000000\
+
+\f2 	The SHR screen should be faded in after all.  You don't have to set this bit if it is already set in the module flags word.\
+
+\f3 bmrLeavesUsableScreen	$04000000\
+
+\f2 	The module has left a \'93usable\'94 screen after all.  You don't have to set this bit if it is already set in the module flags word.\
+
+\f3 bmrLeavesCycleScreen	$08000000\
+
+\f2 	The module has left a screen which can be color cycled after all.  You don't have to set this bit if it is already set in the module flags word.  Note: this is not implemented in Twilight\'a0II v1.1, but you should be ready for it.\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 \
+Message 3: LoadSetupT2\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f3 \cf0 LoadSetupT2
+\f2  tells your module to load any configuration or data resources.  Remember that you are loading resources under someone else's memory ID, so be sure to 
+\f3 DetachResource
+\f2  your resources immediately after 
+\f3 LoadResource
+\f2 , and then to 
+\f3 SetHandleID
+\f2  your detached resources to 
+\f3 T2Data2
+\f2  (hi) so that they will stay around long enough for you to use them in your 
+\f3 BlankT2
+\f2  handler.  (Alternatively, you may also save the existing resource application, 
+\f3 ResourceStartup(MMStartUp)
+\f2 , load your resources, 
+\f3 ResourceShutDown
+\f2 , and restore the old resource application.  You still must detach your resources, but you don't have to bother with 
+\f3 SetHandleID
+\f2 .)\
+\
+Twilight\'a0II sets up the resource search path so that 
+\f3 Twilight.Setup
+\f2  is on top.  If you currently need to load 
+\f4\i data
+\f2\i0  resources contained in your own resource fork, do an 
+\f3 LGetPathname2
+\f2  to find out your pathname (use 
+\f3 fileNum
+\f2  = $0001), and open (and close) your resource fork when appropriate by yourself.  Be sure to save and restore the previous current resource file.  C code that does this follows.  
+\f3 ID
+\f2  is your module's memory ID, as returned from 
+\f3 MMStartUp
+\f2 .\
+\pard\pardeftab720\partightenfactor0
+
+\f3\fs30 \cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\fs20 \cf0     word MyResFile, OldResFile;\
+\
+    OldResFile=GetCurResourceFile();\
+    MyResFile=OpenResourceFile(1 /* read only */, NULL, LGetPathname2(ID, 0x0001));\
+    CloseResourceFile(MyResFile);\
+    SetCurResourceFile(OldResFile);
+\fs30 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs24 \cf0 \
+In most cases, all resources should be loaded at this time!  This includes both configuration resources of yours in the 
+\f3 Twilight.Setup
+\f2  file, and static (unchanging) data resources of yours in your own resource fork.  If your module has sound effects, then it would be a good idea to store them as 
+\f3 rSound
+\f2  resources and also load them at this time.  Keep track of your allocated memory handles yourself; be sure to dispose of them in the 
+\f3 UnloadSetupT2
+\f2  handler.  It is guaranteed that after 
+\f3 LoadSetupT2
+\f2  is called, your module will remain in memory, in the same location, through the time 
+\f3 UnloadSetupT2
+\f2  is called.\
+\
+Please see the special section \'93Special Notes on When Resources Are and Should Be Loaded\'94 under \'93Setup Resources\'94 for when 
+\f3 LoadSetupT2
+\f2  will get called, and if you should indeed load all your data resources (from your own resource fork) during it, or if your module qualifies as a special case that should load data resources during 
+\f3 BlankT2
+\f2 .  It probably doesn't, but read and be sure.\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3 \cf0 T2Message
+\f2  = 
+\f3 LoadSetupT2
+\f2  ($0003.)\
+
+\f3 T2Data1
+\f2  = reserved (do 
+\f4\i not
+\f2\i0  modify!)\
+
+\f3 T2Data2
+\f2  (hi) = reserved (do 
+\f4\i not
+\f2\i0  modify!)\
+
+\f3 T2Data2
+\f2  (lo) = flag word.  Presently only bit 0 is defined (lmi = load message input):\
+\pard\tx2161\pardeftab720\li2155\fi-1437\partightenfactor0
+
+\f3 \cf0 lmiOverrideSound
+\f2 		$0001\
+	1 = override sound, 0 = sound okay.  If sound is overridden, you should not load any of your sounds into memory (to conserve memory.)\
+\pard\pardeftab720\partightenfactor0
+
+\f3 \cf0 T2Result
+\f2  = bits defined as follows (lmr = load message result):\
+\pard\tx2156\pardeftab720\li2162\fi-1446\partightenfactor0
+
+\f3 \cf0 lmrReqUsableScreen
+\f2 	$0001\
+	Requires usable screen after all.  You don't have to set this bit if it is already set in your module flags word.\
+
+\f3 lmrFadeOut
+\f2 		$0002\
+	Fade out after all.  You don't have to set this bit if it is already set in your module flags word.\
+
+\f3 lmrMostCommonPalette
+\f2  	$0004\
+	Do most common palette (mcp) after all.  You don't have to set this bit if it's already set in your module flags word.\
+
+\f3 lmrPrematureExit	
+\f2  	$0008\
+	While not implemented in Twilight\'a0II v1.1, this bit is very important and you must support it.  This bit must be set if your module plans to exit 
+\f4\i before
+\f2\i0  
+\f3 movePtr
+\f2  becomes true.  For instance, Mountains, Plasma, String Art, etc. should set this bit only when their \'93Quit After One\'94 option is selected.  You don't have to set this bit if it's already set in your module flags word (as it is for modules like Short Out and Color by Color, which always exit early in random mode.)\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 \
+\
+Message 4: UnloadSetupT2\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b0 \cf0 UnloadSetupT2
+\f2  gives you the chance to dispose of any old memory handles that you previously had in memory for the entire time your module was selected.  When you receive an 
+\f3 UnloadSetupT2
+\f2  message, your module is about to be unloaded and disposed of, so make sure you don't leave any handles behind!\
+\
+The resource search path is undefined.\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f3\b0 \cf0 T2Message
+\f2  = 
+\f3 UnloadSetupT2
+\f2  ($0004.)\
+
+\f3 T2Data1
+\f2  = reserved (do 
+\f4\i not
+\f2\i0  modify!)\
+
+\f3 T2Data2
+\f2  (hi) = reserved (do 
+\f4\i not
+\f2\i0  modify!)\
+
+\f3 T2Data2
+\f2  (lo) = reserved (do 
+\f4\i not
+\f2\i0  modify!)\
+
+\f3 T2Result
+\f2  = reserved (do 
+\f4\i not
+\f2\i0  modify!)\
+\pard\pardeftab720\partightenfactor0
+
+\f1\i\b\fs28 \cf0 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f5\i0\fs24 \cf0 Message 5: KillT2\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b0 \cf0 KillT2
+\f2  gives you the chance to dispose of any memory handles that you previously had in memory during the time your module was being configured by the user.  When you receive an 
+\f3 KillT2
+\f2  message, your module is about to be unloaded and disposed of, so make sure you don't leave any handles behind!\
+\
+The resource search path will be set to: \'ab Your Module \'bb, 
+\f3 Twilight.Setup
+\f2 , 
+\f3 Twilight.II
+\f2 , 
+\f3 ControlPanel
+\f2 , 
+\f3 Sys.Resources
+\f2 .\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f3\b0 \cf0 T2Message
+\f2  = 
+\f3 KillT2
+\f2  ($0005.)\
+
+\f3 T2Data1
+\f2  = reserved (do 
+\f4\i not
+\f2\i0  modify!)\
+
+\f3 T2Data2
+\f2  = reserved (do 
+\f4\i not
+\f2\i0  modify!)\
+
+\f3 T2Result
+\f2  = reserved (do 
+\f4\i not
+\f2\i0  modify!)\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 \
+Message 6: HitT2\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b0 \cf0 HitT2
+\f2  gives you the chance to react immediately when the user clicks in any one of the controls in the setup window.  It also gives Twilight\'a0II the chance to enable the save (called update in Twilight\'a0II v1.0) button.\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f3\b0 \cf0 T2Message
+\f2  = 
+\f3 HitT2
+\f2  ($0006.)\
+
+\f3 T2Data1
+\f2  = handle to control in question.\
+
+\f3 T2Data2
+\f2  = ID of the control.\
+
+\f3 T2Result
+\f2  (hi) = reserved (must currently return $0000.)\
+
+\f3 T2Result
+\f2  (lo) = boolean result value indicating if save control should be enabled based on the control hit.\
+\page \pard\pardeftab720\partightenfactor0
+
+\f1\i\b\fs28 \cf0 Setup Resources\
+\pard\pardeftab720\partightenfactor0
+
+\f2\i0\b0\fs24 \cf0 \
+\
+Twilight\'a0II also features a new way of saving module preferences.  Each module can have its own custom preferences and the preferences from all modules can all exist simultaneously!  In addition, the new preference manager was fully designed with multi-user AppleShare networks in mind as well.  Preferences are now stored in 
+\f3 Twilight.Setup
+\f2 , saved in the modules folder which exists in the same directory as the CDev when the CDev runs its 
+\f3 BootCDev
+\f2  message handler.\
+\
+Twilight II first checks for the 
+\f3 Twilight.Setup
+\f2  file on boot.  If the setup file can't be found, it is created and initialized with some default resource values.\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 Storage\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf0 \
+Predefined resource type assignment for 
+\f3 Twilight.Setup
+\f2  file:\
+\
+\pard\pardeftab720\partightenfactor0
+\cf0 \ul \ulc0 Resource Type	Description\
+\pard\pardeftab720\partightenfactor0
+
+\f3 \cf0 \ulnone rT2ExtSetup1
+\f2  ($1001)	Reserved for internal CDev use.  (Internal integer flags.)  \
+
+\f3 rT2ModuleWord
+\f2  ($1002)	Available for any word-sized setup resources.  (Unsigned word.)\
+
+\f3 rT2String
+\f2  ($1010)	Reserved to save pathnames of currently selected modules.  (Pseudo-WStrings.)\
+
+\f3 rByteArray
+\f2  ($1012)	Available for any size setup resources.  (unsigned char array.)\
+\
+If your module supports user-configurable setup (as defined by the f
+\f3 Setup
+\f2  bit of the 
+\f3 T2ModuleFlags
+\f2  word,) then it must store the user's currently selected module options in the 
+\f3 Twilight.Setup
+\f2  file at the appropriate time.  All custom resource types other than those above are 
+\f5\b reserved
+\f2\b0 .  All existing resource IDs are also 
+\f5\b reserved
+\f2\b0 .  This means that your module may use any resource IDs in any of the above resource types or any of the Apple defined resource types that is not already taken when your module receives a 
+\f3 SaveT2
+\f2  message.  If your module needs to store information that is suited by a predefined Apple resource type, then use the Apple type.  For instance, YouDrawIt! and Movie Theater store the pathname of their currently selected files as 
+\f3 rWString
+\f2  resources.  If your module needs to store any word-sized configuration resources, then please use the 
+\f3 rT2ModuleFlags
+\f2  resource type.  If none of the above resource types or the Apple defined resource types suits your use, then please contact us and we will assign a new custom resource type that all modules will be able to take advantage of.  It is imperative that you use resource names to keep track of your configuration resources.  Load and save them by name, 
+\f5\b not
+\f2\b0  by ID!  When creating a new resource from scratch, use 
+\f3 UniqueResourceID
+\f2  and then 
+\f3 SetResourceName
+\f2 .  The new resource name System 6 Resource Manager calls make this pretty easy.\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 Special Notes on When Resources Are and Should Be Loaded\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3\b0 \cf0 LoadSetupT2
+\f2  is not always called on boot, and 
+\f3 UnloadSetupT2
+\f2  is not always called right before your module is about to be shut down and disposed.  The new logic governing when each of these messages is called depends on whether the boot disk is a SCSI hard disk or not.  If the boot disk is not a SCSI hard disk, 
+\f3 LoadSetupT2
+\f2  will be called during boot, and 
+\f3 UnloadSetupT2
+\f2  will be called only before your module is about to be shut down and disposed (i.e. when Twilight\'a0II has been purged, or when the user has selected a new module.)  If the boot disk is a SCSI hard disk, 
+\f3 LoadSetupT2
+\f2  will be called when it is time to blank, right before calling 
+\f3 BlankT2
+\f2 , and 
+\f3 UnloadSetupT2
+\f2  will be called right after your 
+\f3 BlankT2
+\f2  routine.  This has the advantage of saving precious memory, while still making users without hard drives pretty happy.  However, there are cases where this logic doesn't work the best it could.  For these cases, two new bits of T2ModuleFlags have been defined: 
+\f3 fLoadSetupBoot
+\f2 , and 
+\f3 fLoadSetupBlank
+\f2 .  You should use these bits in the situation where you think the internal logic described above isn't best for your module.  For instance, the Tiler module only needs to load six bytes of configuration resources.  Since this is very minimal, it keeps them in memory all the time the module is loaded, by setting 
+\f3 fLoadSetupBoot
+\f2 .  The YouDrawIt module, on the other hand, loads the active animation template file in 
+\f3 LoadSetupT2
+\f2 .  This file can use anywhere from $7D00 to $9A00 bytes of memory, so it is not wise to make it stay in memory all the time under any situation.  As such, the file is only loaded right before blanking, by setting 
+\f3 fLoadSetupBlank
+\f2 .\
+\
+It should be noted that when your module is called as a result of the user clicking the \'93blank now\'94 button, Twilight\'a0II forces your setup to be called at blank (obviously.)\
+\
+Likewise, there also are cases where it may be unwise for your module to load all its data resources from its resource fork at 
+\f3 LoadSetupT2
+\f2  time.  Say, for instance, you have a module that displays a random 
+\f3 rPString
+\f2  from your resource fork.  And say you have 1000 
+\f3 pString
+\f2  resources in your resource fork, but only several random ones will be used each time your module is called.  It would be a waste to load in all 1000 when you're only going to use several random ones that change each time your module is called.  In rare cases like this, I suggest you load the few resources you need in your 
+\f3 BlankT2
+\f2  handler (and dispose of them before returning.)  Note this process is 
+\f5\b not
+\f2\b0  encouraged except in rare cases like the one above.  For this reason, Twilight II does not have things all nice and spiffy for you to load your resources at 
+\f3 BlankT2
+\f2  time.  You must do all the dirty work.  This isn't too much of a big deal \'96 all you really have to do is:\
+\
+\pard\pardeftab720\li719\fi0\partightenfactor0
+
+\f3\fs20 \cf0 OldRezFile = GetCurResourceFile\
+ResourceStartup(MyID)\
+RezFileID = OpenResourceFile(LGetPathname2)\
+load your resources \'85\
+blank your stuff until MovePtr = TRUE \'85\
+release/dispose your resources \'85\
+CloseResourceFile(RezFileID)\
+ResourceShutDown\
+SetCurResourceFile(oldFile)\
+return to Twilight II.\
+\pard\pardeftab720\partightenfactor0
+
+\fs30 \cf0 \page \pard\pardeftab720\partightenfactor0
+
+\f1\i\b\fs28 \cf0 Miscellaneous Notes\
+\pard\pardeftab720\partightenfactor0
+
+\f2\i0\b0\fs24 \cf0 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 Using Sound in Modules\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf0 \
+Several guidelines have been established for modules using digitized sound effects played through the GS's Ensoniq sound chip.  By following these, sound can be implemented with a minimal amount of effort, and in a consistent fashion that the user can control and understand.  The following points comprise the first recommended way for using sound effects:\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 \
+1.
+\f2\b0  Make sure you have an option allowing the user to turn the sound effects off.  This is important, even if your module has no other setup options.  Preferably this option should allow the user to change the sound volume as well.  For instance, have a control where the volume can be changed from 0 to 15.  At zero, there are no sound effects.  Users want a feature like this!\
+
+\f5\b 2.
+\f2\b0  Note the newly defined 
+\f3 T2Data2
+\f2  (lo) flag word passed to your module at 
+\f3 LoadSetupT2
+\f2  time.  If bit 0 of this flag is on, then you also should not play any sound effects.  This is the global sound shutoff boolean flag, and you must honor it.\
+
+\f5\b 3.
+\f2\b0  Keep your sounds stored as 
+\f3 rSound
+\f2  resources.  These can be loaded and detached at 
+\f3 LoadSetupT2
+\f2  time and disposed of at 
+\f3 UnloadSetupT2
+\f2 .  If the user has requested not to have sound effects, or if the global sound shutoff flag is true, then you should not waste memory with loading in your sound resources from disk.  You might want to consider allowing use of 
+\f3 rSound
+\f2  resources in the Sounds folder, but that currently involves a lot of extra coding work!\
+
+\f5\b 4.
+\f2\b0  You can use Apple's Sound control panel to play the sounds.  In C:\
+\pard\pardeftab720\partightenfactor0
+
+\f3\fs20 \cf0 	SendRequest(6 /* srqPlaySoundSample */, stopAfterOne, NULL, TheRSoundHandle, NULL);
+\fs30 \
+\pard\pardeftab720\partightenfactor0
+
+\f5\b\fs24 \cf0 \
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf0 If you need to play several sounds at once or require greater flexibility than the above method offers, you may play the sounds yourself using the Sound Manager.  Twilight II has several requests that make this easier for you.  When calling Twilight\'a0II, send your request to \'93DYA~Twilight II~\'94.  We also have sample source code available that illustrates this method.  Three Twilight\'a0II IPC requests were designed for sound:\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3 \cf0 $9005
+\f2  \'96 
+\f3 t2StartupTools\
+\pard\pardeftab720\partightenfactor0
+
+\f2 \cf0 \
+Note: if any errors occur during startup, no tools will be started and no memory will be allocated.\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3 \cf0 dataIn
+\f2  (lo)	Integer bit flags specifying which tools to start up.\
+	The following bits currently defined in Twilight\'a0II v1.1 ($0110)\
+		bit 0 = start SANE\
+		bit 1 = start Sound Manager\
+
+\f3 dataIn
+\f2  (hi)	Word UserID to allocate tool direct page memory with.\
+
+\f3 dataOut
+\f2 	Pointer to the following 4-byte structure:\
+		+00 (word) \'96 receive count (used by Tool Locator)\
+		+02 (word) \'96 any errors incurred in the startup\
+
+\f3 \
+$9006
+\f2  \'96 
+\f3 t2ShutdownTools\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2 \cf0 Any tools started by 
+\f3 t2StartupTools
+\f2  should be shutdown by this procedure.  Their direct page memory will also be disposed.\
+\pard\pardeftab720\partightenfactor0
+
+\f3 \cf0 \
+dataIn
+\f2  (lo)	Integer bit flags specifying which tools to shut down.\
+	The following bits currently defined in T2 v1.1 ($0110)\
+		bit 0 = shutdown SANE\
+		bit 1 = shutdown Sound Manager\
+
+\f3 dataIn
+\f2  (hi)	Reserved (Pass zero)\
+
+\f3 dataOut
+\f2 	Reserved.\
+
+\f3 \
+$900D
+\f2  \'96 
+\f3 t2CalcFreqOffset\
+\pard\pardeftab720\partightenfactor0
+
+\f2 \cf0 \
+This request will take a 
+\f3 relPitch
+\f2  value from an 
+\f3 rSound
+\f2  header and convert it into a corresponding 
+\f3 freqOffset
+\f2  to be used with the Sound Manager.\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f3 \cf0 dataIn
+\f2  (lo)	
+\f3 relPitch
+\f2  value from 
+\f3 rSound
+\f2  header.\
+
+\f3 dataIn
+\f2  (hi)	Reserved (Pass zero).\
+
+\f3 dataOut
+\f2 	Pointer to the following 4-byte structure:\
+		+00 (word) \'96 received count (used by Tool Locator)\
+		+02 (word) \'96 
+\f3 freqOffset\
+\pard\pardeftab720\partightenfactor0
+
+\f2 \cf0 \
+These three request should make handling your own sound effects with the Sound Manager much easier.  Just remember to not use sound if the Sound Manager is already in use when you gain control!\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 Using Fonts in Modules\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf0 \
+Twilight\'a0II now starts up the Font Manager before calling 
+\f3 BlankT2
+\f2 .  This means it is okay for your module to make Font Manager calls such as 
+\f3 InstallFont
+\f2  and 
+\f3 SetPurgeStat
+\f2 .  However, you should be aware that some users may not have their system disk online at all times, and if you call 
+\f3 InstallFont
+\f2  with the boot disk offline, the Font Manager will probably not be very complying.  Be sure to react accordingly.  In the future, Twilight\'a0II may start up the Font Manager at 
+\f3 LoadSetupT2
+\f2  and 
+\f3 UnloadSetupT2
+\f2  time to be more friendly to users with limited volumes, but at this time such action is not supported.\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 \
+\'93Usable\'94 Screens\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf0 A usable screen is defined as a screen which contains enough content to make it worth modifying by another module.  For instance, Tiler leaves the screen in a state which Color by Color can work with.  Short Out does not leave a usable screen, so if the screen is shorted out (to black) and another module is run directly afterward that requires a usable screen (like Tiler), then Twilight\'a0II will restore the screen before running Tiler.\
+\
+If your module always requires or always leaves a usable screen, set the appropriate bit in  the module flag word.  If your module only sometimes requires or leaves a usable screen (such as snow, due to the clear screen option), then you can return this information at 
+\f3 LoadSetupT2
+\f2  and/or 
+\f3 BlankT2
+\f2  time.\
+\
+We request that you follow the above guidelines so Random Mode can be enhanced now and even more in the future.\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 Low Memory Mode and What it Means to You\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf0 Low memory mode saves users 32k of memory.  LMM affects one situation: when $012000-A000 has been allocated (in a handle exactly $8000 bytes in size) but SHR shadowing is off when it is time to blank the screen.  Twilight\'a0II will 
+\f4\i not
+\f2\i0  allocate shadowing in this situation if LMM is on, because both banks $01 and $E1 of SHR must be preserved.\
+\
+LMM will be significantly changed in the future (and made more or less automatic.)\
+\
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 \'93Quit After One:\'94 When You Need It, and How to Implement It\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf0 Some modules (e.g. Mountains, Plasma, String Art, Headlines, etc.) have options to quit to the next module in random mode after they have generated a one screen display.  This type of option is to tie users over until a definite \'93In Random Mode, Exchange Modules After X Minutes\'94 is implemented for the future.\
+\
+If you would like to implement this option, make sure you set the appropriate usable screen bits for your modules.  Then code your module like this:\
+\
+	1) Call 
+\f3 t2GetInfo
+\f2  (request $9004 to \'93DYA~Twilight II~\'94, 
+\f3 stopAfterOne
+\f2 +
+\f3 sendToName
+\f2 ) around the start of your module's 
+\f3 BlankT2
+\f2  message to find the 
+\f3 count_selected_modules
+\f2  word.  Use a 
+\f3 DataIn
+\f2  of NIL and a 
+\f3 DataOut
+\f2  such as the following.  (You also can use the 
+\f3 DataOut
+\f2  supplied in our 
+\f3 T2.H
+\f2  header file, but this one here is more efficient for reading only this one word.)\
+\pard\tx4317\pardeftab720\li726\fi-14\partightenfactor0
+
+\f3\fs20 \cf0 Word recvCount;\
+Word start_offset = $0002;		/* copy from this byte of the buffer */\
+Word end_offset = $0004;		/* to this byte of the buffer */\
+Word count_selected_modules;	/* # of selected modules */
+\fs30 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs24 \cf0 \
+	2) When you think you should return to T2 to quit to the next module, you may only return with 
+\f3 bmrNextModule
+\f2  in 
+\f3 T2Result
+\f2  if 
+\f3 bmiBlankNow
+\f2  (passed as an input at 
+\f3 BlankT2
+\f2  time) is clear and 
+\f3 count_selected_modules
+\f2  is equal to more than one.\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 \
+\
+\
+Restoring or Saving the Original Screen\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf0 Twilight\'a0II has (obviously) saved the contents of the screen before your module was run.  What if your module needs to restore the original screen?  Or what if your module needs to reference the original screen?  (For instance, Meltdown takes the original screen and reverses it after a few minutes; a few minutes later it restores the original screen back.  Dissolve needs a copy of the original screen to reference in order to do its effect.)  In these cases, you can make the Twilight\'a0II 
+\f3 t2GetBuffers
+\f2  IPC request ($900B).\
+\
+You may 
+\f5\b not
+\f2\b0  dispose of the handles this call returns, nor may you modify the pixel data!  Ignore the auxiliary buffer handle (which is normally not used), and the palette buffer handle (which is used only for background blanking.)  Also, please note that this call returns the 
+\f4\i original
+\f2\i0  screen.  The original screen is not necessarily what was on screen before your module was called!  For instance, in random mode, your module can be called after another one.  Thus on screen is the previous module's display and in the buffer is the original user's screen.  React and plan accordingly.\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf0 Here is C source code defining the structure returned by 
+\f3 t2GetBuffers
+\f2 .  
+\f3 DataOut
+\f2  should be set to a pointer to this structure.  
+\f3 DataIn
+\f2  should be set to NIL.\
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 \
+\pard\pardeftab720\li711\fi13\partightenfactor0
+
+\f3\b0\fs20 \cf0 #define t2GetBuffers	0x900Bu\
+\
+/* DataOut structure for t2GetBuffers */\
+typedef struct getBuffersOut \{\
+	Word recvCount;\
+	void ** shr_main_bufferH;			/* handle to main SHR buffer */\
+	void ** shr_aux_bufferH;			/* handle to aux SHR buffer */\
+	void ** palette_bufferH;			/* handle to palette buffer */\
+\};
+\fs30 \
+\pard\pardeftab720\partightenfactor0
+
+\f5\b\fs24 \cf0 \
+\page \pard\pardeftab720\partightenfactor0
+
+\f1\i\fs28 \cf0 Conclusion\
+\pard\pardeftab720\partightenfactor0
+
+\f2\i0\b0\fs24 \cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f5\b \cf0 \
+\pard\pardeftab720\partightenfactor0
+
+\f2\b0 \cf0 Well, that wasn't so bad, was it?  The format is quite complex, but after you've dealt with it for a bit, it makes much more sense.  Be sure to make full use of the sample source code we provide; it can help a lot!  And if you run into any problems, remember that we can be reached on America Online (in our company support board available from the AUT utilities forum and AGS graphics and sound forum) and GEnie (in A2Pro category 29.)  We'd be happy to help you write your modules!  Your feedback is also welcome for extensions and modifications to the format, and to this documentation!\
+\
+Coming in July: the Twilight II IPC documentation, listing all the details on the Twilight\'a0II inter-process-communication routines you can use in your programs and modules!\
+\
+You also can contact us by phone (203.375.0837) and by USMail:\
+DigiSoft Innovations\
+P.O. Box 380\
+Trumbull, CT  06611-0380\
+Attn: Twilight\'a0II Tech Support\
+\
+Or by electronic mail at the addresses listed in the Twilight\'a0II manual (e.g. digisoft@aol.com, etc.)\
+}
